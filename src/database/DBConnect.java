@@ -16,7 +16,7 @@ public class DBConnect {
     static final String PASS = "1q2w3e4r";
 
     public static void main(String[] args) throws SQLException {
-        GetData.getUsers();
+        GetData.getUserGroup();
     }
     public static Connection getConnection(){
         Connection conn = null;
