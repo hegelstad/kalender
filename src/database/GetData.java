@@ -1,5 +1,6 @@
 package database;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import models.Notification;
 import models.User;
 
@@ -19,13 +20,13 @@ public class GetData {
         Connection con = DBConnect.getConnection();
         //Execute query
         Statement stmt = con.createStatement();
-        String sql = "SELECT UserID, Name FROM UserGroup";
+        String sql = "SELECT UserGroupID, Name FROM UserGroup";
         ResultSet rs = stmt.executeQuery(sql);
 
         while (rs.next()) {
-            int UserID = rs.getInt("UserID");
+            int UserGroupID = rs.getInt("UserGroupID");
             String Name = rs.getString("Name");
-            users.add(new User(UserID, Name));
+            users.add(new User(UserGroupID, Name));
         }
         rs.close();
         stmt.close();
@@ -41,18 +42,34 @@ public class GetData {
         Statement stmt = con.createStatement();
         String sql = "SELECT * FROM Notification";
         ResultSet rs = stmt.executeQuery(sql);
-        String y = "";
         while (rs.next()) {
             System.out.println(rs.toString());
         }
         rs.close();
         stmt.close();
         con.close();
-       
         return notifications;
     }
     
-    
+    public static String getPassword(String username) throws SQLException {
+
+        Connection con = DBConnect.getConnection();
+        //Execute query
+        String pass;
+        Statement stmt = con.createStatement();
+        String sql = "SELECT * FROM `Person` WHERE Username = \'" + username + "\'";
+        ResultSet rs = stmt.executeQuery(sql);
+        try {
+            rs.next();
+            pass = rs.getString("Password");
+        } catch(Exception e) {
+            throw new IllegalArgumentException("Username doesn't exist'");
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return pass;
+    }
 }
     
     
