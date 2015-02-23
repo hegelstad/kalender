@@ -14,24 +14,20 @@ import java.util.ArrayList;
 public class GetData {
 
     public static ArrayList<User> getUsers() throws SQLException {
-        ArrayList users = new ArrayList<User>();
-        Statement stmt = null;
+        ArrayList<User> users = new ArrayList<>();
         Connection con = DBConnect.getConnection();
         //Execute query
-        stmt = con.createStatement();
+        Statement stmt = con.createStatement();
         String sql;
         sql = "SELECT UserID, Name FROM User";
         ResultSet rs = stmt.executeQuery(sql);
 
-        System.out.println("--- Users ---");
         while (rs.next()) {
-            //Retrieve by column name
             int UserID = rs.getInt("UserID");
             String Name = rs.getString("Name");
-            //Display values
-            System.out.print("UserId: " + UserID + "\n");
-            System.out.print("Name: " + Name + "\n");
+            users.add(new User(UserID, Name));
         }
+        System.out.println(users);
         return users;
     }
 
