@@ -6,33 +6,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" />
+      <ColumnConstraints hgrow="SOMETIMES" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints prefHeight="100.0" vgrow="SOMETIMES" />
+    <RowConstraints vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Møtemelding" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Møtevarsel" GridPane.columnSpan="2" GridPane.halignment="CENTER">
          <font>
-            <Font size="46.0" />
+            <Font size="40.0" />
          </font>
       </Text>
-      <Button mnemonicParsing="false" prefWidth="150.0" text="Delta" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <Button fx:id="btnAccept" mnemonicParsing="false" prefWidth="150.0" text="Delta" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <GridPane.margin>
-            <Insets left="100.0" />
+            <Insets />
          </GridPane.margin>
       </Button>
-      <Button mnemonicParsing="false" prefWidth="150.0" text="Avslå" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <Button fx:id="btnDecline" mnemonicParsing="false" prefWidth="150.0" text="Avslå" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <GridPane.margin>
-            <Insets right="100.0" />
+            <Insets />
          </GridPane.margin>
       </Button>
-      <GridPane hgap="15.0" vgap="15.0" GridPane.columnSpan="2">
+      <GridPane hgap="15.0" vgap="15.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -72,7 +72,7 @@
             </Text>
          </children>
          <GridPane.margin>
-            <Insets top="250.0" />
+            <Insets />
          </GridPane.margin>
          <opaqueInsets>
             <Insets />
