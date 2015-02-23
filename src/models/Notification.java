@@ -3,20 +3,20 @@ package models;
 import java.util.ArrayList;
 
 public class Notification {
-	private ArrayList<User> recievers;
+	private ArrayList<User> receivers;
 	private String note;
 	private User sender;
 	private Event event;
 
 	Notification(String note,User sender,ArrayList<User> recievers,Event event){
-		this.recievers = recievers;
+		this.receivers = receivers;
 		this.sender = sender;
 		this.note = note;
 		this.event = event;
 	}
 
-	public ArrayList<User> getRecievers() {
-		return recievers;
+	public ArrayList<User> getReceivers() {
+		return receivers;
 	}
 
 	public String getNote() {
@@ -33,7 +33,7 @@ public class Notification {
 
 	@Override
 	public String toString() {
-		return "Notification [recievers=" + recievers + ", note=" + note
+		return "Notification [recievers=" + receivers + ", note=" + note
 				+ ", sender=" + sender + ", event=" + event + "]";
 	}
 	
