@@ -20,7 +20,7 @@ public class GetData {
         //Execute query
         stmt = con.createStatement();
         String sql;
-        sql = "SELECT UserID, Name, Username, Password FROM User";
+        sql = "SELECT UserID, Name FROM User";
         ResultSet rs = stmt.executeQuery(sql);
 
         System.out.println("--- Users ---");
@@ -28,12 +28,9 @@ public class GetData {
             //Retrieve by column name
             int UserID = rs.getInt("UserID");
             String Name = rs.getString("Name");
-            String Username = rs.getString("Username");
-            String Password = rs.getString("Password");
             //Display values
             System.out.print("UserId: " + UserID + "\n");
             System.out.print("Name: " + Name + "\n");
-            System.out.println("Username: " + Username);
         }
         return users;
     }
