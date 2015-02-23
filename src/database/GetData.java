@@ -41,7 +41,7 @@ public class GetData {
         Statement stmt = con.createStatement();
         String sql = "SELECT * FROM Notification";
         ResultSet rs = stmt.executeQuery(sql);
-        
+        String y = "";
         while (rs.next()) {
             System.out.println(rs.toString());
         }
