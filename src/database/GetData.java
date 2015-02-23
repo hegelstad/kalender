@@ -1,5 +1,6 @@
 package database;
 
+import models.Notification;
 import models.User;
 
 import java.sql.Connection;
@@ -13,13 +14,12 @@ import java.util.ArrayList;
  */
 public class GetData {
 
-    public static ArrayList<User> getUsers() throws SQLException {
+    public static ArrayList<User> getUserGroup() throws SQLException {
         ArrayList<User> users = new ArrayList<>();
         Connection con = DBConnect.getConnection();
         //Execute query
         Statement stmt = con.createStatement();
-        String sql;
-        sql = "SELECT UserID, Name FROM User";
+        String sql = "SELECT UserID, Name FROM UserGroup";
         ResultSet rs = stmt.executeQuery(sql);
 
         while (rs.next()) {
@@ -27,10 +27,32 @@ public class GetData {
             String Name = rs.getString("Name");
             users.add(new User(UserID, Name));
         }
+        rs.close();
+        stmt.close();
+        con.close();
         System.out.println(users);
         return users;
     }
-
+    
+    public static ArrayList<Notification> getNotifications() throws SQLException {
+        ArrayList<Notification> notifications = new ArrayList<>();
+        Connection con = DBConnect.getConnection();
+        //Execute query
+        Statement stmt = con.createStatement();
+        String sql = "SELECT * FROM Notification";
+        ResultSet rs = stmt.executeQuery(sql);
+        
+        while (rs.next()) {
+            System.out.println(rs.toString());
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+       
+        return notifications;
+    }
+    
+    
 }
     
     
