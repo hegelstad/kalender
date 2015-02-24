@@ -10,7 +10,6 @@ public class Event {
     LocalTime to;
     LocalTime from;
 
-
     Event(ArrayList<User> participants, LocalDate date, LocalTime to, LocalTime from) {
 
         this.participants = participants;
