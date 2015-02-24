@@ -1,5 +1,4 @@
 package database;
-import com.sun.org.apache.xpath.internal.SourceTree;
 import models.Notification;
 import models.User;
 
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 /**
  * Created by sondrehj on 23.02.2015.
  */
-
 
 public class GetData {
 
@@ -32,7 +30,6 @@ public class GetData {
         rs.close();
         stmt.close();
         con.close();
-        System.out.println(users);
         return users;
     }
     
