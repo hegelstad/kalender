@@ -15,9 +15,6 @@ public class DBConnect {
     static final String USER = "sondrehj_fp";
     static final String PASS = "1q2w3e4r";
 
-    public static void main(String[] args) throws SQLException {
-        System.out.println(GetData.getPassword("pelle"));
-    }
     public static Connection getConnection(){
         Connection conn = null;
         try {
