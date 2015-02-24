@@ -8,7 +8,7 @@ public class Notification {
 	private User sender;
 	private Event event;
 
-	Notification(String note, UserGroup sender,ArrayList<User> receivers,Event event){
+	Notification(String note, UserGroup sender, ArrayList<UserGroup> receivers,Event event){
 		this.receivers = receivers;
 		this.sender = sender;
 		this.note = note;
