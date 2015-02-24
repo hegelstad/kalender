@@ -3,19 +3,19 @@ package models;
 import java.util.ArrayList;
 
 public class Notification {
-	private UserGroup recievers;
+	private ArrayList<UserGroup> recievers;
 	private String note;
-	private Person sender;
+	private UserGroup sender;
 	private Event event;
 
-	Notification(String note,Person sender,UserGroup recievers,Event event){
+	Notification(String note,UserGroup sender,ArrayList<UserGroup> recievers,Event event){
 		this.recievers = recievers;
 		this.sender = sender;
 		this.note = note;
 		this.event = event;
 	}
 
-	public UserGroup getReceivers() {
+	public ArrayList<UserGroup> getReceivers() {
 		return recievers;
 	}
 
@@ -23,7 +23,7 @@ public class Notification {
 		return note;
 	}
 
-	public Person getSender() {
+	public UserGroup getSender() {
 		return sender;
 	}
 
