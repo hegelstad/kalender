@@ -1,25 +1,24 @@
 package models;
 
-import com.sun.tools.corba.se.idl.constExpr.Not;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Notification implements Serializable{
-	private ArrayList<User> receivers;
+public class Notification implements Serializable {
+
+	private ArrayList<UserGroup> receivers;
 	private String note;
-	private User sender;
+	private UserGroup sender;
 	private Event event;
 
-	Notification(User sender, ArrayList<User> receivers, String note, Event event){
+	Notification(UserGroup sender, ArrayList<UserGroup> receivers, String note, Event event){
 		this.receivers = receivers;
 		this.sender = sender;
 		this.note = note;
 		this.event = event;
 	}
 
-	public ArrayList<User> getReceivers() {
+	public ArrayList<UserGroup> getReceivers() {
 		return receivers;
 	}
 
@@ -27,7 +26,7 @@ public class Notification implements Serializable{
 		return note;
 	}
 
-	public User getSender() {
+	public UserGroup getSender() {
 		return sender;
 	}
 
@@ -40,17 +39,4 @@ public class Notification implements Serializable{
 		return "Notification (sender: " + sender + ", receivers: " + receivers
 				+ ", note: '" + note + "', event: " + event + ")";
 	}
-
-    public static void main(String[] args) {
-        User u1 = new User(1, "karl");
-        User u2 = new User(2, "pelle");
-        User u3 = new User(3, "banan");
-        ArrayList<User> userlist = new ArrayList<User>();
-        Event e = new Event();
-        userlist.add(u1);
-        userlist.add(u2);
-        userlist.add(u3);
-        Notification n = new Notification(u2, userlist, "hallo", e);
-        System.out.println(n);
-    }
 }
