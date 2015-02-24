@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 
 public class Notification {
+
 	private ArrayList<UserGroup> receivers;
 	private String note;
 	private UserGroup sender;
