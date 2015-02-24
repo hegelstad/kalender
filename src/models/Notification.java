@@ -1,15 +1,17 @@
 package models;
 
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Notification {
+public class Notification implements Serializable {
 
 	private ArrayList<UserGroup> receivers;
 	private String note;
 	private UserGroup sender;
 	private Event event;
 
-	Notification(String note, UserGroup sender, ArrayList<UserGroup> receivers,Event event){
+	Notification(UserGroup sender, ArrayList<UserGroup> receivers, String note, Event event){
 		this.receivers = receivers;
 		this.sender = sender;
 		this.note = note;
@@ -34,9 +36,7 @@ public class Notification {
 
 	@Override
 	public String toString() {
-		return "Notification [recievers=" + receivers + ", note=" + note
-				+ ", sender=" + sender + ", event=" + event + "]";
+		return "Notification (sender: " + sender + ", receivers: " + receivers
+				+ ", note: '" + note + "', event: " + event + ")";
 	}
-	
-	
 }

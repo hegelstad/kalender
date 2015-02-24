@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.security.MessageDigest;
 
-public class Person {
+public class Person implements Serializable {
 	private int personID;
 	private String name;
 	private String username;
@@ -21,11 +22,11 @@ public class Person {
 	    	this.password = sb.toString();
 	    }
 	    catch(Exception e){
-	    	System.out.println("ånei");
+	    	System.out.println("ï¿½nei");
 	    }
 	}
 	/**
-	 * Fetches the persons registered name and personID fromt the database
+	 * Fetches the persons registered name and personID from the database
 	 */
 	private void fetchNameAndID(){
 		//get info from database
@@ -46,11 +47,11 @@ public class Person {
 	public String getPassword(){
 		return password;
 	}
+    
 	@Override
 	public String toString() {
-		return "Person [personID=" + personID + ", name=" + name
-				+ ", username=" + username + ", password=" + password + ", md="
-				+ md + "]";
+		return "Person (personID: " + personID + ", name: " + name
+				+ ", username: " + username + ", password: " + password + ", md: "
+				+ md + ")";
 	}
-	
 }
