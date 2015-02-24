@@ -38,7 +38,7 @@ public class Event {
     public void setDate(LocalDate date) {
         this.date = date;
     }
-
+    
     public int getduration() {
         return duration;
     }
@@ -54,7 +54,7 @@ public class Event {
     public void setFrom(LocalTime from) {
         this.from = from;
     }
-
+    
     public String getName() {
         return name;
     }
