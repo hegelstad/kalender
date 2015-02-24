@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="calendarsLabel" layoutX="64.0" layoutY="55.0" prefHeight="31.0" prefWidth="110.0" text="Calendars">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="userNameCalendarCheckBox" layoutX="64.0" layoutY="110.0" mnemonicParsing="false" selected="true" text="userName" />
+      <TextField layoutX="64.0" layoutY="328.0" text="Search                         -o" />
+      <Button layoutX="171.0" layoutY="41.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="+">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Button>
+      <CheckBox fx:id="userCalendarCheckBox0" layoutX="65.0" layoutY="156.0" mnemonicParsing="false" selected="true" text="userName" visible="false" />
+      <CheckBox fx:id="userCalendarCheckBox1" layoutX="65.0" layoutY="205.0" mnemonicParsing="false" selected="true" text="userName" visible="false" />
+      <CheckBox fx:id="userCalendarCheckBox2" layoutX="64.0" layoutY="261.0" mnemonicParsing="false" selected="true" text="userName" visible="false" />
+   </children>
+</AnchorPane>
