@@ -5,24 +5,25 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Event {
-    ArrayList<User> participants;
+	
+    ArrayList<UserGroup> participants;
     LocalDate date;
-    LocalTime to;
     LocalTime from;
+    int duration;
 
-    Event(ArrayList<User> participants, LocalDate date, LocalTime to, LocalTime from) {
+    Event(ArrayList<UserGroup> participants, LocalDate date,LocalTime from, int duration) {
 
         this.participants = participants;
         this.date = date;
-        this.to = to;
         this.from = from;
+        this.duration = duration;
     }
 
-    public ArrayList<User> getParticipants() {
+    public ArrayList<UserGroup> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(ArrayList<User> participants) {
+    public void setParticipants(ArrayList<UserGroup> participants) {
         this.participants = participants;
     }
 
@@ -34,15 +35,15 @@ public class Event {
         this.date = date;
     }
 
-    public LocalTime getTo() {
-        return to;
-    }
+    public int getDuration() {
+		return duration;
+	}
 
-    public void setTo(LocalTime to) {
-        this.to = to;
-    }
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
 
-    public LocalTime getFrom() {
+	public LocalTime getFrom() {
         return from;
     }
 
@@ -55,7 +56,7 @@ public class Event {
         return "Event{" +
                 "participants=" + participants +
                 ", date=" + date +
-                ", to=" + to +
+                ", duration=" + duration +
                 ", from=" + from +
                 '}';
     }
