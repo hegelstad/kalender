@@ -1,6 +1,8 @@
 package models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
     int userID;
     String name;
 
@@ -27,9 +29,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "userID=" + userID +
-                ", name='" + name + '\'' +
-                '}';
+        return "User(" +
+                "userID: " + userID +
+                ", name: " + name + ")";
     }
 }
