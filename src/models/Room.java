@@ -3,13 +3,16 @@ package models;
 import java.io.Serializable;
 
 public class Room implements Serializable {
+    private int roomID;
     private String roomName;
     private int capacity;
 
-    public Room(String roomName, int capacity) {
+    public Room(int roomID, String roomName, int capacity) {
+        this.roomID = roomID;
         this.roomName = roomName;
         this.capacity = capacity;
     }
+    public int getRoomID() { return roomID; }
 
     public String getRoomName() {
         return roomName;
@@ -30,7 +33,8 @@ public class Room implements Serializable {
     @Override
     public String toString() {
         return "Room(" +
-                "roomName: " + roomName +
+                "ID: " + roomID +
+                ", name: " + roomName +
                 ", capasity: " + capacity +
                 ')';
     }
