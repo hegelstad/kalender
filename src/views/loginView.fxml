@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:controller="controllers.LoginController" id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane hgap="10.0" prefHeight="118.0" prefWidth="242.0" vgap="10.0">
          <children>
@@ -19,7 +19,7 @@
                   <Insets />
                </GridPane.margin>
             </PasswordField>
-            <Button id="button" fx:id="login" mnemonicParsing="false" prefWidth="100.0" text="Log in" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Button id="button" fx:id="loginButton" mnemonicParsing="false" prefWidth="100.0" text="Log in" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <Label text="Username:" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets />
@@ -35,7 +35,7 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label text="*error message*" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Text fx:id="status" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
          </children>
          <columnConstraints>
             <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="50.0" />
