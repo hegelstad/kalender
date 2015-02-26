@@ -19,19 +19,19 @@ public class Room implements Serializable {
         this.roomName = roomName;
     }
 
-    public int getcapacity() {
+    public int getCapacity() {
         return capacity;
     }
 
-    public void setcapacity(int capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
     @Override
     public String toString() {
         return "Room(" +
-                "roomName: " + roomName +
-                ", capasity: " + capacity +
+                ", name: " + roomName +
+                ", capacity: " + capacity +
                 ')';
     }
 }
