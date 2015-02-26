@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="179.5" layoutY="76.5" style="-fx-background-color: #FFFF;">
+         <children>
+            <GridPane gridLinesVisible="true" layoutX="-179.0" layoutY="-76.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="20.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="20.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="20.0" valignment="TOP" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="20.0" valignment="TOP" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <fx:include source="calendarHeaderView.fxml" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+                  <fx:include source="calendarCalendarsView.fxml" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                  <fx:include source="calendarEventsView.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>
