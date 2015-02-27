@@ -41,9 +41,6 @@ public class SocketClient {
                     " at " + TimeStamp +  (char) 13;
 
             
-
-            //OutputStream outputStream = new ObjectOutputStream(connection.getOutputStream());
-            //Calendar cal = new Calendar(1, "Bijoy", null);
             Person p = new Person("Sondre", "sondre", 2);
             ArrayList<Person> persons = new ArrayList<>();
             persons.add(p);
@@ -52,7 +49,7 @@ public class SocketClient {
 
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(connection.getOutputStream());
-            oos.writeObject(persons);
+            oos.writeObject(p);
             
             osw.write(process);
             osw.flush();
@@ -68,13 +65,16 @@ public class SocketClient {
              */
             InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");
 
+            RequestHandler s = new RequestHandler(connection);
+            System.out.println(s.getUserGroups());
+
             /**Read the socket's InputStream and append to a StringBuffer */
             int c;
             while ((c = isr.read()) != 13)
                 instr.append( (char) c);
 
             /** Close the socket connection. */
-        
+
             connection.close();
             System.out.println(instr);
         }
