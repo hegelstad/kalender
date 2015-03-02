@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="127.0" prefWidth="1500.0" style="-fx-background-color: #f2f3f5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="calendarHeaderView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="127.0" prefWidth="1500.0" style="-fx-background-color: #f2f3f5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.calendarHeaderViewController">
    <children>
       <Label layoutX="727.0" layoutY="34.0" text="Week">
          <font>
@@ -13,7 +13,7 @@
          </font>
       </Label>
       <Button fx:id="logOffButton" layoutX="1383.0" layoutY="23.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="103.0" text="Log off" />
-      <Button fx:id="addEventButton" layoutX="51.0" layoutY="20.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="40.0" text="+">
+      <Button fx:id="addEventButton" layoutX="51.0" layoutY="20.0" mnemonicParsing="false" onAction="#addEventOnAction" prefHeight="22.0" prefWidth="40.0" text="+">
          <font>
             <Font size="19.0" />
          </font>

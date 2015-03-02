@@ -1,22 +1,19 @@
 package controllers;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import controllers.WindowController;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+	private Stage stage;
 
     @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../views/loginView.fxml"));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("css/login.css");
-        stage.setTitle("Kalender");
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) throws Exception {
+    	stage = primaryStage;
+    	WindowController.setStage(stage);
+    	WindowController.setProgram(this);
+    	WindowController.goToLogin();
+    	WindowController.showStage();
     }
 
     public static void main(String[] args) {
