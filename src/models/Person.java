@@ -5,26 +5,48 @@ import java.security.MessageDigest;
 
 public class Person implements Serializable{
     private int personID;
-    private String name;
     private String username;
     private String password;
+    private String name;
     private MessageDigest md;
 
+    public Person(String username, String password, String name){
+
+        this.name = name;
+        this.username = username;
+        this.password = passwordHash(password);
+    }
+
     public Person(String username, String password){
+        this.username = username;
+        this.password = passwordHash(password);
+    }
+
+    public Person(String username, String name, int personID){
+        this.username = username;
+        this.name = name;
+        this.personID = personID;
+    }
+
+    private String passwordHash(String s){
         try{
             md = MessageDigest.getInstance("MD5");
-            md.update(password.getBytes());
+            md.update(s.getBytes());
             byte[] bytes = md.digest();
             StringBuilder sb = new StringBuilder();
             for(int i =0; i<bytes.length; i++){
                 sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
             }
-            this.password = sb.toString();
+            s = sb.toString();
+            return s;
         }
         catch(Exception e){
-            System.out.println("�nei");
+            System.out.println("nei");
+            e.printStackTrace();
         }
+        return null;
     }
+
     /**
      * Fetches the persons registered name and personID fromt the database
      */
@@ -47,11 +69,16 @@ public class Person implements Serializable{
     public String getPassword(){
         return password;
     }
+
     @Override
     public String toString() {
-        return "Person [personID=" + personID + ", name=" + name
-                + ", username=" + username + ", password=" + password + ", md="
-                + md + "]";
+        return "Person(personID: " + personID + ", username=" + username
+                + ", password: " + password + ", name: " + name + ")";
+    }
+
+    @Override
+    public boolean equals(Object o){
+        return personID == ((Person) o).getPersonID();
     }
 
 }

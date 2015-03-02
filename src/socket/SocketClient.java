@@ -1,8 +1,13 @@
 package socket;
 
+import models.Calendar;
+import models.Person;
+
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by hegelstad on 24/02/15.
@@ -10,7 +15,7 @@ import java.net.Socket;
 public class SocketClient {
     public static void main(String[] args) {
         /** Define a host server */
-        String host = "localhost";
+        String host = "78.91.72.136";
         /** Define a port */
         int port = 25025;
 
@@ -35,7 +40,17 @@ public class SocketClient {
             String process = "Calling the Socket Server on "+ host + " port " + port +
                     " at " + TimeStamp +  (char) 13;
 
-            /** Write across the socket connection and flush the buffer */
+            
+            Person p = new Person("Sondre", "sondre", 2);
+            ArrayList<Person> persons = new ArrayList<>();
+            persons.add(p);
+            persons.add(new Person("Pelle", "yolo", 3));
+            persons.add(new Person("ss", "ss", 4));
+
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(connection.getOutputStream());
+            oos.writeObject(p);
+            
             osw.write(process);
             osw.flush();
 
@@ -50,12 +65,16 @@ public class SocketClient {
              */
             InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");
 
+            RequestHandler s = new RequestHandler(connection);
+            System.out.println(s.getUserGroups());
+
             /**Read the socket's InputStream and append to a StringBuffer */
             int c;
             while ((c = isr.read()) != 13)
                 instr.append( (char) c);
 
             /** Close the socket connection. */
+
             connection.close();
             System.out.println(instr);
         }
