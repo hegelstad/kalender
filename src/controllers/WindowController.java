@@ -33,12 +33,21 @@ public class WindowController {
 	}
 	
 	private static Parent replaceSceneContent(String fxml, int width, int height) throws Exception{
+		String title ="";
 		Parent page = (Parent) FXMLLoader.load(
 				program.getClass().getResource(fxml), null, 
 				new JavaFXBuilderFactory());
 		Scene scene = new Scene(page, width, height);
+		if (fxml.equalsIgnoreCase("../views/loginView.fxml")){
+			scene.getStylesheets().add("/css/login.css");
+			title = "Login";
+		}
+		else if (fxml.equalsIgnoreCase("../views/calendarFinalView.fxml")){
+			title ="Calendar";
+		}
 		thisStage.hide();
 		thisStage.setScene(scene);
+		thisStage.setTitle(title);
 		thisStage.centerOnScreen();
 		thisStage.setResizable(false);
 		thisStage.show();
@@ -92,6 +101,7 @@ public class WindowController {
 			e.printStackTrace();
 		}
 	}
+
 	
 }
 
