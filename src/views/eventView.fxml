@@ -12,7 +12,7 @@
       <DatePicker editable="false" layoutX="91.0" layoutY="163.0" promptText="MM.DD.YYYY" />
       <DatePicker editable="false" layoutX="91.0" layoutY="216.0" promptText="MM.DD.YYYY" />
       <TextArea layoutX="91.0" layoutY="278.0" prefHeight="200.0" prefWidth="375.0" />
-      <Label layoutX="220.0" layoutY="21.0" text="Event" />
+      <Label layoutX="230.0" layoutY="21.0" text="Event" />
       <Label layoutX="32.0" layoutY="58.0" text="Title" />
       <Label layoutX="32.0" layoutY="113.0" text="Location" />
       <Label layoutX="32.0" layoutY="168.0" text="From" />

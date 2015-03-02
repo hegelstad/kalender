@@ -6,8 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="calendarsLabel" layoutX="64.0" layoutY="55.0" prefHeight="31.0" prefWidth="110.0" text="Calendars">
          <font>
@@ -16,7 +15,7 @@
       </Label>
       <CheckBox fx:id="userNameCalendarCheckBox" layoutX="64.0" layoutY="110.0" mnemonicParsing="false" selected="true" text="userName" />
       <TextField layoutX="64.0" layoutY="328.0" text="Search                         -o" />
-      <Button layoutX="171.0" layoutY="41.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="+">
+      <Button layoutX="170.0" layoutY="39.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="+">
          <font>
             <Font size="31.0" />
          </font>
