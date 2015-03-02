@@ -22,6 +22,8 @@ public class LoginController {
         loginButton.setOnAction((event) -> {
             if (!pressed) {
                 status.setText("logger inn");
+                WindowController.goToCalendarView();
+                
                 pressed = true;
 
             } else {
