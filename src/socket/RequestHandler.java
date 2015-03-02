@@ -52,6 +52,7 @@ public class RequestHandler {
                         InputStream is = connection.getInputStream();
                         ObjectInputStream os = new ObjectInputStream(is);
                         Object o = os.readObject();
+                        System.out.println(o.getClass());
                         persons = (ArrayList<Person>) o;
 
                 }  catch (ClassCastException e) {

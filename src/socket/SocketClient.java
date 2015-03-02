@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class SocketClient {
     public static void main(String[] args) {
         /** Define a host server */
-        String host = "78.91.72.136";
+        String host = "78.91.65.206";
         /** Define a port */
         int port = 25025;
 
@@ -40,7 +40,7 @@ public class SocketClient {
             String process = "Calling the Socket Server on "+ host + " port " + port +
                     " at " + TimeStamp +  (char) 13;
 
-            
+            String command = "getUserGroups";
             Person p = new Person("Sondre", "sondre", 2);
             ArrayList<Person> persons = new ArrayList<>();
             persons.add(p);
@@ -49,6 +49,7 @@ public class SocketClient {
 
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(connection.getOutputStream());
+            //oos.writeObject("getUserGroups");
             oos.writeObject(p);
             
             osw.write(process);
@@ -66,7 +67,10 @@ public class SocketClient {
             InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");
 
             RequestHandler s = new RequestHandler(connection);
-            System.out.println(s.getUserGroups());
+            switch (command){
+            	case "getUserGroups": System.out.println(s.getUserGroups());
+            }
+            //System.out.println(s.getUserGroups());
 
             /**Read the socket's InputStream and append to a StringBuffer */
             int c;
