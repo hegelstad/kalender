@@ -101,6 +101,10 @@ public class WindowController {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void closeStage(){
+		thisStage.close();
+	}
 
 	
 }
