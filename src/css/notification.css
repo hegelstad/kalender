@@ -1,15 +1,27 @@
 #notificationWindow {
-    -fx-background-color: #fff;
-    visibility: false;
-    -fx-border-color: #000;
-    -fx-border-style: solid;
-    -fx-border-width: 1px;
+    
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-text-fill: #333;
+    -fx-alignment: center;
+    visibility: hidden;
+}
+
+#notificationTriangle {
+    -fx-alignment: center;
+    
+}
+
+#notificationList {
+    -fx-pref-width: 300;
+    -fx-pref-height: 150;
 }
 
 #notificationTitle {
+    -fx-background-color: lightblue;
+    -fx-text-fill: #333333;
     -fx-pref-height: 50;
     -fx-pref-width: 300;
-    -fx-underline: true;
-    -fx-alignment: center;
     -fx-font-size: 24px;
+    -fx-alignment: baseline-left;
 }

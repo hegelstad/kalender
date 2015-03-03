@@ -1,10 +1,19 @@
 package controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import models.Notification;
+import models.Person;
+import socket.Requester;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
@@ -97,12 +106,22 @@ public class calendarHeaderViewController {
 	private void openNotifications(){
 		
 		Scene s = WindowController.thisStage.getScene();
-		AnchorPane notificationWindow = (AnchorPane) s.lookup("#notificationWindow");
+		Pane notificationWindow = (Pane) s.lookup("#notificationWindow");
+		ListView <Notification> notificationList = (ListView) s.lookup("#notificationList");
+		
 		if(notificationWindow.isVisible()){
 			notificationWindow.setVisible(false);
 		} else {
+			Requester r = new Requester();
+			ArrayList<Notification> notes = r.getNotifications(new Person("Sondre", "Sondre Hjetland", 4));
+			ObservableList<Notification> notifications = FXCollections.observableArrayList(notes);
+			notificationList.setFixedCellSize(30);
+
+			notificationList.setItems(notifications);
 			notificationWindow.setVisible(true);
 		}
+		//notificationList.setContent((Node) notifications);
+		//System.out.println(notes);
 		
 	}
 }
