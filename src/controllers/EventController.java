@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Event;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -46,5 +47,9 @@ public class EventController {
 			    "00","05","10","15","20","25","30","35","40","45","50","55"));
 		toMinutes.setItems(FXCollections.observableArrayList(
 			    "00","05","10","15","20","25","30","35","40","45","50","55"));
+	}
+	
+	void openEvent(Event event){
+		title.setText(event.getName());
 	}
 }
