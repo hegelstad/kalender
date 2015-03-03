@@ -12,7 +12,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -706,5 +705,20 @@ public class Requester {
              e.printStackTrace();
          }
     	return r;
+    }
+    
+    /**
+     * Metode for å lukke connection med server.
+     * @return
+     */
+    public boolean closeConnection(){
+    	try {
+			con.close();
+			return true;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
     }
 }
