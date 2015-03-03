@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Event;
 import controllers.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
@@ -83,13 +84,14 @@ public class WindowController {
 		}
 	}
 	
-	public static void goToEventView(){
+	public static void goToEventView(Event event){
 		try{
 			Stage eventWindows = new Stage();
 			Parent page;
 			FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/eventView.fxml"), null, new JavaFXBuilderFactory());
 			page = (Parent) loader.load();
 			EventController controller = loader.getController();
+			controller.openEvent(event);
 			controller.setStage(eventWindows);
 			Scene scene = new Scene(page, 494, 712);
 			eventWindows.setScene(scene);

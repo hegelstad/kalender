@@ -22,12 +22,16 @@ public class LoginController {
     
 
   @FXML
-  private void keyPressed(KeyEvent key){
+  private void keyPressed(KeyEvent key) throws InterruptedException{
 	  if (key.getCode().equals(KeyCode.ENTER)){
 		  if (fielsdAreSet()){
 			  if (authenticateUser()){
 				  WindowController.goToCalendarView();
 			  }
+			  status.setText("Incorrect username or password");
+		  }
+		  else{
+			  status.setText("Fill in both username and password");
 		  }
 	  }
 	  

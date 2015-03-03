@@ -25,7 +25,7 @@ public class Requester {
      * IP TIL SERVER MÅ SETTES HER!
      */
     public Requester (){
-    	String host = "78.91.72.184";
+    	String host = "78.91.16.253";
         /** Define a port */
         int port = 25025;
 
@@ -603,9 +603,9 @@ public class Requester {
      * LogIn må returnere en person og sette navn etc.
      * @param person
      */
-    public boolean authenticate(Person person){
+    public Person authenticate(Person person){
         Command cmd = new Command("authenticate-username-pass");
-        boolean logIn = false;
+        Person p = null;
         try{
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
             oos.writeObject(cmd);
@@ -613,8 +613,8 @@ public class Requester {
             InputStream is = con.getInputStream();
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
-            logIn = (Boolean) o;
-            System.out.println(logIn);
+            p = (Person) o;
+            System.out.println(p);
 
     	 }  catch (ClassCastException e) {
              System.out.println(e);
@@ -626,7 +626,7 @@ public class Requester {
              // TODO Auto-generated catch block
              e.printStackTrace();
          }
-    	return logIn;
+    	return p;
     }
 
     
