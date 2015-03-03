@@ -78,7 +78,7 @@ public class calendarHeaderViewController {
 		/* Set date of weekday_labels */
 		for(int i = 0; i < weekday_labels.size(); i++){
 			int date_value = date.with(weekFields.getFirstDayOfWeek()).plusDays(i).getDayOfMonth();
-			weekday_labels.get(i).setText(""+date_value + ".");
+			weekday_labels.get(i).setText("" + date_value + ".");
 		}
 	}
 	
@@ -87,5 +87,11 @@ public class calendarHeaderViewController {
 		
 		/* Returns the user to the log-in screen */
 		WindowController.goToLogin();
+	}
+	
+	@FXML
+	private void openNotifications(){
+		WindowController.goToNotificationView();
+		
 	}
 }

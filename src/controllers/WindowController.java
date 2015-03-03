@@ -101,6 +101,25 @@ public class WindowController {
 			e.printStackTrace();
 		}
 	}
+
+	public static void goToNotificationView(){
+		try{
+			Stage notificationWindows = new Stage();
+			Parent page;
+			FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/notificationView.fxml"), null, new JavaFXBuilderFactory());
+			page = (Parent) loader.load();
+			NotificationViewController controller = loader.getController();
+			Scene scene = new Scene(page, 494, 712);
+			notificationWindows.setScene(scene);
+			notificationWindows.centerOnScreen();
+			notificationWindows.setResizable(false);
+			notificationWindows.show();
+		}
+		catch(Exception e){
+			System.out.println(e);
+			e.printStackTrace();
+		}
+	}
 	
 	public static void closeStage(){
 		thisStage.close();

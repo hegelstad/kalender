@@ -92,6 +92,6 @@
       </Label>
       <Button fx:id="incrementWeekMinusButton" onAction="#decrementWeek" layoutX="660.0" layoutY="34.0" mnemonicParsing="false" text="&lt;" />
       <Button fx:id="incrementWeekPlussButton"  onAction="#incrementWeek" layoutX="872.0" layoutY="34.0" mnemonicParsing="false" text="&gt;" />
-      <Button fx:id="notificationButton" layoutX="1322.0" layoutY="23.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="42.0" text="0" />
+      <Button fx:id="notificationButton" onAction="#openNotifications" layoutX="1322.0" layoutY="23.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="42.0" text="0" />
    </children>
 </AnchorPane>
