@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class WindowController {
 
-	private static Stage thisStage;
+	public static Stage thisStage;
 	private static Main program;
 	
 	
@@ -43,6 +43,7 @@ public class WindowController {
 			title = "Login";
 		}
 		else if (fxml.equalsIgnoreCase("../views/calendarFinalView.fxml")){
+			scene.getStylesheets().add("/css/notification.css");
 			title ="Calendar";
 		}
 		thisStage.hide();

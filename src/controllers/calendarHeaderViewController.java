@@ -1,8 +1,10 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
@@ -11,6 +13,8 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public class calendarHeaderViewController {
+	
+	@FXML private AnchorPane calendarHeaderView;
 	
 	@FXML private Label month_Year;
 	
@@ -91,7 +95,14 @@ public class calendarHeaderViewController {
 	
 	@FXML
 	private void openNotifications(){
-		WindowController.goToNotificationView();
+		
+		Scene s = WindowController.thisStage.getScene();
+		AnchorPane notificationWindow = (AnchorPane) s.lookup("#notificationWindow");
+		if(notificationWindow.isVisible()){
+			notificationWindow.setVisible(false);
+		} else {
+			notificationWindow.setVisible(true);
+		}
 		
 	}
 }

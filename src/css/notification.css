@@ -1,0 +1,15 @@
+#notificationWindow {
+    -fx-background-color: #fff;
+    visibility: false;
+    -fx-border-color: #000;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+}
+
+#notificationTitle {
+    -fx-pref-height: 50;
+    -fx-pref-width: 300;
+    -fx-underline: true;
+    -fx-alignment: center;
+    -fx-font-size: 24px;
+}

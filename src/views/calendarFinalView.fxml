@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import javafx.scene.control.Label?>
 <AnchorPane maxHeight="987.0" maxWidth="1500.0" minHeight="987.0" minWidth="1500.0" onKeyPressed="#keyPressed" prefHeight="987.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CalendarFinalViewController">
 	<children>
             <GridPane>
@@ -21,5 +22,8 @@
                   <fx:include source="calendarEventsView.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
+        <AnchorPane fx:id="notificationWindow" id="notificationWindow" style="-fx-translate-z: 0" prefWidth="300" prefHeight="200" translateX="1185" translateY="70">
+                <Label fx:id="notificationTitle" text="Notifications"/>
+        </AnchorPane>
          </children>
 </AnchorPane>
