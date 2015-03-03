@@ -23,10 +23,10 @@ public class Requester {
     
     /**
      * Requester oppretter en connection med servereren, og etter det kan man kjøre metoder mot serveren.
+     * IP TIL SERVER MÅ SETTES HER!
      */
     public Requester (){
-    	String host = "78.91.64.114";
-
+    	String host = "78.91.72.184";
         /** Define a port */
         int port = 25025;
 
@@ -114,11 +114,11 @@ public class Requester {
     }
 
     /**
-     * Tar inn en kalender og returnerer alle userGroups som hører til kalenderen.
+     * Tar inn en liste med kalendere og returnerer alle userGroups som hører til kalenderene.
      * @param cal
      * @return
      */
-    public ArrayList<UserGroup> getUserGroups(Calendar cal){
+    public ArrayList<UserGroup> getUserGroups(ArrayList<Calendar> cal){
     	Command cmd = new Command("getUserGroups-calendar");
     	ArrayList<UserGroup> userGroups = null;
     	try{
@@ -151,7 +151,7 @@ public class Requester {
      * @param userGroups
      */
     public void deleteUserGroups(ArrayList<UserGroup> userGroups){
-    	Command cmd = new Command("deleteUserGroups-userGroups");
+    	Command cmd = new Command("deleteUserGroups-usergroups");
     	try {
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
     		oos.writeObject(cmd);
@@ -169,8 +169,38 @@ public class Requester {
      * Tar inn en userGroup og oppretter den i databasen.
      * @param ug
      */
-    public void createUserGroups(UserGroup ug){
-    	Command cmd = new Command("createUserGroup-string");
+    public UserGroup createUserGroup(UserGroup ug){
+    	Command cmd = new Command("createUserGroup-usergroup");
+    	UserGroup userGroup = null;
+    	try{
+    		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+            oos.writeObject(cmd);
+            oos.writeObject(ug);
+            InputStream is = con.getInputStream();
+            ObjectInputStream os = new ObjectInputStream(is);
+            Object o = os.readObject();
+            userGroup = (UserGroup) o;
+            System.out.println(userGroup);
+
+    	 }  catch (ClassCastException e) {
+             System.out.println(e);
+         }
+         catch(ClassNotFoundException e){
+             System.out.println(e);
+         }
+         catch (IOException e) {
+             // TODO Auto-generated catch block
+             e.printStackTrace();
+         }
+    	return userGroup;
+    }
+    
+    /**
+     * Tar inn en userGroup, og oppdaterer userGroup i databasen.
+     * @param ug
+     */
+    public void addUsers(UserGroup ug){
+    	Command cmd = new Command("addUsers-usergroup");
     	try {
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
     		oos.writeObject(cmd);
@@ -186,26 +216,6 @@ public class Requester {
     
     
     //CALENDAR
-    /**
-     * Tar inn en kalender og en userGroup, og legger til userGroupen i kalenderen.
-     * @param ug
-     */
-    public void addUsers(Calendar cal, UserGroup ug){
-    	Command cmd = new Command("addUsers-userGroup");
-    	try {
-    		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
-    		oos.writeObject(cmd);
-    		oos.writeObject(cal);
-    		oos.writeObject(ug);
-    	}  catch (ClassCastException e) {
-    		System.out.println(e);
-    	}
-    	catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
-    }
-    
     /**
      * Tar inn en usergroup og henter alle kalendere usergroupen tilhører.
      * @param ug
@@ -245,7 +255,7 @@ public class Requester {
      * @param ug
      * @return
      */
-    public Calendar addUserGroup(Calendar cal, UserGroup ug){
+    public void addUserGroup(Calendar cal, UserGroup ug){
     	Command cmd = new Command("addUserGroup-calendar");
     	Calendar calendar = null;
     	try{
@@ -253,23 +263,13 @@ public class Requester {
             oos.writeObject(cmd);
             oos.writeObject(cal);
             oos.writeObject(ug);
-            InputStream is = con.getInputStream();
-            ObjectInputStream os = new ObjectInputStream(is);
-            Object o = os.readObject();
-            calendar = (Calendar) o;
-            System.out.println(calendar);
-
-    	 }  catch (ClassCastException e) {
-             System.out.println(e);
-         }
-         catch(ClassNotFoundException e){
-             System.out.println(e);
-         }
-         catch (IOException e) {
+    	}  catch (ClassCastException e) {
+    		System.out.println(e);
+    	}
+        catch (IOException e) {
              // TODO Auto-generated catch block
              e.printStackTrace();
          }
-    	return calendar;
     }
     
     /**
@@ -346,11 +346,11 @@ public class Requester {
     
     //EVENTS
     /**
-     * Tar inn en kalender og returnerer alle Events som hører til kalenderen
+     * Tar inn en arraylist med kalendere og returnerer alle Events som hører til kalenderene
      * @param cal
      * @return
      */
-    public ArrayList<Event> getEvents(Calendar cal){
+    public ArrayList<Event> getEvents(ArrayList<Calendar> cal){
     	Command cmd = new Command("getEvents-calendars");
     	ArrayList<Event> events = null;
     	try{
@@ -380,6 +380,7 @@ public class Requester {
     
     /**
      * Denne må returnere et Event og oppdatere eventet.
+     * Tar inn et event, oppretter eventet og returnerer eventet.
      * @param event
      */
     public Event createEvent(Event event){
@@ -412,30 +413,20 @@ public class Requester {
      * Denne må returnere et Event og oppdatere eventet.
      * @param event
      */
-    public Event editEvent(Event event){
+    public void editEvent(Event event){
     	Command cmd = new Command("editEvent-event");
     	Event ev = null;
     	try{
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
             oos.writeObject(cmd);
             oos.writeObject(event);
-            InputStream is = con.getInputStream();
-            ObjectInputStream os = new ObjectInputStream(is);
-            Object o = os.readObject();
-            ev = (Event) o;
-            System.out.println(ev);
-
     	 }  catch (ClassCastException e) {
-             System.out.println(e);
-         }
-         catch(ClassNotFoundException e){
              System.out.println(e);
          }
          catch (IOException e) {
              // TODO Auto-generated catch block
              e.printStackTrace();
          }
-    	return ev;
     }
     
     /**
@@ -460,12 +451,12 @@ public class Requester {
     
     //NOTIFICATION
     /**
-     * SJEKK NAVN PÅ METODE OG INPUT. Denne metoden tar inn en person og returnerer alle notifications for personen.
+     * Denne metoden tar inn en person og returnerer alle notifications for personen.
      * @param p
      * @return
      */
     public ArrayList<Notification> getNotifications(Person p){
-    	Command cmd = new Command("getNotification-person");
+    	Command cmd = new Command("getNotifications-person");
     	ArrayList<Notification> n = null;
     	try{
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
@@ -492,29 +483,25 @@ public class Requester {
     	return n;
     }
     
-    public Notification setNotification(Notification n){
+    /**
+     * Tar inn en notification og oppretter notification i databasen.
+     * @param n
+     * @return
+     */
+    public void setNotification(Notification n){
     	Command cmd = new Command("setNotification-notification");
     	Notification notification = null;
     	try{
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
             oos.writeObject(cmd);
             oos.writeObject(n);
-            InputStream is = con.getInputStream();
-            ObjectInputStream os = new ObjectInputStream(is);
-            Object o = os.readObject();
-            notification = (Notification) o;
-            System.out.println(notification);
     	 }  catch (ClassCastException e) {
-             System.out.println(e);
-         }
-         catch(ClassNotFoundException e){
              System.out.println(e);
          }
          catch (IOException e) {
              // TODO Auto-generated catch block
              e.printStackTrace();
          }
-    	return notification;
     }
     
     /**
@@ -576,30 +563,20 @@ public class Requester {
      * @param p
      * @return
      */
-    public Person createPerson(Person p){
+    public void createPerson(Person p){
     	Command cmd = new Command("createPerson-person");
     	Person person = null;
     	try{
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
             oos.writeObject(cmd);
             oos.writeObject(p);
-            InputStream is = con.getInputStream();
-            ObjectInputStream os = new ObjectInputStream(is);
-            Object o = os.readObject();
-            person = (Person) o;
-            System.out.println(person);
-
     	 }  catch (ClassCastException e) {
-             System.out.println(e);
-         }
-         catch(ClassNotFoundException e){
              System.out.println(e);
          }
          catch (IOException e) {
              // TODO Auto-generated catch block
              e.printStackTrace();
          }
-    	return person;
     }
     
     /**
@@ -626,19 +603,30 @@ public class Requester {
      * LogIn må returnere en person og sette navn etc.
      * @param person
      */
-    public void authenticate(Person person){
+    public boolean authenticate(Person person){
         Command cmd = new Command("authenticate-username-pass");
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+        boolean logIn = false;
+        try{
+    		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
             oos.writeObject(cmd);
             oos.writeObject(person);
-        }  catch (ClassCastException e) {
-            System.out.println(e);
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+            InputStream is = con.getInputStream();
+            ObjectInputStream os = new ObjectInputStream(is);
+            Object o = os.readObject();
+            logIn = (Boolean) o;
+            System.out.println(logIn);
+
+    	 }  catch (ClassCastException e) {
+             System.out.println(e);
+         }
+         catch(ClassNotFoundException e){
+             System.out.println(e);
+         }
+         catch (IOException e) {
+             // TODO Auto-generated catch block
+             e.printStackTrace();
+         }
+    	return logIn;
     }
 
     
