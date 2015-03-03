@@ -25,7 +25,7 @@ public class LoginController {
   private void keyPressed(KeyEvent key){
 	  if (key.getCode().equals(KeyCode.ENTER)){
 		  if (fielsdAreSet()){
-			  if (authenticateUser(p)){
+			  if (connection.authenticate(p)){
 				  WindowController.goToCalendarView();
 			  }
 		  }
@@ -36,10 +36,14 @@ public class LoginController {
    @FXML
    private void loginButtonOnAction(){
 	   if (fielsdAreSet()){
+		   status.setText("logging in");
 		   if(authenticateUser()){
 			   WindowController.goToCalendarView();
 		   }
+		   status.setText("Incorrect username or password");
 	   }
+	   else{
+	   status.setText("Fill in both username and password");}
 	 
    }
    
@@ -52,6 +56,7 @@ public class LoginController {
    
    private boolean authenticateUser(){
 	   connection = new Requester();
+	   p = new Person(username.getText(), password.getText());
 	   boolean status = connection.authenticate(p);
 	   connection.closeConnection();
 	   return status;
