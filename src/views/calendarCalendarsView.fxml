@@ -6,22 +6,22 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="calendarCalendarsView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CalendarCalendarsViewController">
    <children>
-      <Label fx:id="calendarsLabel" layoutX="64.0" layoutY="55.0" prefHeight="31.0" prefWidth="110.0" text="Calendars">
+      <Label fx:id="calendarsLabel" layoutX="64.0" layoutY="53.0" prefHeight="31.0" prefWidth="110.0" text="Calendars">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <CheckBox fx:id="userNameCalendarCheckBox" layoutX="64.0" layoutY="110.0" mnemonicParsing="false" selected="true" text="userName" />
+      <CheckBox fx:id="defaultCalendar" layoutX="64.0" layoutY="110.0" mnemonicParsing="false" selected="true" text="userName" />
       <TextField layoutX="64.0" layoutY="328.0" text="Search                         -o" />
       <Button layoutX="170.0" layoutY="39.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="+">
          <font>
             <Font size="31.0" />
          </font>
       </Button>
-      <CheckBox fx:id="userCalendarCheckBox0" layoutX="65.0" layoutY="156.0" mnemonicParsing="false" selected="true" text="userName" visible="false" />
-      <CheckBox fx:id="userCalendarCheckBox1" layoutX="65.0" layoutY="205.0" mnemonicParsing="false" selected="true" text="userName" visible="false" />
-      <CheckBox fx:id="userCalendarCheckBox2" layoutX="64.0" layoutY="261.0" mnemonicParsing="false" selected="true" text="userName" visible="false" />
+      <CheckBox fx:id="extraCalendar1" layoutX="65.0" layoutY="156.0" mnemonicParsing="false" selected="true" text="userName" visible="false" />
+      <CheckBox fx:id="extraCalendar2" layoutX="65.0" layoutY="205.0" mnemonicParsing="false" selected="true" text="userName" visible="false" />
+      <CheckBox fx:id="extraCalendar3" layoutX="64.0" layoutY="261.0" mnemonicParsing="false" selected="true" text="userName" visible="false" />
    </children>
 </AnchorPane>
