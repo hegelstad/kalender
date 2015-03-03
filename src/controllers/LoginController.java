@@ -25,9 +25,14 @@ public class LoginController {
   private void keyPressed(KeyEvent key){
 	  if (key.getCode().equals(KeyCode.ENTER)){
 		  if (fielsdAreSet()){
+			  setLogginText();
 			  if (authenticateUser()){
 				  WindowController.goToCalendarView();
 			  }
+			  status.setText("Incorrect username or password");
+		  }
+		  else{
+			  status.setText("Fill in both username or password");
 		  }
 	  }
 	  
@@ -61,6 +66,9 @@ public class LoginController {
 	   connection.closeConnection();
 	   return status;
 	   
+   }
+   private void setLogginText(){
+	   status.setText("Logging you in");
    }
 
 }
