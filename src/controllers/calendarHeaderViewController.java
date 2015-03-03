@@ -1,8 +1,19 @@
 package controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import models.Notification;
+import models.Person;
+import socket.Requester;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
@@ -11,6 +22,8 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public class calendarHeaderViewController {
+	
+	@FXML private AnchorPane calendarHeaderView;
 	
 	@FXML private Label month_Year;
 	
@@ -78,7 +91,7 @@ public class calendarHeaderViewController {
 		/* Set date of weekday_labels */
 		for(int i = 0; i < weekday_labels.size(); i++){
 			int date_value = date.with(weekFields.getFirstDayOfWeek()).plusDays(i).getDayOfMonth();
-			weekday_labels.get(i).setText(""+date_value + ".");
+			weekday_labels.get(i).setText("" + date_value + ".");
 		}
 	}
 	
@@ -87,5 +100,28 @@ public class calendarHeaderViewController {
 		
 		/* Returns the user to the log-in screen */
 		WindowController.goToLogin();
+	}
+	
+	@FXML
+	private void openNotifications(){
+		
+		Scene s = WindowController.thisStage.getScene();
+		Pane notificationWindow = (Pane) s.lookup("#notificationWindow");
+		ListView <Notification> notificationList = (ListView) s.lookup("#notificationList");
+		
+		if(notificationWindow.isVisible()){
+			notificationWindow.setVisible(false);
+		} else {
+			Requester r = new Requester();
+			ArrayList<Notification> notes = r.getNotifications(new Person("Sondre", "Sondre Hjetland", 4));
+			ObservableList<Notification> notifications = FXCollections.observableArrayList(notes);
+			notificationList.setFixedCellSize(30);
+
+			notificationList.setItems(notifications);
+			notificationWindow.setVisible(true);
+		}
+		//notificationList.setContent((Node) notifications);
+		//System.out.println(notes);
+		
 	}
 }

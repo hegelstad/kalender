@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class WindowController {
 
-	private static Stage thisStage;
+	public static Stage thisStage;
 	private static Main program;
 	
 	
@@ -44,6 +44,7 @@ public class WindowController {
 			title = "Login";
 		}
 		else if (fxml.equalsIgnoreCase("../views/calendarFinalView.fxml")){
+			scene.getStylesheets().add("/css/notification.css");
 			title ="Calendar";
 		}
 		thisStage.hide();
@@ -97,6 +98,25 @@ public class WindowController {
 			eventWindows.centerOnScreen();
 			eventWindows.setResizable(false);
 			eventWindows.show();
+		}
+		catch(Exception e){
+			System.out.println(e);
+			e.printStackTrace();
+		}
+	}
+
+	public static void goToNotificationView(){
+		try{
+			Stage notificationWindows = new Stage();
+			Parent page;
+			FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/notificationView.fxml"), null, new JavaFXBuilderFactory());
+			page = (Parent) loader.load();
+			NotificationViewController controller = loader.getController();
+			Scene scene = new Scene(page, 494, 712);
+			notificationWindows.setScene(scene);
+			notificationWindows.centerOnScreen();
+			notificationWindows.setResizable(false);
+			notificationWindows.show();
 		}
 		catch(Exception e){
 			System.out.println(e);
