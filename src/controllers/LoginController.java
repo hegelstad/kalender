@@ -19,42 +19,46 @@ public class LoginController {
     boolean pressed = false;
     Requester connection;
     Person p;
-
     
-    @FXML
-    public void keyPressed(KeyEvent key){
-    		            if (key.getCode().equals(KeyCode.ENTER))
-    		            {
-    		            	connection.authenticate(p);
-    		                WindowController.goToCalendarView();
-    		            }
-    		            
-    		            else if(key.getCode().equals(KeyCode.ESCAPE)){
-    		            	WindowController.closeStage();
-    		            }
-    		        }
 
-    @FXML
-    private void initialize() {
-        loginButton.setOnAction((event) -> {
-            if (!pressed) {
-            	status.setText("logging in");
-            	Person p = new Person(username.getText(), password.getText());
-            	connection.authenticate(p);
-//                WindowController.goToCalendarView();
-                
-                pressed = true;
-
-            } else {
-                status.setText("not logging in");
-                pressed = false;
-            }
-        });
-        
-        
-    }
+  @FXML
+  private void keyPressed(KeyEvent key){
+	  if (key.getCode().equals(KeyCode.ENTER)){
+		  if (fielsdAreSet()){
+			  if (authenticateUser(p)){
+				  WindowController.goToCalendarView();
+			  }
+		  }
+	  }
+	  
+  }
     
-  
-    
+   @FXML
+   private void loginButtonOnAction(){
+	   if (fielsdAreSet()){
+		   if(authenticateUser()){
+			   WindowController.goToCalendarView();
+		   }
+	   }
+	 
+   }
+   
+   private boolean fielsdAreSet(){
+	   if(username.getText().isEmpty() || password.getText().isEmpty()){
+		   return false;
+	   }
+	   return true;
+   }
+   
+   private boolean authenticateUser(){
+	   connection = new Requester();
+	   boolean status = connection.authenticate(p);
+	   connection.closeConnection();
+	   return status;
+	   
+   }
 
 }
+
+
+   
