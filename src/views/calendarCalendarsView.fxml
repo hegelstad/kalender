@@ -14,7 +14,7 @@
          </font>
       </Label>
       <CheckBox fx:id="userNameCalendarCheckBox" layoutX="64.0" layoutY="110.0" mnemonicParsing="false" selected="true" text="userName" />
-      <TextField layoutX="64.0" layoutY="328.0" text="Search                         -o" />
+      <TextField layoutX="64.0" layoutY="328.0" promptText="Search" />
       <Button layoutX="170.0" layoutY="39.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="+">
          <font>
             <Font size="31.0" />
