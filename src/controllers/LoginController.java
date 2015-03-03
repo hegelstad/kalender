@@ -25,7 +25,7 @@ public class LoginController {
   private void keyPressed(KeyEvent key){
 	  if (key.getCode().equals(KeyCode.ENTER)){
 		  if (fielsdAreSet()){
-			  if (connection.authenticate(p)){
+			  if (authenticateUser()){
 				  WindowController.goToCalendarView();
 			  }
 		  }
