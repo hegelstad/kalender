@@ -23,15 +23,20 @@ import javafx.scene.text.Text;
 public class CalendarEventsViewController {
 
 	final double fullEventWidth = 158;
+	final double fullEventWidthPrecise = 156.31; 
 	final double hourHeight = 66;
+	final double hourHeightPrecise = 65.5; 
 	final double indentMargin = 15;
+	ArrayList<Event> allEvents = new ArrayList<>();
+	ArrayList<Rectangle> allRecs= new ArrayList<>();
+	ArrayList<Text> allTexts = new ArrayList<>();
 	@FXML
 	GridPane weekGrid;
 	Calendar cal = new Calendar(1, "SuperKalender", null);
 	Event event = new Event(1, "Møte", null, LocalDateTime.now(), LocalDateTime.now().plusHours(2) , cal);
 	Event event2 = new Event(2, "Annet Møte", null, LocalDateTime.now().plusMinutes(15)
 			, LocalDateTime.now().plusHours(1).plusMinutes(15) , cal);
-	Event event3 = new Event(3, "Siste møte", null, LocalDateTime.now().plusHours(1).plusMinutes(15)
+	Event event3 = new Event(3, "Siste møte", null, LocalDateTime.now().plusHours(1)
 			, LocalDateTime.now().plusHours(2) , cal);
 	
 	
@@ -50,17 +55,34 @@ public class CalendarEventsViewController {
 			r.setHalignment(HPos.LEFT);
 		}
 		//Lager testdata
-		ArrayList<Event> events = new ArrayList<Event>();
 		for(int i = 0;i<7;i++){
 			Event e = new Event(i, "Dag :"+i, null, LocalDateTime.of(2015, 3, 2+i, 10, 0)
 					, LocalDateTime.of(2015, 3, 2+i, 15, 0), cal);
-			events.add(e);
+			allEvents.add(e);
 		}
-		events.add(event);events.add(event2);events.add(event3);
+		allEvents.add(event);allEvents.add(event2);allEvents.add(event3);
 		//drawEvent(event);
 		//drawEvent(event2);
-		drawEvents(events);
+		drawEvents(allEvents);
 		
+		weekGrid.setOnMouseClicked( (mouseEvent) -> {
+			double y = mouseEvent.getY();
+			double x = mouseEvent.getX();
+			int row = (int) (x/fullEventWidthPrecise);
+			int column = (int) (y/hourHeightPrecise); 
+			System.out.println("Row :"+row+" Col: "+column);
+			
+			LocalDateTime from = LocalDateTime.of(2015, 3, 2+row, column, 0);
+			LocalDateTime to = LocalDateTime.of(2015, 3, 2+row, column+1, 0);
+			Event clickEvent = new Event(0, "click", null, from, to, null);
+			//drawEvent(clickEvent,0,0);
+			allEvents.add(clickEvent);
+			weekGrid.getChildren().removeAll(allRecs);
+			weekGrid.getChildren().removeAll(allTexts);
+			drawEvents(allEvents);
+			//WindowController.goToEventView(null);
+			System.out.println("Drawn");
+		});
 	}
 	
 	private void drawEvent(Event event,int indent, int reverseIndent){
@@ -97,7 +119,10 @@ public class CalendarEventsViewController {
 		int startHour = event.getFrom().getHour();
 		weekGrid.setGridLinesVisible(true);
 		weekGrid.add(eventRec, dayOfWeek, startHour, 1, 1);
+		System.out.println(eventRec);
 		weekGrid.add(eventName, dayOfWeek, startHour, 1, 1);
+		allRecs.add(eventRec);
+		allTexts.add(eventName);
 	}
 	
 	private ArrayList<Event> eventFormWeek(int i){
@@ -109,6 +134,7 @@ public class CalendarEventsViewController {
 		LocalDateTime to = e.getTo();
 		double minDiff = (to.getHour()-from.getHour())*60 + (to.getMinute()-from.getMinute());
 		double height = minDiff/60.0 * 65.5;
+		System.out.println(height);
 		return height;
 	}
 	
@@ -140,7 +166,7 @@ public class CalendarEventsViewController {
 	}
 	
 	
-	private void drawEvents(ArrayList<Event> events){
+	public void drawEvents(ArrayList<Event> events){
 		ArrayList<Event> overlappingEvents = new ArrayList<>();
 		// Sorts events on startTime
 		Collections.sort(events, (event1,event2)->{
