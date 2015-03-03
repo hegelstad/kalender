@@ -32,7 +32,7 @@ public class calendarHeaderViewController {
 	
 	@FXML
 	private void addEventOnAction(){
-		WindowController.goToEventView();
+		WindowController.goToEventView(null);
 	}
 
 	LocalDate date = LocalDate.now();
