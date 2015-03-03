@@ -12,7 +12,7 @@
             <Font size="26.0" />
          </font>
       </Label>
-      <Button fx:id="logOffButton" layoutX="1383.0" layoutY="23.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="103.0" text="Log off" />
+      <Button fx:id="logOffButton" layoutX="1383.0" layoutY="23.0" mnemonicParsing="false" onAction="#logOff" prefHeight="31.0" prefWidth="103.0" text="Log off" />
       <Button fx:id="addEventButton" layoutX="51.0" layoutY="20.0" mnemonicParsing="false" onAction="#addEventOnAction" prefHeight="22.0" prefWidth="40.0" text="+">
          <font>
             <Font size="19.0" />
@@ -22,7 +22,7 @@
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label fx:id="month_Year" layoutX="51.0" layoutY="79.0" prefHeight="13.0" prefWidth="142.0" text="month year">
+      <Label fx:id="month_Year" layoutX="51.0" layoutY="79.0" prefHeight="13.0" text="month year">
          <font>
             <Font size="24.0" />
          </font>
@@ -44,43 +44,43 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="39.0" layoutY="10.0" text="Monday" />
-                  <Label fx:id="mondayDayOfMonth" layoutX="93.0" layoutY="10.0" text="day" />
+                  <Label fx:id="mondayDayOfWeek" layoutX="93.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
                   <Label layoutX="29.0" layoutY="10.0" text="Tuesday" />
-                  <Label fx:id="tuesdayDayOfMonth" layoutX="91.0" layoutY="10.0" text="day" />
+                  <Label fx:id="tuesdayDayOfWeek" layoutX="91.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                <children>
                   <Label layoutX="13.0" layoutY="10.0" text="Wednesday" />
-                  <Label fx:id="wednesdayDayOfMonth" layoutX="98.0" layoutY="10.0" text="day" />
+                  <Label fx:id="wednesdayDayOfWeek" layoutX="98.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                <children>
                   <Label layoutX="23.0" layoutY="10.0" text="Thursday" />
-                  <Label fx:id="thursdayDayOfMonth" layoutX="93.0" layoutY="10.0" text="day" />
+                  <Label fx:id="thursdayDayOfWeek" layoutX="93.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
                <children>
                   <Label layoutX="31.0" layoutY="10.0" text="Friday" />
-                  <Label fx:id="fridayDayOfMonth" layoutX="83.0" layoutY="10.0" text="day" />
+                  <Label fx:id="fridayDayOfWeek" layoutX="83.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
                <children>
                   <Label layoutX="13.0" layoutY="10.0" text="Saturday" />
-                  <Label fx:id="saturdayDayOfMonth" layoutX="76.0" layoutY="10.0" text="day" />
+                  <Label fx:id="saturdayDayOfWeek" layoutX="76.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="32.0" prefWidth="156.0" GridPane.columnIndex="6">
                <children>
-                  <Label layoutX="13.0" layoutY="10.0" text="Saturday" />
-                  <Label fx:id="sundayDayOfMonth" layoutX="80.0" layoutY="10.0" text="day" />
+                  <Label layoutX="13.0" layoutY="10.0" text="Sunday" />
+                  <Label fx:id="sundayDayOfWeek" layoutX="80.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
          </children>
@@ -90,8 +90,8 @@
             <Font size="26.0" />
          </font>
       </Label>
-      <Button fx:id="incrementWeekMinusButton" layoutX="660.0" layoutY="34.0" mnemonicParsing="false" text="&lt;" />
-      <Button fx:id="incrementWeekPlussButton" layoutX="872.0" layoutY="34.0" mnemonicParsing="false" text="&gt;" />
+      <Button fx:id="incrementWeekMinusButton" onAction="#decrementWeek" layoutX="660.0" layoutY="34.0" mnemonicParsing="false" text="&lt;" />
+      <Button fx:id="incrementWeekPlussButton"  onAction="#incrementWeek" layoutX="872.0" layoutY="34.0" mnemonicParsing="false" text="&gt;" />
       <Button fx:id="notificationButton" layoutX="1322.0" layoutY="23.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="42.0" text="0" />
    </children>
 </AnchorPane>
