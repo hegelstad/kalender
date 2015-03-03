@@ -26,6 +26,8 @@ public class CalendarEventsViewController {
 	GridPane weekGrid;
 	Calendar cal = new Calendar(1, "SuperKalender", null);
 	Event event = new Event(1, "Møte", null, LocalDateTime.now(), LocalDateTime.now().plusHours(1) , cal);
+	Event event2 = new Event(2, "Annet Møte", null, LocalDateTime.now().plusMinutes(15)
+			, LocalDateTime.now().plusHours(1).plusMinutes(15) , cal);
 	
 	
 	
@@ -42,18 +44,31 @@ public class CalendarEventsViewController {
 			r.setHalignment(HPos.LEFT);
 		}
 		drawEvent(event);
+		drawEvent(event2);
 	}
 	
 	private void drawEvent(Event event){
 		
 		Rectangle eventRec = new Rectangle(fullEventWidth-3, getEventHeight(event));
-		eventRec.setOnMouseClicked(clickEvent -> {
-			openEvent(event);
-		});
 		styleRectangle(eventRec);
 		Text eventName = new Text(event.getName());
 		styleText(eventName);
 		
+		eventRec.setOnMouseEntered( enterEvent -> {
+			eventRec.toFront();
+			eventName.toFront();
+			eventRec.strokeProperty().set(Color.CADETBLUE);
+		});
+		
+		eventRec.setOnMouseExited( exitEvent -> {
+			eventRec.strokeProperty().set(Color.BLACK);
+		});
+		
+		eventRec.setOnMouseClicked(clickEvent -> {
+			Object source = clickEvent.getSource();
+			openEvent(event);				
+		});
+
 		double marginTop = ((double)event.getFrom().getMinute()/60)*hourHeight;
 		Insets eventMargin = new Insets(marginTop, 0, 0, 0);
 		GridPane.setMargin(eventRec, eventMargin);
@@ -92,7 +107,6 @@ public class CalendarEventsViewController {
 	}
 
 	private void openEvent(Event event){
-		WindowController.goToEventView();
 		System.out.println(event.getName());
 	}
 }
