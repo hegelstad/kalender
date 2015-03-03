@@ -18,9 +18,8 @@ import java.util.ArrayList;
  * Created by sondrehj on 02.03.2015.
  */
 public class Requester {
-
+	
     Socket con;
-    
     /**
      * Requester oppretter en connection med servereren, og etter det kan man kjøre metoder mot serveren.
      * IP TIL SERVER MÅ SETTES HER!
@@ -35,6 +34,7 @@ public class Requester {
             InetAddress address = InetAddress.getByName(host);
             /** Establish a socket connetion */
             con = new Socket(address, port);
+            con.setSoTimeout(6500);
             System.out.println("SocketClient initialized");
             //connection.close();
         }catch (IOException f) {
