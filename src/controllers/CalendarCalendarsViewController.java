@@ -10,7 +10,7 @@ public class CalendarCalendarsViewController {
 	
 	//Is supposed to set the defaultCalendar text to the currently logged in user's username.
 	@FXML private void initialize(){
-		defaultCalendar.setText("Test");
+		//defaultCalendar.setText("Test");
 	}
 	
 }
