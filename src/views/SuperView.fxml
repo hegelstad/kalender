@@ -29,7 +29,7 @@
             </children>
         </GridPane>
 
-        <Pane fx:id="notificationWindow" style="-fx-translate-z: 0" prefWidth="300" prefHeight="230" translateX="1185"
+        <Pane fx:id="notificationWindow" style="-fx-translate-z: 0" prefWidth="300" prefHeight="300" translateX="1013"
               translateY="70">
             <Polygon fx:id="notificationTriangle" points="145.0, 20.0, 175.0, 20.0, 160.0, -5.0"/>
             <Label fx:id="notificationTitle" translateY="10" text="Notifications">
