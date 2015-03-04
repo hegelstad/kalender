@@ -4,10 +4,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -124,7 +127,9 @@ public class CalendarHeaderViewController {
             notificationWindow.setVisible(false);
         } else {
             Requester r = new Requester();
-            ArrayList<Notification> notes = r.getNotifications(new Person("Sondre", "Sondre Hjetland", 4));
+
+            /* Replace new Person med PersonInfo.getPerson() */
+            ArrayList<Notification> notes = r.getNotifications(new Person("Sondre", "Sondre Hjet", 1));
             ObservableList<Notification> notifications = FXCollections.observableArrayList(notes);
             notificationList.setItems(notifications);
 
@@ -137,17 +142,50 @@ public class CalendarHeaderViewController {
                         if (n == null || empty) {
                             setText(null);
                         } else {
+                            double original_content_height;
+                            Pane content = new Pane();
                             Text t = new Text();
+                            
                             t.setWrappingWidth(250.00);
-                            t.setText("Note: " + n.getNote() + "\n" + "From " + n.getEvent().getName());
-                            setGraphic(t);
+                            t.setText("\n" + "Note: " + n.getNote() + "\n" + "From " + n.getEvent().getName());
+                            content.getChildren().add(t);
+                            
+                            content.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                Boolean is_expanded = false;
+                                @Override
+                                public void handle(MouseEvent mouseEvent) {
+                                    if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                                        
+                                        if(!is_expanded){
+                                            content.setPrefHeight(content.getHeight() + 50);
+                                            Button accept = new Button("Accept");
+                                            Button decline = new Button("Decline");
+                                            accept.setPrefWidth(133);
+                                            decline.setPrefWidth(133);
+                                            accept.setLayoutY(content.getHeight() + 20);
+                                            decline.setLayoutY(content.getHeight() + 20);
+                                            decline.setLayoutX(138);
+                                            content.getChildren().addAll(accept, decline);
+                                            is_expanded = true;
+                                        } else {
+                                            content.getChildren().remove(1,2);
+                                            content.setPrefHeight(content.getHeight() - 50);
+                                            is_expanded = false;
+                                        }
+                                    }
+                                }
+                            });
+                            setGraphic(content);
                         }
                     }
                 };
             });
 
+            System.out.println(notificationList.getChildrenUnmodifiable());
+            
             notificationList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                System.out.println("ListView Selection Changed (selected: " + newValue.toString() + ")");
+                Notification selected_notification = newValue;
+                System.out.println(selected_notification);
             });
             notificationWindow.setVisible(true);
         }
