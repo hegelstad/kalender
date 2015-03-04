@@ -1,16 +1,17 @@
 package controllers;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
 import models.Notification;
 import models.Person;
 import socket.Requester;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class calendarHeaderViewController {
+public class CalendarHeaderViewController {
 
     @FXML
     private AnchorPane calendarHeaderView;
@@ -125,13 +126,30 @@ public class calendarHeaderViewController {
             Requester r = new Requester();
             ArrayList<Notification> notes = r.getNotifications(new Person("Sondre", "Sondre Hjetland", 4));
             ObservableList<Notification> notifications = FXCollections.observableArrayList(notes);
-            notificationList.setFixedCellSize(30);
-
             notificationList.setItems(notifications);
+
+            notificationList.setCellFactory((list) -> {
+                return new ListCell<Notification>() {
+                    @Override
+                    protected void updateItem(Notification n, boolean empty) {
+                        super.updateItem(n, empty);
+
+                        if (n == null || empty) {
+                            setText(null);
+                        } else {
+                            Text t = new Text();
+                            t.setWrappingWidth(250.00);
+                            t.setText("Note: " + n.getNote() + "\n" + "From " + n.getEvent().getName());
+                            setGraphic(t);
+                        }
+                    }
+                };
+            });
+
+            notificationList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                System.out.println("ListView Selection Changed (selected: " + newValue.toString() + ")");
+            });
             notificationWindow.setVisible(true);
         }
-        //notificationList.setContent((Node) notifications);
-        //System.out.println(notes);
-
     }
 }
