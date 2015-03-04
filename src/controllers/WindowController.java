@@ -39,11 +39,11 @@ public class WindowController {
 				program.getClass().getResource(fxml), null, 
 				new JavaFXBuilderFactory());
 		Scene scene = new Scene(page, width, height);
-		if (fxml.equalsIgnoreCase("../views/loginView.fxml")){
+		if (fxml.equalsIgnoreCase("../views/LoginView.fxml")){
 			scene.getStylesheets().add("/css/login.css");
 			title = "Login";
 		}
-		else if (fxml.equalsIgnoreCase("../views/calendarFinalView.fxml")) {
+		else if (fxml.equalsIgnoreCase("../views/SuperView.fxml")) {
             scene.getStylesheets().add("/css/main.css");
             title = "Calendar";
         }
@@ -65,7 +65,7 @@ public class WindowController {
 	
 	public static void goToLogin(){
 		try {
-			replaceSceneContent("../views/loginView.fxml", 600, 450 );
+			replaceSceneContent("../views/LoginView.fxml", 600, 450 );
 		}
 		catch (Exception e) {
 			System.out.println(e);
@@ -76,7 +76,7 @@ public class WindowController {
 	
 	public static void goToCalendarView(){
 		try{
-			replaceSceneContent("../views/calendarFinalView.fxml", 1500 , 987);
+			replaceSceneContent("../views/SuperView.fxml", 1500 , 987);
 		}
 		catch (Exception e){
 			System.out.println(e);
@@ -88,7 +88,7 @@ public class WindowController {
 		try{
 			Stage eventWindows = new Stage();
 			Parent page;
-			FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/eventView.fxml"), null, new JavaFXBuilderFactory());
+			FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/EventView.fxml"), null, new JavaFXBuilderFactory());
 			page = (Parent) loader.load();
 			EventController controller = loader.getController();
 			if (event != null){
@@ -113,9 +113,9 @@ public class WindowController {
 		try{
 			Stage notificationWindows = new Stage();
 			Parent page;
-			FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/notificationView.fxml"), null, new JavaFXBuilderFactory());
+			FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/NotificationView.fxml"), null, new JavaFXBuilderFactory());
 			page = (Parent) loader.load();
-			NotificationViewController controller = loader.getController();
+			NotificationController controller = loader.getController();
 			Scene scene = new Scene(page, 494, 712);
 			notificationWindows.setScene(scene);
 			notificationWindows.centerOnScreen();

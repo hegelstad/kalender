@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Person;
+import models.PersonInfo;
 import socket.Requester;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

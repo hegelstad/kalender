@@ -3,7 +3,7 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 
-public class CalendarCalendarsViewController {
+public class SidebarController {
 
 	@FXML private CheckBox defaultCalendar;
 	

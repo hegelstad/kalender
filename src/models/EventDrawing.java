@@ -1,6 +1,6 @@
 package models;
 
-import controllers.CalendarEventsViewController;
+import controllers.WeekController;
 import javafx.animation.ScaleTransition;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -16,10 +16,10 @@ public class EventDrawing {
 	int indent;
 	int reverserIndent;
 	boolean isExpanded = false;
-	CalendarEventsViewController controller;
+	WeekController controller;
 	
 	public EventDrawing(Rectangle eventRectangle,Text eventName,Event event
-			,Circle statusCircle ,CalendarEventsViewController controller){
+			,Circle statusCircle ,WeekController controller){
 		this.eventRectangle = eventRectangle;
 		this.eventName = eventName;
 		this.statusCircle = statusCircle;
