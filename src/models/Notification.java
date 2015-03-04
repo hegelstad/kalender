@@ -38,7 +38,6 @@ public class Notification implements Serializable{
 	public Event getEvent() {
 		return event;
 	}
-	
 
 	public void setNoteID(int noteID) {
 		this.noteID = noteID;

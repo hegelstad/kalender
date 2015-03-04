@@ -44,7 +44,7 @@ public class WindowController {
 			title = "Login";
 		}
 		else if (fxml.equalsIgnoreCase("../views/calendarFinalView.fxml")){
-			scene.getStylesheets().add("/css/notification.css");
+			scene.getStylesheets().add("/css/main.css");
 			title ="Calendar";
 		}
 		thisStage.hide();
