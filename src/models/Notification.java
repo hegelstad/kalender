@@ -62,7 +62,7 @@ public class Notification implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Notification (receivers: " + receivers + ", note: " + note
+		return "Notification(receivers: " + receivers + ", note: " + note
 				+ ", sender: " + sender + ", event: " + event + ")";
 	}
 }
