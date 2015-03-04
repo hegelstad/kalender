@@ -90,11 +90,15 @@ public class WindowController {
 			FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/eventView.fxml"), null, new JavaFXBuilderFactory());
 			page = (Parent) loader.load();
 			EventController controller = loader.getController();
-			controller.openEvent(event);
+			if (event != null){
+				controller.openEvent(event);
+			}
 			controller.setStage(eventWindows);
 			Scene scene = new Scene(page, 494, 712);
 			eventWindows.setScene(scene);
 			eventWindows.centerOnScreen();
+			//Fix later: Only if event ==null	
+			eventWindows.setTitle("Add a new event");
 			eventWindows.setResizable(false);
 			eventWindows.show();
 		}
