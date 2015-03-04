@@ -7,6 +7,9 @@ import java.util.List;
 
 import models.Calendar;
 import models.Event;
+import models.EventDrawing;
+import javafx.animation.Animation;
+import javafx.animation.ScaleTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -17,33 +20,39 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class CalendarEventsViewController {
 
-	final double fullEventWidth = 158;
-	final double fullEventWidthPrecise = 156.31; 
-	final double hourHeight = 66;
-	final double hourHeightPrecise = 65.5; 
-	final double indentMargin = 15;
+	public final double fullEventWidth = 158;
+	public final double fullEventWidthPrecise = 156.31; 
+	public final double hourHeight = 66;
+	public final double hourHeightPrecise = 65.5; 
+	public final double indentMargin = 15.0;
+	boolean mouseOverEvent = false;
+	ArrayList<EventDrawing> eventDrawings = new ArrayList<>();
 	ArrayList<Event> allEvents = new ArrayList<>();
 	ArrayList<Rectangle> allRecs= new ArrayList<>();
 	ArrayList<Text> allTexts = new ArrayList<>();
 	@FXML
 	GridPane weekGrid;
+	
+	/* Making some testdata */
 	Calendar cal = new Calendar(1, "SuperKalender", null);
-	Event event = new Event(1, "Møte", null, LocalDateTime.now(), LocalDateTime.now().plusHours(2) , cal);
-	Event event2 = new Event(2, "Annet Møte", null, LocalDateTime.now().plusMinutes(15)
+	Event event = new Event(1, "Møte",null, null, LocalDateTime.now(), LocalDateTime.now().plusHours(2) , cal);
+	Event event2 = new Event(2, "Annet Møte",null, null, LocalDateTime.now().plusMinutes(15)
 			, LocalDateTime.now().plusHours(1).plusMinutes(15) , cal);
-	Event event3 = new Event(3, "Siste møte", null, LocalDateTime.now().plusHours(1)
+	Event event3 = new Event(3, "Siste møte",null, null, LocalDateTime.now().plusHours(1)
 			, LocalDateTime.now().plusHours(2) , cal);
 	
 	
 	
 	
 	public CalendarEventsViewController(){
-		System.out.println("Konstruktør");
+		
 	}
 	
 	@FXML
@@ -56,7 +65,7 @@ public class CalendarEventsViewController {
 		}
 		//Lager testdata
 		for(int i = 0;i<7;i++){
-			Event e = new Event(i, "Dag :"+i, null, LocalDateTime.of(2015, 3, 2+i, 10, 0)
+			Event e = new Event(i, "Dag :"+i,null, null, LocalDateTime.of(2015, 3, 2+i, 10, 0)
 					, LocalDateTime.of(2015, 3, 2+i, 15, 0), cal);
 			allEvents.add(e);
 		}
@@ -70,11 +79,10 @@ public class CalendarEventsViewController {
 			double x = mouseEvent.getX();
 			int row = (int) (x/fullEventWidthPrecise);
 			int column = (int) (y/hourHeightPrecise); 
-			System.out.println("Row :"+row+" Col: "+column);
-			
+			System.out.println("Row :"+row+" Col: "+column);				
 			LocalDateTime from = LocalDateTime.of(2015, 3, 2+row, column, 0);
 			LocalDateTime to = LocalDateTime.of(2015, 3, 2+row, column+1, 0);
-			Event clickEvent = new Event(0, "click", null, from, to, null);
+			Event clickEvent = new Event(0, "click",null, null, from, to, null);
 			//drawEvent(clickEvent,0,0);
 			allEvents.add(clickEvent);
 			weekGrid.getChildren().removeAll(allRecs);
@@ -91,42 +99,36 @@ public class CalendarEventsViewController {
 		styleRectangle(eventRec);
 		Text eventName = new Text(event.getName());
 		styleText(eventName);
+		Circle statusCircle = new Circle(4);
+		statusCircle.setFill(Color.BROWN);
 		
-		eventRec.setOnMouseEntered( enterEvent -> {
-			eventRec.toFront();
-			eventName.toFront();
-			eventRec.strokeProperty().set(Color.CADETBLUE);
-		});
 		
-		eventRec.setOnMouseExited( exitEvent -> {
-			eventRec.strokeProperty().set(Color.BLACK);
-		});
-		
-		eventRec.setOnMouseClicked(clickEvent -> {
-			openEvent(event);				
-		});
-
 		double eventIndentMargin = indentMargin*indent;
 		double reverseIndentMargin = indentMargin*reverseIndent;
 		double marginTop = ((double)event.getFrom().getMinute()/60)*hourHeight;
+		
 		Insets eventMargin = new Insets(marginTop, 0, 0, eventIndentMargin);
 		GridPane.setMargin(eventRec, eventMargin);
 		
 		Insets textMargin = new Insets(marginTop, 0, 0, 3 + eventIndentMargin);
 		GridPane.setMargin(eventName, textMargin);
 		
+		double rightMargin = fullEventWidth-(double)reverseIndent*indentMargin
+				+(double)indent*indentMargin-13;
+		System.out.println("reverse indent : "+reverseIndent+" rightMargin circle : "+rightMargin );
+		Insets circleMargin = new Insets(marginTop+3, 0,0,rightMargin);
+		GridPane.setMargin(statusCircle,circleMargin);
+		
 		int dayOfWeek = event.getFrom().getDayOfWeek().getValue()-1;
 		int startHour = event.getFrom().getHour();
 		weekGrid.setGridLinesVisible(true);
 		weekGrid.add(eventRec, dayOfWeek, startHour, 1, 1);
-		System.out.println(eventRec);
+		weekGrid.add(statusCircle, dayOfWeek, startHour, 1,1);
+		//System.out.println(eventRec);
 		weekGrid.add(eventName, dayOfWeek, startHour, 1, 1);
+		eventDrawings.add(new EventDrawing(eventRec, eventName, event,statusCircle, this));
 		allRecs.add(eventRec);
 		allTexts.add(eventName);
-	}
-	
-	private ArrayList<Event> eventFormWeek(int i){
-		return null;
 	}
 	
 	private double getEventHeight(Event e){
@@ -134,7 +136,7 @@ public class CalendarEventsViewController {
 		LocalDateTime to = e.getTo();
 		double minDiff = (to.getHour()-from.getHour())*60 + (to.getMinute()-from.getMinute());
 		double height = minDiff/60.0 * 65.5;
-		System.out.println(height);
+		//System.out.println(height);
 		return height;
 	}
 	
@@ -150,18 +152,8 @@ public class CalendarEventsViewController {
 	private void styleText(Text t){
 		
 	}
-
-	private int getIndentIndex(Event event){
-//		if(event.getEventID()==1){
-//			return 0;
-//		}
-//		else{
-//			return 1;
-//		}
-		return 0;
-	}
 	
-	private void openEvent(Event event){
+	public void openEvent(Event event){
 		System.out.println(event.getName());
 	}
 	
@@ -209,5 +201,9 @@ public class CalendarEventsViewController {
 			}
 		}
 		
+	}
+	
+	public void setMouseOverEvent(boolean isOver){
+		mouseOverEvent = isOver;
 	}
 }
