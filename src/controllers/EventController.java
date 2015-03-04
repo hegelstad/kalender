@@ -1,7 +1,16 @@
 package controllers;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+import socket.Requester;
+import models.Calendar;
 import models.Event;
+import models.Room;
+import models.UserGroup;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -13,7 +22,10 @@ import javafx.stage.Stage;
 public class EventController {
 	
 	private Stage stage;
-
+	private ArrayList<UserGroup> participants;
+	private ArrayList<Room> rooms;
+	private ArrayList<UserGroup> addedParticipants = new ArrayList<UserGroup>();
+	
 	@FXML private Button cancelButton;
 	@FXML private Button saveButton;
 	@FXML private TextField title;
@@ -23,17 +35,51 @@ public class EventController {
 	@FXML private ComboBox<String> fromMinutes;
 	@FXML private ComboBox<String> toHours;
 	@FXML private ComboBox<String> toMinutes;
+	@FXML private ComboBox<UserGroup> addParticipantsSearch;
+	@FXML private ComboBox<Room> roomLocation;
 	
 	
 	@FXML public void cancelButtonOnAction(){
 		stage.close();
 	}
 	
+	@FXML public void saveButtonOnAction(){
+		if (createEvent()){
+			stage.close();
+		}else{
+			
+		}
+	}
+	
+	private boolean createEvent() {
+		
+		return false;
+	}
+
 	@FXML
 	private void initialize(){
 		initializeHourAndMinutes();
+		Calendar cal = new Calendar(2, "Sondre", null);
+		ArrayList<Calendar> callist = new ArrayList<Calendar>();
+		callist.add(cal);
+		Requester r2 = new Requester();
+		participants = r2.getUserGroups(callist);
+		ObservableList<UserGroup> ol2 = FXCollections.observableArrayList(participants);
+		addParticipantsSearch.setItems(ol2);
 	}
 	
+	public void getAvailableRooms(){
+		Requester r = new Requester();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+		String datefrom = fromDate.toString();
+		String dateto = toDate.toString();
+		//LocalDateTime from = LocalDateTime.parse(result.getTimestamp("From").toString(), formatter);
+		Event ev = new Event(0, null, null, addedParticipants, null, null, null);
+		rooms = r.getRooms();
+		r.closeConnection();
+		ObservableList<Room> ol = FXCollections.observableArrayList(rooms);
+		roomLocation.setItems(ol);
+	}
 	public void setStage(Stage stage){
 		this.stage = stage;
 	}
