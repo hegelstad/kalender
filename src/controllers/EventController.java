@@ -52,5 +52,4 @@ public class EventController {
 	void openEvent(Event event){
 		title.setText(event.getName());
 	}
-
 }

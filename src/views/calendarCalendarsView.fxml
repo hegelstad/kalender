@@ -13,9 +13,9 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <CheckBox fx:id="userNameCalendarCheckBox" layoutX="64.0" layoutY="110.0" mnemonicParsing="false" selected="true" text="userName" />
-      <TextField layoutX="64.0" layoutY="328.0" promptText="Search" />
-      <Button layoutX="170.0" layoutY="39.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="+">
+      <CheckBox fx:id="defaultCalendar" layoutX="64.0" layoutY="110.0" mnemonicParsing="false" selected="true" text="userName" />
+      <TextField fx:id="searchCalendar" layoutX="64.0" layoutY="328.0" promptText="Search" />
+      <Button fx:id="newCalendarButton" layoutX="170.0" layoutY="39.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="+">
          <font>
             <Font size="31.0" />
          </font>

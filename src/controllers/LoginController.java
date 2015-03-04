@@ -61,12 +61,13 @@ public class LoginController {
    private boolean authenticateUser(){
 	   connection = new Requester();
 	   p = new Person(username.getText(), password.getText());
-	   Person p = connection.authenticate(p);
-	   if (p == null){
+	   Person p2  = connection.authenticate(p);
+	   if (p2 == null){
 		   connection.closeConnection();
 		   return false; 
 	   }
-	   this.p=p;
+	   this.p=p2;
+	   connection.closeConnection();
 	   return true;
 	   
    }
