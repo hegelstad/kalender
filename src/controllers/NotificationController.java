@@ -2,7 +2,7 @@ package controllers;
 
 import javafx.fxml.FXML;
 
-public class NotificationViewController {
+public class NotificationController {
     
     @FXML
     private void initialize(){

@@ -25,7 +25,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class CalendarEventsViewController {
+public class WeekController {
 
 	public final double fullEventWidth = 158;
 	public final double fullEventWidthPrecise = 156.31; 
@@ -51,7 +51,7 @@ public class CalendarEventsViewController {
 	
 	
 	
-	public CalendarEventsViewController(){
+	public WeekController(){
 		
 	}
 	
