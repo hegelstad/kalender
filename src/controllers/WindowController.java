@@ -43,10 +43,10 @@ public class WindowController {
 			scene.getStylesheets().add("/css/login.css");
 			title = "Login";
 		}
-		else if (fxml.equalsIgnoreCase("../views/calendarFinalView.fxml")){
-			scene.getStylesheets().add("/css/main.css");
-			title ="Calendar";
-		}
+		else if (fxml.equalsIgnoreCase("../views/calendarFinalView.fxml")) {
+            scene.getStylesheets().add("/css/main.css");
+            title = "Calendar";
+        }
 		thisStage.hide();
 		thisStage.setScene(scene);
 		thisStage.setTitle(title);
