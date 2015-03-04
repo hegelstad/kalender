@@ -45,7 +45,9 @@ public class EventDrawing {
 		eventRec.setOnMouseExited( exitEvent -> {
 			controller.setMouseOverEvent(false);
 			//eventRec.setWidth(controller.fullEventWidth-3);
-			eventRec.opacityProperty().set(0.5);
+			if(!isExpanded){
+				eventRec.opacityProperty().set(0.5);				
+			}
 			eventRec.strokeProperty().set(Color.BLACK);
 		});
 		
