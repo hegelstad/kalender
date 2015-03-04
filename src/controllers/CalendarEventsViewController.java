@@ -42,10 +42,10 @@ public class CalendarEventsViewController {
 	
 	/* Making some testdata */
 	Calendar cal = new Calendar(1, "SuperKalender", null);
-	Event event = new Event(1, "Møte", null, LocalDateTime.now(), LocalDateTime.now().plusHours(2) , cal);
-	Event event2 = new Event(2, "Annet Møte", null, LocalDateTime.now().plusMinutes(15)
+	Event event = new Event(1, "Møte",null, null, LocalDateTime.now(), LocalDateTime.now().plusHours(2) , cal);
+	Event event2 = new Event(2, "Annet Møte",null, null, LocalDateTime.now().plusMinutes(15)
 			, LocalDateTime.now().plusHours(1).plusMinutes(15) , cal);
-	Event event3 = new Event(3, "Siste møte", null, LocalDateTime.now().plusHours(1)
+	Event event3 = new Event(3, "Siste møte",null, null, LocalDateTime.now().plusHours(1)
 			, LocalDateTime.now().plusHours(2) , cal);
 	
 	
@@ -65,7 +65,7 @@ public class CalendarEventsViewController {
 		}
 		//Lager testdata
 		for(int i = 0;i<7;i++){
-			Event e = new Event(i, "Dag :"+i, null, LocalDateTime.of(2015, 3, 2+i, 10, 0)
+			Event e = new Event(i, "Dag :"+i,null, null, LocalDateTime.of(2015, 3, 2+i, 10, 0)
 					, LocalDateTime.of(2015, 3, 2+i, 15, 0), cal);
 			allEvents.add(e);
 		}
@@ -82,7 +82,7 @@ public class CalendarEventsViewController {
 			System.out.println("Row :"+row+" Col: "+column);				
 			LocalDateTime from = LocalDateTime.of(2015, 3, 2+row, column, 0);
 			LocalDateTime to = LocalDateTime.of(2015, 3, 2+row, column+1, 0);
-			Event clickEvent = new Event(0, "click", null, from, to, null);
+			Event clickEvent = new Event(0, "click",null, null, from, to, null);
 			//drawEvent(clickEvent,0,0);
 			allEvents.add(clickEvent);
 			weekGrid.getChildren().removeAll(allRecs);
