@@ -7,6 +7,8 @@ import java.util.List;
 
 import models.Calendar;
 import models.Event;
+import javafx.animation.Animation;
+import javafx.animation.ScaleTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -19,6 +21,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class CalendarEventsViewController {
 
@@ -27,6 +30,7 @@ public class CalendarEventsViewController {
 	final double hourHeight = 66;
 	final double hourHeightPrecise = 65.5; 
 	final double indentMargin = 15;
+	boolean mouseOverEvent = false;
 	ArrayList<Event> allEvents = new ArrayList<>();
 	ArrayList<Rectangle> allRecs= new ArrayList<>();
 	ArrayList<Text> allTexts = new ArrayList<>();
@@ -66,6 +70,9 @@ public class CalendarEventsViewController {
 		drawEvents(allEvents);
 		
 		weekGrid.setOnMouseClicked( (mouseEvent) -> {
+			if(mouseOverEvent){
+				return;
+			}
 			double y = mouseEvent.getY();
 			double x = mouseEvent.getX();
 			int row = (int) (x/fullEventWidthPrecise);
@@ -93,12 +100,26 @@ public class CalendarEventsViewController {
 		styleText(eventName);
 		
 		eventRec.setOnMouseEntered( enterEvent -> {
+			mouseOverEvent = true;
 			eventRec.toFront();
 			eventName.toFront();
+			ScaleTransition animation = new ScaleTransition(Duration.millis(200),eventRec);
+			animation.setFromX(1.0);
+			animation.setToX(1.5);
+			animation.play();
+			//eventRec.setWidth(fullEventWidth*1.5);
+			eventRec.opacityProperty().set(0.9);
 			eventRec.strokeProperty().set(Color.CADETBLUE);
 		});
 		
 		eventRec.setOnMouseExited( exitEvent -> {
+			mouseOverEvent = false;
+			ScaleTransition animation = new ScaleTransition(Duration.millis(200),eventRec);
+			animation.setFromX(1.5);
+			animation.setToX(1.0);
+			animation.play();
+			//eventRec.setWidth(fullEventWidth-3);
+			eventRec.opacityProperty().set(0.5);
 			eventRec.strokeProperty().set(Color.BLACK);
 		});
 		
