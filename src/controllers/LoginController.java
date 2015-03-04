@@ -63,7 +63,7 @@ public class LoginController {
 	   Person p2  = connection.authenticate(p);
 	   if (p2 == null){
 		   connection.closeConnection();
-		   return false; 
+		   return false;
 	   }
 	   this.p=p2;
 	   PersonInfo personInfo = new PersonInfo();

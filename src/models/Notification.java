@@ -38,7 +38,6 @@ public class Notification implements Serializable{
 	public Event getEvent() {
 		return event;
 	}
-	
 
 	public void setNoteID(int noteID) {
 		this.noteID = noteID;
@@ -62,7 +61,7 @@ public class Notification implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Notification (receivers: " + receivers + ", note: " + note
+		return "Notification(receivers: " + receivers + ", note: " + note
 				+ ", sender: " + sender + ", event: " + event + ")";
 	}
 }
