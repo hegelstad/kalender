@@ -75,6 +75,9 @@ public class WeekController {
 		drawEvents(allEvents);
 		
 		weekGrid.setOnMouseClicked( (mouseEvent) -> {
+			if(mouseOverEvent){
+				return;
+			}
 			double y = mouseEvent.getY();
 			double x = mouseEvent.getX();
 			int row = (int) (x/fullEventWidthPrecise);
