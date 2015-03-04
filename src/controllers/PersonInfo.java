@@ -10,13 +10,13 @@ import models.UserGroup;
 
 public class PersonInfo {
 
-	private Person person;
+	static Person person;
 	private ArrayList<UserGroup> usergroups;
 	private ArrayList<Calendar> calendars;
 	private ArrayList<Event> events;
 	private ArrayList<Notification> notifications;
 	
-	public Person getPerson() {
+	public static Person getPerson() {
 		return person;
 	}
 	
