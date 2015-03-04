@@ -24,7 +24,7 @@ public class LoginController {
   @FXML
   private void keyPressed(KeyEvent key) throws InterruptedException{
 	  if (key.getCode().equals(KeyCode.ENTER)){
-		  if (fielsdAreSet()){
+		  if (fieldsAreSet()){
 			  if (authenticateUser()){
 				  WindowController.goToCalendarView();
 			  }
@@ -34,12 +34,11 @@ public class LoginController {
 			  status.setText("Fill in both username and password");
 		  }
 	  }
-	  
   }
     
    @FXML
    private void loginButtonOnAction(){
-	   if (fielsdAreSet()){
+	   if (fieldsAreSet()){
 		   status.setText("logging in");
 		   if(authenticateUser()){
 			   WindowController.goToCalendarView();
@@ -51,7 +50,7 @@ public class LoginController {
 	 
    }
    
-   private boolean fielsdAreSet(){
+   private boolean fieldsAreSet(){
 	   if(username.getText().isEmpty() || password.getText().isEmpty()){
 		   return false;
 	   }
@@ -69,9 +68,7 @@ public class LoginController {
 	   this.p=p2;
 	   connection.closeConnection();
 	   return true;
-	   
    }
-
 }
 
 
