@@ -73,8 +73,9 @@ public class NotificationCell extends ListCell<Notification> {
 							Requester s = new Requester();
 							s.setRead(note, PersonInfo.getPerson());
 							s.closeConnection();
-							Requester q = new Requester();
-							
+							s = new Requester();
+							UserGroup personalUg = PersonInfo.getPersonalUserGroup();
+							s.updateAttends(note.getEvent(), new Attendant(personalUg.getUserGroupID(), personalUg.getName(), 1));
 							System.out.println("Notification flagged as read & accepted");
 
 							/* Removes the notification from ListView */

@@ -245,6 +245,35 @@ public class Requester {
     	return userGroups;
     }
     
+    /**
+     * Henter den personlige userGroupen for en Person.
+     * @param p
+     * @return
+     */
+    public UserGroup getPersonalUserGroup(Person p){
+    	Command cmd = new Command("getPersonalUserGroup-person");
+    	UserGroup userGroup = null;
+    	try{
+    		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+            oos.writeObject(cmd);
+            oos.writeObject(p);
+            InputStream is = con.getInputStream();
+            ObjectInputStream os = new ObjectInputStream(is);
+            Object o = os.readObject();
+            userGroup = (UserGroup) o;
+            System.out.println(userGroup);
+
+    	 }  catch (ClassCastException e) {
+             System.out.println(e);
+         }catch(ClassNotFoundException e){
+             System.out.println(e);
+         }catch (IOException e) {
+             // TODO Auto-generated catch block
+             e.printStackTrace();
+         }
+    	return userGroup;
+    }
+    
     
     //CALENDAR
     /**
@@ -733,14 +762,13 @@ public class Requester {
      * @param p
      * @param s
      */
-    public void updateAttends(Event ev, UserGroup ug, int s){
-    	Command cmd = new Command("updateAttends-event-usergroup-status");
+    public void updateAttends(Event ev, Attendant a){
+    	Command cmd = new Command("updateAttends-event-attendant");
     	try {
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
     		oos.writeObject(cmd);
     		oos.writeObject(ev);
-    		oos.writeObject(ug);
-    		oos.writeObject(s);
+    		oos.writeObject(a);
     	}  catch (ClassCastException e) {
     		System.out.println(e);
     	}
