@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -16,7 +17,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import models.Notification;
+import models.NotificationCell;
 import models.Person;
+import models.PersonInfo;
 import socket.Requester;
 
 import java.time.LocalDate;
@@ -27,7 +30,11 @@ import java.util.Locale;
 
 public class HeaderController {
 
-	//sad
+	
+	ListView<Notification> notificationList;
+	
+	ObservableList<Notification> notifications;
+    //sad
     @FXML
     private AnchorPane calendarHeaderView;
 
@@ -59,12 +66,16 @@ public class HeaderController {
     private Label sundayDayOfWeek;
 
     @FXML
+    private Button notificationButton;
+
+    @FXML
     private void addEventOnAction() {
         WindowController.goToEventView(null);
     }
 
     LocalDate date = LocalDate.now();
     ArrayList<Label> weekday_labels = new ArrayList<>();
+    Notification selected_notification;
 
     @FXML
     private void initialize() {
@@ -78,7 +89,7 @@ public class HeaderController {
 
     @FXML
     private void incrementWeek() {
-		
+
 		/* Add 1 week to LocalDate date */
         date = date.plusWeeks(1);
         updateDates();
@@ -86,7 +97,7 @@ public class HeaderController {
 
     @FXML
     private void decrementWeek() {
-		
+
 		/* Subtract 1 week of LocalDate date */
         date = date.minusWeeks(1);
         updateDates();
@@ -122,7 +133,8 @@ public class HeaderController {
 
         Scene s = WindowController.thisStage.getScene();
         Pane notificationWindow = (Pane) s.lookup("#notificationWindow");
-        ListView<Notification> notificationList = (ListView) s.lookup("#notificationList");
+        notificationList = (ListView) s.lookup("#notificationList");
+        
 
         if (notificationWindow.isVisible()) {
             notificationWindow.setVisible(false);
@@ -131,62 +143,12 @@ public class HeaderController {
 
             /* Replace new Person med PersonInfo.getPerson() */
             ArrayList<Notification> notes = r.getNotifications(new Person("Sondre", "Sondre Hjet", 1));
-            ObservableList<Notification> notifications = FXCollections.observableArrayList(notes);
+            notifications = FXCollections.observableArrayList(notes);
             notificationList.setItems(notifications);
 
             notificationList.setCellFactory((list) -> {
-                return new ListCell<Notification>() {
-                    @Override
-                    protected void updateItem(Notification n, boolean empty) {
-                        super.updateItem(n, empty);
-
-                        if (n == null || empty) {
-                            setText(null);
-                        } else {
-                            double original_content_height;
-                            Pane content = new Pane();
-                            Text t = new Text();
-                            
-                            t.setWrappingWidth(250.00);
-                            t.setText("\n" + "Note: " + n.getNote() + "\n" + "From " + n.getEvent().getName());
-                            content.getChildren().add(t);
-                            
-                            content.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                Boolean is_expanded = false;
-                                @Override
-                                public void handle(MouseEvent mouseEvent) {
-                                    if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                                        
-                                        if(!is_expanded){
-                                            content.setPrefHeight(content.getHeight() + 50);
-                                            Button accept = new Button("Accept");
-                                            Button decline = new Button("Decline");
-                                            accept.setPrefWidth(133);
-                                            decline.setPrefWidth(133);
-                                            accept.setLayoutY(content.getHeight() + 20);
-                                            decline.setLayoutY(content.getHeight() + 20);
-                                            decline.setLayoutX(138);
-                                            content.getChildren().addAll(accept, decline);
-                                            is_expanded = true;
-                                        } else {
-                                            content.getChildren().remove(1,2);
-                                            content.setPrefHeight(content.getHeight() - 50);
-                                            is_expanded = false;
-                                        }
-                                    }
-                                }
-                            });
-                            setGraphic(content);
-                        }
-                    }
-                };
-            });
-
-            System.out.println(notificationList.getChildrenUnmodifiable());
-            
-            notificationList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                Notification selected_notification = newValue;
-                System.out.println(selected_notification);
+            	System.out.println("yolo");
+                return new NotificationCell(notifications);
             });
             notificationWindow.setVisible(true);
         }
