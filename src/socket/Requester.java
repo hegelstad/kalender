@@ -245,6 +245,34 @@ public class Requester {
     	return userGroups;
     }
     
+    /**
+     * Henter den personlige userGroupen for en Person.
+     * @param p
+     * @return
+     */
+    public UserGroup getPersonalUserGroup(Person p){
+    	Command cmd = new Command("getPersonalUserGroup-person");
+    	UserGroup userGroup = null;
+    	try{
+    		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+            oos.writeObject(cmd);
+            InputStream is = con.getInputStream();
+            ObjectInputStream os = new ObjectInputStream(is);
+            Object o = os.readObject();
+            userGroup = (UserGroup) o;
+            System.out.println(userGroup);
+
+    	 }  catch (ClassCastException e) {
+             System.out.println(e);
+         }catch(ClassNotFoundException e){
+             System.out.println(e);
+         }catch (IOException e) {
+             // TODO Auto-generated catch block
+             e.printStackTrace();
+         }
+    	return userGroup;
+    }
+    
     
     //CALENDAR
     /**

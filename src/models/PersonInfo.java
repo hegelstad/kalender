@@ -11,6 +11,7 @@ import models.UserGroup;
 public class PersonInfo {
 
 	static Person person;
+	static UserGroup personalUserGroup;
 	private ArrayList<UserGroup> usergroups;
 	private ArrayList<Calendar> calendars;
 	private ArrayList<Event> events;
@@ -18,6 +19,10 @@ public class PersonInfo {
 	
 	public static Person getPerson() {
 		return person;
+	}
+	
+	public static UserGroup getPersonalUserGroup() {
+		return personalUserGroup;
 	}
 	
 	public ArrayList<UserGroup> getUsergroups() {
@@ -38,6 +43,10 @@ public class PersonInfo {
 	
 	public void setPerson(Person person) {
 		this.person = person;
+	}
+	
+	public void setPersonalUserGroup(UserGroup personalUserGroup) {
+		this.personalUserGroup = personalUserGroup;
 	}
 	
 	public void setUsergroups(ArrayList<UserGroup> usergroups) {

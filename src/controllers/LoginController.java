@@ -2,6 +2,7 @@ package controllers;
 
 import models.Person;
 import models.PersonInfo;
+import models.UserGroup;
 import socket.Requester;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -62,13 +63,16 @@ public class LoginController {
 	   connection = new Requester();
 	   p = new Person(username.getText(), password.getText());
 	   Person p2  = connection.authenticate(p);
+	   connection.closeConnection();
 	   if (p2 == null){
-		   connection.closeConnection();
 		   return false;
 	   }
 	   this.p=p2;
 	   PersonInfo personInfo = new PersonInfo();
 	   personInfo.setPerson(p);
+	   connection = new Requester();
+	   UserGroup ug = connection.getPersonalUserGroup(p);
+	   personInfo.setPersonalUserGroup(ug);
 	   System.out.println(p);
 	   connection.closeConnection();
 	   return true;
