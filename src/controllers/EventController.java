@@ -70,12 +70,11 @@ public class EventController {
 	
 	public void getAvailableRooms(){
 		Requester r = new Requester();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-		String datefrom = fromDate.toString();
-		String dateto = toDate.toString();
-		//LocalDateTime from = LocalDateTime.parse(result.getTimestamp("From").toString(), formatter);
-		Event ev = new Event(0, null, null, addedParticipants, null, null, null);
-		rooms = r.getRooms();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime from = LocalDateTime.parse(fromDate.getValue().toString() + " " + fromHours.getValue() + ":" + fromMinutes.getValue(), formatter);
+		LocalDateTime to = LocalDateTime.parse(toDate.getValue().toString() + " " + toHours.getValue() + ":" + toMinutes.getValue(), formatter);
+		Event ev = new Event(0, null, null, addedParticipants, from, to, null);
+		rooms = r.getAvailableRooms(ev);
 		r.closeConnection();
 		ObservableList<Room> ol = FXCollections.observableArrayList(rooms);
 		roomLocation.setItems(ol);
