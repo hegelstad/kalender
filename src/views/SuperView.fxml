@@ -12,7 +12,7 @@
         <GridPane>
             <columnConstraints>
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="374.74053955078125" minWidth="20.0"
-                                   prefWidth="300.0"/>
+                                   prefWidth="200.0"/>
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="1200.0" minWidth="1200.0"
                                    prefWidth="1200.0"/>
             </columnConstraints>
@@ -29,7 +29,7 @@
             </children>
         </GridPane>
 
-        <Pane fx:id="notificationWindow" style="-fx-translate-z: 0" prefWidth="300" prefHeight="230" translateX="1185"
+        <Pane fx:id="notificationWindow" style="-fx-translate-z: 0" prefWidth="300" prefHeight="300" translateX="1013"
               translateY="70">
             <Polygon fx:id="notificationTriangle" points="145.0, 20.0, 175.0, 20.0, 160.0, -5.0"/>
             <Label fx:id="notificationTitle" translateY="10" text="Notifications">

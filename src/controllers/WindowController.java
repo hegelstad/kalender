@@ -76,7 +76,7 @@ public class WindowController {
 	
 	public static void goToCalendarView(){
 		try{
-			replaceSceneContent("../views/SuperView.fxml", 1500 , 987);
+			replaceSceneContent("../views/SuperView.fxml", 1332 , 680);
 		}
 		catch (Exception e){
 			System.out.println(e);
