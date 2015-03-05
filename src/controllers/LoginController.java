@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class LoginController {
@@ -22,9 +23,16 @@ public class LoginController {
     Requester connection;
     Person p;
     
+  @FXML
+  private void initialize(){
+	  Rectangle shape = new Rectangle(1, 1);
+	  username.setShape(shape);
+	  password.setShape(shape);
+  }
 
   @FXML
   private void keyPressed(KeyEvent key) throws InterruptedException{
+	  
 	  if (key.getCode().equals(KeyCode.ENTER)){
 		  if (fieldsAreSet()){
 			  if (authenticateUser()){
