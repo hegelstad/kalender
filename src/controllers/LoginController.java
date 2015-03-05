@@ -69,6 +69,7 @@ public class LoginController {
 	   this.p=p2;
 	   PersonInfo personInfo = new PersonInfo();
 	   personInfo.setPerson(p);
+	   System.out.println(p);
 	   connection.closeConnection();
 	   return true;
    }
