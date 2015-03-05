@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import models.Notification;
+import models.NotificationCell;
 import models.Person;
 import models.PersonInfo;
 import socket.Requester;
@@ -29,6 +30,10 @@ import java.util.Locale;
 
 public class HeaderController {
 
+	
+	ListView<Notification> notificationList;
+	
+	ObservableList<Notification> notifications;
     //sad
     @FXML
     private AnchorPane calendarHeaderView;
@@ -128,8 +133,8 @@ public class HeaderController {
 
         Scene s = WindowController.thisStage.getScene();
         Pane notificationWindow = (Pane) s.lookup("#notificationWindow");
-        ListView<Notification> notificationList = (ListView) s.lookup("#notificationList");
-        ObservableList<Notification> notifications;
+        notificationList = (ListView) s.lookup("#notificationList");
+        
 
         if (notificationWindow.isVisible()) {
             notificationWindow.setVisible(false);
@@ -142,78 +147,8 @@ public class HeaderController {
             notificationList.setItems(notifications);
 
             notificationList.setCellFactory((list) -> {
-                return new ListCell<Notification>() {
-                    @Override
-                    protected void updateItem(Notification n, boolean empty) {
-                        super.updateItem(n, empty);
-
-                        if (n == null || empty) {
-                            setText(null);
-                        } else {
-
-                            Pane content = new Pane();
-                            Text t = new Text();
-                            t.setWrappingWidth(250.00);
-                            t.setText("\n" + "Note: " + n.getNote() + "\n" + "From " + n.getEvent().getName());
-                            content.getChildren().add(t);
-
-                            content.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                Boolean is_expanded = false;
-
-
-                                @Override
-                                public void handle(MouseEvent mouseEvent) {
-                                    if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-
-                                        if (!is_expanded) {
-                                            content.setPrefHeight(content.getHeight() + 50);
-                                            
-                                            /* Creates accept and decline button inside the pane */
-                                            Button decline = new Button("Decline");
-                                            Button accept = new Button("Accept");
-                                            accept.setPrefWidth(133);
-                                            accept.setLayoutY(content.getHeight() + 20);
-                                            decline.setLayoutY(content.getHeight() + 20);
-                                            decline.setLayoutX(138);
-                                            decline.setPrefWidth(133);
-
-                                            content.getChildren().addAll(accept, decline);
-                                            is_expanded = true;
-
-                                            accept.setOnAction(event -> {
-                                                
-                                                /* Replace new Person med PersonInfo.getPerson() */
-                                                //System.out.println(n);
-                                                //System.out.println(n.getNoteID());
-                                                
-                                                /* Set the notification as HasRead */
-                                                //Requester s = new Requester();
-                                                //s.setRead(n, new Person("Sondre", "Sondre Hjetland", 1));
-                                                //s.closeConnection();
-                                                //System.out.println("Notification flagged as read & accepted");
-                                                
-                                                /* Removes the notification from ListView */
-                                                notes.remove(n);
-                                                notificationList.setItems(FXCollections.observableArrayList(notes));
-                                                //notifications.remove(n);
-                                                //notifications =
-                                                //System.out.println(notifications);
-                                            });
-
-                                        } else {
-                                            //content.getChildren().remove(1, 2);
-                                            content.setPrefHeight(content.getHeight() - 50);
-                                            is_expanded = false;
-                                        }
-                                    }
-                                }
-                            });
-                            if (notes.contains(n)) {
-                                setGraphic(content);
-                            }
-                        }
-                    }
-                };
+            	System.out.println("yolo");
+                return new NotificationCell(notifications);
             });
             notificationWindow.setVisible(true);
         }
