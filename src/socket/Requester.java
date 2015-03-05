@@ -1,11 +1,13 @@
 package socket;
 
+import models.Attendant;
 import models.Calendar;
 import models.Event;
 import models.Notification;
 import models.Person;
 import models.Room;
 import models.UserGroup;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -722,6 +724,63 @@ public class Requester {
              e.printStackTrace();
          }
     	return r;
+    }
+    
+    //Attends
+    /**
+     * Updates person to mark if he is attending or not in the database.
+     * @param ev
+     * @param p
+     * @param s
+     */
+    public void updateAttends(Event ev, UserGroup ug, int s){
+    	Command cmd = new Command("updateAttends-event-usergroup-status");
+    	try {
+    		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+    		oos.writeObject(cmd);
+    		oos.writeObject(ev);
+    		oos.writeObject(ug);
+    		oos.writeObject(s);
+    	}  catch (ClassCastException e) {
+    		System.out.println(e);
+    	}
+    	catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    }
+    
+    /**
+     * Henter alle inviterte deltakere til et event.
+     * @param ev
+     * @return
+     */
+    public ArrayList<Attendant> getAttendands(Event ev){
+    	Command cmd = new Command("getAttendands-event");
+    	ArrayList<Attendant> attendants = null;
+    	try{
+    		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+            oos.writeObject(cmd);
+            oos.writeObject(ev);
+            InputStream is = con.getInputStream();
+            ObjectInputStream os = new ObjectInputStream(is);
+            Object o = os.readObject();
+            attendants = (ArrayList<Attendant>) o;
+            for (Attendant a : attendants){
+                System.out.println(a);
+            }
+
+    	 }  catch (ClassCastException e) {
+             System.out.println(e);
+         }
+         catch(ClassNotFoundException e){
+             System.out.println(e);
+         }
+         catch (IOException e) {
+             // TODO Auto-generated catch block
+             e.printStackTrace();
+         }
+    	return attendants;
     }
     
     /**
