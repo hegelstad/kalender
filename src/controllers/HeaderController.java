@@ -142,12 +142,11 @@ public class HeaderController {
             Requester r = new Requester();
 
             /* Replace new Person med PersonInfo.getPerson() */
-            ArrayList<Notification> notes = r.getNotifications(new Person("Sondre", "Sondre Hjet", 1));
+            ArrayList<Notification> notes = r.getNotifications(PersonInfo.getPerson());
             notifications = FXCollections.observableArrayList(notes);
             notificationList.setItems(notifications);
 
             notificationList.setCellFactory((list) -> {
-            	System.out.println("yolo");
                 return new NotificationCell(notifications);
             });
             notificationWindow.setVisible(true);

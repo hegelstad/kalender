@@ -71,8 +71,10 @@ public class NotificationCell extends ListCell<Notification> {
 
 							/* Set the notification as HasRead */
 							Requester s = new Requester();
-							s.setRead(note, new Person("Sondre", "Sondre Hjetland", 1));
+							s.setRead(note, PersonInfo.getPerson());
 							s.closeConnection();
+							Requester q = new Requester();
+							
 							System.out.println("Notification flagged as read & accepted");
 
 							/* Removes the notification from ListView */
