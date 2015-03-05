@@ -256,6 +256,7 @@ public class Requester {
     	try{
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
             oos.writeObject(cmd);
+            oos.writeObject(p);
             InputStream is = con.getInputStream();
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
@@ -761,14 +762,13 @@ public class Requester {
      * @param p
      * @param s
      */
-    public void updateAttends(Event ev, UserGroup ug, int s){
-    	Command cmd = new Command("updateAttends-event-usergroup-status");
+    public void updateAttends(Event ev, Attendant a){
+    	Command cmd = new Command("updateAttends-event-attendant");
     	try {
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
     		oos.writeObject(cmd);
     		oos.writeObject(ev);
-    		oos.writeObject(ug);
-    		oos.writeObject(s);
+    		oos.writeObject(a);
     	}  catch (ClassCastException e) {
     		System.out.println(e);
     	}
