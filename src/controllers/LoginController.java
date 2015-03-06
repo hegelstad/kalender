@@ -83,6 +83,7 @@ public class LoginController {
 	   personInfo.setPersonalUserGroup(ug);
 	   System.out.println(p);
 	   connection.closeConnection();
+	   PersonInfo.setPersonInfo(personInfo);
 	   return true;
    }
 }
