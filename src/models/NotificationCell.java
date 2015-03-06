@@ -37,7 +37,7 @@ public class NotificationCell extends ListCell<Notification> {
 		Pane content = new Pane();
 		Text t = new Text();
 		t.setWrappingWidth(250.00);
-		t.setText("\n" + "Note: " + note.getNote() + "\n" + "From " + note.getEvent().getName());
+		t.setText("\n" + note.getNote() + "\n" + "From " + note.getSender().getName());
 		content.getChildren().add(t);
 
 		content.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -74,8 +74,9 @@ public class NotificationCell extends ListCell<Notification> {
 							s.setRead(note, PersonInfo.getPersonInfo().getPersonalUserGroup());
 							s.closeConnection();
 							s = new Requester();
-							UserGroup personalUg = PersonInfo.getPersonInfo().getPersonalUserGroup();
-							s.updateAttends(note.getEvent(), new Attendant(personalUg.getUserGroupID(), personalUg.getName(), 1));
+							Attendant at = new Attendant(PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID(), PersonInfo.getPersonInfo().getPersonalUserGroup().getName(), 1);
+							s.updateAttends(note.getEvent(), at);
+							s.closeConnection();
 							System.out.println("Notification flagged as read & accepted");
 
 							/* Removes the notification from ListView */
