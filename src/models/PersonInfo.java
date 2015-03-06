@@ -1,6 +1,10 @@
 package models;
 
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.TreeSet;
 
 import models.Calendar;
 import models.Event;
@@ -83,14 +87,20 @@ public class PersonInfo {
 		this.calendarsInUse = calendarsInUse;
 	}
 	
-	public ArrayList<Event> getEventsForWeek(int weekNumber){
-		ArrayList<Event> events = new ArrayList<Event>();
-		for(Calendar cal: calendarsInUse){
-			
+	public TreeSet<Event> getEventsForWeek(int weekNumber){
+		TreeSet<Event> events = new TreeSet<Event>();
+		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+		if(calendarsInUse == null){
+			System.out.println("Ingen brukerkalendere registrert");
+			return null;
 		}
-		
-		
-		
+		for(Calendar cal: calendarsInUse){
+			for(Event event : cal.getEvents()){
+				if(event.getFrom().get(woy)==weekNumber){
+					events.add(event);
+				}
+			}
+		}
 		return events;
 	}
 	
