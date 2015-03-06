@@ -5,41 +5,29 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="EventView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="712.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EventController">
+<AnchorPane fx:id="EventView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EventController">
    <children>
-      <TextField fx:id="title" layoutX="91.0" layoutY="53.0" prefHeight="26.0" prefWidth="375.0" />
-      <ComboBox fx:id="roomLocation" editable="false" layoutX="91.0" layoutY="108.0" onMouseClicked="#getAvailableRooms" prefWidth="375.0" />
-      <DatePicker fx:id="fromDate" editable="false" layoutX="91.0" layoutY="163.0" promptText="MM.DD.YYYY" />
-      <DatePicker fx:id="toDate" editable="false" layoutX="91.0" layoutY="216.0" promptText="MM.DD.YYYY" />
-      <TextArea fx:id="note" layoutX="91.0" layoutY="278.0" prefHeight="200.0" prefWidth="375.0" />
-      <Label layoutX="230.0" layoutY="21.0" text="Event" />
-      <Label layoutX="32.0" layoutY="58.0" text="Title" />
-      <Label layoutX="32.0" layoutY="113.0" text="Location" />
-      <Label layoutX="32.0" layoutY="168.0" text="From" />
-      <Label layoutX="32.0" layoutY="223.0" text="To" />
-      <Label layoutX="32.0" layoutY="285.0" text="Note" />
-      <ComboBox fx:id="addParticipantsSearch" editable="true" layoutX="94.0" layoutY="529.0" prefHeight="26.0" prefWidth="169.0" />
-      <ListView fx:id="participantsStatus" layoutX="306.0" layoutY="529.0" prefHeight="118.0" prefWidth="160.0" />
-      <Button fx:id="saveButton" layoutX="320.0" layoutY="674.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="26.0" prefWidth="66.0" text="Save" />
-      <Button fx:id="cancelButton" layoutX="400.0" layoutY="674.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="26.0" prefWidth="66.0" text="Cancel" />
-      <CheckBox layoutX="91.0" layoutY="588.0" mnemonicParsing="false" text="Set reminder" />
-      <ComboBox disable="true" editable="true" layoutX="103.0" layoutY="621.0" prefHeight="16.0" prefWidth="75.0" />
-      <Label layoutX="91.0" layoutY="503.0" text="Add participants" />
-      <Label layoutX="306.0" layoutY="503.0" text="Participants status" />
-      <ComboBox fx:id="fromHours" layoutX="300.0" layoutY="163.0" prefHeight="26.0" prefWidth="75.0" promptText="HH" />
-      <ComboBox fx:id="fromMinutes" layoutX="387.0" layoutY="163.0" prefHeight="26.0" prefWidth="75.0" promptText="MM" />
-      <ComboBox fx:id="toHours" layoutX="300.0" layoutY="216.0" prefHeight="26.0" prefWidth="75.0" promptText="HH" />
-      <ComboBox fx:id="toMinutes" layoutX="387.0" layoutY="216.0" prefHeight="26.0" prefWidth="75.0" promptText="MM" />
-      <ComboBox disable="true" layoutX="185.0" layoutY="621.0" prefHeight="16.0" prefWidth="75.0" />
-      <Button fx:id="addParticipantsButton" layoutX="268.0" layoutY="529.0" mnemonicParsing="false" onAction="#addParticipant" prefHeight="26.0" prefWidth="29.0" text="-&gt;">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Button>
-      <Button fx:id="removeParticipantsButton" layoutX="268.0" layoutY="562.0" mnemonicParsing="false" onAction="#removeParticipant" prefHeight="26.0" prefWidth="29.0" text="-&gt;">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Button>
+      <TextField fx:id="title" layoutX="80.0" layoutY="53.0" prefHeight="26.0" prefWidth="300.0" translateY="-20.0" />
+      <ComboBox fx:id="roomLocation" editable="true" layoutX="80.0" layoutY="184.0" onMouseClicked="#getAvailableRooms" prefHeight="26.0" prefWidth="300.0" translateY="-20.0" />
+      <DatePicker fx:id="fromDate" editable="false" layoutX="80.0" layoutY="95.0" prefHeight="26.0" prefWidth="129.0" promptText="MM.DD.YYYY" translateY="-20.0" />
+      <DatePicker fx:id="toDate" editable="false" layoutX="80.0" layoutY="142.0" prefHeight="26.0" prefWidth="129.0" promptText="MM.DD.YYYY" translateY="-20.0" />
+      <TextArea fx:id="note" layoutX="80.0" layoutY="230.0" prefHeight="118.0" prefWidth="300.0" translateY="-20.0" />
+      <Label layoutX="198.0" layoutY="6.0" text="Event" />
+      <Label layoutX="18.0" layoutY="58.0" text="Title" translateY="-20.0" />
+      <Label layoutX="18.0" layoutY="189.0" text="Location" translateY="-20.0" />
+      <Label layoutX="18.0" layoutY="100.0" text="From" translateY="-20.0" />
+      <Label layoutX="18.0" layoutY="147.0" text="To" translateY="-20.0" />
+      <Label layoutX="19.0" layoutY="263.0" text="Note" translateY="-20.0" />
+      <ComboBox fx:id="addParticipantsSearch" editable="true" layoutX="80.0" layoutY="385.0" prefHeight="26.0" prefWidth="262.0" translateY="-20.0" />
+      <ListView fx:id="participantsStatus" layoutX="80.0" layoutY="420.0" prefHeight="112.0" prefWidth="262.0" translateY="-20.0" />
+      <Button fx:id="saveButton" layoutX="239.0" layoutY="550.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="26.0" prefWidth="66.0" text="Save" translateY="-20.0" />
+      <Button fx:id="cancelButton" layoutX="323.0" layoutY="550.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="26.0" prefWidth="66.0" text="Cancel" translateY="-20.0" />
+      <Label layoutX="80.0" layoutY="360.0" text="Add participants" translateY="-20.0" />
+      <ComboBox fx:id="fromHours" layoutX="220.0" layoutY="95.0" prefHeight="26.0" prefWidth="75.0" promptText="HH" translateY="-20.0" />
+      <ComboBox fx:id="fromMinutes" layoutX="305.0" layoutY="95.0" prefHeight="26.0" prefWidth="75.0" promptText="MM" translateY="-20.0" />
+      <ComboBox fx:id="toHours" layoutX="220.0" layoutY="142.0" prefHeight="26.0" prefWidth="75.0" promptText="HH" translateY="-20.0" />
+      <ComboBox fx:id="toMinutes" layoutX="305.0" layoutY="142.0" prefHeight="26.0" prefWidth="75.0" promptText="MM" translateY="-20.0" />
+      <Button fx:id="addParticipantsButton" layoutX="356.0" layoutY="385.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" text="+" translateY="-20.0" />
+      <Button fx:id="removeParticipantsButton" layoutX="356.0" layoutY="420.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" text="-" translateY="-20.0" />
    </children>
 </AnchorPane>

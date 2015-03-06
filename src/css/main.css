@@ -11,8 +11,8 @@ EVENT/CALENDAR
 
 **/
 
-#calendarEventsView {
-    -fx-background-color: #121314;
+#weekTimeGrid {
+    -fx-background-color: #4c4f51;
 }
 
 /**
