@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import socket.Requester;
 import models.Calendar;
 import models.Event;
+import models.Notification;
+import models.PersonInfo;
 import models.Room;
 import models.UserGroup;
 import javafx.collections.FXCollections;
@@ -76,6 +78,14 @@ public class EventController {
 		Event ev = new Event(0, title.getText(), note.getText(), addedParticipants, getFromTime(), getToTime(), cal);
 		ev = r.createEvent(ev);
 		r.closeConnection();
+		r = new Requester();
+		Room room = roomLocation.getSelectionModel().getSelectedItem();
+		if (room != null){
+			r.bookRoom(ev, room);
+		}
+		r.closeConnection();
+		r = new Requester();
+		r.setNotification(new Notification(0, "Invitasjon til: " + ev.getName(), PersonInfo.getPersonInfo().getPersonUserGroup(), addedParticipants, ev, 1));
 		return (ev.getEventID() != 0);
 	}
 
