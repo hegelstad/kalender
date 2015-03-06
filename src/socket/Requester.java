@@ -440,7 +440,7 @@ public class Requester {
     
     /**
      * Denne må returnere et Event og oppdatere eventet.
-     * Tar inn et event, oppretter eventet og returnerer eventet.
+     * Tar inn et event og et rom, oppretter eventet, booker rom og returnerer eventet.
      * @param event
      */
     public Event createEvent(Event event){
@@ -470,7 +470,7 @@ public class Requester {
     }
     
     /**
-     * Denne må returnere et Event og oppdatere eventet.
+     * Oppdaterer event.
      * @param event
      */
     public void editEvent(Event event){
@@ -755,6 +755,59 @@ public class Requester {
     	return r;
     }
     
+    /**
+     * Tar inn et event og et rom og oppretter rombooking. Om et event eksisterer med rombooking fra før vil denne
+     * booking bli slettet, og en ny opprettet.
+     * @param ev
+     * @param rm
+     */
+    public void bookRoom(Event ev, Room rm){
+    	Command cmd = new Command("bookRoom-event-room");
+    	try {
+    		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+    		oos.writeObject(cmd);
+    		oos.writeObject(ev);
+    		oos.writeObject(rm);
+    	}  catch (ClassCastException e) {
+    		System.out.println(e);
+    	}
+    	catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    }
+    
+    /**
+     * Tar inn et event og returnerer eventuell roombooking for eventet.
+     * @param ev
+     * @return
+     */
+    public Room getEventRoom(Event ev){
+    	Command cmd = new Command("getEventRoom-event");
+    	Room r = null;
+    	try{
+    		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+            oos.writeObject(cmd);
+            oos.writeObject(ev);
+            InputStream is = con.getInputStream();
+            ObjectInputStream os = new ObjectInputStream(is);
+            Object o = os.readObject();
+            r = (Room) o;
+            System.out.println(r);
+            }catch (ClassCastException e) {
+             System.out.println(e);
+         }
+         catch(ClassNotFoundException e){
+             System.out.println(e);
+         }
+         catch (IOException e) {
+             // TODO Auto-generated catch block
+             e.printStackTrace();
+         }
+    	return r;
+    }
+    
+    
     //Attends
     /**
      * Updates person to mark if he is attending or not in the database.
@@ -769,6 +822,28 @@ public class Requester {
     		oos.writeObject(cmd);
     		oos.writeObject(ev);
     		oos.writeObject(a);
+    	}  catch (ClassCastException e) {
+    		System.out.println(e);
+    	}
+    	catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    }
+    
+    /**
+     * Inserts an attendant to Attends
+     * @param ev
+     * @param p
+     * @param s
+     */
+    public void setAttends(Event ev, ArrayList<UserGroup> ug){
+    	Command cmd = new Command("setAttends-event-attendants");
+    	try {
+    		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+    		oos.writeObject(cmd);
+    		oos.writeObject(ev);
+    		oos.writeObject(ug);
     	}  catch (ClassCastException e) {
     		System.out.println(e);
     	}
