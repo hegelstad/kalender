@@ -2,6 +2,7 @@ package controllers;
 
 import models.Person;
 import models.PersonInfo;
+import models.UserGroup;
 import socket.Requester;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class LoginController {
@@ -21,9 +23,16 @@ public class LoginController {
     Requester connection;
     Person p;
     
+  @FXML
+  private void initialize(){
+	  Rectangle shape = new Rectangle(1, 1);
+	  username.setShape(shape);
+	  password.setShape(shape);
+  }
 
   @FXML
   private void keyPressed(KeyEvent key) throws InterruptedException{
+	  
 	  if (key.getCode().equals(KeyCode.ENTER)){
 		  if (fieldsAreSet()){
 			  if (authenticateUser()){
@@ -62,13 +71,16 @@ public class LoginController {
 	   connection = new Requester();
 	   p = new Person(username.getText(), password.getText());
 	   Person p2  = connection.authenticate(p);
+	   connection.closeConnection();
 	   if (p2 == null){
-		   connection.closeConnection();
 		   return false;
 	   }
 	   this.p=p2;
 	   PersonInfo personInfo = new PersonInfo();
 	   personInfo.setPerson(p);
+	   connection = new Requester();
+	   UserGroup ug = connection.getPersonalUserGroup(p);
+	   personInfo.setPersonalUserGroup(ug);
 	   System.out.println(p);
 	   connection.closeConnection();
 	   return true;
