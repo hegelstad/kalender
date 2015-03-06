@@ -31,8 +31,7 @@ public class LoginController {
   }
 
   @FXML
-  private void keyPressed(KeyEvent key) throws InterruptedException{
-	  
+  private void keyPressed(KeyEvent key) {
 	  if (key.getCode().equals(KeyCode.ENTER)){
 		  if (fieldsAreSet()){
 			  if (authenticateUser()){
