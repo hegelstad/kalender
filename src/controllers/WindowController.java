@@ -2,11 +2,14 @@ package controllers;
 
 import models.Event;
 import controllers.Main;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * WindowsController control all the windows
@@ -16,6 +19,8 @@ public class WindowController {
 
 	public static Stage thisStage;
 	private static Main program;
+	private static double xOffset = 0;
+	private static double yOffset = 0;
 	
 	
 	public static void setProgram(Main p){
@@ -87,6 +92,7 @@ public class WindowController {
 	public static void goToEventView(Event event){
 		try{
 			Stage eventWindows = new Stage();
+			eventWindows.initStyle(StageStyle.UNDECORATED);
 			Parent page;
 			FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/EventView.fxml"), null, new JavaFXBuilderFactory());
 			page = (Parent) loader.load();
@@ -94,8 +100,24 @@ public class WindowController {
 			if (event != null){
 				controller.openEvent(event);
 			}
+			page.setOnMousePressed(new EventHandler<MouseEvent>() {
+	            @Override
+	            public void handle(MouseEvent event) {
+	               xOffset = event.getSceneX();
+	               yOffset = event.getSceneY();
+	            }
+	        });
+	        page.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	            @Override
+	            public void handle(MouseEvent event) {
+	                eventWindows.setX(event.getScreenX() - xOffset);
+	                eventWindows.setY(event.getScreenY() - yOffset);
+	            }
+	        });
+			
 			controller.setStage(eventWindows);
-			Scene scene = new Scene(page, 494, 712);
+			Scene scene = new Scene(page, 410, 570);
+			scene.getStylesheets().add("/css/event.css");
 			eventWindows.setScene(scene);
 			eventWindows.centerOnScreen();
 			//Fix later: Only if event ==null	
