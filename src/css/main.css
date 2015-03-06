@@ -11,7 +11,7 @@ EVENT/CALENDAR
 
 **/
 
-#calendarEventsView {
+#weekGrid {
     -fx-background-color: #121314;
 }
 

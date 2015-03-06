@@ -42,10 +42,10 @@ public class WeekController {
 	
 	/* Making some testdata */
 	Calendar cal = new Calendar(1, "SuperKalender", null);
-	Event event = new Event(1, "Møte",null, null, LocalDateTime.now(), LocalDateTime.now().plusHours(2) , cal);
-	Event event2 = new Event(2, "Annet Møte",null, null, LocalDateTime.now().plusMinutes(15)
+	Event event = new Event(1, "Mï¿½te",null, null, LocalDateTime.now(), LocalDateTime.now().plusHours(2) , cal);
+	Event event2 = new Event(2, "Annet Mï¿½te",null, null, LocalDateTime.now().plusMinutes(15)
 			, LocalDateTime.now().plusHours(1).plusMinutes(15) , cal);
-	Event event3 = new Event(3, "Siste møte",null, null, LocalDateTime.now().plusHours(1)
+	Event event3 = new Event(3, "Siste mï¿½te",null, null, LocalDateTime.now().plusHours(1)
 			, LocalDateTime.now().plusHours(2) , cal);
 	
 	
@@ -148,7 +148,7 @@ public class WeekController {
 		r.setArcWidth(3);
 		r.strokeProperty().set(Color.BLACK);
 		r.strokeWidthProperty().set(1);
-		r.fillProperty().set(Color.CHARTREUSE);
+		r.fillProperty().set(Color.LIGHTGOLDENRODYELLOW);
 		r.opacityProperty().set(0.5);
 	}
 	
@@ -174,9 +174,9 @@ public class WeekController {
 			Event currentEvent = events.get(k);
 			System.out.println(currentEvent.getName());
 			
-			//Gå oppover til det ikke overlapper og sett indent
+			//Gï¿½ oppover til det ikke overlapper og sett indent
 			for(int i=k-1; i>-1; i--){
-				if(currentEvent.getName().equals("Annet møte")){
+				if(currentEvent.getName().equals("Annet mï¿½te")){
 					System.out.println("------");
 					System.out.println(events.get(i).getName());						
 				}
@@ -189,7 +189,7 @@ public class WeekController {
 				}
 			}
 			
-			//Gå nedover til det ikke overlapper og sett reverseIndent
+			//Gï¿½ nedover til det ikke overlapper og sett reverseIndent
 			for(int i=k+1; i<events.size(); i++){
 				if(currentEvent.getTo().isAfter(events.get(i).getFrom())){
 					reverseIndent += 1;
