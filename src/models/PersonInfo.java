@@ -89,7 +89,11 @@ public class PersonInfo {
 	
 	public TreeSet<Event> getEventsForWeek(int weekNumber){
 		TreeSet<Event> events = new TreeSet<Event>();
-		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(); 
+		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+		if(calendarsInUse == null){
+			System.out.println("Ingen brukerkalendere registrert");
+			return null;
+		}
 		for(Calendar cal: calendarsInUse){
 			for(Event event : cal.getEvents()){
 				if(event.getFrom().get(woy)==weekNumber){
