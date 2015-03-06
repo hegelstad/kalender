@@ -27,7 +27,7 @@ public class Requester {
      * IP TIL SERVER MÅ SETTES HER!
      */
     public Requester (){
-    	String host = "78.91.16.97";
+    	String host = "78.91.16.145";
         /** Define a port */
         int port = 25025;
 
