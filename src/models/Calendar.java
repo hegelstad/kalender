@@ -8,7 +8,8 @@ public class Calendar implements Serializable {
     int CalendarID;
     String name;
     ArrayList<UserGroup> userGroups;
-
+    ArrayList<Event> events;
+    
     public Calendar(int calendarID, String name, ArrayList<UserGroup> userGroups) {
         CalendarID = calendarID;
         this.name = name;
@@ -47,4 +48,13 @@ public class Calendar implements Serializable {
                 ", userGroups subscribed: " + userGroups +
                 ')';
     }
+    
+    public void setEvents(ArrayList<Event> events){
+    	this.events = events;
+    }
+    
+    public ArrayList<Event> getEvents(){
+    	return events;
+    }
+    
 }

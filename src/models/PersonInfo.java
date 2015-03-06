@@ -14,7 +14,8 @@ public class PersonInfo {
 	private Person person;
 	private UserGroup personalUserGroup;
 	private ArrayList<UserGroup> usergroups;
-	private ArrayList<Calendar> calendars;
+	private ArrayList<Calendar> allCalendars;
+	private ArrayList<Calendar> calendarsInUse;
 	private ArrayList<Event> events;
 	private ArrayList<Notification> notifications;
 	
@@ -30,8 +31,8 @@ public class PersonInfo {
 		return usergroups;
 	}
 	
-	public ArrayList<Calendar> getCalendars() {
-		return calendars;
+	public ArrayList<Calendar> getAllCalendars() {
+		return allCalendars;
 	}
 	
 	public ArrayList<Event> getEvents() {
@@ -54,8 +55,8 @@ public class PersonInfo {
 		this.usergroups = usergroups;
 	}
 	
-	public void setCalendars(ArrayList<Calendar> calendars) {
-		this.calendars = calendars;
+	public void setAllCalendars(ArrayList<Calendar> allCalendars) {
+		this.allCalendars = allCalendars;
 	}
 	
 	public void setEvents(ArrayList<Event> events) {
@@ -73,4 +74,24 @@ public class PersonInfo {
 	public static void setPersonInfo(PersonInfo p){
 		personInfo = p;
 	}
+	
+	public ArrayList<Calendar> getCalendarsInUse(){
+		return calendarsInUse;
+	}
+	
+	public void setCalendarsInUse(ArrayList<Calendar> calendarsInUse){
+		this.calendarsInUse = calendarsInUse;
+	}
+	
+	public ArrayList<Event> getEventsForWeek(int weekNumber){
+		ArrayList<Event> events = new ArrayList<Event>();
+		for(Calendar cal: calendarsInUse){
+			
+		}
+		
+		
+		
+		return events;
+	}
+	
 }
