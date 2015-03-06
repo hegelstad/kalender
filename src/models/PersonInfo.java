@@ -10,18 +10,19 @@ import models.UserGroup;
 
 public class PersonInfo {
 
-	static Person person;
-	static UserGroup personalUserGroup;
+	public static PersonInfo personInfo;
+	private Person person;
+	private UserGroup personalUserGroup;
 	private ArrayList<UserGroup> usergroups;
 	private ArrayList<Calendar> calendars;
 	private ArrayList<Event> events;
 	private ArrayList<Notification> notifications;
 	
-	public static Person getPerson() {
+	public Person getPerson() {
 		return person;
 	}
 	
-	public static UserGroup getPersonalUserGroup() {
+	public UserGroup getPersonalUserGroup() {
 		return personalUserGroup;
 	}
 	
@@ -63,5 +64,13 @@ public class PersonInfo {
 	
 	public void setNotifications(ArrayList<Notification> notifications) {
 		this.notifications = notifications;
+	}
+	
+	public static PersonInfo getPersonInfo(){
+		return personInfo;
+	}
+	
+	public static void setPersonInfo(PersonInfo p){
+		personInfo = p;
 	}
 }
