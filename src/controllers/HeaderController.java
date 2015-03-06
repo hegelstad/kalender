@@ -1,27 +1,16 @@
 package controllers;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
-import javafx.util.Callback;
 import models.Notification;
 import models.NotificationCell;
-import models.Person;
 import models.PersonInfo;
 import socket.Requester;
-
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
@@ -30,55 +19,27 @@ import java.util.Locale;
 
 public class HeaderController {
 
-	
 	ListView<Notification> notificationList;
-	
-	ObservableList<Notification> notifications;
+    ObservableList<Notification> notifications;
     //sad
-    @FXML
-    private AnchorPane calendarHeaderView;
 
-    @FXML
-    private Label month_Year;
-
-    @FXML
-    private Label weekNr;
-
-    @FXML
-    private Label mondayDayOfWeek;
-
-    @FXML
-    private Label tuesdayDayOfWeek;
-
-    @FXML
-    private Label wednesdayDayOfWeek;
-
-    @FXML
-    private Label thursdayDayOfWeek;
-
-    @FXML
-    private Label fridayDayOfWeek;
-
-    @FXML
-    private Label saturdayDayOfWeek;
-
-    @FXML
-    private Label sundayDayOfWeek;
-
-    @FXML
-    private Button notificationButton;
-
-    @FXML
-    private void addEventOnAction() {
-        WindowController.goToEventView(null);
-    }
+    @FXML private AnchorPane calendarHeaderView;
+    @FXML private Label month_Year;
+    @FXML private Label weekNr;
+    @FXML private Label mondayDayOfWeek;
+    @FXML private Label tuesdayDayOfWeek;
+    @FXML private Label wednesdayDayOfWeek;
+    @FXML private Label thursdayDayOfWeek;
+    @FXML private Label fridayDayOfWeek;
+    @FXML private Label saturdayDayOfWeek;
+    @FXML private Label sundayDayOfWeek;
+    @FXML private Button notificationButton;
 
     LocalDate date = LocalDate.now();
     ArrayList<Label> weekday_labels = new ArrayList<>();
     Notification selected_notification;
 
-    @FXML
-    private void initialize() {
+    @FXML private void initialize() {
 
 		/* Add all labels to an ArrayList<Label> */
         Label[] temp_weekday_labels = {mondayDayOfWeek, tuesdayDayOfWeek, wednesdayDayOfWeek, thursdayDayOfWeek,
@@ -87,24 +48,25 @@ public class HeaderController {
         updateDates();
     }
 
-    @FXML
-    private void incrementWeek() {
+    @FXML private void addEventOnAction() {
+        WindowController.goToEventView(null);
+    }
+
+    @FXML private void incrementWeek() {
 
 		/* Add 1 week to LocalDate date */
         date = date.plusWeeks(1);
         updateDates();
     }
 
-    @FXML
-    private void decrementWeek() {
+    @FXML private void decrementWeek() {
 
 		/* Subtract 1 week of LocalDate date */
         date = date.minusWeeks(1);
         updateDates();
     }
 
-    @FXML
-    private void updateDates() {
+    @FXML private void updateDates() {
 		
 		/* Set current week number */
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
@@ -121,15 +83,12 @@ public class HeaderController {
         }
     }
 
-    @FXML
-    private void logOff() {
-		
-		/* Returns the user to the log-in screen */
+    @FXML private void logOff() {
+		/* Sends the user to the log-in screen */
         WindowController.goToLogin();
     }
 
-    @FXML
-    private void openNotifications() {
+    @FXML private void openNotifications() {
 
         Scene s = WindowController.thisStage.getScene();
         Pane notificationWindow = (Pane) s.lookup("#notificationWindow");
