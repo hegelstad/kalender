@@ -74,9 +74,14 @@ public class HeaderController {
         int weekNumber = date.get(weekFields.weekOfWeekBasedYear());
         weekNr.setText("" + weekNumber);
         
-        /* Update WeekController drawings */
-        WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
-		
+//        /* Update WeekController drawings */
+//     
+//        if(WeekController.getController()==null){
+//        	System.out.println("WeekController not yet inited");
+//        	return;
+//        }
+//        WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
+//		
 		/* Set current month/year */
         month_Year.setText(date.getMonth() + " " + date.getYear());
 		
