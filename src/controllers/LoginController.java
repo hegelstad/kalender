@@ -1,5 +1,10 @@
 package controllers;
 
+import java.util.ArrayList;
+
+import models.Calendar;
+import models.Event;
+import models.Notification;
 import models.Person;
 import models.PersonInfo;
 import models.UserGroup;
@@ -75,13 +80,37 @@ public class LoginController {
 		   return false;
 	   }
 	   this.p=p2;
+	   
 	   PersonInfo personInfo = new PersonInfo();
-	   personInfo.setPerson(p);
+	   personInfo.setPerson(this.p);
+	   
 	   connection = new Requester();
 	   UserGroup ug = connection.getPersonalUserGroup(p);
 	   personInfo.setPersonalUserGroup(ug);
 	   System.out.println(p);
 	   connection.closeConnection();
+	   
+	   connection = new Requester();
+	   ArrayList<UserGroup> ugs = connection.getUserGroups(this.p);
+	   System.out.println(ugs);
+	   personInfo.setUsergroups(ugs);
+	   connection.closeConnection();
+	   
+	   connection = new Requester();
+	   ArrayList<Notification> n = connection.getNotifications(ug);
+	   personInfo.setNotifications(n);
+	   connection.closeConnection();
+	   
+	   connection = new Requester();
+	   ArrayList<Calendar> cal = connection.getCalendars(ug);
+	   personInfo.setAllCalendars(cal);
+	   connection.closeConnection();
+	   
+	   connection = new Requester();
+	   ArrayList<Event> events = connection.getEvents(cal);
+	   personInfo.setEvents(events);
+	   connection.closeConnection();
+	   
 	   PersonInfo.setPersonInfo(personInfo);
 	   return true;
    }
