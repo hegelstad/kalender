@@ -46,6 +46,7 @@ public class HeaderController {
         Label[] temp_weekday_labels = {mondayDayOfWeek, tuesdayDayOfWeek, wednesdayDayOfWeek, thursdayDayOfWeek,
                 fridayDayOfWeek, saturdayDayOfWeek, sundayDayOfWeek};
         weekday_labels.addAll(Arrays.asList(temp_weekday_labels));
+        notificationButton.setText(Integer.toString(PersonInfo.getNotifications().size()));
         System.out.println("HeaderController inited");
     }
 
