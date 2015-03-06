@@ -4,6 +4,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 public class CalendarCell extends ListCell<Calendar> {
 	
 	public CalendarCell(){
@@ -14,6 +15,8 @@ public class CalendarCell extends ListCell<Calendar> {
 		Pane pane = new Pane();
 		CheckBox checkbox = new CheckBox();
 		Label label = new Label(cal.getName());
+		label.setLayoutX(20);
+		label.setTextFill(Color.BLACK);
 		pane.getChildren().addAll(checkbox,label);
 		checkbox.selectedProperty().addListener( (ob,oldVal,newVal) -> {
 			if(newVal)
@@ -26,6 +29,7 @@ public class CalendarCell extends ListCell<Calendar> {
 			}
 			}
 		);
+		setGraphic(pane);
 	}
 	
 	@Override
