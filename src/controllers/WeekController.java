@@ -28,6 +28,7 @@ import javafx.util.Duration;
 
 public class WeekController {
 
+	public static WeekController controller;
 	public final double fullEventWidth = 158;
 	public final double fullEventWidthPrecise = 156.31; 
 	public final double hourHeight = 66;
@@ -57,7 +58,8 @@ public class WeekController {
 	}
 	
 	@FXML
-	private void initialize(){		
+	private void initialize(){
+		controller = this;
 		for(RowConstraints r :weekGrid.getRowConstraints()){
 			r.setValignment(VPos.TOP);
 		}
@@ -165,6 +167,8 @@ public class WeekController {
 	
 	public void drawEvents(Collection<Event> sortedEvents){
 		
+		removeAllDrawings();
+		
 		ArrayList<Event> events = new ArrayList<>(sortedEvents);
 		
 		int indent = 0;
@@ -228,5 +232,9 @@ public class WeekController {
 	public void removeAllDrawings(){
 		weekGrid.getChildren().removeAll(allRecs);
 		weekGrid.getChildren().removeAll(allTexts);
+	}
+	
+	public static WeekController getController(){
+		return controller;
 	}
 }
