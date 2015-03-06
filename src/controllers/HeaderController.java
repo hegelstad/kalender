@@ -64,6 +64,7 @@ public class HeaderController {
 		/* Subtract 1 week of LocalDate date */
         date = date.minusWeeks(1);
         updateDates();
+        
     }
 
     @FXML private void updateDates() {
@@ -72,7 +73,15 @@ public class HeaderController {
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
         int weekNumber = date.get(weekFields.weekOfWeekBasedYear());
         weekNr.setText("" + weekNumber);
-		
+        
+//        /* Update WeekController drawings */
+//     
+//        if(WeekController.getController()==null){
+//        	System.out.println("WeekController not yet inited");
+//        	return;
+//        }
+//        WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
+//		
 		/* Set current month/year */
         month_Year.setText(date.getMonth() + " " + date.getYear());
 		
@@ -99,7 +108,7 @@ public class HeaderController {
             Requester requester = new Requester();
 
             /* Replace new Person med PersonInfo.getPerson() */
-            ArrayList<Notification> notes = requester.getNotifications(PersonInfo.getPerson());
+            ArrayList<Notification> notes = requester.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup());
             notifications = FXCollections.observableArrayList(notes);
             notificationList.setItems(notifications);
 
