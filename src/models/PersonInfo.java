@@ -109,4 +109,17 @@ public class PersonInfo {
 		return events;
 	}
 	
+	public void setUp(){
+		for(Calendar cal: allCalendars){
+			cal.setEvents(new ArrayList<Event>());
+		}
+		for(Event event : events){
+			for(Calendar cal : allCalendars){
+				if(event.getCal().getCalendarID()==cal.getCalendarID()){
+					cal.getEvents().add(event);
+				}
+			}
+		}
+	}
+	
 }

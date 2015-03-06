@@ -100,6 +100,7 @@ public class WeekController {
 			System.out.println("Drawn");
 		});
 		HeaderController.getController().weekInit();
+		SidebarController.getController().weekInit();
 		System.out.println("WeekController inited");
 	}
 	
@@ -182,12 +183,13 @@ public class WeekController {
 		ArrayList<Event> events;
 		
 		if(sortedEvents instanceof TreeSet){
+			System.out.println("\n\n\n\n");
+			System.out.println("FInner data");
 			events = new ArrayList<Event>(sortedEvents);
 		}
 		else{
 			events = (ArrayList<Event>) sortedEvents;
 			Collections.sort(events, (e1,e2)->{
-				System.out.println("Comparing...");
 				return e1.getFrom().isBefore(e2.getFrom()) ? -1: e1.getFrom().isEqual(e2.getFrom())?0:1;
 			});
 		}
@@ -250,6 +252,12 @@ public class WeekController {
 	}
 	
 	public void addCalendarEvents(Calendar cal){
+		if(allEvents == null){
+			System.out.println("WTF?");
+		}
+		else{
+			System.out.println("Ikkje feil her");
+		}
 		allEvents.addAll(cal.getEvents());
 		removeAllDrawings();
 		drawEvents(allEvents);
