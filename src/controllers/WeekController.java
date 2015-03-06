@@ -2,6 +2,7 @@ package controllers;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class WeekController {
 			, LocalDateTime.now().plusHours(1).plusMinutes(15) , cal);
 	Event event3 = new Event(3, "Siste møte",null, null, LocalDateTime.now().plusHours(1)
 			, LocalDateTime.now().plusHours(2) , cal);
-	
+	/* End of making testdata */
 	
 	
 	
@@ -63,7 +64,8 @@ public class WeekController {
 		for(ColumnConstraints r :weekGrid.getColumnConstraints()){
 			r.setHalignment(HPos.LEFT);
 		}
-		//Lager testdata
+		
+		/*Lager testdata */
 		for(int i = 0;i<7;i++){
 			Event e = new Event(i, "Dag :"+i,null, null, LocalDateTime.of(2015, 3, 2+i, 10, 0)
 					, LocalDateTime.of(2015, 3, 2+i, 15, 0), cal);
@@ -73,6 +75,7 @@ public class WeekController {
 		//drawEvent(event);
 		//drawEvent(event2);
 		drawEvents(allEvents);
+		/*Slutt på testdata */
 		
 		weekGrid.setOnMouseClicked( (mouseEvent) -> {
 			if(mouseOverEvent){
@@ -88,8 +91,7 @@ public class WeekController {
 			Event clickEvent = new Event(0, "click",null, null, from, to, null);
 			//drawEvent(clickEvent,0,0);
 			allEvents.add(clickEvent);
-			weekGrid.getChildren().removeAll(allRecs);
-			weekGrid.getChildren().removeAll(allTexts);
+			removeAllDrawings();
 			drawEvents(allEvents);
 			//WindowController.goToEventView(null);
 			System.out.println("Drawn");
@@ -161,12 +163,9 @@ public class WeekController {
 	}
 	
 	
-	public void drawEvents(ArrayList<Event> events){
-		ArrayList<Event> overlappingEvents = new ArrayList<>();
-		// Sorts events on startTime
-		Collections.sort(events, (event1,event2)->{
-			return event1.getFrom().isBefore(event2.getFrom())?-1:1;
-		});
+	public void drawEvents(Collection<Event> sortedEvents){
+		
+		ArrayList<Event> events = new ArrayList<>(sortedEvents);
 		
 		int indent = 0;
 		int reverseIndent = 0;
@@ -175,6 +174,7 @@ public class WeekController {
 			System.out.println(currentEvent.getName());
 			
 			//Gå oppover til det ikke overlapper og sett indent
+			
 			for(int i=k-1; i>-1; i--){
 				if(currentEvent.getName().equals("Annet møte")){
 					System.out.println("------");
@@ -190,6 +190,7 @@ public class WeekController {
 			}
 			
 			//Gå nedover til det ikke overlapper og sett reverseIndent
+			
 			for(int i=k+1; i<events.size(); i++){
 				if(currentEvent.getTo().isAfter(events.get(i).getFrom())){
 					reverseIndent += 1;
@@ -202,11 +203,30 @@ public class WeekController {
 					break;
 				}
 			}
+			
+			
 		}
 		
 	}
 	
+	public void removeCalendarEvents(Calendar cal){
+		allEvents.removeAll(cal.getEvents());
+		removeAllDrawings();
+		drawEvents(allEvents);
+	}
+	
+	public void addCalendarEvents(Calendar cal){
+		allEvents.addAll(cal.getEvents());
+		removeAllDrawings();
+		drawEvents(allEvents);
+	}
+	
 	public void setMouseOverEvent(boolean isOver){
 		mouseOverEvent = isOver;
+	}
+
+	public void removeAllDrawings(){
+		weekGrid.getChildren().removeAll(allRecs);
+		weekGrid.getChildren().removeAll(allTexts);
 	}
 }
