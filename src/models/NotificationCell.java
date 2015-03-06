@@ -71,10 +71,10 @@ public class NotificationCell extends ListCell<Notification> {
 
 							/* Set the notification as HasRead */
 							Requester s = new Requester();
-							s.setRead(note, PersonInfo.getPerson());
+							s.setRead(note, PersonInfo.getPersonInfo().getPerson());
 							s.closeConnection();
 							s = new Requester();
-							UserGroup personalUg = PersonInfo.getPersonalUserGroup();
+							UserGroup personalUg = PersonInfo.getPersonInfo().getPersonalUserGroup();
 							s.updateAttends(note.getEvent(), new Attendant(personalUg.getUserGroupID(), personalUg.getName(), 1));
 							System.out.println("Notification flagged as read & accepted");
 
