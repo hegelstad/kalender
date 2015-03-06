@@ -88,7 +88,12 @@ public class PersonInfo {
 	}
 	
 	public TreeSet<Event> getEventsForWeek(int weekNumber){
-		TreeSet<Event> events = new TreeSet<Event>();
+		TreeSet<Event> events = new TreeSet<Event>( (e1,e2) ->{
+			/* Event is sorted on their starting time */
+			System.out.println("Comapator is used");
+			return e1.getFrom().isBefore(e2.getFrom()) ? -1: 1;
+		});
+		
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
 		if(calendarsInUse == null){
 			System.out.println("Ingen brukerkalendere registrert");

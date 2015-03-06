@@ -21,6 +21,7 @@ public class HeaderController {
 
 	ListView<Notification> notificationList;
     ObservableList<Notification> notifications;
+    private static HeaderController controller;
     //sad
 
     @FXML private AnchorPane calendarHeaderView;
@@ -40,12 +41,12 @@ public class HeaderController {
     Notification selected_notification;
 
     @FXML private void initialize() {
-
+    	controller = this;
 		/* Add all labels to an ArrayList<Label> */
         Label[] temp_weekday_labels = {mondayDayOfWeek, tuesdayDayOfWeek, wednesdayDayOfWeek, thursdayDayOfWeek,
                 fridayDayOfWeek, saturdayDayOfWeek, sundayDayOfWeek};
         weekday_labels.addAll(Arrays.asList(temp_weekday_labels));
-        updateDates();
+        System.out.println("HeaderController inited");
     }
 
     @FXML private void addEventOnAction() {
@@ -74,13 +75,8 @@ public class HeaderController {
         int weekNumber = date.get(weekFields.weekOfWeekBasedYear());
         weekNr.setText("" + weekNumber);
         
-//        /* Update WeekController drawings */
-//     
-//        if(WeekController.getController()==null){
-//        	System.out.println("WeekController not yet inited");
-//        	return;
-//        }
-//        WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
+        /* Update WeekController drawings */
+        WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
 //		
 		/* Set current month/year */
         month_Year.setText(date.getMonth() + " " + date.getYear());
@@ -118,4 +114,13 @@ public class HeaderController {
             notificationWindow.setVisible(true);
         }
     }
+    
+    public static HeaderController getController(){
+    	return controller;
+    }
+    
+    public void weekInit(){
+    	updateDates();
+    }
+    
 }
