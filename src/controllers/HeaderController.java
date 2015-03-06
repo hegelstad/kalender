@@ -103,7 +103,6 @@ public class HeaderController {
             Requester requester = new Requester();
 
             /* Replace new Person med PersonInfo.getPerson() */
-
             ArrayList<Notification> notes = requester.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup());
             notifications = FXCollections.observableArrayList(notes);
             notificationList.setItems(notifications);
