@@ -92,7 +92,6 @@ public class HeaderController {
         Scene scene = WindowController.thisStage.getScene();
         Pane notificationWindow = (Pane) scene.lookup("#notificationWindow");
         notificationList = (ListView) scene.lookup("#notificationList");
-        
 
         if (notificationWindow.isVisible()) {
             notificationWindow.setVisible(false);
