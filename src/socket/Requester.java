@@ -515,13 +515,13 @@ public class Requester {
      * @param p
      * @return
      */
-    public ArrayList<Notification> getNotifications(Person p){
+    public ArrayList<Notification> getNotifications(UserGroup ug){
     	Command cmd = new Command("getNotifications-person");
     	ArrayList<Notification> n = null;
     	try{
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
             oos.writeObject(cmd);
-            oos.writeObject(p);
+            oos.writeObject(ug);
             InputStream is = con.getInputStream();
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
@@ -569,13 +569,13 @@ public class Requester {
      * @param n
      * @param p
      */
-    public void setRead(Notification n, Person p){
+    public void setRead(Notification n, UserGroup ug){
     	Command cmd = new Command("setRead-notification-person");
      	try {
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
     		oos.writeObject(cmd);
     		oos.writeObject(n);
-    		oos.writeObject(p);
+    		oos.writeObject(ug);
     	}  catch (ClassCastException e) {
     		System.out.println(e);
     	}

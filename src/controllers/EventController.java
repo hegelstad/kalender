@@ -75,17 +75,19 @@ public class EventController {
 	private boolean createEvent() {
 		Requester r = new Requester();
 		Calendar cal = new Calendar (2, "Eirik", null);
-		Event ev = new Event(0, title.getText(), note.getText(), addedParticipants, getFromTime(), getToTime(), cal);
+		Event ev = new Event(0, title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), cal);
 		ev = r.createEvent(ev);
 		r.closeConnection();
+
 		r = new Requester();
 		Room room = roomLocation.getSelectionModel().getSelectedItem();
 		if (room != null){
 			r.bookRoom(ev, room);
 		}
 		r.closeConnection();
+		
 		r = new Requester();
-		r.setNotification(new Notification(0, "Invitasjon til: " + ev.getName(), PersonInfo.getPersonInfo().getPersonUserGroup(), addedParticipants, ev, 1));
+		r.setNotification(new Notification(0, "Invitasjon til: " + ev.getName(), PersonInfo.getPersonInfo().getPersonalUserGroup(), addedParticipants, ev, 1));
 		return (ev.getEventID() != 0);
 	}
 

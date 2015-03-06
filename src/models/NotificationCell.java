@@ -71,7 +71,7 @@ public class NotificationCell extends ListCell<Notification> {
 
 							/* Set the notification as HasRead */
 							Requester s = new Requester();
-							s.setRead(note, PersonInfo.getPersonInfo().getPerson());
+							s.setRead(note, PersonInfo.getPersonInfo().getPersonalUserGroup());
 							s.closeConnection();
 							s = new Requester();
 							UserGroup personalUg = PersonInfo.getPersonInfo().getPersonalUserGroup();
