@@ -1,5 +1,7 @@
 package models;
 
+import java.time.format.DateTimeFormatter;
+
 import socket.Requester;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -37,7 +39,9 @@ public class NotificationCell extends ListCell<Notification> {
 		Pane content = new Pane();
 		Text t = new Text();
 		t.setWrappingWidth(250.00);
-		t.setText("\n" + note.getNote() + "\n" + "From " + note.getSender().getName());
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HH:mm");
+		t.setText("\n" + note.getNote() + "\n" + "From " + note.getSender().getName() + "\n" + note.getEvent().getFrom().format(formatter) + " kl."+ note.getEvent().getFrom().format(formatter2) + " - " + note.getEvent().getTo().format(formatter)+ " kl."+ note.getEvent().getTo().format(formatter2));
 		content.getChildren().add(t);
 
 		content.setOnMouseClicked(new EventHandler<MouseEvent>() {
