@@ -87,7 +87,7 @@ public class EventController {
 		r.closeConnection();
 		
 		r = new Requester();
-		r.setNotification(new Notification(0, "Invitasjon til: " + ev.getName(), PersonInfo.getPersonInfo().getPersonalUserGroup(), addedParticipants, ev, 1));
+		r.setNotification(new Notification(0, "Invite to: " + ev.getName(), PersonInfo.getPersonInfo().getPersonalUserGroup(), addedParticipants, ev, 1));
 		return (ev.getEventID() != 0);
 	}
 
