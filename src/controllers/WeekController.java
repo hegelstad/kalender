@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.TreeSet;
 
 import models.Calendar;
 import models.Event;
@@ -87,7 +88,7 @@ public class WeekController {
 			double x = mouseEvent.getX();
 			int row = (int) (x/fullEventWidthPrecise);
 			int column = (int) (y/hourHeightPrecise); 
-			System.out.println("Row :"+row+" Col: "+column);				
+			//System.out.println("Row :"+row+" Col: "+column);				
 			LocalDateTime from = LocalDateTime.of(2015, 3, 2+row, column, 0);
 			LocalDateTime to = LocalDateTime.of(2015, 3, 2+row, column+1, 0);
 			Event clickEvent = new Event(0, "click",null, null, from, to, null);
@@ -98,9 +99,12 @@ public class WeekController {
 			//WindowController.goToEventView(null);
 			System.out.println("Drawn");
 		});
+		HeaderController.getController().weekInit();
+		System.out.println("WeekController inited");
 	}
 	
 	private void drawEvent(Event event,int indent, int reverseIndent){
+		System.out.println("Drawing : "+event.getName());
 		
 		Rectangle eventRec = new Rectangle(fullEventWidth-3-(indentMargin*reverseIndent), getEventHeight(event));
 		styleRectangle(eventRec);
@@ -122,11 +126,12 @@ public class WeekController {
 		
 		double rightMargin = fullEventWidth-(double)reverseIndent*indentMargin
 				+(double)indent*indentMargin-13;
-		System.out.println("reverse indent : "+reverseIndent+" rightMargin circle : "+rightMargin );
+		//System.out.println("reverse indent : "+reverseIndent+" rightMargin circle : "+rightMargin );
 		Insets circleMargin = new Insets(marginTop+3, 0,0,rightMargin);
 		GridPane.setMargin(statusCircle,circleMargin);
 		
 		int dayOfWeek = event.getFrom().getDayOfWeek().getValue()-1;
+		System.out.println(event.getName()+ " ukedag :"+dayOfWeek);
 		int startHour = event.getFrom().getHour();
 		weekGrid.setGridLinesVisible(true);
 		weekGrid.add(eventRec, dayOfWeek, startHour, 1, 1);
@@ -161,29 +166,41 @@ public class WeekController {
 	}
 	
 	public void openEvent(Event event){
-		System.out.println(event.getName());
+		//System.out.println(event.getName());
 	}
 	
 	
 	public void drawEvents(Collection<Event> sortedEvents){
+
+		if(sortedEvents == null){
+			System.out.println("Ingen faktiske skikkelige eventer hentet fra databasen");
+			return;
+		}
 		
 		removeAllDrawings();
 		
-		ArrayList<Event> events = new ArrayList<>(sortedEvents);
+		ArrayList<Event> events;
+		
+		if(sortedEvents instanceof TreeSet){
+			events = new ArrayList<Event>(sortedEvents);
+		}
+		else{
+			events = (ArrayList<Event>) sortedEvents;
+			Collections.sort(events, (e1,e2)->{
+				System.out.println("Comparing...");
+				return e1.getFrom().isBefore(e2.getFrom()) ? -1: e1.getFrom().isEqual(e2.getFrom())?0:1;
+			});
+		}
 		
 		int indent = 0;
 		int reverseIndent = 0;
 		for(int k =0; k<events.size(); k++){
 			Event currentEvent = events.get(k);
-			System.out.println(currentEvent.getName());
 			
 			//Gå oppover til det ikke overlapper og sett indent
 			
 			for(int i=k-1; i>-1; i--){
-				if(currentEvent.getName().equals("Annet mï¿½te")){
-					System.out.println("------");
-					System.out.println(events.get(i).getName());						
-				}
+				
 				if(currentEvent.getFrom().isBefore(events.get(i).getTo())){
 					indent += 1;
 					System.out.println(currentEvent.getName()+ " har oppoverlapp med " + events.get(i).getName());
@@ -199,13 +216,26 @@ public class WeekController {
 				if(currentEvent.getTo().isAfter(events.get(i).getFrom())){
 					reverseIndent += 1;
 					System.out.println(currentEvent.getName()+ " har nedoverlapp");
+					/* Om flere eventer slutter sist og samtidig */
+					if(i==events.size()-1){
+						drawEvent(currentEvent, indent, reverseIndent+indent);
+						reverseIndent = 0;
+						indent = 0;
+					}
 				}
-				else{
+				else
+				{
 					drawEvent(currentEvent, indent, reverseIndent+indent);
 					reverseIndent = 0;
 					indent = 0;
 					break;
 				}
+			}
+			
+			System.out.println(currentEvent.getName()+" indent: "+indent+" reverseIndent: "+reverseIndent+indent);
+			/* Siste event kommer seg gjennom siste løkken uten å sjekkes (i= k+1) */
+			if(k == events.size()-1){
+				drawEvent(currentEvent,indent,reverseIndent+indent);
 			}
 			
 			
