@@ -1,5 +1,6 @@
 package controllers;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import models.Calendar;
@@ -17,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
+
 
 public class LoginController {
     @FXML private TextField username;
@@ -27,6 +28,7 @@ public class LoginController {
     boolean pressed = false;
     Requester connection;
     Person p;
+  
     
   @FXML
   private void initialize(){
@@ -36,7 +38,7 @@ public class LoginController {
   }
 
   @FXML
-  private void keyPressed(KeyEvent key) {
+  private void keyPressed(KeyEvent key) throws MalformedURLException {
 	  if (key.getCode().equals(KeyCode.ENTER)){
 		  if (fieldsAreSet()){
 			  if (authenticateUser()){
