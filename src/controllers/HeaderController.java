@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,15 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import models.Notification;
-import models.NotificationCell;
-import models.PersonInfo;
+import models.*;
 import socket.Requester;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Timer;
 
 public class HeaderController {
 
@@ -46,8 +46,11 @@ public class HeaderController {
         Label[] temp_weekday_labels = {mondayDayOfWeek, tuesdayDayOfWeek, wednesdayDayOfWeek, thursdayDayOfWeek,
                 fridayDayOfWeek, saturdayDayOfWeek, sundayDayOfWeek};
         weekday_labels.addAll(Arrays.asList(temp_weekday_labels));
-        notificationButton.setText(Integer.toString(PersonInfo.getNotifications().size()));
+        notificationButton.setText(Integer.toString(PersonInfo.getPersonInfo().getNotifications().size()));
         System.out.println("HeaderController inited");
+        Timer t = new Timer();
+        Scheduler s = new Scheduler();
+        t.scheduleAtFixedRate(s, 1, 10000);
     }
 
     @FXML private void addEventOnAction() {
@@ -78,7 +81,7 @@ public class HeaderController {
         
         /* Update WeekController drawings */
         WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
-//		
+
 		/* Set current month/year */
         month_Year.setText(date.getMonth() + " " + date.getYear());
 		
@@ -123,5 +126,16 @@ public class HeaderController {
     public void weekInit(){
     	updateDates();
     }
+    
+  public void updateNotifications(){
+      Requester req = new Requester();
+      PersonInfo.personInfo.setNotifications(req.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup()));
+      Platform.runLater(new Runnable() {
+          @Override
+          public void run() {
+              notificationButton.setText(Integer.toString(PersonInfo.getPersonInfo().getNotifications().size()));
+          }
+      });
+  }
     
 }
