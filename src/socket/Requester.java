@@ -60,7 +60,7 @@ public class Requester {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
             oos.writeObject(cmd);
-            oos.writeObject(userGroups);
+            oos.writeObject(p);
             InputStream is = con.getInputStream();
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
