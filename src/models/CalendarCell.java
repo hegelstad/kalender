@@ -24,11 +24,11 @@ public class CalendarCell extends ListCell<Calendar> {
 		checkbox.selectedProperty().addListener( (ob,oldVal,newVal) -> {
 			if(newVal)
 			{	
-				WeekController.getController().addCalendarEvents(cal);
+				PersonInfo.getPersonInfo().addCalendar(cal);
 			}
 			else
 			{
-				WeekController.getController().removeCalendarEvents(cal);
+				PersonInfo.getPersonInfo().removeCalendar(cal);
 			}
 		}
 				);

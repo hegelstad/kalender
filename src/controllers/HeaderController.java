@@ -53,8 +53,11 @@ public class HeaderController {
     LocalDate date = LocalDate.now();
     ArrayList<Label> weekday_labels = new ArrayList<>();
     Notification selected_notification;
+    int weekNumber;
+
     Timer timer;
     Scheduler scheduler;
+    int weekNumber;
 
     @FXML
     private void initialize() {
@@ -97,12 +100,12 @@ public class HeaderController {
 
 		/* Set current week number */
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
-        int weekNumber = date.get(weekFields.weekOfWeekBasedYear());
+        weekNumber = date.get(weekFields.weekOfWeekBasedYear());
         weekNr.setText("" + weekNumber);
         
-        /* Update WeekController drawings */
-        WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
-
+        /* Update drawn events when changing week */
+        drawEventsForWeek();
+        
 		/* Set current month/year */
         month_Year.setText(date.getMonth() + " " + date.getYear());
 		
@@ -176,5 +179,15 @@ public class HeaderController {
         notificationButton.setText(Integer.toString(value));
     }
     
-
+    public void drawEventsForWeek(){
+    	/* Draw events for this week */
+        WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
+    }
+    
+    public void drawEventsForWeek(){
+    	/* Draw events for this week */
+        WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
+//		
+    }
+    
 }

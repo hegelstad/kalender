@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import models.Calendar;
 import models.Event;
 import models.EventDrawing;
+import models.PersonInfo;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -32,21 +33,20 @@ public class WeekController {
 	boolean mouseOverEvent = false;
 	ArrayList<EventDrawing> eventDrawings = new ArrayList<>();
 	ArrayList<Event> allEvents = new ArrayList<>();
-	ArrayList<Rectangle> allRecs= new ArrayList<>();
-	ArrayList<Text> allTexts = new ArrayList<>();
-	ArrayList<Circle> allCircs = new ArrayList<Circle>();
+	private ArrayList<Rectangle> allRecs= new ArrayList<>();
+	private ArrayList<Text> allTexts = new ArrayList<>();
+	private ArrayList<Circle> allCircs = new ArrayList<Circle>();
 	@FXML
 	GridPane weekGrid;
 	
-	/* Making some testdata */ 
+	/* Making some testdata */  /*
 	Calendar cal = new Calendar(1, "SuperKalender", null);
 	Event event = new Event(1, "Mï¿½te",null, null, LocalDateTime.now(), LocalDateTime.now().plusHours(2) , cal);
 	Event event2 = new Event(2, "Annet Mï¿½te",null, null, LocalDateTime.now().plusMinutes(15)
 			, LocalDateTime.now().plusHours(1).plusMinutes(15) , cal);
 	Event event3 = new Event(3, "Siste mï¿½te",null, null, LocalDateTime.now().plusHours(1)
-			, LocalDateTime.now().plusHours(2) , cal);
+			, LocalDateTime.now().plusHours(2) , cal);*/
 	/* End of making testdata */
-	
 	
 	
 	public WeekController(){
@@ -62,17 +62,17 @@ public class WeekController {
 		for(ColumnConstraints r :weekGrid.getColumnConstraints()){
 			r.setHalignment(HPos.LEFT);
 		}
-		
+		weekGrid.setGridLinesVisible(true);
 		/*Lager testdata */
-		for(int i = 0;i<7;i++){
-			Event e = new Event(i, "Dag :"+i,null, null, LocalDateTime.of(2015, 3, 2+i, 10, 0)
-					, LocalDateTime.of(2015, 3, 2+i, 15, 0), cal);
-			allEvents.add(e);
-		}
-		allEvents.add(event);allEvents.add(event2);allEvents.add(event3);
+//		for(int i = 0;i<7;i++){
+//			Event e = new Event(i, "Dag :"+i,null, null, LocalDateTime.of(2015, 3, 2+i, 10, 0)
+//					, LocalDateTime.of(2015, 3, 2+i, 15, 0), cal);
+//			drawnEvents.add(e);
+//		}
+//		drawnEvents.add(event);drawnEvents.add(event2);drawnEvents.add(event3);
 		//drawEvent(event);
 		//drawEvent(event2);
-		drawEvents(allEvents);
+		//drawEvents(allEvents);
 		/*Slutt på testdata */
 		
 		weekGrid.setOnMouseClicked( (mouseEvent) -> {
@@ -86,14 +86,13 @@ public class WeekController {
 			//System.out.println("Row :"+row+" Col: "+column);				
 			LocalDateTime from = LocalDateTime.of(2015, 3, 2+row, column, 0);
 			LocalDateTime to = LocalDateTime.of(2015, 3, 2+row, column+1, 0);
-			Event clickEvent = new Event(0, "click",null, null, from, to, null);
-			//drawEvent(clickEvent,0,0);
-			allEvents.add(clickEvent);
-			removeAllDrawings();
-			drawEvents(allEvents);
-			//WindowController.goToEventView(null);
-			System.out.println("Drawn");
+			Event clickEvent = new Event(0, "Ny hendelse",null, null, from, to, null);
+			/* Tegner ny event, den vil blir erstatted av den ferdigredigerte hendelsen eller 
+			 * fjernet ved omtegning av eventer som blir gjort ved å gå ut av eventEdit*/
+			drawEvent(clickEvent,0,0);
+			openEvent(clickEvent);
 		});
+		
 		System.out.println("WeekController inited");
 		HeaderController.getController().weekInit();
 		SidebarController.getController().weekInit();
@@ -129,7 +128,7 @@ public class WeekController {
 		int dayOfWeek = event.getFrom().getDayOfWeek().getValue()-1;
 		//System.out.println(event.getName()+ " ukedag :"+dayOfWeek);
 		int startHour = event.getFrom().getHour();
-		weekGrid.setGridLinesVisible(true);
+		//weekGrid.setGridLinesVisible(true);
 		weekGrid.add(eventRec, dayOfWeek, startHour, 1, 1);
 		weekGrid.add(statusCircle, dayOfWeek, startHour, 1,1);
 		//System.out.println(eventRec);
@@ -138,6 +137,7 @@ public class WeekController {
 		allRecs.add(eventRec);
 		allTexts.add(eventName);
 		allCircs.add(statusCircle);
+		
 	}
 	
 	private double getEventHeight(Event e){
@@ -166,12 +166,15 @@ public class WeekController {
 	}
 	
 	public void openEvent(Event event){
+		WindowController.goToEventView(event);
 		//System.out.println(event.getName());
 	}
 	
-	
+	/*
+	 * Replaces all currently drawn events with incoming events
+	 */
 	public void drawEvents(Collection<Event> sortedEvents){
-
+		
 		if(sortedEvents == null){
 			System.out.println("Ingen faktiske skikkelige eventer hentet fra databasen");
 			return;
@@ -184,7 +187,7 @@ public class WeekController {
 		if(sortedEvents instanceof TreeSet && sortedEvents.size()!=0){
 			
 			System.out.println("\n\n");
-			System.out.println("FInner data");
+			System.out.println("Finner data");
 			System.out.println(sortedEvents);
 			events = new ArrayList<Event>(sortedEvents);
 		}
@@ -260,17 +263,17 @@ public class WeekController {
 		
 	}
 
-	public void removeCalendarEvents(Calendar cal){
-		allEvents.removeAll(cal.getEvents());
-		removeAllDrawings();
-		drawEvents(allEvents);
-	}
-	
-	public void addCalendarEvents(Calendar cal){
-		allEvents.addAll(cal.getEvents());
-		removeAllDrawings();
-		drawEvents(allEvents);
-	}
+//	public void removeCalendarEvents(Calendar cal){
+//		allEvents.removeAll(cal.getEvents());
+//		removeAllDrawings();
+//		drawEvents(allEvents);
+//	}
+//	
+//	public void addCalendarEvents(Calendar cal){
+//		allEvents.addAll(cal.getEvents());
+//		removeAllDrawings();
+//		drawEvents(allEvents);
+//	}
 	
 	public void setMouseOverEvent(boolean isOver){
 		mouseOverEvent = isOver;
@@ -285,5 +288,6 @@ public class WeekController {
 	public static WeekController getController(){
 		return controller;
 	}
-
+	
+	
 }
