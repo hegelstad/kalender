@@ -100,7 +100,7 @@ public class WeekController {
 	}
 	
 	private void drawEvent(Event event,int indent, int reverseIndent){
-		System.out.println("Drawing : "+event.getName());
+		System.out.println("Drawing : "+event.getName() + " id:" + event.getEventID());
 		
 		Rectangle eventRec = new Rectangle(fullEventWidth-3-(indentMargin*reverseIndent), getEventHeight(event));
 		styleRectangle(eventRec);

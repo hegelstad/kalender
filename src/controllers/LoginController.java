@@ -109,6 +109,7 @@ public class LoginController {
 	   System.out.println("Henter Kalendere fra DB.");
 	   ArrayList<Calendar> cal = connection.getCalendars(ug);
 	   personInfo.setAllCalendars(cal);
+	   personInfo.setCalendarsInUse(cal);
 	   System.out.println(cal);
 	   connection.closeConnection();
 	   
