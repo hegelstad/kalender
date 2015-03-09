@@ -98,7 +98,7 @@ public class NotificationCell extends ListCell<Notification> {
 						});
 
 					} else {
-						//content.getChildren().remove(1, 2);
+						content.getChildren().remove(1, 3);
 						content.setPrefHeight(content.getHeight() - 50);
 						is_expanded = false;
 					}
