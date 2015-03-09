@@ -47,8 +47,7 @@ public class WeekController {
 <<<<<<< HEAD
 	Event event3 = new Event(3, "Siste m�te",null, null, LocalDateTime.now().plusHours(1)
 			, LocalDateTime.now().plusHours(2) , cal);*/
-	
-	
+
 	public WeekController(){
 		
 	}
