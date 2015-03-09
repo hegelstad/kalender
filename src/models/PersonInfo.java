@@ -3,9 +3,13 @@ package models;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.TreeSet;
 
+import controllers.HeaderController;
+import controllers.WeekController;
 import models.Calendar;
 import models.Event;
 import models.Notification;
@@ -122,6 +126,18 @@ public class PersonInfo {
 				}
 			}
 		}
+	}
+	
+	public boolean addCalendar(Calendar cal){
+		boolean changed = calendarsInUse.add(cal);
+		HeaderController.getController().drawEventsForWeek();
+		return changed;
+	}
+	
+	public boolean removeCalendar(Calendar cal){
+		boolean changed = calendarsInUse.remove(cal);
+		HeaderController.getController().drawEventsForWeek();
+		return changed;
 	}
 	
 }
