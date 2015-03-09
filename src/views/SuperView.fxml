@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.geometry.Insets?>
-<AnchorPane maxHeight="987.0" maxWidth="1500.0" minHeight="987.0" minWidth="1500.0" onKeyPressed="#keyPressed"
-            prefHeight="987.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.SuperController">
+
+<AnchorPane maxHeight="917.0" maxWidth="1342.0" minHeight="917.0" minWidth="1342.0" onKeyPressed="#keyPressed" prefHeight="917.0" prefWidth="1342.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SuperController">
     <children>
         <GridPane>
             <columnConstraints>
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="374.74053955078125" minWidth="20.0"
-                                   prefWidth="200.0"/>
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="1200.0" minWidth="1200.0"
-                                   prefWidth="1200.0"/>
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="374.74053955078125" minWidth="20.0" prefWidth="200.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="1200.0" minWidth="1200.0" prefWidth="1200.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="20.0" valignment="TOP" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="20.0" valignment="TOP" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="20.0" valignment="TOP" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="20.0" valignment="TOP" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <fx:include source="HeaderView.fxml" GridPane.columnIndex="0"
-                            GridPane.columnSpan="2" GridPane.rowIndex="0"/>
-                <fx:include source="SidebarView.fxml" GridPane.columnIndex="0" GridPane.columnSpan="2"
-                            GridPane.rowIndex="1"/>
-                <fx:include source="WeekView.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <fx:include source="HeaderView.fxml" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+                <fx:include source="SidebarView.fxml" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                <fx:include source="WeekView.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
         </GridPane>
 
-        <Pane fx:id="notificationWindow" style="-fx-translate-z: 0" prefWidth="300" prefHeight="300" translateX="1013"
-              translateY="70">
-            <Polygon fx:id="notificationTriangle" points="145.0, 20.0, 175.0, 20.0, 160.0, -5.0"/>
-            <Label fx:id="notificationTitle" translateY="10" text="Notifications">
-                <padding>
-                    <Insets left="12.0" />
-                </padding>
-            </Label>
-            <ListView fx:id="notificationList" translateY="60"/>
+        <Pane fx:id="notificationWindow" prefHeight="300" prefWidth="300" style="-fx-translate-z: 0" translateX="1013" translateY="70">
+   <children>
+               <Polygon fx:id="notificationTriangle" points="145.0, 20.0, 175.0, 20.0, 160.0, -5.0" />
+               <Label fx:id="notificationTitle" text="Notifications" translateY="10">
+                   <padding>
+                       <Insets left="12.0" />
+                   </padding>
+               </Label>
+               <ListView fx:id="notificationList" translateY="60" />
+   </children>
         </Pane>
     </children>
 </AnchorPane>
