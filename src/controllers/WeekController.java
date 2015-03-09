@@ -4,20 +4,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.TreeSet;
 
 import models.Calendar;
 import models.Event;
 import models.EventDrawing;
-import javafx.animation.Animation;
-import javafx.animation.ScaleTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -25,7 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 public class WeekController {
 
@@ -40,10 +34,11 @@ public class WeekController {
 	ArrayList<Event> allEvents = new ArrayList<>();
 	ArrayList<Rectangle> allRecs= new ArrayList<>();
 	ArrayList<Text> allTexts = new ArrayList<>();
+	ArrayList<Circle> allCircs = new ArrayList<Circle>();
 	@FXML
 	GridPane weekGrid;
 	
-	/* Making some testdata */
+	/* Making some testdata */ 
 	Calendar cal = new Calendar(1, "SuperKalender", null);
 	Event event = new Event(1, "Mï¿½te",null, null, LocalDateTime.now(), LocalDateTime.now().plusHours(2) , cal);
 	Event event2 = new Event(2, "Annet Mï¿½te",null, null, LocalDateTime.now().plusMinutes(15)
@@ -99,12 +94,13 @@ public class WeekController {
 			//WindowController.goToEventView(null);
 			System.out.println("Drawn");
 		});
-		HeaderController.getController().weekInit();
 		System.out.println("WeekController inited");
+		HeaderController.getController().weekInit();
+		SidebarController.getController().weekInit();
 	}
 	
 	private void drawEvent(Event event,int indent, int reverseIndent){
-		System.out.println("Drawing : "+event.getName());
+		System.out.println("Drawing : "+event.getName() + " id:" + event.getEventID());
 		
 		Rectangle eventRec = new Rectangle(fullEventWidth-3-(indentMargin*reverseIndent), getEventHeight(event));
 		styleRectangle(eventRec);
@@ -115,7 +111,7 @@ public class WeekController {
 		
 		
 		double eventIndentMargin = indentMargin*indent;
-		double reverseIndentMargin = indentMargin*reverseIndent;
+		//double reverseIndentMargin = indentMargin*reverseIndent;
 		double marginTop = ((double)event.getFrom().getMinute()/60)*hourHeight;
 		
 		Insets eventMargin = new Insets(marginTop, 0, 0, eventIndentMargin);
@@ -131,7 +127,7 @@ public class WeekController {
 		GridPane.setMargin(statusCircle,circleMargin);
 		
 		int dayOfWeek = event.getFrom().getDayOfWeek().getValue()-1;
-		System.out.println(event.getName()+ " ukedag :"+dayOfWeek);
+		//System.out.println(event.getName()+ " ukedag :"+dayOfWeek);
 		int startHour = event.getFrom().getHour();
 		weekGrid.setGridLinesVisible(true);
 		weekGrid.add(eventRec, dayOfWeek, startHour, 1, 1);
@@ -141,6 +137,7 @@ public class WeekController {
 		eventDrawings.add(new EventDrawing(eventRec, eventName, event,statusCircle, this));
 		allRecs.add(eventRec);
 		allTexts.add(eventName);
+		allCircs.add(statusCircle);
 	}
 	
 	private double getEventHeight(Event e){
@@ -149,6 +146,9 @@ public class WeekController {
 		double minDiff = (to.getHour()-from.getHour())*60 + (to.getMinute()-from.getMinute());
 		double height = minDiff/60.0 * 65.5;
 		//System.out.println(height);
+		if(height<0){
+			return -height;
+		}
 		return height;
 	}
 	
@@ -181,16 +181,28 @@ public class WeekController {
 		
 		ArrayList<Event> events;
 		
-		if(sortedEvents instanceof TreeSet){
+		if(sortedEvents instanceof TreeSet && sortedEvents.size()!=0){
+			
+			System.out.println("\n\n");
+			System.out.println("FInner data");
+			System.out.println(sortedEvents);
 			events = new ArrayList<Event>(sortedEvents);
 		}
-		else{
+		else if(sortedEvents.size()==0)
+		{
+			System.out.println("Tom eventliste");
+			return;
+		}
+		else
+		{
+			/* Kun testdata finnes */
 			events = (ArrayList<Event>) sortedEvents;
 			Collections.sort(events, (e1,e2)->{
-				System.out.println("Comparing...");
 				return e1.getFrom().isBefore(e2.getFrom()) ? -1: e1.getFrom().isEqual(e2.getFrom())?0:1;
 			});
 		}
+		
+		fixEventsOverADay(events);
 		
 		int indent = 0;
 		int reverseIndent = 0;
@@ -203,7 +215,7 @@ public class WeekController {
 				
 				if(currentEvent.getFrom().isBefore(events.get(i).getTo())){
 					indent += 1;
-					System.out.println(currentEvent.getName()+ " har oppoverlapp med " + events.get(i).getName());
+					//System.out.println(currentEvent.getName()+ " har oppoverlapp med " + events.get(i).getName());
 				}
 				else{
 					break;
@@ -215,7 +227,7 @@ public class WeekController {
 			for(int i=k+1; i<events.size(); i++){
 				if(currentEvent.getTo().isAfter(events.get(i).getFrom())){
 					reverseIndent += 1;
-					System.out.println(currentEvent.getName()+ " har nedoverlapp");
+					//System.out.println(currentEvent.getName()+ " har nedoverlapp");
 					/* Om flere eventer slutter sist og samtidig */
 					if(i==events.size()-1){
 						drawEvent(currentEvent, indent, reverseIndent+indent);
@@ -232,7 +244,7 @@ public class WeekController {
 				}
 			}
 			
-			System.out.println(currentEvent.getName()+" indent: "+indent+" reverseIndent: "+reverseIndent+indent);
+			//System.out.println(currentEvent.getName()+" indent: "+indent+" reverseIndent: "+reverseIndent+indent);
 			/* Siste event kommer seg gjennom siste løkken uten å sjekkes (i= k+1) */
 			if(k == events.size()-1){
 				drawEvent(currentEvent,indent,reverseIndent+indent);
@@ -243,6 +255,11 @@ public class WeekController {
 		
 	}
 	
+	private void fixEventsOverADay(ArrayList<Event> events) {
+		
+		
+	}
+
 	public void removeCalendarEvents(Calendar cal){
 		allEvents.removeAll(cal.getEvents());
 		removeAllDrawings();
@@ -262,9 +279,11 @@ public class WeekController {
 	public void removeAllDrawings(){
 		weekGrid.getChildren().removeAll(allRecs);
 		weekGrid.getChildren().removeAll(allTexts);
+		weekGrid.getChildren().removeAll(allCircs);
 	}
 	
 	public static WeekController getController(){
 		return controller;
 	}
+
 }

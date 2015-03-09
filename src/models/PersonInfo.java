@@ -90,7 +90,6 @@ public class PersonInfo {
 	public TreeSet<Event> getEventsForWeek(int weekNumber){
 		TreeSet<Event> events = new TreeSet<Event>( (e1,e2) ->{
 			/* Event is sorted on their starting time */
-			System.out.println("Comapator is used");
 			return e1.getFrom().isBefore(e2.getFrom()) ? -1: 1;
 		});
 		
@@ -106,7 +105,23 @@ public class PersonInfo {
 				}
 			}
 		}
+		if(events==null || events.size() == 0){
+			System.out.println("Ingen events på denne uka");
+		}
 		return events;
+	}
+	
+	public void setUp(){
+		for(Calendar cal: allCalendars){
+			cal.setEvents(new ArrayList<Event>());
+		}
+		for(Event event : events){
+			for(Calendar cal : allCalendars){
+				if(event.getCal().getCalendarID()==cal.getCalendarID()){
+					cal.getEvents().add(event);
+				}
+			}
+		}
 	}
 	
 }
