@@ -52,6 +52,11 @@ public class EventDrawing {
 		});
 		
 		eventRec.setOnMouseClicked(clickEvent -> {
+			if(clickEvent.isSecondaryButtonDown()){
+				controller.openEvent(event);
+				return;
+			}
+			
 			if(isExpanded)
 			{
 				isExpanded = false;
@@ -69,7 +74,7 @@ public class EventDrawing {
 				animation.play();				
 			}
 			//eventRec.setWidth(controller.fullEventWidth*1.5);
-			controller.openEvent(event);				
+						
 		});
 
 	}
