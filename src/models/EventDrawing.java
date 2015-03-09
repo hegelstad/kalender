@@ -55,7 +55,7 @@ public class EventDrawing {
 			if(isExpanded)
 			{
 				isExpanded = false;
-				ScaleTransition animation = new ScaleTransition(Duration.millis(150),eventRec);
+				ScaleTransition animation = new ScaleTransition(Duration.millis(100),eventRec);
 				animation.setFromX(1.5);
 				animation.setToX(1.0);
 				animation.play();				
@@ -63,7 +63,7 @@ public class EventDrawing {
 			else
 			{
 				isExpanded = true;
-				ScaleTransition animation = new ScaleTransition(Duration.millis(150),eventRec);
+				ScaleTransition animation = new ScaleTransition(Duration.millis(100),eventRec);
 				animation.setFromX(1.0);
 				animation.setToX(1.5);
 				animation.play();				
