@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import models.*;
 import socket.Requester;
 
@@ -128,10 +130,8 @@ public class HeaderController {
         if (notificationWindow.isVisible()) {
             notificationWindow.setVisible(false);
         } else {
-            Requester requester = new Requester();
-
             /* Replace new Person med PersonInfo.getPerson() */
-            ArrayList<Notification> notes = requester.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup());
+            ArrayList<Notification> notes = PersonInfo.getPersonInfo().getNotifications();
             notifications = FXCollections.observableArrayList(notes);
             notificationList.setItems(notifications);
 
@@ -161,6 +161,9 @@ public class HeaderController {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
+                	Media notificationSound = new Media(getClass().getResource("/note.mp3").toString());
+                	MediaPlayer mp = new MediaPlayer(notificationSound);
+                	mp.play();
                     updateNotificationButton(PersonInfo.getPersonInfo().getNotifications().size());
                     notificationButton.setStyle("-fx-background-color: red");
                 }
