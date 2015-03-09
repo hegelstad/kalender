@@ -53,6 +53,7 @@ public class HeaderController {
     LocalDate date = LocalDate.now();
     ArrayList<Label> weekday_labels = new ArrayList<>();
     Notification selected_notification;
+    int weekNumber;
 
     Timer timer;
     Scheduler scheduler;
@@ -181,6 +182,12 @@ public class HeaderController {
     public void drawEventsForWeek(){
     	/* Draw events for this week */
         WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
+    }
+    
+    public void drawEventsForWeek(){
+    	/* Draw events for this week */
+        WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
+//		
     }
     
 }
