@@ -9,6 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import models.CalendarCell;
 public class SidebarController {
 
@@ -44,7 +47,8 @@ public class SidebarController {
 	}
 	
 	public void weekInit(){
-		addCalendars(PersonInfo.getPersonInfo().getAllCalendars());
+		ArrayList<Calendar> incomingCals = PersonInfo.getPersonInfo().getAllCalendars();
+		addCalendars(incomingCals);
 	}
 	
 	public static SidebarController getController(){
