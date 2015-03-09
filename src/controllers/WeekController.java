@@ -44,9 +44,10 @@ public class WeekController {
 	Event event = new Event(1, "Møte",null, null, LocalDateTime.now(), LocalDateTime.now().plusHours(2) , cal);
 	Event event2 = new Event(2, "Annet Møte",null, null, LocalDateTime.now().plusMinutes(15)
 			, LocalDateTime.now().plusHours(1).plusMinutes(15) , cal);
-<<<<<<< HEAD
 	Event event3 = new Event(3, "Siste m�te",null, null, LocalDateTime.now().plusHours(1)
 			, LocalDateTime.now().plusHours(2) , cal);*/
+
+	/* End of making testdata */
 
 	public WeekController(){
 		
