@@ -20,7 +20,7 @@ public class CalendarCell extends ListCell<Calendar> {
 		label.setTextFill(Color.web("#0076a3"));
 		
 		pane.getChildren().addAll(checkbox,label);
-		
+		setId("calendar-cell");
 		checkbox.selectedProperty().addListener( (ob,oldVal,newVal) -> {
 			if(newVal)
 			{	
