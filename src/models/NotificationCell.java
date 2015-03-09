@@ -1,7 +1,9 @@
 package models;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
+import controllers.HeaderController;
 import socket.Requester;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -85,7 +87,8 @@ public class NotificationCell extends ListCell<Notification> {
 
 							/* Removes the notification from ListView */
 							list.remove(note);
-							setGraphic(new Text("tom celle"));
+							setGraphic(null);
+							HeaderController.getController().updateNotificationButton(PersonInfo.getPersonInfo().getNotifications().size() - 1);
 							//notifications.remove(n);
 							//notifications =
 							//System.out.println(notifications);
