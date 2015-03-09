@@ -51,6 +51,8 @@ public class EventController {
 	
 	
 	@FXML public void cancelButtonOnAction(){
+		HeaderController.getController().drawEventsForWeek();
+		WindowController.setEventWindowIsOpenOrClosed(false);
 		stage.close();
 	}
 	

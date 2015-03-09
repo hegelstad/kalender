@@ -21,6 +21,7 @@ public class WindowController {
 	private static Main program;
 	private static double xOffset = 0;
 	private static double yOffset = 0;
+	private static boolean eventWindowIsOpenOrClosed=false;
 	
 	
 	public static void setProgram(Main p){
@@ -31,6 +32,15 @@ public class WindowController {
 	public static void setStage(Stage stage){
 		thisStage=stage;
 	}
+	
+	public static void setEventWindowIsOpenOrClosed(boolean b){
+		eventWindowIsOpenOrClosed = b;
+	}
+	
+	public static boolean getEventWindowIsOpenOrClosed(){
+		return eventWindowIsOpenOrClosed;
+	}
+
 	
 	public static void showStage(){
 		thisStage.centerOnScreen();
@@ -90,6 +100,10 @@ public class WindowController {
 	}
 	
 	public static void goToEventView(Event event){
+		if (eventWindowIsOpenOrClosed){
+			System.out.println("You cannot open more then one event window at any given moment");
+		}
+		else{
 		try{
 			Stage eventWindows = new Stage();
 			eventWindows.initStyle(StageStyle.UNDECORATED);
@@ -124,11 +138,13 @@ public class WindowController {
 			eventWindows.setTitle("Add a new event");
 			eventWindows.setResizable(false);
 			eventWindows.show();
+			eventWindowIsOpenOrClosed = true;
 		}
 		catch(Exception e){
 			System.out.println(e);
 			e.printStackTrace();
 		}
+	}
 	}
 
 	public static void goToNotificationView(){
