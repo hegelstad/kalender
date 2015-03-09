@@ -25,8 +25,8 @@ import javafx.scene.text.Text;
 public class WeekController {
 
 	public static WeekController controller;
-	public final double fullEventWidth = 158;
-	public final double fullEventWidthPrecise = 156.31; 
+	public final double fullEventWidth = 155;
+	public final double fullEventWidthPrecise = 155; 
 	public final double hourHeight = 66;
 	public final double hourHeightPrecise = 65.5; 
 	public final double indentMargin = 15.0;
@@ -41,12 +41,12 @@ public class WeekController {
 	
 	/* Making some testdata */  /*
 	Calendar cal = new Calendar(1, "SuperKalender", null);
-	Event event = new Event(1, "Mï¿½te",null, null, LocalDateTime.now(), LocalDateTime.now().plusHours(2) , cal);
-	Event event2 = new Event(2, "Annet Mï¿½te",null, null, LocalDateTime.now().plusMinutes(15)
+	Event event = new Event(1, "MÃ¸te",null, null, LocalDateTime.now(), LocalDateTime.now().plusHours(2) , cal);
+	Event event2 = new Event(2, "Annet MÃ¸te",null, null, LocalDateTime.now().plusMinutes(15)
 			, LocalDateTime.now().plusHours(1).plusMinutes(15) , cal);
+<<<<<<< HEAD
 	Event event3 = new Event(3, "Siste mï¿½te",null, null, LocalDateTime.now().plusHours(1)
 			, LocalDateTime.now().plusHours(2) , cal);*/
-	/* End of making testdata */
 	
 	
 	public WeekController(){
@@ -73,7 +73,8 @@ public class WeekController {
 		//drawEvent(event);
 		//drawEvent(event2);
 		//drawEvents(allEvents);
-		/*Slutt på testdata */
+		/*Slutt pï¿½ testdata */
+
 		
 		weekGrid.setOnMouseClicked( (mouseEvent) -> {
 			if(mouseOverEvent){
@@ -88,7 +89,7 @@ public class WeekController {
 			LocalDateTime to = LocalDateTime.of(2015, 3, 2+row, column+1, 0);
 			Event clickEvent = new Event(0, "Ny hendelse",null, null, from, to, null);
 			/* Tegner ny event, den vil blir erstatted av den ferdigredigerte hendelsen eller 
-			 * fjernet ved omtegning av eventer som blir gjort ved å gå ut av eventEdit*/
+			 * fjernet ved omtegning av eventer som blir gjort ved ï¿½ gï¿½ ut av eventEdit*/
 			drawEvent(clickEvent,0,0);
 			openEvent(clickEvent);
 		});
@@ -212,7 +213,7 @@ public class WeekController {
 		for(int k =0; k<events.size(); k++){
 			Event currentEvent = events.get(k);
 			
-			//Gå oppover til det ikke overlapper og sett indent
+			//Gï¿½ oppover til det ikke overlapper og sett indent
 			
 			for(int i=k-1; i>-1; i--){
 				
@@ -225,7 +226,7 @@ public class WeekController {
 				}
 			}
 			
-			//Gå nedover til det ikke overlapper og sett reverseIndent
+			//Gï¿½ nedover til det ikke overlapper og sett reverseIndent
 			
 			for(int i=k+1; i<events.size(); i++){
 				if(currentEvent.getTo().isAfter(events.get(i).getFrom())){
@@ -248,7 +249,7 @@ public class WeekController {
 			}
 			
 			//System.out.println(currentEvent.getName()+" indent: "+indent+" reverseIndent: "+reverseIndent+indent);
-			/* Siste event kommer seg gjennom siste løkken uten å sjekkes (i= k+1) */
+			/* Siste event kommer seg gjennom siste lï¿½kken uten ï¿½ sjekkes (i= k+1) */
 			if(k == events.size()-1){
 				drawEvent(currentEvent,indent,reverseIndent+indent);
 			}
