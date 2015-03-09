@@ -85,10 +85,13 @@ public class NotificationCell extends ListCell<Notification> {
 							s.closeConnection();
 							System.out.println("Notification flagged as read & accepted");
 
+							s = new Requester();
+							PersonInfo.personInfo.setNotifications(s.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup()));
+							s.closeConnection();
 							/* Removes the notification from ListView */
 							list.remove(note);
 							setGraphic(null);
-							HeaderController.getController().updateNotificationButton(PersonInfo.getPersonInfo().getNotifications().size() - 1);
+							HeaderController.getController().updateNotificationButton(PersonInfo.getPersonInfo().getNotifications().size());
 							//notifications.remove(n);
 							//notifications =
 							//System.out.println(notifications);
