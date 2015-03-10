@@ -114,7 +114,7 @@ public class HeaderController {
     @FXML
     private void logOff() {
 		/* Sends the user to the log-in screen */
-        WindowController.goToLogin();
+        WindowController.logOff();
         timer.cancel();
     }
 

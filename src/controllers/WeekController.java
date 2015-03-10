@@ -139,8 +139,8 @@ public class WeekController {
 		LocalDateTime from = e.getFrom();
 		LocalDateTime to = e.getTo();
 		double minDiff = (to.getHour()-from.getHour())*60 + (to.getMinute()-from.getMinute());
-		double height = minDiff/60.0 * 65.5;
-		//System.out.println(height);
+		double height = (minDiff/60.0) * 65.41;
+//		System.out.println("HEIGHT :    " + height);
 		if(height<0){
 			return -height;
 		}
