@@ -66,7 +66,7 @@ public class WindowController {
 		thisStage.setScene(scene);
 		thisStage.setTitle(title);
 		thisStage.centerOnScreen();
-		thisStage.setResizable(false);
+		thisStage.setResizable(true);
 		thisStage.show();
 		if(scene == null){
 			scene = new Scene(page);
@@ -134,8 +134,6 @@ public class WindowController {
 			scene.getStylesheets().add("/css/event.css");
 			eventWindows.setScene(scene);
 			eventWindows.centerOnScreen();
-			//Fix later: Only if event ==null	
-			eventWindows.setTitle("Add a new event");
 			eventWindows.setResizable(false);
 			eventWindows.show();
 			eventWindowIsOpenOrClosed = true;
@@ -157,7 +155,7 @@ public class WindowController {
 			Scene scene = new Scene(page, 494, 712);
 			notificationWindows.setScene(scene);
 			notificationWindows.centerOnScreen();
-			notificationWindows.setResizable(false);
+			notificationWindows.setResizable(true);
 			notificationWindows.show();
 		}
 		catch(Exception e){

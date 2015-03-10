@@ -110,7 +110,7 @@ public class PersonInfo {
 			}
 		}
 		if(events==null || events.size() == 0){
-			System.out.println("Ingen events på denne uka");
+			System.out.println("Ingen events pÃ¥ denne uka");
 		}
 		return events;
 	}
