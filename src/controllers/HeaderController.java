@@ -15,10 +15,7 @@ import socket.Requester;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Timer;
+import java.util.*;
 
 public class HeaderController {
 
@@ -152,9 +149,12 @@ public class HeaderController {
     }
 
     public void updateNotifications() {
-        Requester req = new Requester();
         int current_num_notifications = PersonInfo.getPersonInfo().getNotifications().size();
-        PersonInfo.personInfo.setNotifications(req.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup()));
+        Requester req = new Requester();
+        ArrayList<Notification> temp_notifications = req.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup());
+        req.closeConnection();
+        Collections.reverse(temp_notifications);
+        PersonInfo.personInfo.setNotifications(temp_notifications);
         int new_num_notifications = PersonInfo.getPersonInfo().getNotifications().size();
 
         if (current_num_notifications < new_num_notifications) {
