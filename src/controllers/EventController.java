@@ -22,11 +22,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 
 public class EventController {
 	
 	private Stage stage;
+	private Room room;
 	private ArrayList<UserGroup> participants;
 	private ArrayList<Room> rooms;
 	private ArrayList<UserGroup> addedParticipants = new ArrayList<UserGroup>();
@@ -58,6 +60,7 @@ public class EventController {
 	
 	@FXML public void saveButtonOnAction(){
 		if (createEvent()){
+			WindowController.setEventWindowIsOpenOrClosed(false);
 			stage.close();
 		}else{
 			System.out.println("Something went wrong.");
@@ -100,18 +103,9 @@ public class EventController {
 		Requester r = new Requester();
 		participants = r.getPrivateUserGroups();
 		pol = FXCollections.observableArrayList(participants);
-		apol = FXCollections.observableArrayList(addedParticipants);
 		addParticipantsSearch.setItems(pol);
+		apol = FXCollections.observableArrayList(addedParticipants);
 		participantsStatus.setItems(apol);
-		/*participantsStatus.setCellFactory((list) -> {
-			return new ListCell<UserGroup>(){
-				@Override
-					public void updateItem(UserGroup ug, boolean empty){
-						super.updateItem(ug,empty);
-						
-					}
-				};
-			});*/
 	}
 	
 	public LocalDateTime getFromTime(){
@@ -148,5 +142,28 @@ public class EventController {
 
 	void openEvent(Event event){
 		title.setText(event.getName());
+		fromDate.setValue(event.getFrom().toLocalDate());
+		toDate.setValue(event.getTo().toLocalDate());
+		String FromHours = Integer.toString(event.getFrom().toLocalTime().getHour());
+		String ToHours = Integer.toString(event.getTo().toLocalTime().getHour());
+		String FromMinutes = Integer.toString(event.getFrom().toLocalTime().getMinute());
+		String ToMinutes = Integer.toString(event.getTo().toLocalTime().getMinute());
+		if (FromHours.length() == 1){
+			FromHours = "0"+FromHours;
+		}
+		if (ToHours.length() == 1){
+			ToHours = "0"+ToHours;
+		}
+		if (FromMinutes.length() == 1){
+			FromMinutes = "0"+FromMinutes;
+		}
+		if (ToMinutes.length() == 1){
+			ToMinutes = "0"+ToMinutes;
+		}
+		fromHours.setValue(FromHours);
+		toHours.setValue(ToHours);
+		fromMinutes.setValue(FromMinutes);
+		toMinutes.setValue(ToMinutes);
+		note.setText(event.getNote());
 	}
 }

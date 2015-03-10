@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -38,6 +39,8 @@ public class WeekController {
 	private ArrayList<Circle> allCircs = new ArrayList<Circle>();
 	@FXML
 	GridPane weekGrid;
+	@FXML 
+	ScrollPane WeekView;
 	
 	/* Making some testdata */  /*
 	Calendar cal = new Calendar(1, "SuperKalender", null);
@@ -61,8 +64,10 @@ public class WeekController {
 		}
 		for(ColumnConstraints r :weekGrid.getColumnConstraints()){
 			r.setHalignment(HPos.LEFT);
+		
 		}
 		weekGrid.setGridLinesVisible(true);
+		
 		/*Lager testdata */
 //		for(int i = 0;i<7;i++){
 //			Event e = new Event(i, "Dag :"+i,null, null, LocalDateTime.of(2015, 3, 2+i, 10, 0)
@@ -94,6 +99,7 @@ public class WeekController {
 		System.out.println("WeekController inited");
 		HeaderController.getController().weekInit();
 		SidebarController.getController().weekInit();
+		WeekView.setVvalue(8000);
 	}
 	
 	private void drawEvent(Event event,int indent, int reverseIndent){
@@ -155,7 +161,7 @@ public class WeekController {
 		r.setArcWidth(3);
 		r.strokeProperty().set(Color.BLACK);
 		r.strokeWidthProperty().set(1);
-		r.fillProperty().set(Color.LIGHTGOLDENRODYELLOW);
+		r.fillProperty().set(Color.LIGHTSKYBLUE);
 		r.opacityProperty().set(0.5);
 	}
 	
