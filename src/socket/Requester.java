@@ -276,9 +276,9 @@ public class Requester {
      * @param p
      * @return
      */
-    public String getSalt(Person p){
-        Command cmd = new Command("getSalt");
-        String salt = null;
+    public Person getSalt(Person p){
+        Command cmd = new Command("getSalt-person");
+        Person salt = null;
         try{
             ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
             oos.writeObject(cmd);
@@ -286,8 +286,7 @@ public class Requester {
             InputStream is = con.getInputStream();
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
-            salt = ((Person) o).getSalt();
-            System.out.println("Requester.getSalt -> salt is: " + salt);
+            salt = (Person) o;
 
         }  catch (ClassCastException e) {
             System.out.println(e);
