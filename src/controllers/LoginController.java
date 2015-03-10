@@ -75,10 +75,14 @@ public class LoginController {
    
    private boolean authenticateUser(){
 	   connection = new Requester();
-	   p = new Person(username.getText(), password.getText(), connection.);
+       p = new Person(username.getText(), password.getText(), connection.getSalt(new Person(username.getText(),"","")));
+       connection.closeConnection();
+
+       connection = new Requester();
 	   Person p2  = connection.authenticate(p);
 	   connection.closeConnection();
-	   if (p2 == null){
+
+	   if (p2 == null){ //REPLACE WITH TRY CATCH BLOCK - NULL = STREAM HEADER - REQUESTER?
 		   return false;
 	   }
 	   this.p=p2;
