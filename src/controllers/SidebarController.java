@@ -11,6 +11,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import models.CalendarCell;
 public class SidebarController {
@@ -20,6 +21,8 @@ public class SidebarController {
 	@FXML private CheckBox defaultCalendar;
 	
 	@FXML private ListView<Calendar> calendarList;
+	
+	@FXML private Pane userManagmentPaneButton;
 	
 	ObservableList<Calendar> calendars = FXCollections.observableArrayList(new ArrayList<Calendar>());
 	
@@ -35,6 +38,12 @@ public class SidebarController {
 		//addCalendar(calen);
 		for(Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
 			System.out.println(cal);
+			
+			userManagmentPaneButton.setOnMouseClicked( (mouseEvent) -> {
+				{
+					WindowController.goToManageUsersView();
+				}
+			});
 		}
 	}
 	
@@ -54,4 +63,6 @@ public class SidebarController {
 	public static SidebarController getController(){
 		return controller;
 	}
+	
+	
 }
