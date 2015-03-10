@@ -16,9 +16,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
-/**
- * Created by sondrehj on 02.03.2015.
- */
 public class Requester {
 	
     Socket con;
