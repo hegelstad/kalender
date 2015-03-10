@@ -39,12 +39,12 @@ public class SidebarController {
 		for(Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
 			System.out.println(cal);
 			
-			userManagmentPaneButton.setOnMouseClicked( (mouseEvent) -> {
-				{
-					WindowController.goToManageUsersView();
-				}
-			});
 		}
+		userManagmentPaneButton.setOnMouseClicked( (mouseEvent) -> {
+			{
+				WindowController.goToManageUsersView();
+			}
+		});
 	}
 	
 	public void addCalendar(Calendar cal){
