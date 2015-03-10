@@ -39,6 +39,10 @@ public class HeaderController {
     @FXML private Label saturdayDayOfWeek;
     @FXML private Label sundayDayOfWeek;
     @FXML private Button notificationButton;
+    @FXML private Button addEventButton;
+    @FXML private Button incrementWeekPlusButton;
+    @FXML private Button incrementWeekMinusButton;
+    @FXML private Button logOffButton;
 
     LocalDate date = LocalDate.now();
     ArrayList<Label> weekday_labels = new ArrayList<>();
@@ -58,6 +62,13 @@ public class HeaderController {
         timer = new Timer();
         scheduler = new Scheduler();
         timer.scheduleAtFixedRate(scheduler, 1, 10000);
+        addEventButton.setTooltip(new Tooltip("Create a new event"));
+        incrementWeekPlusButton.setTooltip(new Tooltip("Go to next week"));
+        incrementWeekMinusButton.setTooltip(new Tooltip("Go to previous week"));
+        notificationButton.setTooltip(new Tooltip("View your notifications"));
+        logOffButton.setTooltip(new Tooltip("Log off and return to the login screen"));
+        
+        
     }
 
     @FXML
