@@ -10,7 +10,7 @@ public class SuperController {
 	@FXML
 	public void keyPressed(KeyEvent key){
 		if(key.getCode().equals(KeyCode.ESCAPE)){
-			WindowController.closeStage();
+			WindowController.logOff();
 		}
 	}
 

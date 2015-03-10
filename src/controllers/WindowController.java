@@ -1,8 +1,12 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import models.Event;
 import controllers.Main;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
@@ -10,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /**
  * WindowsController control all the windows
@@ -22,6 +27,8 @@ public class WindowController {
 	private static double xOffset = 0;
 	private static double yOffset = 0;
 	private static boolean eventWindowIsOpenOrClosed=false;
+	private static boolean manageUsersWindowIsOpenOrClosed=false;
+	private static List<Stage> stages = new ArrayList<Stage>();
 	
 	
 	public static void setProgram(Main p){
@@ -35,6 +42,10 @@ public class WindowController {
 	
 	public static void setEventWindowIsOpenOrClosed(boolean b){
 		eventWindowIsOpenOrClosed = b;
+	}
+	
+	public static void setManageUsersWindowIsOpenOrClosed(boolean b){
+		manageUsersWindowIsOpenOrClosed = b;
 	}
 	
 	public static boolean getEventWindowIsOpenOrClosed(){
@@ -101,12 +112,14 @@ public class WindowController {
 	}
 	
 	public static void goToEventView(Event event){
+		Stage eventWindows = new Stage();
 		if (eventWindowIsOpenOrClosed){
-			System.out.println("You cannot open more then one event window at any given moment");
+			System.out.println("You cannot open more then one event window at once");
+			stages.remove(eventWindows);
 		}
 		else{
 		try{
-			Stage eventWindows = new Stage();
+			stages.add(eventWindows);
 			eventWindows.initStyle(StageStyle.UNDECORATED);
 			Parent page;
 			FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/EventView.fxml"), null, new JavaFXBuilderFactory());
@@ -166,29 +179,51 @@ public class WindowController {
 	}
 	
 	public static void goToManageUsersView(){
-		try{
-			Stage manageUsersView = new Stage();
-			Parent page;
-			FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/ManageUsersView.fxml"), null, new JavaFXBuilderFactory());
-			page = (Parent) loader.load();
-			ManageUsersController controller = loader.getController();
-			Scene scene = new Scene(page);
-			manageUsersView.setScene(scene);
-			manageUsersView.setX(300);
-			manageUsersView.setResizable(false);
-			manageUsersView.show();
-			}
-		catch(Exception e){
-			System.out.println(e);
-			e.printStackTrace();
+		Stage manageUsersView = new Stage();
+		if (manageUsersWindowIsOpenOrClosed){
+			System.out.println("You cannot open more then one managment window at once");
+			stages.remove(manageUsersView);
 		}
+		else{
+			
+			try{
+				Parent page;
+				FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/ManageUsersView.fxml"), null, new JavaFXBuilderFactory());
+				page = (Parent) loader.load();
+				ManageUsersController controller = loader.getController();
+				Scene scene = new Scene(page);
+				manageUsersView.setScene(scene);
+				manageUsersView.setX(300);
+				manageUsersView.setResizable(false);
+				manageUsersView.setAlwaysOnTop(true);
+				manageUsersWindowIsOpenOrClosed = true;
+				manageUsersView.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		            public void handle(WindowEvent we) {
+		            	manageUsersView.close();
+		                setManageUsersWindowIsOpenOrClosed(false);
+		                System.out.println("Closing managment window");
+		            }
+		        }); 
+				stages.add(manageUsersView);
+				manageUsersView.show();
+			}
+			catch(Exception e){
+				System.out.println(e);
+				e.printStackTrace();
+			}
+			
+		}
+		}
+	
+	
+	public static void logOff(){
+			for (Stage s: stages){
+				s.close();
+			}
+			setEventWindowIsOpenOrClosed(false);
+			setManageUsersWindowIsOpenOrClosed(false);
+		goToLogin();
 		
 	}
-	
-	public static void closeStage(){
-		thisStage.close();
-	}
-
-	
 }
 
