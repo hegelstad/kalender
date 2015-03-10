@@ -279,7 +279,7 @@ public class Requester {
      * @param p
      * @return
      */
-    public UserGroup getSalt(String p){
+    public String getSalt(Person p){
         Command cmd = new Command("getSalt");
         String salt = null;
         try{
@@ -289,8 +289,8 @@ public class Requester {
             InputStream is = con.getInputStream();
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
-            salt = (String) o;
-            System.out.println(salt);
+            salt = ((Person) o).getSalt();
+            System.out.println("Requester.getSalt -> salt is: " + salt);
 
         }  catch (ClassCastException e) {
             System.out.println(e);
