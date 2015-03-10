@@ -76,7 +76,7 @@
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="153.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" />
