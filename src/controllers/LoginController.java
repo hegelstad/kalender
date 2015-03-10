@@ -75,7 +75,7 @@ public class LoginController {
    
    private boolean authenticateUser(){
 	   connection = new Requester();
-	   p = new Person(username.getText(), password.getText());
+	   p = new Person(username.getText(), password.getText(), connection.);
 	   Person p2  = connection.authenticate(p);
 	   connection.closeConnection();
 	   if (p2 == null){

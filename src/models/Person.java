@@ -3,43 +3,42 @@ package models;
 import java.io.Serializable;
 import java.security.MessageDigest;
 
-public class Person implements Serializable{
+public class Person implements Serializable {
     private int personID;
     private String username;
     private String password;
     private String name;
 
-    public Person(String username, String password, String name){
-
+    public Person(String username, String password, String name, String salt) {
         this.name = name;
         this.username = username;
-        this.password = passwordHash(password);
+        this.password = passwordHash(password, salt);
     }
 
-    public Person(String username, String password){
+    public Person(String username, String password, String salt) {
         this.username = username;
-        this.password = passwordHash(password);
+        this.password = passwordHash(password, salt);
     }
 
-    public Person(String username, String name, int personID){
+    public Person(String username, String name, int personID) {
         this.username = username;
         this.name = name;
         this.personID = personID;
     }
 
-    private String passwordHash(String s){
-        try{
-            MessageDigest md = MessageDigest.getInstance("MD5");
+    private String passwordHash(String s, String salt) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
             md.update(s.getBytes());
             byte[] bytes = md.digest();
             StringBuilder sb = new StringBuilder();
-            for(int i =0; i<bytes.length; i++){
+            for(int i =0; i<bytes.length; i++) {
                 sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
             }
             s = sb.toString();
             return s;
         }
-        catch(Exception e){
+        catch(Exception e) {
             System.out.println("nei");
             e.printStackTrace();
         }
@@ -47,9 +46,9 @@ public class Person implements Serializable{
     }
 
     /**
-     * Fetches the persons registered name and personID fromt the database
+     * Fetches the persons registered name and personID from the database
      */
-    private void fetchNameAndID(){
+    private void fetchNameAndID() {
         //get info from database
     }
 

@@ -273,7 +273,36 @@ public class Requester {
          }
     	return userGroup;
     }
-    
+
+    /**
+     * Henter saltet til et brukernavn
+     * @param p
+     * @return
+     */
+    public UserGroup getSalt(String p){
+        Command cmd = new Command("getSalt");
+        String salt = null;
+        try{
+            ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+            oos.writeObject(cmd);
+            oos.writeObject(p);
+            InputStream is = con.getInputStream();
+            ObjectInputStream os = new ObjectInputStream(is);
+            Object o = os.readObject();
+            salt = (String) o;
+            System.out.println(salt);
+
+        }  catch (ClassCastException e) {
+            System.out.println(e);
+        }catch(ClassNotFoundException e){
+            System.out.println(e);
+        }catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return salt;
+    }
+
     
     //CALENDAR
     /**
