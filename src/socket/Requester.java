@@ -858,8 +858,8 @@ public class Requester {
      * @param ev
      * @return
      */
-    public ArrayList<Attendant> getAttendands(Event ev){
-    	Command cmd = new Command("getAttendands-event");
+    public ArrayList<Attendant> getAttendants(Event ev){
+    	Command cmd = new Command("getAttendants-event");
     	ArrayList<Attendant> attendants = null;
     	try{
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());

@@ -155,6 +155,7 @@ public class HeaderController {
         Requester req = new Requester();
         int current_num_notifications = PersonInfo.getPersonInfo().getNotifications().size();
         PersonInfo.personInfo.setNotifications(req.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup()));
+        req.closeConnection();
         int new_num_notifications = PersonInfo.getPersonInfo().getNotifications().size();
 
         if (current_num_notifications < new_num_notifications) {

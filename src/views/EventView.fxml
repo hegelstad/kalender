@@ -7,10 +7,10 @@
 
 <AnchorPane fx:id="EventView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EventController">
    <children>
-      <TextField fx:id="title" layoutX="80.0" layoutY="53.0" prefHeight="26.0" prefWidth="300.0" translateY="-20.0" />
-      <ComboBox fx:id="roomLocation" editable="false" layoutX="80.0" layoutY="184.0" onMouseClicked="#getAvailableRooms" prefHeight="26.0" prefWidth="300.0" translateY="-20.0" />
-      <DatePicker fx:id="fromDate" editable="false" layoutX="80.0" layoutY="95.0" prefHeight="26.0" prefWidth="129.0" promptText="MM.DD.YYYY" translateY="-20.0" />
-      <DatePicker fx:id="toDate" editable="false" layoutX="80.0" layoutY="142.0" prefHeight="26.0" prefWidth="129.0" promptText="MM.DD.YYYY" translateY="-20.0" />
+      <TextField fx:id="title" layoutX="80.0" layoutY="53.0" onKeyReleased="#validateTitle" prefHeight="26.0" prefWidth="300.0" translateY="-20.0" />
+      <ComboBox fx:id="roomLocation" disable="true" editable="false" layoutX="80.0" layoutY="184.0" onMouseClicked="#getAvailableRooms" prefHeight="26.0" prefWidth="300.0" translateY="-20.0" />
+      <DatePicker fx:id="fromDate" editable="false" layoutX="80.0" layoutY="95.0" onAction="#validateTime" prefHeight="26.0" prefWidth="129.0" promptText="MM.DD.YYYY" translateY="-20.0" />
+      <DatePicker fx:id="toDate" editable="false" layoutX="80.0" layoutY="142.0" onAction="#validateTime" prefHeight="26.0" prefWidth="129.0" promptText="MM.DD.YYYY" translateY="-20.0" />
       <TextArea fx:id="note" layoutX="80.0" layoutY="230.0" prefHeight="118.0" prefWidth="300.0" translateY="-20.0" />
       <Label layoutX="198.0" layoutY="6.0" text="Event" />
       <Label layoutX="18.0" layoutY="58.0" text="Title" translateY="-20.0" />
@@ -23,11 +23,11 @@
       <Button fx:id="saveButton" layoutX="239.0" layoutY="550.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="26.0" prefWidth="66.0" text="Save" translateY="-20.0" />
       <Button fx:id="cancelButton" layoutX="323.0" layoutY="550.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="26.0" prefWidth="66.0" text="Cancel" translateY="-20.0" />
       <Label layoutX="80.0" layoutY="360.0" text="Add participants" translateY="-20.0" />
-      <ComboBox fx:id="fromHours" layoutX="220.0" layoutY="95.0" prefHeight="26.0" prefWidth="75.0" promptText="HH" translateY="-20.0" />
-      <ComboBox fx:id="fromMinutes" layoutX="305.0" layoutY="95.0" prefHeight="26.0" prefWidth="75.0" promptText="MM" translateY="-20.0" />
-      <ComboBox fx:id="toHours" layoutX="220.0" layoutY="142.0" prefHeight="26.0" prefWidth="75.0" promptText="HH" translateY="-20.0" />
-      <ComboBox fx:id="toMinutes" layoutX="305.0" layoutY="142.0" prefHeight="26.0" prefWidth="75.0" promptText="MM" translateY="-20.0" />
-      <Button fx:id="addParticipantsButton" layoutX="356.0" layoutY="385.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" onAction="#addParticipant" text="+" translateY="-20.0" />
-      <Button fx:id="removeParticipantsButton" layoutX="356.0" layoutY="420.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" onAction="#removeParticipant" text="-" translateY="-20.0" />
+      <ComboBox fx:id="fromHours" layoutX="220.0" layoutY="95.0" onAction="#validateTime" prefHeight="26.0" prefWidth="75.0" promptText="HH" translateY="-20.0" />
+      <ComboBox fx:id="fromMinutes" layoutX="305.0" layoutY="95.0" onAction="#validateTime" prefHeight="26.0" prefWidth="75.0" promptText="MM" translateY="-20.0" />
+      <ComboBox fx:id="toHours" layoutX="220.0" layoutY="142.0" onAction="#validateTime" prefHeight="26.0" prefWidth="75.0" promptText="HH" translateY="-20.0" />
+      <ComboBox fx:id="toMinutes" layoutX="305.0" layoutY="142.0" onAction="#validateTime" prefHeight="26.0" prefWidth="75.0" promptText="MM" translateY="-20.0" />
+      <Button fx:id="addParticipantsButton" layoutX="356.0" layoutY="385.0" mnemonicParsing="false" onAction="#addParticipant" prefHeight="26.0" prefWidth="26.0" text="+" translateY="-20.0" />
+      <Button fx:id="removeParticipantsButton" layoutX="356.0" layoutY="420.0" mnemonicParsing="false" onAction="#removeParticipant" prefHeight="26.0" prefWidth="26.0" text="-" translateY="-20.0" />
    </children>
 </AnchorPane>
