@@ -13,7 +13,9 @@ import javafx.scene.media.MediaPlayer;
 import models.*;
 import socket.Requester;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -180,6 +182,27 @@ public class HeaderController {
     public void drawEventsForWeek(){
     	/* Draw events for this week */
         WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
+    }
+    
+    /*Ment tp be used from WeekController to get the correct date for a new event when you click a given column
+     * 
+     */
+    public LocalDateTime getDateForColumn(int column, int row){
+    	LocalDate tempDate = date;
+    	System.out.println("TempDate: " + tempDate);
+    	int dayOfWeek = tempDate.getDayOfWeek().getValue();
+    	int calendarDayOfWeek = column+1;
+    	int difDayOfWeek = calendarDayOfWeek-dayOfWeek;
+    	int dayOfMonth = tempDate.getDayOfMonth();
+    	tempDate = tempDate.plusDays(difDayOfWeek);
+    	System.out.println("TempDate after + days : " + tempDate);
+    	int calendarDayOfMonth = tempDate.getDayOfMonth();
+    	int  year = tempDate.getYear();
+    	int month = tempDate.getMonthValue();
+    	System.out.println("Column : " + column + " Row : " + " dateDayOfWeek : " + date.getDayOfWeek().getValue());
+    	LocalDateTime newDate = LocalDateTime.of(year, month, calendarDayOfMonth, row, 0);
+		return newDate;
+    	
     }
     
     

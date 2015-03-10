@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fx:id="WeekView" maxHeight="575.0" maxWidth="1133.0" minHeight="575.0" minWidth="1133.0" prefHeight="575.0" prefWidth="1133.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.WeekController">
+<ScrollPane fx:id="WeekView" fitToWidth="true" hvalue="1.0" maxHeight="575.0" maxWidth="1133.0" minHeight="575.0" minWidth="1133.0" prefHeight="575.0" prefWidth="1133.0" vvalue="0.5" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.WeekController">
    <content>
       <GridPane fx:id="WeekViewGrid" maxHeight="1570.0" maxWidth="1114.0" minHeight="1570.0" minWidth="1114.0" prefHeight="1570.0" prefWidth="1114.0">
         <columnConstraints>
