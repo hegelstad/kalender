@@ -10,13 +10,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import models.*;
+
 import socket.Requester;
+
+import models.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
+
 import java.util.*;
 
 public class HeaderController {
@@ -24,34 +27,21 @@ public class HeaderController {
     ListView<Notification> notificationList;
     ObservableList<Notification> notifications;
     private static HeaderController controller;
-    //sad
 
-    @FXML
-    private AnchorPane calendarHeaderView;
-    @FXML
-    private Label month_Year;
-    @FXML
-    private Label weekNr;
-    @FXML
-    private Label mondayDayOfWeek;
-    @FXML
-    private Label tuesdayDayOfWeek;
-    @FXML
-    private Label wednesdayDayOfWeek;
-    @FXML
-    private Label thursdayDayOfWeek;
-    @FXML
-    private Label fridayDayOfWeek;
-    @FXML
-    private Label saturdayDayOfWeek;
-    @FXML
-    private Label sundayDayOfWeek;
-    @FXML
-    private Button notificationButton;
+    @FXML private AnchorPane calendarHeaderView;
+    @FXML private Label month_Year;
+    @FXML private Label weekNr;
+    @FXML private Label mondayDayOfWeek;
+    @FXML private Label tuesdayDayOfWeek;
+    @FXML private Label wednesdayDayOfWeek;
+    @FXML private Label thursdayDayOfWeek;
+    @FXML private Label fridayDayOfWeek;
+    @FXML private Label saturdayDayOfWeek;
+    @FXML private Label sundayDayOfWeek;
+    @FXML private Button notificationButton;
 
     LocalDate date = LocalDate.now();
     ArrayList<Label> weekday_labels = new ArrayList<>();
-    Notification selected_notification;
     int weekNumber;
     Timer timer;
     Scheduler scheduler;
@@ -77,7 +67,6 @@ public class HeaderController {
 
     @FXML
     private void incrementWeek() {
-
 		/* Add 1 week to LocalDate date */
         date = date.plusWeeks(1);
         updateDates();
@@ -85,7 +74,6 @@ public class HeaderController {
 
     @FXML
     private void decrementWeek() {
-
 		/* Subtract 1 week of LocalDate date */
         date = date.minusWeeks(1);
         updateDates();
@@ -94,12 +82,11 @@ public class HeaderController {
 
     @FXML
     private void updateDates() {
-
 		/* Set current week number */
-        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        WeekFields weekFields = WeekFields.of(Locale.ENGLISH);
         weekNumber = date.get(weekFields.weekOfWeekBasedYear());
         weekNr.setText("" + weekNumber);
-        
+
         /* Update drawn events when changing week */
         drawEventsForWeek();
         
@@ -108,7 +95,7 @@ public class HeaderController {
 		
 		/* Set date of weekday_labels */
         for (int i = 0; i < weekday_labels.size(); i++) {
-            int date_value = date.with(weekFields.getFirstDayOfWeek()).plusDays(i).getDayOfMonth();
+            int date_value = date.with(DayOfWeek.MONDAY).plusDays(i).getDayOfMonth();
             weekday_labels.get(i).setText("" + date_value + ".");
         }
     }
