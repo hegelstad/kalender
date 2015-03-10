@@ -165,6 +165,26 @@ public class WindowController {
 		}
 	}
 	
+	public static void goToManageUsersView(){
+		try{
+			Stage manageUsersView = new Stage();
+			Parent page;
+			FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/ManageUsersView.fxml"), null, new JavaFXBuilderFactory());
+			page = (Parent) loader.load();
+			ManageUsersController controller = loader.getController();
+			Scene scene = new Scene(page);
+			manageUsersView.setScene(scene);
+			manageUsersView.setX(300);
+			manageUsersView.setResizable(false);
+			manageUsersView.show();
+			}
+		catch(Exception e){
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public static void closeStage(){
 		thisStage.close();
 	}
