@@ -27,7 +27,7 @@ public class WeekController {
 
 	public static WeekController controller;
 	public final double fullEventWidth = 155;
-	public final double fullEventWidthPrecise = 155; 
+	public final double fullEventWidthPrecise = 153; 
 	public final double hourHeight = 66;
 	public final double hourHeightPrecise = 65.41; 
 	public final double indentMargin = 15.0;
@@ -74,7 +74,7 @@ public class WeekController {
 		//drawEvent(event);
 		//drawEvent(event2);
 		weekGrid.setOnMouseClicked( (mouseEvent) -> {
-			if(mouseOverEvent){
+			if(mouseOverEvent || WindowController.getEventWindowIsOpenOrClosed()){
 				return;
 			}
 			double y = mouseEvent.getY();
