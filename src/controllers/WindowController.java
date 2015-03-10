@@ -66,7 +66,7 @@ public class WindowController {
 		thisStage.setScene(scene);
 		thisStage.setTitle(title);
 		thisStage.centerOnScreen();
-		thisStage.setResizable(true);
+		thisStage.setResizable(false);
 		thisStage.show();
 		if(scene == null){
 			scene = new Scene(page);
@@ -92,6 +92,7 @@ public class WindowController {
 	public static void goToCalendarView(){
 		try{
 			replaceSceneContent("../views/SuperView.fxml", 1332 , 680);
+			WeekController.getController().setVvalue();
 		}
 		catch (Exception e){
 			System.out.println(e);
@@ -128,7 +129,7 @@ public class WindowController {
 	                eventWindows.setY(event.getScreenY() - yOffset);
 	            }
 	        });
-			
+			eventWindows.setAlwaysOnTop(true);
 			controller.setStage(eventWindows);
 			Scene scene = new Scene(page, 410, 570);
 			scene.getStylesheets().add("/css/event.css");
@@ -155,7 +156,7 @@ public class WindowController {
 			Scene scene = new Scene(page, 494, 712);
 			notificationWindows.setScene(scene);
 			notificationWindows.centerOnScreen();
-			notificationWindows.setResizable(true);
+			notificationWindows.setResizable(false);
 			notificationWindows.show();
 		}
 		catch(Exception e){

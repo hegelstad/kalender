@@ -29,7 +29,7 @@ public class WeekController {
 	public final double fullEventWidth = 155;
 	public final double fullEventWidthPrecise = 155; 
 	public final double hourHeight = 66;
-	public final double hourHeightPrecise = 65.5; 
+	public final double hourHeightPrecise = 65.41; 
 	public final double indentMargin = 15.0;
 	boolean mouseOverEvent = false;
 	ArrayList<EventDrawing> eventDrawings = new ArrayList<>();
@@ -37,10 +37,8 @@ public class WeekController {
 	private ArrayList<Rectangle> allRecs= new ArrayList<>();
 	private ArrayList<Text> allTexts = new ArrayList<>();
 	private ArrayList<Circle> allCircs = new ArrayList<Circle>();
-	@FXML
-	GridPane weekGrid;
-	@FXML 
-	ScrollPane WeekView;
+	@FXML GridPane weekGrid;
+	@FXML ScrollPane WeekView;
 	
 	/* Making some testdata */  /*
 	Calendar cal = new Calendar(1, "SuperKalender", null);
@@ -52,9 +50,7 @@ public class WeekController {
 			, LocalDateTime.now().plusHours(2) , cal);*/
 	/* End of making testdata */
 
-	public WeekController(){
-		
-	}
+
 	
 	@FXML
 	private void initialize(){
@@ -77,29 +73,25 @@ public class WeekController {
 //		drawnEvents.add(event);drawnEvents.add(event2);drawnEvents.add(event3);
 		//drawEvent(event);
 		//drawEvent(event2);
-		
 		weekGrid.setOnMouseClicked( (mouseEvent) -> {
 			if(mouseOverEvent){
 				return;
 			}
 			double y = mouseEvent.getY();
 			double x = mouseEvent.getX();
-			int row = (int) (x/fullEventWidthPrecise);
-			int column = (int) (y/hourHeightPrecise); 
-			//System.out.println("Row :"+row+" Col: "+column);				
-			LocalDateTime from = LocalDateTime.of(2015, 3, 2+row, column, 0);
-			LocalDateTime to = LocalDateTime.of(2015, 3, 2+row, column+1, 0);
-			Event clickEvent = new Event(0, "Ny hendelse",null, null, from, to, null);
+			int column = (int) (x/fullEventWidthPrecise);
+			int row = (int) (y/hourHeightPrecise); 
+			LocalDateTime from = HeaderController.getController().getDateForColumn(column, row);
+			LocalDateTime to = from.plusMinutes(60);
+			Event clickEvent = new Event(0, "New event", null, null, from, to, null);
 			/* Tegner ny event, den vil blir erstatted av den ferdigredigerte hendelsen eller 
 			 * fjernet ved omtegning av eventer som blir gjort ved � g� ut av eventEdit*/
 			drawEvent(clickEvent,0,0);
 			openEvent(clickEvent);
 		});
-		
 		System.out.println("WeekController inited");
 		HeaderController.getController().weekInit();
 		SidebarController.getController().weekInit();
-		WeekView.setVvalue(8000);
 	}
 	
 	private void drawEvent(Event event,int indent, int reverseIndent){
@@ -141,7 +133,6 @@ public class WeekController {
 		allRecs.add(eventRec);
 		allTexts.add(eventName);
 		allCircs.add(statusCircle);
-		
 	}
 	
 	private double getEventHeight(Event e){
@@ -178,7 +169,6 @@ public class WeekController {
 	 * Replaces all currently drawn events with incoming events
 	 */
 	public void drawEvents(Collection<Event> sortedEvents){
-		
 		if(sortedEvents == null){
 			System.out.println("Ingen faktiske skikkelige eventer hentet fra databasen");
 			return;
@@ -229,7 +219,7 @@ public class WeekController {
 				}
 			}
 			
-			//G� nedover til det ikke overlapper og sett reverseIndent
+			//Gå nedover til det ikke overlapper og sett reverseIndent
 			
 			for(int i=k+1; i<events.size(); i++){
 				if(currentEvent.getTo().isAfter(events.get(i).getFrom())){
@@ -252,7 +242,7 @@ public class WeekController {
 			}
 			
 			//System.out.println(currentEvent.getName()+" indent: "+indent+" reverseIndent: "+reverseIndent+indent);
-			/* Siste event kommer seg gjennom siste l�kken uten � sjekkes (i= k+1) */
+			/* Siste event kommer seg gjennom siste løkken uten å sjekkes (i= k+1) */
 			if(k == events.size()-1){
 				drawEvent(currentEvent,indent,reverseIndent+indent);
 			}
@@ -293,5 +283,8 @@ public class WeekController {
 		return controller;
 	}
 	
+	public void setVvalue(){
+		WeekView.setVvalue(0.5);
+	}
 	
 }
