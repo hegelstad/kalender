@@ -419,8 +419,7 @@ public class EventController {
 		event.setTo(getToTime());
 		
 		Requester req = new Requester();
-		//req.editEvent(event, PersonInfo.getPersonInfo().getPersonalUserGroup());
-		req.editEvent(event);
+		req.editEvent(event, PersonInfo.getPersonInfo().getPersonalUserGroup());
 		req.closeConnection();
 		
 		req = new Requester();
