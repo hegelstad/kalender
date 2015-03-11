@@ -69,13 +69,13 @@ public class EventController {
 	
 	@FXML public void cancelButtonOnAction(){
 		HeaderController.getController().drawEventsForWeek();
-		WindowController.setEventWindowIsOpenOrClosed(false);
+		WindowController.setEventWindowIsOpen(false);
 		stage.close();
 	}
 	
 	@FXML public void saveButtonOnAction(){
 		if (createEvent()){
-			WindowController.setEventWindowIsOpenOrClosed(false);
+			WindowController.setEventWindowIsOpen(false);
 			stage.close();
 		}else{
 			System.out.println("Something went wrong.");
@@ -426,7 +426,7 @@ public class EventController {
 		req.updateLocation(event, roomLocation.getSelectionModel().getSelectedItem());
 		req.closeConnection();
 		
-		WindowController.setEventWindowIsOpenOrClosed(false);
+		WindowController.setEventWindowIsOpen(false);
 		stage.close();
 	}
 }
