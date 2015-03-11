@@ -801,6 +801,29 @@ public class Requester {
     		e.printStackTrace();
     	}
     }
+
+    /**
+     * Tar inn et event og room. Oppdaterer location til gitt event
+     * @param ev
+     * @param room
+     */
+    public void updateLocation(Event ev, Room room){
+        Command cmd = new Command("updateLocation-event-room");
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+            oos.writeObject(cmd);
+            oos.writeObject(ev);
+            oos.writeObject(room);
+        }  catch (ClassCastException e) {
+            System.out.println(e);
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    
+    
     
     /**
      * Tar inn et event og returnerer eventuell roombooking for eventet.
