@@ -168,6 +168,7 @@ public class EventController {
 			
 		r = new Requester();
 		r.updateAttends(ev, new Attendant(PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID(), PersonInfo.personInfo.getPersonalUserGroup().getName(), 1));
+		r.closeConnection();
 		return (ev.getEventID() != 0);
 	}
 	

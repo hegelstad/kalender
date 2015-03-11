@@ -29,7 +29,7 @@ public class WeekController {
 	public final double fullEventWidth = 155;
 	public final double fullEventWidthPrecise = 153; 
 	public final double hourHeight = 66;
-	public final double hourHeightPrecise = 65.41; 
+	public final double hourHeightPrecise = 66; 
 	public final double indentMargin = 15.0;
 	boolean mouseOverEvent = false;
 	ArrayList<EventDrawing> eventDrawings = new ArrayList<>();
@@ -80,7 +80,10 @@ public class WeekController {
 			double y = mouseEvent.getY();
 			double x = mouseEvent.getX();
 			int column = (int) (x/fullEventWidthPrecise);
-			int row = (int) (y/hourHeightPrecise); 
+			int r1 = (int) (y/hourHeightPrecise);
+			int row = r1;
+			System.out.println("COLUMN " + column);
+			System.out.println("ROW    "  + row);
 			LocalDateTime from = HeaderController.getController().getDateForColumn(column, row);
 			LocalDateTime to = from.plusMinutes(60);
 			Event clickEvent = new Event(0, "New event", null, null, from, to, null);
@@ -139,7 +142,7 @@ public class WeekController {
 		LocalDateTime from = e.getFrom();
 		LocalDateTime to = e.getTo();
 		double minDiff = (to.getHour()-from.getHour())*60 + (to.getMinute()-from.getMinute());
-		double height = (minDiff/60.0) * 65.41;
+		double height = (minDiff/60.0) * 66;
 //		System.out.println("HEIGHT :    " + height);
 		if(height<0){
 			return -height;

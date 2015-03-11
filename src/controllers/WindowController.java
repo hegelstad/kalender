@@ -102,7 +102,7 @@ public class WindowController {
 	
 	public static void goToCalendarView(){
 		try{
-			replaceSceneContent("../views/SuperView.fxml", 1332 , 680);
+			replaceSceneContent("../views/SuperView.fxml", 1333 , 701);
 			WeekController.getController().setVvalue();
 		}
 		catch (Exception e){
