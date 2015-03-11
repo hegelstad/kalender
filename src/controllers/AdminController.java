@@ -14,19 +14,17 @@ import models.Person;
 import models.PersonInfo;
 import models.UserGroup;
 
-public class ManageUsersController {
+public class AdminController {
 
 	@FXML ListView<UserGroup> usersList;
     ObservableList<UserGroup> users;
     
     @FXML
-    private void initialize(){
+    private void initialize() {
     	Requester r = new Requester();
     	ArrayList<UserGroup> persons = r.getPrivateUserGroups();
         users = FXCollections.observableArrayList(persons);
         r.closeConnection();
         usersList.setItems(users);
     }
-	
-    
 }
