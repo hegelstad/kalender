@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="calendarCalendarsView" maxHeight="600.0" maxWidth="-Infinity" minHeight="573.0" minWidth="-Infinity" prefHeight="573.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SidebarController">
+<AnchorPane fx:id="calendarCalendarsView" maxHeight="594.0" maxWidth="-Infinity" minHeight="594.0" minWidth="-Infinity" prefHeight="594.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SidebarController">
    <children>
       <Label fx:id="calendarsLabel" layoutX="20.0" layoutY="40.0" prefHeight="31.0" prefWidth="110.0" text="Calendars">
          <font>
