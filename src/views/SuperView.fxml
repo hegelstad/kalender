@@ -10,7 +10,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane maxHeight="717.0" maxWidth="1342.0" minHeight="717.0" minWidth="1342.0" onKeyPressed="#keyPressed" prefHeight="717.0" prefWidth="1342.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SuperController">
+<AnchorPane maxHeight="701.0" maxWidth="1342.0" minHeight="701.0" minWidth="1333.0" onKeyPressed="#keyPressed" prefHeight="701.0" prefWidth="134.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SuperController">
     <children>
         <GridPane>
             <columnConstraints>
@@ -18,8 +18,8 @@
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="1200.0" minWidth="1200.0" prefWidth="1200.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="20.0" valignment="TOP" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="917.0" minHeight="20.0" prefHeight="917.0" valignment="TOP" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="107.0" minHeight="107.0" prefHeight="107.0" valignment="TOP" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="917.0" minHeight="20.0" prefHeight="595.0" valignment="TOP" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <fx:include source="HeaderView.fxml" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
