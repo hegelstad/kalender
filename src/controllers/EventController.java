@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import socket.Requester;
 import models.Attendant;
 import models.Calendar;
@@ -169,8 +171,7 @@ public class EventController {
 		r.closeConnection();
 		return (ev.getEventID() != 0);
 	}
-
-
+	
 	@FXML
 	private void initialize(){
 		initializeHourAndMinutes();
@@ -221,7 +222,7 @@ public class EventController {
 			    "00","05","10","15","20","25","30","35","40","45","50","55"));
 	}
 
-	void openEvent(Event event){
+	void openEvent(Event event) {
 		title.setText(event.getName());
 		fromDate.setValue(event.getFrom().toLocalDate());
 		toDate.setValue(event.getTo().toLocalDate());
@@ -236,33 +237,58 @@ public class EventController {
 		ArrayList<Attendant> ug = requester.getAttendants(event);
 		requester.closeConnection();
 		roomLocation.getSelectionModel().select(evRoom);
-		for (Attendant a : ug){
+		for (Attendant a : ug) {
 			int index = -1;
-			for (UserGroup ug2 : pol){
-				if (a.getUserGroupID() == ug2.getUserGroupID()){
+			for (UserGroup ug2 : pol) {
+				if (a.getUserGroupID() == ug2.getUserGroupID()) {
 					index = pol.indexOf(ug2);
 				}
 			}
-			if (index != -1){
+			if (index != -1) {
 				apol.add(pol.remove(index));
 			}
 		}
-		if (FromHours.length() == 1){
-			FromHours = "0"+FromHours;
+		if (FromHours.length() == 1) {
+			FromHours = "0" + FromHours;
 		}
-		if (ToHours.length() == 1){
-			ToHours = "0"+ToHours;
+		if (ToHours.length() == 1) {
+			ToHours = "0" + ToHours;
 		}
-		if (FromMinutes.length() == 1){
-			FromMinutes = "0"+FromMinutes;
+		if (FromMinutes.length() == 1) {
+			FromMinutes = "0" + FromMinutes;
 		}
-		if (ToMinutes.length() == 1){
-			ToMinutes = "0"+ToMinutes;
+		if (ToMinutes.length() == 1) {
+			ToMinutes = "0" + ToMinutes;
 		}
 		fromHours.setValue(FromHours);
 		toHours.setValue(ToHours);
 		fromMinutes.setValue(FromMinutes);
 		toMinutes.setValue(ToMinutes);
 		note.setText(event.getNote());
+		System.out.println(event);
+		//Oppdaterer event og location
+		if (event.getEventID() != 0) {
+			saveButton.setOnAction(e -> updatedEvent(event));
+		}
+	}
+	
+	public void updatedEvent(Event event){
+		
+		event.setName(title.getText());
+		event.setNote(note.getText());
+		event.setParticipants(new ArrayList<UserGroup>(apol));
+		event.setFrom(getFromTime());
+		event.setTo(getToTime());
+		
+		Requester req = new Requester();
+		req.editEvent(event);
+		req.closeConnection();
+		
+		req = new Requester();
+		req.updateLocation(event, roomLocation.getSelectionModel().getSelectedItem());
+		req.closeConnection();
+		
+		WindowController.setEventWindowIsOpenOrClosed(false);
+		stage.close();
 	}
 }
