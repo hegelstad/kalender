@@ -498,13 +498,14 @@ public class Requester {
      * Oppdaterer event.
      * @param event
      */
-    public void editEvent(Event event){
-    	Command cmd = new Command("editEvent-event");
+    public void editEvent(Event event, UserGroup sender){
+    	Command cmd = new Command("editEvent-event-usergroup");
     	Event ev = null;
     	try{
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
             oos.writeObject(cmd);
             oos.writeObject(event);
+            oos.writeObject(sender);
     	 }  catch (ClassCastException e) {
              System.out.println(e);
          }
