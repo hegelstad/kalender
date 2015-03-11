@@ -167,23 +167,24 @@ public class WindowController {
 			stages.remove(adminView);
 		} else {
 			try {
+                adminView.initStyle(StageStyle.UNDECORATED);
 				Parent page;
-				FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/AdminView.fxml"), null, new JavaFXBuilderFactory());
-				page = (Parent) loader.load();
-				AdminController controller = loader.getController();
-				Scene scene = new Scene(page);
-				adminView.setScene(scene);
+                FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/AdminView.fxml"), null, new JavaFXBuilderFactory());
+                page = (Parent) loader.load();
+                AdminController controller = loader.getController();
+                Scene scene = new Scene(page);
+                adminView.setScene(scene);
 				adminView.setX(300);
 				adminView.setResizable(false);
 				adminView.setAlwaysOnTop(true);
 				adminWindowIsOpen = true;
 				adminView.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		            public void handle(WindowEvent we) {
-		            	adminView.close();
-		                setAdminWindowIsOpen(false);
-		                System.out.println("Closing management window");
-		            }
-		        }); 
+                    public void handle(WindowEvent we) {
+                        adminView.close();
+                        setAdminWindowIsOpen(false);
+                        System.out.println("Closing management window");
+                    }
+                });
 				stages.add(adminView);
 				adminView.show();
 			} catch(Exception e) {
