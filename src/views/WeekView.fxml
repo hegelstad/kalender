@@ -5,9 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fx:id="WeekView" maxHeight="595.0" maxWidth="1133.0" minHeight="-Infinity" minWidth="1133.0" prefHeight="573.0" prefWidth="1133.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.WeekController">
+<ScrollPane fx:id="WeekView" fitToWidth="true" hvalue="1.0" maxHeight="575.0" maxWidth="1133.0" minHeight="575.0" minWidth="1133.0" prefHeight="575.0" prefWidth="1133.0" vvalue="0.5" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.WeekController">
    <content>
-      <GridPane fx:id="WeekViewGrid" minWidth="1114.0" prefHeight="1572.0" prefWidth="1114.0">
+      <GridPane fx:id="WeekViewGrid" maxHeight="1570.0" maxWidth="1114.0" minHeight="1570.0" minWidth="1114.0" prefHeight="1570.0" prefWidth="1114.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="43.0" minWidth="10.0" prefWidth="43.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="1071.0" minWidth="1071.0" prefWidth="1071.0" />
@@ -16,7 +16,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane fx:id="weekTimeGrid" minWidth="43.0" prefWidth="43.0">
+            <GridPane fx:id="weekTimeGrid" maxHeight="1570.0" minHeight="1570.0" minWidth="43.0" prefHeight="1570.0" prefWidth="43.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -47,67 +47,66 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="00.00" GridPane.rowIndex="0" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="01.00" GridPane.rowIndex="1" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="02.00" GridPane.rowIndex="2" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="03.00" GridPane.rowIndex="3" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="04.00" GridPane.rowIndex="4" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="05.00" GridPane.rowIndex="5" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="06.00" GridPane.rowIndex="6" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="07.00" GridPane.rowIndex="7" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="08.00" GridPane.rowIndex="8" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="09.00" GridPane.rowIndex="9" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="10.00" GridPane.rowIndex="10" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="11.00" GridPane.rowIndex="11" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="12.00" GridPane.rowIndex="12" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="13.00" GridPane.rowIndex="13" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="14.00" GridPane.rowIndex="14" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="15.00" GridPane.rowIndex="15" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="16.00" GridPane.rowIndex="16" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="17.00" GridPane.rowIndex="17" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="18.00" GridPane.rowIndex="18" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="19.00" GridPane.rowIndex="19" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="20.00" GridPane.rowIndex="20" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="21.00" GridPane.rowIndex="21" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="22.00" GridPane.rowIndex="22" />
-                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="23.00" GridPane.rowIndex="23" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="01.00" translateY="-8.0" GridPane.rowIndex="1" />
+                   <Label alignment="TOP_CENTER" prefHeight="25.0" prefWidth="43.0" text="03.00" translateY="-33.0" GridPane.rowIndex="3" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="04.00" translateY="-13.0" GridPane.rowIndex="4" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="05.00" translateY="-13.0" GridPane.rowIndex="5" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="06.00" translateY="-14.0" GridPane.rowIndex="6" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="07.00" translateY="-16.0" GridPane.rowIndex="7" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="08.00" translateY="-16.0" GridPane.rowIndex="8" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="09.00" translateY="-17.0" GridPane.rowIndex="9" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="10.00" translateY="-19.0" GridPane.rowIndex="10" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="11.00" translateY="-19.0" GridPane.rowIndex="11" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="12.00" translateY="-19.0" GridPane.rowIndex="12" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="13.00" translateY="-19.0" GridPane.rowIndex="13" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="14.00" translateY="-19.0" GridPane.rowIndex="14" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="15.00" translateY="-17.0" GridPane.rowIndex="15" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="16.00" translateY="-17.0" GridPane.rowIndex="16" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="17.00" translateY="-16.0" GridPane.rowIndex="17" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="18.00" translateY="-14.0" GridPane.rowIndex="18" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="19.00" translateY="-14.0" GridPane.rowIndex="19" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="20.00" translateY="-12.0" GridPane.rowIndex="20" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="21.00" translateY="-11.0" GridPane.rowIndex="21" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="22.00" translateY="-11.0" GridPane.rowIndex="22" />
+                   <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="23.00" translateY="-10.0" GridPane.rowIndex="23" />
+                  <Label alignment="TOP_CENTER" prefHeight="70.0" prefWidth="50.0" text="02.00" translateY="-11.0" GridPane.rowIndex="2" />
                </children>
             </GridPane>
-            <GridPane fx:id="weekGrid" maxWidth="1071.0" minWidth="1071.0" prefWidth="1071.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+            <GridPane fx:id="weekGrid" gridLinesVisible="true" maxHeight="1570.0" maxWidth="1071.0" minHeight="1570.0" minWidth="1071.0" prefHeight="1570.0" prefWidth="1071.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="153.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="153.0" prefWidth="153.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="65.41" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
          </children>

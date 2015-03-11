@@ -3,53 +3,51 @@ package models;
 import java.io.Serializable;
 import java.security.MessageDigest;
 
-public class Person implements Serializable{
+public class Person implements Serializable {
     private int personID;
     private String username;
     private String password;
+    private String salt;
     private String name;
+    private String flag;
 
-    public Person(String username, String password, String name){
-
-        this.name = name;
+    public Person(String username, String password, String salt) {
         this.username = username;
-        this.password = passwordHash(password);
+        this.password = passwordHash(password, salt);
+        this.salt = salt;
     }
 
-    public Person(String username, String password){
-        this.username = username;
-        this.password = passwordHash(password);
-    }
-
-    public Person(String username, String name, int personID){
-        this.username = username;
-        this.name = name;
+    public Person(int personID, String username, String name, String flag) {
         this.personID = personID;
+    	this.username = username;
+        this.name = name;
+        this.flag = flag;
     }
 
-    private String passwordHash(String s){
-        try{
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(s.getBytes());
+    private String passwordHash(String password, String salt) {
+        try {
+            String passwordToEncrypt = "" + password + salt;
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(passwordToEncrypt.getBytes());
             byte[] bytes = md.digest();
             StringBuilder sb = new StringBuilder();
-            for(int i =0; i<bytes.length; i++){
+            for(int i =0; i<bytes.length; i++) {
                 sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
             }
-            s = sb.toString();
-            return s;
+            String saltedPassword = sb.toString();
+            return saltedPassword;
         }
-        catch(Exception e){
-            System.out.println("nei");
+        catch(Exception e) {
+            System.out.println("passwordHash sier nei");
             e.printStackTrace();
         }
         return null;
     }
 
     /**
-     * Fetches the persons registered name and personID fromt the database
+     * Fetches the persons registered name and personID from the database
      */
-    private void fetchNameAndID(){
+    private void fetchNameAndID() {
         //get info from database
     }
 
@@ -69,26 +67,34 @@ public class Person implements Serializable{
         return password;
     }
 
-	public void setPersonID(int personID) {
-		this.personID = personID;
-	}
+    public String getSalt() { return salt; }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getFlag() {
+        return flag;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPersonID(int personID) {
+        this.personID = personID;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	@Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setSalt(String salt) { this.salt = salt; }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
     public String toString() {
         return "Person(personID: " + personID + ", username=" + username
-                + ", password: " + password + ", name: " + name + ")";
+                + ", password: " + password + ", salt: " + salt + ", name: " + name + ")";
     }
 
     @Override

@@ -52,27 +52,27 @@ public class EventDrawing {
 		});
 		
 		eventRec.setOnMouseClicked(clickEvent -> {
-			if(clickEvent.isSecondaryButtonDown()){
+			if(clickEvent.getClickCount() == 2){
 				controller.openEvent(event);
 				return;
 			}
-			
-			if(isExpanded)
-			{
-				isExpanded = false;
-				ScaleTransition animation = new ScaleTransition(Duration.millis(100),eventRec);
-				animation.setFromX(1.5);
-				animation.setToX(1.0);
-				animation.play();				
-			}
-			else
-			{
-				isExpanded = true;
-				ScaleTransition animation = new ScaleTransition(Duration.millis(100),eventRec);
-				animation.setFromX(1.0);
-				animation.setToX(1.5);
-				animation.play();				
-			}
+//			
+//			if(isExpanded)
+//			{
+//				isExpanded = false;
+//				ScaleTransition animation = new ScaleTransition(Duration.millis(100),eventRec);
+//				animation.setFromX(1.5);
+//				animation.setToX(1.0);
+//				animation.play();				
+//			}
+//			else
+//			{
+//				isExpanded = true;
+//				ScaleTransition animation = new ScaleTransition(Duration.millis(100),eventRec);
+//				animation.setFromX(1.0);
+//				animation.setToX(1.5);
+//				animation.play();				
+//			}
 			//eventRec.setWidth(controller.fullEventWidth*1.5);
 						
 		});

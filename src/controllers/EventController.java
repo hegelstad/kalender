@@ -2,9 +2,11 @@ package controllers;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import socket.Requester;
+import models.Attendant;
 import models.Calendar;
 import models.Event;
 import models.Notification;
@@ -22,11 +24,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 
 public class EventController {
 	
 	private Stage stage;
+	private Room room;
 	private ArrayList<UserGroup> participants;
 	private ArrayList<Room> rooms;
 	private ArrayList<UserGroup> addedParticipants = new ArrayList<UserGroup>();
@@ -58,6 +62,7 @@ public class EventController {
 	
 	@FXML public void saveButtonOnAction(){
 		if (createEvent()){
+			WindowController.setEventWindowIsOpenOrClosed(false);
 			stage.close();
 		}else{
 			System.out.println("Something went wrong.");
@@ -73,6 +78,73 @@ public class EventController {
 		pol.add(apol.remove(participantsStatus.getSelectionModel().getSelectedIndex()));
 	}
 	
+	@FXML public boolean validateTitle(){
+		if (title.getText().length() > 40){
+			note.setText("Maximum 40 characters");
+			return false;
+		} else if (title.getText().length() == 0){
+			note.setText("You must have a title");
+			return false;
+		}
+		note.setText("Title is good to go");
+		return true;
+	}
+	
+	@FXML public boolean validateTime(){
+		LocalDateTime from = null;
+		LocalDateTime to = null;
+		try{
+			 from = getFromTime();
+		}catch (DateTimeParseException e){
+			note.setText("Invalid from date.");
+			roomLocation.setDisable(true);
+			roomLocation.getSelectionModel().clearSelection();
+			return false;
+		}catch (NullPointerException e){
+			note.setText("Invalid from date.");
+			roomLocation.setDisable(true);
+			roomLocation.getSelectionModel().clearSelection();
+		}
+		try{
+			 to = getToTime();
+		}catch (DateTimeParseException e){
+			note.setText("Invalid to date.");
+			roomLocation.setDisable(true);
+			roomLocation.getSelectionModel().clearSelection();
+			return false;
+		}catch (NullPointerException e){
+			note.setText("Invalid from date.");
+			roomLocation.setDisable(true);
+			roomLocation.getSelectionModel().clearSelection();
+		}
+		if (! from.isBefore(to)){
+			note.setText("From must be before to.");
+			roomLocation.setDisable(true);
+			roomLocation.getSelectionModel().clearSelection();
+			return false;
+		}
+		note.setText("Date is good.");
+		roomLocation.setDisable(false);
+		Room room = roomLocation.getSelectionModel().getSelectedItem();
+		Calendar cal = new Calendar (2, "Eirik", null);
+		Event ev = new Event(0, title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), cal);
+		Requester r = new Requester();
+		ArrayList<Room> avRooms = r.getAvailableRooms(ev);
+		r.closeConnection();
+		boolean stillAvailableRoom = false;
+		try{
+			for (Room rm : avRooms){
+				if (room.getRoomName().equals(rm.getRoomName())){
+					stillAvailableRoom = true;
+					break;
+				}
+			}
+		} catch(NullPointerException e) {}
+		if(! stillAvailableRoom){
+			roomLocation.getSelectionModel().clearSelection();
+		}
+		return true;
+	}
 	
 	private boolean createEvent() {
 		Requester r = new Requester();
@@ -90,6 +162,10 @@ public class EventController {
 		
 		r = new Requester();
 		r.setNotification(new Notification(0, "Invite to: " + ev.getName(), PersonInfo.getPersonInfo().getPersonalUserGroup(), addedParticipants, ev, 1));
+		r.closeConnection();
+			
+		r = new Requester();
+		r.updateAttends(ev, new Attendant(PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID(), PersonInfo.personInfo.getPersonalUserGroup().getName(), 1));
 		return (ev.getEventID() != 0);
 	}
 
@@ -100,18 +176,16 @@ public class EventController {
 		Requester r = new Requester();
 		participants = r.getPrivateUserGroups();
 		pol = FXCollections.observableArrayList(participants);
-		apol = FXCollections.observableArrayList(addedParticipants);
 		addParticipantsSearch.setItems(pol);
+		apol = FXCollections.observableArrayList(addedParticipants);
 		participantsStatus.setItems(apol);
-		/*participantsStatus.setCellFactory((list) -> {
-			return new ListCell<UserGroup>(){
-				@Override
-					public void updateItem(UserGroup ug, boolean empty){
-						super.updateItem(ug,empty);
-						
-					}
-				};
-			});*/
+		int personalID = PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID();
+		for (UserGroup ug : participants){
+			if (personalID == ug.getUserGroupID()){
+				apol.add(pol.remove(pol.indexOf(ug)));
+				break;
+			}
+		}
 	}
 	
 	public LocalDateTime getFromTime(){
@@ -148,5 +222,46 @@ public class EventController {
 
 	void openEvent(Event event){
 		title.setText(event.getName());
+		fromDate.setValue(event.getFrom().toLocalDate());
+		toDate.setValue(event.getTo().toLocalDate());
+		String FromHours = Integer.toString(event.getFrom().toLocalTime().getHour());
+		String ToHours = Integer.toString(event.getTo().toLocalTime().getHour());
+		String FromMinutes = Integer.toString(event.getFrom().toLocalTime().getMinute());
+		String ToMinutes = Integer.toString(event.getTo().toLocalTime().getMinute());
+		Requester requester = new Requester();
+		Room evRoom = requester.getEventRoom(event);
+		requester.closeConnection();
+		requester = new Requester();
+		ArrayList<Attendant> ug = requester.getAttendants(event);
+		requester.closeConnection();
+		roomLocation.getSelectionModel().select(evRoom);
+		for (Attendant a : ug){
+			int index = -1;
+			for (UserGroup ug2 : pol){
+				if (a.getUserGroupID() == ug2.getUserGroupID()){
+					index = pol.indexOf(ug2);
+				}
+			}
+			if (index != -1){
+				apol.add(pol.remove(index));
+			}
+		}
+		if (FromHours.length() == 1){
+			FromHours = "0"+FromHours;
+		}
+		if (ToHours.length() == 1){
+			ToHours = "0"+ToHours;
+		}
+		if (FromMinutes.length() == 1){
+			FromMinutes = "0"+FromMinutes;
+		}
+		if (ToMinutes.length() == 1){
+			ToMinutes = "0"+ToMinutes;
+		}
+		fromHours.setValue(FromHours);
+		toHours.setValue(ToHours);
+		fromMinutes.setValue(FromMinutes);
+		toMinutes.setValue(ToMinutes);
+		note.setText(event.getNote());
 	}
 }

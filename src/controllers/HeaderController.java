@@ -10,49 +10,42 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import models.*;
+
 import socket.Requester;
 
+import models.*;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Timer;
+
+import java.util.*;
 
 public class HeaderController {
 
     ListView<Notification> notificationList;
     ObservableList<Notification> notifications;
     private static HeaderController controller;
-    //sad
 
-    @FXML
-    private AnchorPane calendarHeaderView;
-    @FXML
-    private Label month_Year;
-    @FXML
-    private Label weekNr;
-    @FXML
-    private Label mondayDayOfWeek;
-    @FXML
-    private Label tuesdayDayOfWeek;
-    @FXML
-    private Label wednesdayDayOfWeek;
-    @FXML
-    private Label thursdayDayOfWeek;
-    @FXML
-    private Label fridayDayOfWeek;
-    @FXML
-    private Label saturdayDayOfWeek;
-    @FXML
-    private Label sundayDayOfWeek;
-    @FXML
-    private Button notificationButton;
+    @FXML private AnchorPane calendarHeaderView;
+    @FXML private Label month_Year;
+    @FXML private Label weekNr;
+    @FXML private Label mondayDayOfWeek;
+    @FXML private Label tuesdayDayOfWeek;
+    @FXML private Label wednesdayDayOfWeek;
+    @FXML private Label thursdayDayOfWeek;
+    @FXML private Label fridayDayOfWeek;
+    @FXML private Label saturdayDayOfWeek;
+    @FXML private Label sundayDayOfWeek;
+    @FXML private Button notificationButton;
+    @FXML private Button addEventButton;
+    @FXML private Button incrementWeekPlusButton;
+    @FXML private Button incrementWeekMinusButton;
+    @FXML private Button logOffButton;
 
     LocalDate date = LocalDate.now();
     ArrayList<Label> weekday_labels = new ArrayList<>();
-    Notification selected_notification;
     int weekNumber;
     Timer timer;
     Scheduler scheduler;
@@ -69,6 +62,13 @@ public class HeaderController {
         timer = new Timer();
         scheduler = new Scheduler();
         timer.scheduleAtFixedRate(scheduler, 1, 10000);
+        addEventButton.setTooltip(new Tooltip("Create a new event"));
+        incrementWeekPlusButton.setTooltip(new Tooltip("Go to next week"));
+        incrementWeekMinusButton.setTooltip(new Tooltip("Go to previous week"));
+        notificationButton.setTooltip(new Tooltip("View your notifications"));
+        logOffButton.setTooltip(new Tooltip("Log off and return to the login screen"));
+        
+        
     }
 
     @FXML
@@ -78,7 +78,6 @@ public class HeaderController {
 
     @FXML
     private void incrementWeek() {
-
 		/* Add 1 week to LocalDate date */
         date = date.plusWeeks(1);
         updateDates();
@@ -86,7 +85,6 @@ public class HeaderController {
 
     @FXML
     private void decrementWeek() {
-
 		/* Subtract 1 week of LocalDate date */
         date = date.minusWeeks(1);
         updateDates();
@@ -95,12 +93,11 @@ public class HeaderController {
 
     @FXML
     private void updateDates() {
-
 		/* Set current week number */
-        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        WeekFields weekFields = WeekFields.of(Locale.ENGLISH);
         weekNumber = date.get(weekFields.weekOfWeekBasedYear());
         weekNr.setText("" + weekNumber);
-        
+
         /* Update drawn events when changing week */
         drawEventsForWeek();
         
@@ -109,7 +106,7 @@ public class HeaderController {
 		
 		/* Set date of weekday_labels */
         for (int i = 0; i < weekday_labels.size(); i++) {
-            int date_value = date.with(weekFields.getFirstDayOfWeek()).plusDays(i).getDayOfMonth();
+            int date_value = date.with(DayOfWeek.MONDAY).plusDays(i).getDayOfMonth();
             weekday_labels.get(i).setText("" + date_value + ".");
         }
     }
@@ -117,7 +114,7 @@ public class HeaderController {
     @FXML
     private void logOff() {
 		/* Sends the user to the log-in screen */
-        WindowController.goToLogin();
+        WindowController.logOff();
         timer.cancel();
     }
 
@@ -152,9 +149,12 @@ public class HeaderController {
     }
 
     public void updateNotifications() {
-        Requester req = new Requester();
         int current_num_notifications = PersonInfo.getPersonInfo().getNotifications().size();
-        PersonInfo.personInfo.setNotifications(req.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup()));
+        Requester req = new Requester();
+        ArrayList<Notification> temp_notifications = req.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup());
+        req.closeConnection();
+        Collections.reverse(temp_notifications);
+        PersonInfo.personInfo.setNotifications(temp_notifications);
         int new_num_notifications = PersonInfo.getPersonInfo().getNotifications().size();
 
         if (current_num_notifications < new_num_notifications) {
@@ -180,6 +180,27 @@ public class HeaderController {
     public void drawEventsForWeek(){
     	/* Draw events for this week */
         WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
+    }
+    
+    /*Ment tp be used from WeekController to get the correct date for a new event when you click a given column
+     * 
+     */
+    public LocalDateTime getDateForColumn(int column, int row){
+    	LocalDate tempDate = date;
+    	System.out.println("TempDate: " + tempDate);
+    	int dayOfWeek = tempDate.getDayOfWeek().getValue();
+    	int calendarDayOfWeek = column+1;
+    	int difDayOfWeek = calendarDayOfWeek-dayOfWeek;
+    	int dayOfMonth = tempDate.getDayOfMonth();
+    	tempDate = tempDate.plusDays(difDayOfWeek);
+    	System.out.println("TempDate after + days : " + tempDate);
+    	int calendarDayOfMonth = tempDate.getDayOfMonth();
+    	int  year = tempDate.getYear();
+    	int month = tempDate.getMonthValue();
+    	System.out.println("Column : " + column + " Row : " + " dateDayOfWeek : " + date.getDayOfWeek().getValue());
+    	LocalDateTime newDate = LocalDateTime.of(year, month, calendarDayOfMonth, row, 0);
+		return newDate;
+    	
     }
     
     

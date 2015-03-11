@@ -16,9 +16,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
-/**
- * Created by sondrehj on 02.03.2015.
- */
 public class Requester {
 	
     Socket con;
@@ -27,7 +24,7 @@ public class Requester {
      * IP TIL SERVER MÅ SETTES HER!
      */
     public Requester (){
-    	String host = "78.91.73.88";
+    	String host = "localhost";
         /** Define a port */
         int port = 25025;
 
@@ -273,7 +270,35 @@ public class Requester {
          }
     	return userGroup;
     }
-    
+
+    /**
+     * Henter saltet til et brukernavn
+     * @param p
+     * @return
+     */
+    public Person getSalt(Person p){
+        Command cmd = new Command("getSalt-person");
+        Person salt = null;
+        try{
+            ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+            oos.writeObject(cmd);
+            oos.writeObject(p);
+            InputStream is = con.getInputStream();
+            ObjectInputStream os = new ObjectInputStream(is);
+            Object o = os.readObject();
+            salt = (Person) o;
+
+        }  catch (ClassCastException e) {
+            System.out.println(e);
+        }catch(ClassNotFoundException e){
+            System.out.println(e);
+        }catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return salt;
+    }
+
     
     //CALENDAR
     /**
@@ -858,8 +883,8 @@ public class Requester {
      * @param ev
      * @return
      */
-    public ArrayList<Attendant> getAttendands(Event ev){
-    	Command cmd = new Command("getAttendands-event");
+    public ArrayList<Attendant> getAttendants(Event ev){
+    	Command cmd = new Command("getAttendants-event");
     	ArrayList<Attendant> attendants = null;
     	try{
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());

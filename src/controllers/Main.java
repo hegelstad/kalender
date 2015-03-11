@@ -12,7 +12,6 @@ public class Main extends Application {
     	stage = primaryStage;
     	WindowController.setStage(stage);
     	WindowController.setProgram(this);
-        //WindowController.goToCalendarView();//
     	WindowController.goToLogin();
     	WindowController.showStage();
     }

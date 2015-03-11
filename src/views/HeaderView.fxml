@@ -7,7 +7,7 @@
 
 <AnchorPane fx:id="calendarHeaderView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.0" prefWidth="1342.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HeaderController">
    <children>
-       <Button fx:id="addEventButton" onAction="#addEventOnAction" layoutX="20.0" layoutY="20.0" prefHeight="30.0" prefWidth="42.0" text="+">
+       <Button fx:id="addEventButton" layoutX="20.0" layoutY="20.0" onAction="#addEventOnAction" prefHeight="30.0" prefWidth="42.0" text="+">
        </Button>
        <Label layoutX="77.0" layoutY="23.0" prefHeight="25.0" text="Add event">
            <font>
@@ -16,10 +16,10 @@
        </Label>
        <Label fx:id="month_Year" layoutX="20.0" layoutY="60.0" text="Month Year">
            <font>
-               <Font size="28.0" />
+               <Font size="25.0" />
            </font>
        </Label>
-       <Button fx:id="incrementWeekMinusButton" onAction="#decrementWeek" layoutX="550.0" layoutY="20.0" prefHeight="30.0" prefWidth="42.0" text="&lt;">
+       <Button fx:id="incrementWeekMinusButton" layoutX="550.0" layoutY="20.0" onAction="#decrementWeek" prefHeight="30.0" prefWidth="42.0" text="&lt;">
        </Button>
        <Label layoutX="620.0" layoutY="20.0" text="Week">
            <font>
@@ -31,20 +31,20 @@
                <Font size="26.0" />
            </font>
        </Label>
-       <Button fx:id="incrementWeekPlusButton" onAction="#incrementWeek" layoutX="750.0" layoutY="20.0" prefHeight="30.0" prefWidth="42.0" text="&gt;">
+       <Button fx:id="incrementWeekPlusButton" layoutX="750.0" layoutY="20.0" onAction="#incrementWeek" prefHeight="30.0" prefWidth="42.0" text="&gt;">
        </Button>
-       <Button fx:id="notificationButton" onAction="#openNotifications" layoutX="1152.0" layoutY="20.0" prefHeight="31.0" prefWidth="42.0" text="0" />
-       <Button fx:id="logOffButton" onAction="#logOff" layoutX="1215.0" layoutY="20.0" prefHeight="31.0" prefWidth="100.0" text="Log off" />
+       <Button fx:id="notificationButton" layoutX="1152.0" layoutY="20.0" onAction="#openNotifications" prefHeight="31.0" prefWidth="42.0" text="0" />
+       <Button fx:id="logOffButton" layoutX="1215.0" layoutY="20.0" onAction="#logOff" prefHeight="31.0" prefWidth="100.0" text="Log off" />
 
        <GridPane fx:id="headerGridPane" layoutX="245.0" layoutY="73.0" prefHeight="32.0" prefWidth="1097.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"  />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"  />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"  />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"  />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"  />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"  />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"  />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="155.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="155.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="155.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="155.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="155.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="155.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="155.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
