@@ -38,7 +38,7 @@ public class LoginController {
   }
 
   @FXML
-  private void keyPressed(KeyEvent key) throws MalformedURLException {
+  private void keyPressed(KeyEvent key){
 	  if (key.getCode().equals(KeyCode.ENTER)){
 		  if (fieldsAreSet()){
 			  if (authenticateUser()){
@@ -50,8 +50,13 @@ public class LoginController {
 			  status.setText("Fill in both username and password");
 		  }
 	  }
+	  else if(key.getCode().equals(KeyCode.ESCAPE)){
+		  WindowController.thisStage.close();
+	  }
   }
     
+
+  
    @FXML
    private void loginButtonOnAction(){
 	   if (fieldsAreSet()){
