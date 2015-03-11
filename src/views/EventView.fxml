@@ -18,8 +18,8 @@
       <Label layoutX="18.0" layoutY="100.0" text="From" translateY="-20.0" />
       <Label layoutX="18.0" layoutY="147.0" text="To" translateY="-20.0" />
       <Label layoutX="19.0" layoutY="263.0" text="Note" translateY="-20.0" />
-      <ComboBox fx:id="addParticipantsSearch" editable="true" layoutX="80.0" layoutY="385.0" prefHeight="26.0" prefWidth="262.0" translateY="-20.0" />
-      <ListView fx:id="participantsStatus" layoutX="80.0" layoutY="420.0" prefHeight="112.0" prefWidth="262.0" translateY="-20.0" />
+      <ComboBox fx:id="addParticipantsSearch" layoutX="80.0" layoutY="385.0" prefHeight="26.0" prefWidth="262.0" translateY="-20.0" />
+      <ListView fx:id="participantsStatus" layoutX="80.0" layoutY="420.0" onEditCancel="#validateGuests" prefHeight="112.0" prefWidth="262.0" translateY="-20.0" />
       <Button fx:id="saveButton" layoutX="239.0" layoutY="550.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="26.0" prefWidth="66.0" text="Save" translateY="-20.0" />
       <Button fx:id="cancelButton" layoutX="323.0" layoutY="550.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="26.0" prefWidth="66.0" text="Cancel" translateY="-20.0" />
       <Label layoutX="80.0" layoutY="360.0" text="Add participants" translateY="-20.0" />

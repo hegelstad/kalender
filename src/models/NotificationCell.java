@@ -96,6 +96,34 @@ public class NotificationCell extends ListCell<Notification> {
 							//notifications =
 							//System.out.println(notifications);
 						});
+						
+						decline.setOnAction(event -> {
+
+							/* Replace new Person med PersonInfo.getPerson() */
+							//System.out.println(n);
+							//System.out.println(n.getNoteID());
+
+							/* Set the notification as HasRead */
+							Requester s = new Requester();
+							s.setRead(note, PersonInfo.getPersonInfo().getPersonalUserGroup());
+							s.closeConnection();
+							s = new Requester();
+							Attendant at = new Attendant(PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID(), PersonInfo.getPersonInfo().getPersonalUserGroup().getName(), 2);
+							s.updateAttends(note.getEvent(), at);
+							s.closeConnection();
+							System.out.println("Notification flagged as read & declined");
+
+							s = new Requester();
+							PersonInfo.personInfo.setNotifications(s.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup()));
+							s.closeConnection();
+							/* Removes the notification from ListView */
+							list.remove(note);
+							setGraphic(null);
+							HeaderController.getController().updateNotificationButton(PersonInfo.getPersonInfo().getNotifications().size());
+							//notifications.remove(n);
+							//notifications =
+							//System.out.println(notifications);
+						});
 
 					} else {
 						content.getChildren().remove(1, 3);
