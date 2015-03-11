@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="calendarHeaderView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.0" prefWidth="1342.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HeaderController">
+<AnchorPane fx:id="calendarHeaderView" maxHeight="-Infinity" maxWidth="1333.0" minHeight="-Infinity" minWidth="1333.0" prefHeight="107.0" prefWidth="1333.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HeaderController">
    <children>
        <Button fx:id="addEventButton" layoutX="20.0" layoutY="20.0" onAction="#addEventOnAction" prefHeight="30.0" prefWidth="42.0" text="+">
        </Button>
@@ -36,7 +36,7 @@
        <Button fx:id="notificationButton" layoutX="1152.0" layoutY="20.0" onAction="#openNotifications" prefHeight="31.0" prefWidth="42.0" text="0" />
        <Button fx:id="logOffButton" layoutX="1215.0" layoutY="20.0" onAction="#logOff" prefHeight="31.0" prefWidth="100.0" text="Log off" />
 
-       <GridPane fx:id="headerGridPane" layoutX="245.0" layoutY="73.0" prefHeight="32.0" prefWidth="1097.0">
+       <GridPane fx:id="headerGridPane" layoutX="243.0" layoutY="74.0" prefHeight="32.0" prefWidth="1090.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="155.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="155.0" />
@@ -82,14 +82,14 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
                <children>
-                  <Label layoutX="13.0" layoutY="10.0" text="Saturday" />
-                  <Label fx:id="saturdayDayOfWeek" layoutX="76.0" layoutY="10.0" text="day" />
+                  <Label layoutX="24.0" layoutY="9.0" text="Saturday" />
+                  <Label fx:id="saturdayDayOfWeek" layoutX="94.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="32.0" prefWidth="156.0" GridPane.columnIndex="6">
                <children>
-                  <Label layoutX="13.0" layoutY="10.0" text="Sunday" />
-                  <Label fx:id="sundayDayOfWeek" layoutX="80.0" layoutY="10.0" text="day" />
+                  <Label layoutX="28.0" layoutY="10.0" text="Sunday" />
+                  <Label fx:id="sundayDayOfWeek" layoutX="84.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
          </children>
