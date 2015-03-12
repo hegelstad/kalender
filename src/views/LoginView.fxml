@@ -38,7 +38,7 @@
             </Label>
             <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                <left>
-                  <Label fx:id="status" prefHeight="16.0" prefWidth="197.0" BorderPane.alignment="CENTER">
+                  <Label fx:id="statusLabel" prefHeight="16.0" prefWidth="197.0" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="12.0" />
                      </font></Label>

@@ -1,5 +1,6 @@
 package socket;
 
+import controllers.LoginController;
 import models.Attendant;
 import models.Calendar;
 import models.Event;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class Requester {
             /** Establish a socket connection */
             con = new Socket(address, port);
             con.setSoTimeout(6500);
-            System.out.println("SocketClient initialized with destination: " + address + " and port: " + port);
+            System.out.println("SocketClient initialized.");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
