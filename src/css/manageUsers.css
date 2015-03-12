@@ -24,3 +24,13 @@
 #manageUsersAnchorPane{
 	  -fx-background-color: #26272B;
 }
+
+.list-cell:odd{
+	-fx-background-color: #BDBDBD;
+}
+.list-cell:even{
+	-fx-background-color:#D3D3D3;
+}
+.list-cell:hover{
+	-fx-background-color:#FFFFFF;
+}
