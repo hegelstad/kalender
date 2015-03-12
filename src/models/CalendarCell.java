@@ -27,48 +27,43 @@ public class CalendarCell extends ListCell<Calendar> {
 		label = new Label(cal.getName());
 		label.setLayoutX(20);
 		label.setTextFill(Color.web("#0076a3"));
-		Rectangle rect = new Rectangle(20,20);
-		rect.setLayoutX(120);
-		rect.strokeProperty().set(Color.BLACK);
-		rect.strokeWidthProperty().set(1);
 		switch (cal.getColorID()){
 		case 0: 
-			rect.fillProperty().set(Color.LIGHTSKYBLUE);
+			pane.getStyleClass().add(0,"lightskyblue");
 			break;
 		case 1: 
-			rect.fillProperty().set(Color.LIGHTSALMON);
+			pane.getStyleClass().add(0,"lightsalmon");
 			break;
 		case 2: 
-			rect.fillProperty().set(Color.LIGHTGREEN);
+			pane.getStyleClass().add(0,"lightgreen");
 			break;
 		case 3:
-			rect.fillProperty().set(Color.LIGHTYELLOW);
+			pane.getStyleClass().add(0,"yellow");
 			break;
 		case 4: 
-			rect.fillProperty().set(Color.LIGHTPINK);
+			pane.getStyleClass().add(0,"lightpink");
 			break;
 		case 5: 
-			rect.fillProperty().set(Color.LIGHTCORAL);
+			pane.getStyleClass().add(0,"aquamarine");
 			break;
 		case 6: 
-			rect.fillProperty().set(Color.BEIGE);
+			pane.getStyleClass().add(0,"lightcoral");
 			break;
 		case 7: 
-			rect.fillProperty().set(Color.SILVER);
+			pane.getStyleClass().add(0,"thistle");
 			break;
-		case 8: 
-			rect.fillProperty().set(Color.AQUAMARINE);
+		case 8:
+			pane.getStyleClass().add(0,"beige");
 			break;
 		case 9: 
-			rect.fillProperty().set(Color.CORNFLOWERBLUE);
+			pane.getStyleClass().add(0,"silver");
 			break;
 		default: 
-			rect.fillProperty().set(Color.THISTLE);
+			pane.getStyleClass().add(0,"cornflowerblue");
 			break;
 	}
-	rect.opacityProperty().set(0.5);
 		
-		pane.getChildren().addAll(checkbox,label,rect);
+		pane.getChildren().addAll(checkbox,label);
 		setId("calendar-cell");
 		checkbox.selectedProperty().addListener( (ob,oldVal,newVal) -> {
 			if(newVal)
@@ -96,10 +91,10 @@ public class CalendarCell extends ListCell<Calendar> {
 		
 		if (PersonInfo.getPersonInfo().getSelectedCalendar().equals(cal)){
 			System.out.println("Updating font to bold for: " + cal);
-			label.setFont(Font.font(null, FontWeight.BOLD, 14));	
+			label.setFont(Font.font(null, FontWeight.BOLD, 13));	
 		}else{
 			System.out.println("Setting normal font for : " + cal);
-			label.setFont(Font.font(null, FontWeight.NORMAL, 14));;
+			label.setFont(Font.font(null, FontWeight.NORMAL, 13));;
 		}
 		setGraphic(pane);
 	}

@@ -174,21 +174,21 @@ public class WeekController {
 					break;
 			case 2: r.fillProperty().set(Color.LIGHTGREEN);
 					break;
-			case 3: r.fillProperty().set(Color.LIGHTYELLOW);
+			case 3: r.fillProperty().set(Color.YELLOW);
 					break;
 			case 4: r.fillProperty().set(Color.LIGHTPINK);
 					break;
-			case 5: r.fillProperty().set(Color.LIGHTCORAL);
+			case 5: r.fillProperty().set(Color.AQUAMARINE);
 					break;
-			case 6: r.fillProperty().set(Color.BEIGE);
+			case 6: r.fillProperty().set(Color.LIGHTCORAL);
 					break;
-			case 7: r.fillProperty().set(Color.SILVER);
+			case 7: r.fillProperty().set(Color.THISTLE);
 					break;
-			case 8: r.fillProperty().set(Color.AQUAMARINE);
+			case 8: r.fillProperty().set(Color.BEIGE);
 					break;
-			case 9: r.fillProperty().set(Color.CORNFLOWERBLUE);
+			case 9: r.fillProperty().set(Color.SILVER);
 					break;
-			default: r.fillProperty().set(Color.THISTLE);
+			default: r.fillProperty().set(Color.CORNFLOWERBLUE);
 					break;
 		}
 		r.opacityProperty().set(0.5);
