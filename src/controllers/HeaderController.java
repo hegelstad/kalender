@@ -112,7 +112,8 @@ public class HeaderController {
         timer.cancel();
     }
 
-    @FXML
+    @SuppressWarnings("unchecked")
+	@FXML
     private void openNotifications() {
         Scene scene = WindowController.thisStage.getScene();
         Pane notificationWindow = (Pane) scene.lookup("#notificationWindow");

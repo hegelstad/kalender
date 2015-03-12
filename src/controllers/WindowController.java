@@ -79,7 +79,7 @@ public class WindowController {
 	
 	public static void goToLogin(){
 		try {
-			replaceSceneContent("../views/LoginView.fxml", 600, 450);
+			replaceSceneContent("../views/LoginView.fxml",300,400);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
