@@ -20,6 +20,8 @@ public class WindowController {
 	private static Main program;
 	private static double xOffset = 0;
 	private static double yOffset = 0;
+	private static double adminXOffset = 0;
+	private static double adminYOffset = 0;
 	private static boolean eventWindowIsOpen = false;
 	private static boolean adminWindowIsOpen = false;
 	private static List<Stage> stages = new ArrayList<Stage>();
@@ -171,6 +173,20 @@ public class WindowController {
 				Parent page;
                 FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/AdminView.fxml"), null, new JavaFXBuilderFactory());
                 page = (Parent) loader.load();
+                page.setOnMousePressed(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                       adminXOffset = event.getSceneX();
+                       adminYOffset = event.getSceneY();
+                    }
+                });
+                page.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        adminView.setX(event.getScreenX() - adminXOffset);
+                        adminView.setY(event.getScreenY() - adminYOffset);
+                    }
+                });
                 AdminController controller = loader.getController();
                 Scene scene = new Scene(page);
                 adminView.setScene(scene);
