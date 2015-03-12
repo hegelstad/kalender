@@ -8,8 +8,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
-
 import models.Person;
 import models.UserGroup;
 import socket.Requester;
@@ -30,10 +31,12 @@ public class AdminController {
     private UserGroup selectedUserGroup;
 
     @FXML public void initialize() {
-
         addButton.setDisable(true);
         statusLabel.setText("");
-
+        Shape shape = new Rectangle(1,1);
+        usernameField.setShape(shape);
+        passwordField.setShape(shape);
+        nameField.setShape(shape);
         Requester r = new Requester();
         ArrayList<UserGroup> privateUsers = r.getPrivateUserGroups();
         r.closeConnection();
@@ -132,6 +135,7 @@ public class AdminController {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+        usernameField.requestFocus();
     }
 
     private void checkField() {

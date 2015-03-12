@@ -10,16 +10,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
 import socket.Requester;
-
 import models.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
-
 import java.util.*;
 
 public class HeaderController {
@@ -119,7 +116,7 @@ public class HeaderController {
     private void openNotifications() {
         Scene scene = WindowController.thisStage.getScene();
         Pane notificationWindow = (Pane) scene.lookup("#notificationWindow");
-        notificationList = (ListView) scene.lookup("#notificationList");
+        notificationList = (ListView<Notification>) scene.lookup("#notificationList");
         notificationButton.setStyle("-fx-background-color: #187E96");
 
         if (notificationWindow.isVisible()) {
@@ -196,7 +193,7 @@ public class HeaderController {
     	int calendarDayOfMonth = tempDate.getDayOfMonth();
     	int  year = tempDate.getYear();
     	int month = tempDate.getMonthValue();
-    	System.out.println("Column : " + column + " Row : " + " dateDayOfWeek : " + date.getDayOfWeek().getValue());
+    	System.out.println("Column : " + column + " Row : " + row +  " dateDayOfWeek : " + date.getDayOfWeek().getValue());
     	LocalDateTime newDate = LocalDateTime.of(year, month, calendarDayOfMonth, row, 0);
 		return newDate;
     }
