@@ -30,10 +30,7 @@ public class SidebarController {
 	@FXML private void initialize(){
 		//defaultCalendar.setText("Test");
 		controller = this;
-		calendarList.setItems(calendars);
-		calendarList.setCellFactory( (list) -> {
-			return new CalendarCell();
-		});
+		updateCalendarList();
 		//Calendar calen = new Calendar(0, "Min kalender", null);
 		//addCalendar(calen);
 		for(Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
@@ -45,6 +42,14 @@ public class SidebarController {
 				WindowController.goToManageUsersView();
 			}
 		});
+		
+	}
+	
+	public void updateCalendarList(){
+		calendarList.setItems(calendars);
+		calendarList.setCellFactory( (list) -> {
+			return new CalendarCell();
+		});
 	}
 	
 	public void addCalendar(Calendar cal){
@@ -52,6 +57,7 @@ public class SidebarController {
 		/* Must add new button and label to scene here */
 	}
 	public void addCalendars(ArrayList<Calendar> cals){
+		calendars.clear();
 		calendars.addAll(cals);
 	}
 	
@@ -62,6 +68,10 @@ public class SidebarController {
 	
 	public static SidebarController getController(){
 		return controller;
+	}
+	
+	public ListView<Calendar> getListView(){
+		return calendarList;
 	}
 	
 	

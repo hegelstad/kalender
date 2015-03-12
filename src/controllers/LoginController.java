@@ -132,6 +132,12 @@ public class LoginController {
 	   System.out.println(events);
 	   connection.closeConnection();
 	   
+	   for (Calendar c : cal){
+		   if (c.getName().equals(ug.getName())){
+			   personInfo.setSelectedCalendar(c);
+		   }
+	   }
+	   
 	   PersonInfo.setPersonInfo(personInfo);
 	   
 	   PersonInfo.getPersonInfo().setUp();

@@ -187,8 +187,7 @@ public class EventController {
 	private boolean createEvent() {
 		if(eventIsValid()){
 			Requester r = new Requester();
-			Calendar cal = new Calendar (2, "Eirik", null);
-			Event ev = new Event(0, title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), cal);
+			Event ev = new Event(0, title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), PersonInfo.getPersonInfo().getSelectedCalendar());
 			ev = r.createEvent(ev);
 			r.closeConnection();
 	
@@ -286,6 +285,20 @@ public class EventController {
 		             
 		                grid.add(statusCircle, 1, 0);
 		                setGraphic(grid);
+		            }
+		        }
+		    };
+		});
+		addParticipantsSearch.setCellFactory((list) -> {
+		    return new ListCell<UserGroup>() {
+		        @Override
+		        protected void updateItem(UserGroup ug, boolean empty) {
+		            super.updateItem(ug, empty);
+
+		            if (ug == null || empty) {
+		                setText(null);
+		            } else {
+		                setText(ug.getName());
 		            }
 		        }
 		    };
