@@ -14,9 +14,9 @@
                <Font size="24.0" />
            </font>
        </Label>
-       <Label fx:id="month_Year" layoutX="20.0" layoutY="60.0" text="Month Year">
+       <Label fx:id="month_Year" layoutX="20.0" layoutY="75.0" text="Month Year">
            <font>
-               <Font size="25.0" />
+               <Font size="22.0" />
            </font>
        </Label>
        <Button fx:id="incrementWeekMinusButton" layoutX="550.0" layoutY="20.0" onAction="#decrementWeek" prefHeight="30.0" prefWidth="42.0" text="&lt;">

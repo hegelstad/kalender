@@ -1,7 +1,10 @@
 package controllers;
 
+import java.util.ArrayList;
+
 import models.Calendar;
 import models.PersonInfo;
+import models.UserGroup;
 import socket.Requester;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -29,13 +32,19 @@ public class SuperController {
 					System.out.println("Calendarname cannot be an empty String");
 				}
 				else{
-//					Hva gjør vi her mtp calendarID?? Får også feilmelding her
-//					Requester requester = new Requester();
-//					requester.createCalendar(new Calendar(100, newCalendarTextField.getText(), PersonInfo.getPersonInfo().getUsergroups()));
-//					requester.closeConnection();
-//				}
+
+					Requester requester = new Requester();
+					ArrayList<UserGroup> ug = new ArrayList<UserGroup>();
+					ug.add(PersonInfo.getPersonInfo().getPersonalUserGroup());
+					Calendar cal = requester.createCalendar(new Calendar(0, newCalendarTextField.getText(), ug));
+					if (cal.getCalendarID() != 0){
+						newCalendarWindow.setVisible(false);
+			            newCalendarTextField.setText("");
+					}
+					requester.closeConnection();
+				}
 			}
-		}});
+		});
 	}
 	
 	@FXML

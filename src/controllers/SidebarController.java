@@ -17,22 +17,14 @@ public class SidebarController {
 
 	private static SidebarController controller;
 	
-	@FXML private CheckBox defaultCalendar;
 	@FXML private ListView<Calendar> calendarList;
 	@FXML private Pane userManagmentPaneButton;
 	
-
-
-	
 	ObservableList<Calendar> calendars = FXCollections.observableArrayList(new ArrayList<Calendar>());
 	
-	//Is supposed to set the defaultCalendar text to the currently logged in user's username.
 	@FXML private void initialize(){
-		//defaultCalendar.setText("Test");
 		controller = this;
 		updateCalendarList();
-		//Calendar calen = new Calendar(0, "Min kalender", null);
-		//addCalendar(calen);
 		for(Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
 			System.out.println(cal);
 			
@@ -46,7 +38,7 @@ public class SidebarController {
 	}
 	
 	@FXML
-    private void openNewCalendar() {
+    public void openNewCalendar() {
         Scene scene = WindowController.thisStage.getScene();
         Pane newCalendarWindow = (Pane) scene.lookup("#newCalendarWindow");
         TextField newCalendarTextField = (TextField) scene.lookup("#newCalendarTextField");

@@ -41,13 +41,69 @@ SIDEPANE/CALENDARS
 	-fx-text-fill: #187E96;
 }
 
-.check-box .mark {
+/*.check-box .mark {
     -fx-shape: "m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z";
 }
-
+*/
 .check-box:selected .mark {
-    -fx-background-color: #0181e2;
+	-fx-background-color: black;
+ }
+ 
+.lightskyblue .check-box .box {
+	-fx-background-color: #87CEFA;
+	-fx-opacity: 0.7;
 }
+
+.lightsalmon .check-box .box {
+	-fx-background-color: #FFA07A;
+	-fx-opacity: 0.7;
+}
+
+.lightgreen .check-box .box {
+	-fx-background-color: #90EE90;
+	-fx-opacity: 0.7;
+}
+
+.yellow .check-box .box {
+	-fx-background-color: #FFFF00;
+	-fx-opacity: 0.7;
+}
+
+.lightpink .check-box .box {
+	-fx-background-color: #FFB6C1;
+	-fx-opacity: 0.7;
+}
+
+.lightcoral .check-box .box {
+	-fx-background-color: #F08080;
+	-fx-opacity: 0.7;
+}
+
+.beige .check-box .box {
+	-fx-background-color: #F5F5DC;
+	-fx-opacity: 0.7;
+}
+
+.silver .check-box .box {
+	-fx-background-color: #C0C0C0;
+	-fx-opacity: 0.7;
+}
+
+.aquamarine .check-box .box {
+	-fx-background-color: #7FFFD4;
+	-fx-opacity: 0.7;
+}
+
+.cornflowerblue .check-box .box {
+	-fx-background-color: #6495ED;
+	-fx-opacity: 0.7;
+}
+
+.thistle .check-box .box {
+	-fx-background-color: #D8BFD8;
+	-fx-opacity: 0.7;
+}
+
 /**
 
 HEADER
