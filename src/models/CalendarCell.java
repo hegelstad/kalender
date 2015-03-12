@@ -9,6 +9,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 public class CalendarCell extends ListCell<Calendar> {
@@ -26,8 +27,48 @@ public class CalendarCell extends ListCell<Calendar> {
 		label = new Label(cal.getName());
 		label.setLayoutX(20);
 		label.setTextFill(Color.web("#0076a3"));
+		Rectangle rect = new Rectangle(20,20);
+		rect.setLayoutX(120);
+		rect.strokeProperty().set(Color.BLACK);
+		rect.strokeWidthProperty().set(1);
+		switch (cal.getColorID()){
+		case 0: 
+			rect.fillProperty().set(Color.LIGHTSKYBLUE);
+			break;
+		case 1: 
+			rect.fillProperty().set(Color.LIGHTSALMON);
+			break;
+		case 2: 
+			rect.fillProperty().set(Color.LIGHTGREEN);
+			break;
+		case 3:
+			rect.fillProperty().set(Color.LIGHTYELLOW);
+			break;
+		case 4: 
+			rect.fillProperty().set(Color.LIGHTPINK);
+			break;
+		case 5: 
+			rect.fillProperty().set(Color.LIGHTCORAL);
+			break;
+		case 6: 
+			rect.fillProperty().set(Color.BEIGE);
+			break;
+		case 7: 
+			rect.fillProperty().set(Color.SILVER);
+			break;
+		case 8: 
+			rect.fillProperty().set(Color.AQUAMARINE);
+			break;
+		case 9: 
+			rect.fillProperty().set(Color.CORNFLOWERBLUE);
+			break;
+		default: 
+			rect.fillProperty().set(Color.THISTLE);
+			break;
+	}
+	rect.opacityProperty().set(0.5);
 		
-		pane.getChildren().addAll(checkbox,label);
+		pane.getChildren().addAll(checkbox,label,rect);
 		setId("calendar-cell");
 		checkbox.selectedProperty().addListener( (ob,oldVal,newVal) -> {
 			if(newVal)

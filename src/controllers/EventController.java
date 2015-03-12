@@ -261,7 +261,7 @@ public class EventController {
 		            } else {
 		                setText(null);
 		                GridPane grid = new GridPane();
-		                grid.getColumnConstraints().add(new ColumnConstraints(220));
+		                grid.getColumnConstraints().add(new ColumnConstraints(215));
 		                grid.setHgap(10);
 		                
 		                Text text = new Text(ug.getName());
