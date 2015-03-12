@@ -27,7 +27,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-
 public class EventController {
 	
 	private Stage stage;
