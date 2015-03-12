@@ -259,11 +259,7 @@ public class EventController {
 		                if (attendants != null){
 		                	for (Attendant a : attendants){
 		                		if (a.getUserGroupID() == ug.getUserGroupID()){
-			                		if (PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID() == ug.getUserGroupID()){
-			                			statusCircle.setFill(Color.DARKGREEN);
-			                			break;
-			                		}
-			                		else if (a.getStatus() == 1){
+			                		if (a.getStatus() == 1){
 			                			statusCircle.setFill(Color.DARKGREEN);
 			                			break;
 			                		}else if (a.getStatus() == 2){
