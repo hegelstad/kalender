@@ -14,7 +14,7 @@
          </font>
       </Label>
       <TextField fx:id="searchCalendar" layoutX="20.0" layoutY="250.0" prefWidth="160" promptText="Search" />
-      <Button fx:id="newCalendarButton" layoutX="130.0" layoutY="26.5" style="-fx-background-color: transparent;" text="+">
+      <Button fx:id="newCalendarButton" layoutX="130.0" layoutY="26.5" onAction="#openNewCalendar" style="-fx-background-color: transparent;" text="+">
          <font>
             <Font size="30.0" />
          </font>
