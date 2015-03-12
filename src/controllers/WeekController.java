@@ -107,8 +107,17 @@ public class WeekController {
 		Text eventName = new Text(event.getName());
 		styleText(eventName);
 		Circle statusCircle = new Circle(4);
-		statusCircle.setFill(Color.BROWN);
-		
+		switch (event.getAttends()){
+		case 0:	
+			statusCircle.setFill(Color.GOLDENROD);
+			break;
+		case 1:
+			statusCircle.setFill(Color.DARKGREEN);
+			break;
+		default:
+			statusCircle.setFill(Color.BROWN);
+			break;
+		}
 		
 		double eventIndentMargin = indentMargin*indent;
 		//double reverseIndentMargin = indentMargin*reverseIndent;

@@ -127,7 +127,7 @@ public class LoginController {
 	   
 	   connection = new Requester();
 	   System.out.println("Henter alle Events fra DB.");
-	   ArrayList<Event> events = connection.getEvents(cal);
+	   ArrayList<Event> events = connection.getEvents(cal, ug);
 	   personInfo.setEvents(events);
 	   System.out.println(events);
 	   connection.closeConnection();
