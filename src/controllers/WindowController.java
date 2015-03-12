@@ -174,10 +174,12 @@ public class WindowController {
                 AdminController controller = loader.getController();
                 Scene scene = new Scene(page);
                 adminView.setScene(scene);
-				adminView.setX(300);
+				adminView.setX(500);
+                adminView.setY(300);
 				adminView.setResizable(false);
 				adminView.setAlwaysOnTop(true);
-				adminWindowIsOpen = true;
+                controller.setStage(adminView);
+                adminWindowIsOpen = true;
 				adminView.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     public void handle(WindowEvent we) {
                         adminView.close();
