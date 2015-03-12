@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -25,16 +26,6 @@
                 <fx:include source="HeaderView.fxml" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
                 <fx:include source="SidebarView.fxml" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
                 <fx:include source="WeekView.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Pane fx:id="notificationWindow1" maxHeight="50.0" maxWidth="300.0" minHeight="50.0" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #00FF00;" translateX="-10.0" translateY="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <Polygon fx:id="notificationTriangle1" layoutX="-117.0" layoutY="18.0" points="145.0, 20.0, 175.0, 20.0, 160.0, -5.0" rotate="-90.0" translateX="-35.0" />
-                  <Label fx:id="notificationTitle1" layoutX="43.0" layoutY="4.0" text="New calendar" translateY="10">
-                     <padding>
-                        <Insets left="12.0" />
-                     </padding>
-                  </Label>
-               </children>
-            </Pane>
             </children>
         </GridPane>
 
@@ -49,5 +40,17 @@
                <ListView fx:id="notificationList" translateY="60" />
    </children>
         </Pane>
+      <Pane fx:id="newCalendarWindow" layoutX="-39.0" layoutY="1.0" maxHeight="39.0" maxWidth="288.0" minHeight="30.0" minWidth="288.0" prefHeight="30.0" prefWidth="288.0" translateX="230.0" translateY="149.0">
+         <children>
+            <Polygon fx:id="newCalendarTriangle" layoutX="-77.0" layoutY="7.0" points="145.0, 20.0, 175.0, 20.0, 160.0, -5.0" rotate="-90.0" translateX="-85.0" />
+            <Rectangle fx:id="newCalendarRectangle" fill="#26272b" height="30.0" stroke="#187e96" strokeType="INSIDE" strokeWidth="2.0" width="288.0" />
+            <TextField fx:id="newCalendarTextField" layoutX="11.0" layoutY="5.0" maxHeight="20.0" minHeight="20.0" prefHeight="20.0" prefWidth="237.0" promptText="New calendar" />
+            <Pane fx:id="addNewCalendarButton" layoutX="264.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #187E96;" translateX="-6.0">
+               <children>
+                  <SVGPath content="M 40.569761,8.4366112 L 40.569761,28.018642 L 60.151793,28.018642 L 60.151793,33.995205 L 40.569761,33.995205 L 40.569761,53.577236 L 34.663511,53.577236 L 34.663511,33.995205 L 15.08148,33.995205 L 15.08148,28.018642 L 34.663511,28.018642 L 34.663511,8.4366112 L 40.569761,8.4366112 z" fill="WHITE" layoutX="-23.0" layoutY="-16.0" scaleX="0.5" scaleY="0.5" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>
