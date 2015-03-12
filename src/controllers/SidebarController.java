@@ -28,11 +28,8 @@ public class SidebarController {
 	
 	//Is supposed to set the defaultCalendar text to the currently logged in user's username.
 	@FXML private void initialize(){
-		//defaultCalendar.setText("Test");
 		controller = this;
 		updateCalendarList();
-		//Calendar calen = new Calendar(0, "Min kalender", null);
-		//addCalendar(calen);
 		for(Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
 			System.out.println(cal);
 			

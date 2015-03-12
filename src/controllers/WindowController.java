@@ -65,7 +65,7 @@ public class WindowController {
 		}
 		else if (fxml.equalsIgnoreCase("../views/SuperView.fxml")) {
             scene.getStylesheets().add("/css/main.css");
-            title = "Calendar";
+            title = "Calify";
         }
 		thisStage.hide();
 		thisStage.setScene(scene);

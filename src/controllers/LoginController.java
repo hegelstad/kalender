@@ -23,7 +23,7 @@ public class LoginController {
     @FXML private TextField username;
     @FXML private PasswordField password;
     @FXML private Button loginButton;
-    @FXML private Label statusLabel;
+    @FXML private Label status;
     Requester connection;
     Person p;
 
@@ -67,7 +67,7 @@ public class LoginController {
     }
 
     public void setStatus(String s) {
-        statusLabel.setText(s);
+        status.setText(s);
     }
 
     private boolean authenticateUser(){
