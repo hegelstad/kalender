@@ -6,6 +6,10 @@
 
 }
 
+#logoImage{
+	-fx-image: url("../calify.png");
+}
+
 .button {
 -fx-font-size: 13.0px;
 -fx-base: #00a7d4;
