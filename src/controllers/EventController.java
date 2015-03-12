@@ -2,14 +2,10 @@ package controllers;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import socket.Requester;
 import models.Attendant;
 import models.Calendar;
@@ -18,17 +14,11 @@ import models.Notification;
 import models.PersonInfo;
 import models.Room;
 import models.UserGroup;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -36,7 +26,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
 
 public class EventController {
 	
@@ -66,36 +55,35 @@ public class EventController {
 	@FXML private ComboBox<Room> roomLocation;
 	@FXML private ListView<UserGroup> participantsStatus;
 	
-	
-	@FXML public void cancelButtonOnAction(){
+	@FXML public void cancelButtonOnAction() {
 		HeaderController.getController().drawEventsForWeek();
 		WindowController.setEventWindowIsOpen(false);
 		stage.close();
 	}
 	
-	@FXML public void saveButtonOnAction(){
-		if (createEvent()){
+	@FXML public void saveButtonOnAction() {
+		if (createEvent()) {
 			WindowController.setEventWindowIsOpen(false);
 			stage.close();
-		}else{
+		} else {
 			System.out.println("Something went wrong.");
 		}
 	}
 	
-	@FXML public void addParticipant(){
+	@FXML public void addParticipant() {
 		apol.add(pol.remove(addParticipantsSearch.getSelectionModel().getSelectedIndex()));
 		addParticipantsSearch.getSelectionModel().clearSelection();
 		validateGuests();
-		
 	}
 	
-	@FXML public void removeParticipant(){
+	@FXML public void removeParticipant() {
 		pol.add(apol.remove(participantsStatus.getSelectionModel().getSelectedIndex()));
 		validateGuests();
 	}
 	
-	@FXML public boolean validateTitle(){
-		if (title.getText().length() > 40){
+	@FXML public boolean validateTitle() {
+        System.out.println("Validating title in EventController.");
+        if (title.getText().length() > 40){
 			System.out.println("Max 40 characters.");
 			return false;
 		} else if (title.getText().length() == 0){
@@ -105,140 +93,163 @@ public class EventController {
 		return true;
 	}
 	
-	@FXML public boolean validateTime(){
-		LocalDateTime from = null;
+	@FXML public boolean validateTime() {
+        System.out.println("Validating time in EventController.");
+        LocalDateTime from = null;
 		LocalDateTime to = null;
-		try{
-			if (toDate.getValue().isBefore(fromDate.getValue())){
+		try {
+			if (toDate.getValue().isBefore(fromDate.getValue())) {
 				toDate.setValue(fromDate.getValue());
 			}	
-		}catch (Exception e){}
-		try{
+		} catch (Exception e){ e.printStackTrace(); }
+
+		try {
 			 from = getFromTime();
-		}catch (DateTimeParseException e){
+		} catch (DateTimeParseException e) {
 			roomLocation.setDisable(true);
 			roomLocation.getSelectionModel().clearSelection();
 			return false;
-		}catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			roomLocation.setDisable(true);
 			roomLocation.getSelectionModel().clearSelection();
 		}
-		try{
+
+		try {
 			 to = getToTime();
-		}catch (DateTimeParseException e){
+		} catch (DateTimeParseException e) {
 			roomLocation.setDisable(true);
 			roomLocation.getSelectionModel().clearSelection();
 			return false;
-		}catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			roomLocation.setDisable(true);
 			roomLocation.getSelectionModel().clearSelection();
 		}
-		if (! from.isBefore(to)){
-			roomLocation.setDisable(true);
-			System.out.println("From date is before to date.");
-			roomLocation.getSelectionModel().clearSelection();
-			return false;
-		}
+        try {
+            if (!from.isBefore(to)) {
+                roomLocation.setDisable(true);
+                System.out.println("From date is before to date.");
+                roomLocation.getSelectionModel().clearSelection();
+                return false;
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
 		roomLocation.setDisable(false);
 		Room room = roomLocation.getSelectionModel().getSelectedItem();
 		Calendar cal = new Calendar (2, "Eirik", null);
 		Event ev;
 		if (calendarEvent != null){
 			ev = new Event(calendarEvent.getEventID(), title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), cal);
-		}else{
+		} else {
 			ev = new Event(0, title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), cal);
 		}
+
 		Requester r = new Requester();
 		ArrayList<Room> avRooms = r.getAvailableRooms(ev);
 		r.closeConnection();
 		boolean stillAvailableRoom = false;
-		try{
+
+		try {
 			for (Room rm : avRooms){
 				if (room.getRoomName().equals(rm.getRoomName())){
 					stillAvailableRoom = true;
 					break;
 				}
 			}
-		} catch(NullPointerException e) {}
-		if(! stillAvailableRoom){
+		} catch(NullPointerException e) {
+            e.printStackTrace();
+        }
+
+		if(!stillAvailableRoom) {
 			roomLocation.getSelectionModel().clearSelection();
 		}
 		return true;
 	}
 	
-	@FXML public boolean validateGuests(){
-		System.out.println("Validating guests");
-		try{
+	@FXML public boolean validateGuests() {
+		System.out.println("Validating guests in EventController.");
+		try {
 			int roomSize = roomLocation.getSelectionModel().getSelectedItem().getCapacity();
 			int participants = apol.size();
-			if (participants > roomSize){
-				System.out.println("Room not big enough");
+			if (participants > roomSize) {
+				System.out.println("The selected room is not large enough.");
 				roomLocation.getSelectionModel().clearSelection();
 				return false;
-			}else{
+			} else {
 				return true;
 			}
-		}catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			System.out.println("Either roomselection or participantlist is empty.");
 			return false;
 		}
 	}
 	
 	private boolean createEvent() {
-		if(eventIsValid()){
-			Requester r = new Requester();
+		if(eventIsValid()) {
+			Requester requester = new Requester();
 			Event ev = new Event(0, title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), PersonInfo.getPersonInfo().getSelectedCalendar());
-			ev = r.createEvent(ev);
-			r.closeConnection();
+			ev = requester.createEvent(ev);
+			requester.closeConnection();
 	
-			r = new Requester();
-			try{
+			requester = new Requester();
+			try {
 				Room room = roomLocation.getSelectionModel().getSelectedItem();
 				if (room != null){
-					r.bookRoom(ev, room);
+					requester.bookRoom(ev, room);
 				}
-			}catch (Exception e){}
-			r.closeConnection();
+			} catch (Exception e){
+                e.printStackTrace();
+            }
+			requester.closeConnection();
 			
-			r = new Requester();
-			r.setNotification(new Notification(0, "Invite to: " + ev.getName(), PersonInfo.getPersonInfo().getPersonalUserGroup(), addedParticipants, ev, 1));
-			r.closeConnection();
+			requester = new Requester();
+			requester.setNotification(new Notification(0, "Invite to: " + ev.getName(), PersonInfo.getPersonInfo().getPersonalUserGroup(), addedParticipants, ev, 1));
+			requester.closeConnection();
 				
-			r = new Requester();
-			r.updateAttends(ev, new Attendant(PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID(), PersonInfo.personInfo.getPersonalUserGroup().getName(), 1));
-			r.closeConnection();
+			requester = new Requester();
+			requester.updateAttends(ev, new Attendant(PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID(), PersonInfo.personInfo.getPersonalUserGroup().getName(), 1));
+			requester.closeConnection();
 			return (ev.getEventID() != 0);
 		}
 		return false;
 	}
 	
 	private boolean eventIsValid() {
-		boolean valid = true;
-		if(! validateTitle()){
+        System.out.println("Checkin if event is valid in EventController.");
+        boolean valid = true;
+		if(!validateTitle()) {
 			valid = false;
-			System.out.println("Invalid title");
-		}if (! validateTime()){
+			System.out.println("Invalid title.");
+		}
+        if (!validateTime()) {
 			valid = false;
-			System.out.println("Time is invalid");
-		}if (roomLocation.getSelectionModel().getSelectedItem() != null){
-			if (! validateGuests()){
+			System.out.println("Time is invalid.");
+		}
+        if (roomLocation.getSelectionModel().getSelectedItem() != null) {
+			if (!validateGuests()) {
 				valid = false;
-				System.out.println("Room is not big enough.");
-			}	
+				System.out.println("Selected room is not big enough.");
+			}
 		}
 		return valid;
 	}
 
 	@FXML
 	private void initialize(){
+
 		initializeHourAndMinutes();
-		Requester r = new Requester();
-		participants = r.getPrivateUserGroups();
+
+		Requester requester = new Requester();
+		participants = requester.getPrivateUserGroups();
+        requester.closeConnection();
+
 		pol = FXCollections.observableArrayList(participants);
 		addParticipantsSearch.setItems(pol);
 		apol = FXCollections.observableArrayList(addedParticipants);
 		participantsStatus.setItems(apol);
 		participantsStatus.setCellFactory((list) -> {
+
 		    return new ListCell<UserGroup>() {
 		        @Override
 		        protected void updateItem(UserGroup ug, boolean empty) {
@@ -257,35 +268,36 @@ public class EventController {
 		                grid.add(text, 0, 0);
 		                Circle statusCircle = new Circle(4);
 		                if (attendants != null){
-		                	for (Attendant a : attendants){
-		                		if (a.getUserGroupID() == ug.getUserGroupID()){
+		                	for (Attendant a : attendants) {
+		                		if (a.getUserGroupID() == ug.getUserGroupID()) {
 			                		if (a.getStatus() == 1){
 			                			statusCircle.setFill(Color.DARKGREEN);
 			                			break;
-			                		}else if (a.getStatus() == 2){
+			                		} else if (a.getStatus() == 2) {
 			                			statusCircle.setFill(Color.BROWN);
 			                			break;
-			                		}else{
+			                		} else {
 			                			statusCircle.setFill(Color.GOLDENROD);
 			                			break;
 			                		}
 		                		}
 		                	}
-		                }else{
-		                	if (PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID() == ug.getUserGroupID()){
+		                } else {
+		                	if (PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID() == ug.getUserGroupID()) {
 	                			statusCircle.setFill(Color.DARKGREEN);
-	                		}else{
+	                		} else {
 	                			statusCircle.setFill(Color.GOLDENROD);
 	                		}
 		                }
-		             
 		                grid.add(statusCircle, 1, 0);
 		                setGraphic(grid);
 		            }
 		        }
 		    };
 		});
+
 		addParticipantsSearch.setCellFactory((list) -> {
+
 		    return new ListCell<UserGroup>() {
 		        @Override
 		        protected void updateItem(UserGroup ug, boolean empty) {
@@ -302,9 +314,11 @@ public class EventController {
 		
 		final Callback<DatePicker, DateCell> dayCellFactory = 
 	            new Callback<DatePicker, DateCell>() {
+
 	                @Override
 	                public DateCell call(final DatePicker datePicker) {
 	                    return new DateCell() {
+
 	                        @Override
 	                        public void updateItem(LocalDate item, boolean empty) {
 	                            super.updateItem(item, empty);
@@ -322,27 +336,27 @@ public class EventController {
 	    toDate.setDayCellFactory(dayCellFactory);
 	        
 		int personalID = PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID();
-		for (UserGroup ug : participants){
-			if (personalID == ug.getUserGroupID()){
+		for (UserGroup ug : participants) {
+			if (personalID == ug.getUserGroupID()) {
 				apol.add(pol.remove(pol.indexOf(ug)));
 				break;
 			}
 		}
 	}
 	
-	public LocalDateTime getFromTime(){
+	public LocalDateTime getFromTime() {
 		return LocalDateTime.parse(fromDate.getValue().toString() + " " + fromHours.getValue() + ":" + fromMinutes.getValue(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 	}
 	
-	public LocalDateTime getToTime(){
+	public LocalDateTime getToTime() {
 		return LocalDateTime.parse(toDate.getValue().toString() + " " + toHours.getValue() + ":" + toMinutes.getValue(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 	}
 	
-	public void getAvailableRooms(){
-		Requester r = new Requester();
+	public void getAvailableRooms() {
+		Requester requester = new Requester();
 		Event ev = new Event(0, null, null, new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), null);
-		rooms = r.getAvailableRooms(ev);
-		r.closeConnection();
+		rooms = requester.getAvailableRooms(ev);
+		requester.closeConnection();
 		ObservableList<Room> ol = FXCollections.observableArrayList(rooms);
 		roomLocation.setItems(ol);
 	}
@@ -412,14 +426,13 @@ public class EventController {
 		fromMinutes.setValue(FromMinutes);
 		toMinutes.setValue(ToMinutes);
 		note.setText(event.getNote());
-		System.out.println(event);
-		//Oppdaterer event og location
+		System.out.println("Opened event: " + event);
 		if (event.getEventID() != 0) {
-			saveButton.setOnAction(e -> updatedEvent(event));
+			saveButton.setOnAction(e -> updateEvent(event));
 		}
 	}
 	
-	public void updatedEvent(Event event){
+	public void updateEvent(Event event){
 		
 		event.setName(title.getText());
 		event.setNote(note.getText());
@@ -427,13 +440,13 @@ public class EventController {
 		event.setFrom(getFromTime());
 		event.setTo(getToTime());
 		
-		Requester req = new Requester();
-		req.editEvent(event, PersonInfo.getPersonInfo().getPersonalUserGroup());
-		req.closeConnection();
+		Requester requester = new Requester();
+		requester.editEvent(event, PersonInfo.getPersonInfo().getPersonalUserGroup());
+		requester.closeConnection();
 		
-		req = new Requester();
-		req.updateLocation(event, roomLocation.getSelectionModel().getSelectedItem());
-		req.closeConnection();
+		requester = new Requester();
+		requester.updateLocation(event, roomLocation.getSelectionModel().getSelectedItem());
+		requester.closeConnection();
 		
 		WindowController.setEventWindowIsOpen(false);
 		stage.close();

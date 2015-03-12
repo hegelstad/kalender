@@ -58,7 +58,7 @@ public class HeaderController {
                 fridayDayOfWeek, saturdayDayOfWeek, sundayDayOfWeek};
         weekday_labels.addAll(Arrays.asList(temp_weekday_labels));
         notificationButton.setText(Integer.toString(PersonInfo.getPersonInfo().getNotifications().size()));
-        System.out.println("HeaderController inited");
+        System.out.println("HeaderController was initiated.");
         timer = new Timer();
         scheduler = new Scheduler();
         timer.scheduleAtFixedRate(scheduler, 1, 10000);
@@ -67,8 +67,6 @@ public class HeaderController {
         incrementWeekMinusButton.setTooltip(new Tooltip("Go to previous week"));
         notificationButton.setTooltip(new Tooltip("View your notifications"));
         logOffButton.setTooltip(new Tooltip("Log off and return to the login screen"));
-        
-        
     }
 
     @FXML
@@ -88,7 +86,6 @@ public class HeaderController {
 		/* Subtract 1 week of LocalDate date */
         date = date.minusWeeks(1);
         updateDates();
-
     }
 
     @FXML
@@ -128,7 +125,6 @@ public class HeaderController {
         if (notificationWindow.isVisible()) {
             notificationWindow.setVisible(false);
         } else {
-            /* Replace new Person med PersonInfo.getPerson() */
             ArrayList<Notification> notes = PersonInfo.getPersonInfo().getNotifications();
             notifications = FXCollections.observableArrayList(notes);
             notificationList.setItems(notifications);
@@ -150,15 +146,17 @@ public class HeaderController {
 
     public void updateNotifications() {
         int current_num_notifications = PersonInfo.getPersonInfo().getNotifications().size();
-        Requester req = new Requester();
-        ArrayList<Notification> temp_notifications = req.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup());
-        req.closeConnection();
+
+        Requester requester = new Requester();
+        ArrayList<Notification> temp_notifications = requester.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup());
+        requester.closeConnection();
+
         Collections.reverse(temp_notifications);
         PersonInfo.personInfo.setNotifications(temp_notifications);
         int new_num_notifications = PersonInfo.getPersonInfo().getNotifications().size();
 
         if (current_num_notifications < new_num_notifications) {
-            System.out.println("New notification");
+            System.out.println("New notification discovered.");
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -182,9 +180,10 @@ public class HeaderController {
         WeekController.getController().drawEvents(PersonInfo.getPersonInfo().getEventsForWeek(weekNumber));
     }
     
-    /*Ment tp be used from WeekController to get the correct date for a new event when you click a given column
-     * 
-     */
+    /**
+     *  This function is supposed to be called from WeekController to get
+     *      the correct date for a new event when you click a column.
+     **/
     public LocalDateTime getDateForColumn(int column, int row){
     	LocalDate tempDate = date;
     	System.out.println("TempDate: " + tempDate);
@@ -200,8 +199,5 @@ public class HeaderController {
     	System.out.println("Column : " + column + " Row : " + " dateDayOfWeek : " + date.getDayOfWeek().getValue());
     	LocalDateTime newDate = LocalDateTime.of(year, month, calendarDayOfMonth, row, 0);
 		return newDate;
-    	
     }
-    
-    
 }
