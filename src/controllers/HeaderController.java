@@ -60,6 +60,7 @@ public class HeaderController {
         scheduler = new Scheduler();
         timer.scheduleAtFixedRate(scheduler, 1, 10000);
         addEventButton.setTooltip(new Tooltip("Create a new event"));
+        addEventButton.getTooltip().getStyleClass().add("ttip");
         incrementWeekPlusButton.setTooltip(new Tooltip("Go to next week"));
         incrementWeekMinusButton.setTooltip(new Tooltip("Go to previous week"));
         notificationButton.setTooltip(new Tooltip("View your notifications"));
