@@ -26,6 +26,7 @@ public class PersonInfo {
 	private ArrayList<Calendar> calendarsInUse;
 	private ArrayList<Event> events;
 	private ArrayList<Notification> notifications;
+	private Calendar selectedCalendar;
 	
 	public Person getPerson() {
 		return person;
@@ -91,6 +92,14 @@ public class PersonInfo {
 		this.calendarsInUse = calendarsInUse;
 	}
 	
+	public Calendar getSelectedCalendar() {
+		return selectedCalendar;
+	}
+
+	public void setSelectedCalendar(Calendar selectedCalendar) {
+		this.selectedCalendar = selectedCalendar;
+	}
+
 	public TreeSet<Event> getEventsForWeek(int weekNumber){
 		TreeSet<Event> events = new TreeSet<Event>( (e1,e2) ->{
 			/* Event is sorted on their starting time */
