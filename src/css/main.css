@@ -12,7 +12,13 @@ EVENT/CALENDAR
 **/
 
 
+#wwekView{
+	-fx-border-color-: #4c4f51;
+}
 
+#weekView:selected{
+	-fx-border-color-: #4c4f51;
+}
 #weekGrid {
     -fx-background-color: #4c4f51;
 }
@@ -53,7 +59,7 @@ HEADER
 }
 
 #headerGridPane {
-    -fx-background-color: #121314;
+    -fx-background-color: #26272B;
 }
 
 /**
@@ -96,6 +102,11 @@ NOTIFICATIONS
   
  **/
  
+ 
+ #newCalendarButton:hover{
+ 	-fx-text-fill: #0187ab;
+ }
+ 
  #newCalendarWindow{
  	visibility: hidden;
  	fx-background-color: transparent;
@@ -113,6 +124,13 @@ NOTIFICATIONS
  
  #newCalendarRectangle{
  	-fx-background-color: #187E96;
+ }
+ 
+ #addNewCalendarPaneButton{
+ 	-fx-background-color: #187E96;
+ }
+ #addNewCalendarPaneButton:hover{
+ 	-fx-background-color: #0187ab;
  }
 
 .button {
@@ -182,6 +200,11 @@ calendarList {
 	-fx-inner-border: linear-gradient(to bottom, derive(-fx-color,73.6%) 0%, derive(-fx-color,29.200000000000003%) 100%);
 	-fx-body-color: linear-gradient( to bottom, derive(-fx-color, 34.0%) 0%, derive(-fx-color, -18.0%) 100%);
  }
+ 
+ #userManagmentPaneButton:hover {
+ 	-fx-focus-color: #FF0000;
+	-fx-background-color: #ED9C28, #0187ab;
+}	
  
 #calendarList {
 	

@@ -3,22 +3,15 @@ package controllers;
 import java.util.ArrayList;
 
 import models.Calendar;
-import models.Notification;
-import models.NotificationCell;
 import models.PersonInfo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import models.CalendarCell;
 public class SidebarController {
 
@@ -27,6 +20,7 @@ public class SidebarController {
 	@FXML private CheckBox defaultCalendar;
 	@FXML private ListView<Calendar> calendarList;
 	@FXML private Pane userManagmentPaneButton;
+	
 
 
 	
@@ -55,14 +49,16 @@ public class SidebarController {
     private void openNewCalendar() {
         Scene scene = WindowController.thisStage.getScene();
         Pane newCalendarWindow = (Pane) scene.lookup("#newCalendarWindow");
-        Node node =newCalendarWindow.getChildren().get(2);
+        TextField newCalendarTextField = (TextField) scene.lookup("#newCalendarTextField");
         if (newCalendarWindow.isVisible()){
             newCalendarWindow.setVisible(false);
+            newCalendarTextField.setText("");
         } 
         
         else {
             newCalendarWindow.setVisible(true);
-            node.requestFocus();
+            newCalendarTextField.requestFocus();
+            
         }
     }
 	

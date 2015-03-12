@@ -52,44 +52,44 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="39.0" layoutY="10.0" text="Monday" />
-                  <Label fx:id="mondayDayOfWeek" layoutX="93.0" layoutY="10.0" text="day" />
+                  <Label layoutX="40.0" layoutY="10.0" text="Monday" />
+                  <Label fx:id="mondayDayOfWeek" layoutX="94.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <Label layoutX="29.0" layoutY="10.0" text="Tuesday" />
-                  <Label fx:id="tuesdayDayOfWeek" layoutX="91.0" layoutY="10.0" text="day" />
+                  <Label layoutX="38.0" layoutY="10.0" text="Tuesday" />
+                  <Label fx:id="tuesdayDayOfWeek" layoutX="96.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                <children>
-                  <Label layoutX="13.0" layoutY="10.0" text="Wednesday" />
-                  <Label fx:id="wednesdayDayOfWeek" layoutX="98.0" layoutY="10.0" text="day" />
+                  <Label layoutX="28.0" layoutY="10.0" text="Wednesday" />
+                  <Label fx:id="wednesdayDayOfWeek" layoutX="106.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                <children>
-                  <Label layoutX="23.0" layoutY="10.0" text="Thursday" />
-                  <Label fx:id="thursdayDayOfWeek" layoutX="93.0" layoutY="10.0" text="day" />
+                  <Label layoutX="36.0" layoutY="10.0" text="Thursday" />
+                  <Label fx:id="thursdayDayOfWeek" layoutX="98.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
                <children>
-                  <Label layoutX="31.0" layoutY="10.0" text="Friday" />
-                  <Label fx:id="fridayDayOfWeek" layoutX="83.0" layoutY="10.0" text="day" />
+                  <Label layoutX="46.0" layoutY="10.0" text="Friday" />
+                  <Label fx:id="fridayDayOfWeek" layoutX="88.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
                <children>
-                  <Label layoutX="24.0" layoutY="9.0" text="Saturday" />
-                  <Label fx:id="saturdayDayOfWeek" layoutX="94.0" layoutY="10.0" text="day" />
+                  <Label layoutX="36.0" layoutY="10.0" text="Saturday" />
+                  <Label fx:id="saturdayDayOfWeek" layoutX="98.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="32.0" prefWidth="156.0" GridPane.columnIndex="6">
                <children>
-                  <Label layoutX="28.0" layoutY="10.0" text="Sunday" />
-                  <Label fx:id="sundayDayOfWeek" layoutX="84.0" layoutY="10.0" text="day" />
+                  <Label layoutX="41.0" layoutY="10.0" text="Sunday" />
+                  <Label fx:id="sundayDayOfWeek" layoutX="92.0" layoutY="10.0" text="day" />
                </children>
             </AnchorPane>
          </children>

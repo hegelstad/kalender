@@ -20,6 +20,8 @@ public class WindowController {
 	private static Main program;
 	private static double xOffset = 0;
 	private static double yOffset = 0;
+	private static double adminXOffset = 0;
+	private static double adminYOffset = 0;
 	private static boolean eventWindowIsOpen = false;
 	private static boolean adminWindowIsOpen = false;
 	private static List<Stage> stages = new ArrayList<Stage>();
@@ -71,12 +73,7 @@ public class WindowController {
 		thisStage.centerOnScreen();
 		thisStage.setResizable(false);
 		thisStage.show();
-		if(scene == null) {
-			scene = new Scene(page);
-			thisStage.setScene(scene);
-		} else {
-			thisStage.getScene().setRoot(page);
-		}
+		thisStage.getScene().setRoot(page);
 		return page;
 	}
 	
@@ -141,24 +138,6 @@ public class WindowController {
             }
         }
 	}
-
-    //Is this deprecated?
-	public static void goToNotificationView() {
-		try {
-			Stage notificationWindows = new Stage();
-			Parent page;
-			FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/NotificationView.fxml"), null, new JavaFXBuilderFactory());
-			page = (Parent) loader.load();
-			NotificationController controller = loader.getController();
-			Scene scene = new Scene(page, 494, 712);
-			notificationWindows.setScene(scene);
-			notificationWindows.centerOnScreen();
-			notificationWindows.setResizable(false);
-			notificationWindows.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public static void goToManageUsersView() {
 		Stage adminView = new Stage();
@@ -171,11 +150,25 @@ public class WindowController {
 				Parent page;
                 FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/AdminView.fxml"), null, new JavaFXBuilderFactory());
                 page = (Parent) loader.load();
+                page.setOnMousePressed(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                       adminXOffset = event.getSceneX();
+                       adminYOffset = event.getSceneY();
+                    }
+                });
+                page.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        adminView.setX(event.getScreenX() - adminXOffset);
+                        adminView.setY(event.getScreenY() - adminYOffset);
+                    }
+                });
                 AdminController controller = loader.getController();
                 Scene scene = new Scene(page);
+                scene.getStylesheets().add("/css/manageUsers.css");
                 adminView.setScene(scene);
-				adminView.setX(500);
-                adminView.setY(300);
+				adminView.centerOnScreen();
 				adminView.setResizable(false);
 				adminView.setAlwaysOnTop(true);
                 controller.setStage(adminView);
