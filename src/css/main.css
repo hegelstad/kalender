@@ -206,6 +206,11 @@ NOTIFICATIONS
 	-fx-content-display: LEFT;
 }
 
+.ttip{
+     -fx-background-radius: 0 0 0 0;
+     -fx-background-color:  linear-gradient(#187E96, #187E96);
+}
+
 
 .button:hover {
 -fx-focus-color: #FF0000;
