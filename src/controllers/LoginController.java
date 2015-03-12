@@ -132,7 +132,9 @@ public class LoginController {
 	   System.out.println(events);
 	   connection.closeConnection();
 	   
+	   int i = 0;
 	   for (Calendar c : cal){
+		   c.setColorID(i++);
 		   if (c.getName().equals(ug.getName())){
 			   personInfo.setSelectedCalendar(c);
 		   }
