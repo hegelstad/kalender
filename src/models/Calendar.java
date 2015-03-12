@@ -9,6 +9,7 @@ public class Calendar implements Serializable {
     String name;
     ArrayList<UserGroup> userGroups;
     ArrayList<Event> events;
+    int colorID = 0;
     
     public Calendar(int calendarID, String name, ArrayList<UserGroup> userGroups) {
         CalendarID = calendarID;
@@ -56,5 +57,13 @@ public class Calendar implements Serializable {
     public ArrayList<Event> getEvents(){
     	return events;
     }
+
+	public int getColorID() {
+		return colorID;
+	}
+
+	public void setColorID(int colorID) {
+		this.colorID = colorID;
+	}
     
 }

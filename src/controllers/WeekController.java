@@ -51,7 +51,6 @@ public class WeekController {
 	/* End of making testdata */
 
 
-	
 	@FXML
 	private void initialize(){
 		controller = this;
@@ -60,7 +59,6 @@ public class WeekController {
 		}
 		for(ColumnConstraints r :weekGrid.getColumnConstraints()){
 			r.setHalignment(HPos.LEFT);
-		
 		}
 		weekGrid.setGridLinesVisible(true);
 		
@@ -96,12 +94,16 @@ public class WeekController {
 		HeaderController.getController().weekInit();
 		SidebarController.getController().weekInit();
 	}
-	
+
 	private void drawEvent(Event event,int indent, int reverseIndent){
-		System.out.println("Drawing : "+event.getName() + " id:" + event.getEventID());
-		
+		for (Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
+			if (cal.getCalendarID() == event.getCal().getCalendarID()){
+				event.getCal().setColorID(cal.getColorID());
+			}
+		}
+		System.out.println("Drawing : "+event.getName() + " id:" + event.getEventID() + " with colorID : " +event.getCal().getColorID());
 		Rectangle eventRec = new Rectangle(fullEventWidth-3-(indentMargin*reverseIndent), getEventHeight(event));
-		styleRectangle(eventRec);
+		styleRectangle(eventRec, event);
 		Text eventName = new Text(event.getName());
 		styleText(eventName);
 		Circle statusCircle = new Circle(4);
@@ -150,12 +152,36 @@ public class WeekController {
 		return height;
 	}
 	
-	private void styleRectangle(Rectangle r){
+	private void styleRectangle(Rectangle r, Event e){
 		r.setArcHeight(3);
 		r.setArcWidth(3);
 		r.strokeProperty().set(Color.BLACK);
 		r.strokeWidthProperty().set(1);
-		r.fillProperty().set(Color.LIGHTSKYBLUE);
+		
+		switch (e.getCal().getColorID()){
+			case 0: r.fillProperty().set(Color.LIGHTSKYBLUE);
+					break;
+			case 1: r.fillProperty().set(Color.LIGHTSALMON);
+					break;
+			case 2: r.fillProperty().set(Color.LIGHTGREEN);
+					break;
+			case 3: r.fillProperty().set(Color.LIGHTYELLOW);
+					break;
+			case 4: r.fillProperty().set(Color.LIGHTPINK);
+					break;
+			case 5: r.fillProperty().set(Color.LIGHTCORAL);
+					break;
+			case 6: r.fillProperty().set(Color.BEIGE);
+					break;
+			case 7: r.fillProperty().set(Color.SILVER);
+					break;
+			case 8: r.fillProperty().set(Color.AQUAMARINE);
+					break;
+			case 9: r.fillProperty().set(Color.CORNFLOWERBLUE);
+					break;
+			default: r.fillProperty().set(Color.THISTLE);
+					break;
+		}
 		r.opacityProperty().set(0.5);
 	}
 	
