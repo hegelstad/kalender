@@ -389,13 +389,14 @@ public class Requester {
      * @param cal
      * @return
      */
-    public ArrayList<Event> getEvents(ArrayList<Calendar> cal) {
-    	Command cmd = new Command("getEvents-calendars");
+    public ArrayList<Event> getEvents(ArrayList<Calendar> cal, UserGroup ug) {
+    	Command cmd = new Command("getEvents-calendars-usergroup");
     	ArrayList<Event> events = null;
     	try {
     		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
             oos.writeObject(cmd);
             oos.writeObject(cal);
+            oos.writeObject(ug);
             InputStream is = con.getInputStream();
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
