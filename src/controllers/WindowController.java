@@ -133,9 +133,12 @@ public class WindowController {
                 FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/EventView.fxml"), null, new JavaFXBuilderFactory());
                 page = (Parent) loader.load();
                 EventController controller = loader.getController();
-                if (event != null) {
+                if (event.getEventID() != -1337) {
                     controller.openEvent(event);
+                }else{
+                	controller.setBarColor(event);
                 }
+                
                 page.setOnMousePressed(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {

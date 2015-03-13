@@ -386,6 +386,11 @@ public class EventController {
 		toHours.getSelectionModel().select("13");
 		toMinutes.getSelectionModel().select("00");
 	}
+	
+	void setBarColor(Event event){
+		eventBar.fillProperty().set(event.getCal().getColor());
+		eventBar.setOpacity(0.7);
+	}
 
 	void openEvent(Event event) {
 		this.calendarEvent = event;

@@ -68,7 +68,7 @@ public class HeaderController {
 
     @FXML
     private void addEventOnAction() {
-        WindowController.goToEventView(null);
+        WindowController.goToEventView(new Event(-1337, "New Event", null, null, null, null, PersonInfo.getPersonInfo().getSelectedCalendar()));
     }
 
     @FXML
