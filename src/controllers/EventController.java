@@ -391,24 +391,6 @@ public class EventController {
 		String ToHours = Integer.toString(event.getTo().toLocalTime().getHour());
 		String FromMinutes = Integer.toString(event.getFrom().toLocalTime().getMinute());
 		String ToMinutes = Integer.toString(event.getTo().toLocalTime().getMinute());
-		Requester requester = new Requester();
-		Room evRoom = requester.getEventRoom(event);
-		requester.closeConnection();
-		requester = new Requester();
-		this.attendants = requester.getAttendants(event);
-		requester.closeConnection();
-		roomLocation.getSelectionModel().select(evRoom);
-		for (Attendant a : attendants) {
-			int index = -1;
-			for (UserGroup ug2 : pol) {
-				if (a.getUserGroupID() == ug2.getUserGroupID()) {
-					index = pol.indexOf(ug2);
-				}
-			}
-			if (index != -1) {
-				apol.add(pol.remove(index));
-			}
-		}
 		if (FromHours.length() == 1) {
 			FromHours = "0" + FromHours;
 		}
@@ -425,9 +407,28 @@ public class EventController {
 		toHours.setValue(ToHours);
 		fromMinutes.setValue(FromMinutes);
 		toMinutes.setValue(ToMinutes);
-		note.setText(event.getNote());
-		System.out.println("Opened event: " + event);
-		if (event.getEventID() != 0) {
+		
+		if(event.getEventID() != 0){
+			Requester requester = new Requester();
+			Room evRoom = requester.getEventRoom(event);
+			requester.closeConnection();
+			requester = new Requester();
+			this.attendants = requester.getAttendants(event);
+			requester.closeConnection();
+			roomLocation.getSelectionModel().select(evRoom);
+			for (Attendant a : attendants) {
+				int index = -1;
+				for (UserGroup ug2 : pol) {
+					if (a.getUserGroupID() == ug2.getUserGroupID()) {
+						index = pol.indexOf(ug2);
+					}
+				}
+				if (index != -1) {
+					apol.add(pol.remove(index));
+				}
+			}
+			note.setText(event.getNote());
+			System.out.println("Opened event: " + event);
 			saveButton.setOnAction(e -> updateEvent(event));
 		}
 	}
