@@ -8,10 +8,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import models.CalendarCell;
 public class SidebarController {
 
@@ -19,11 +19,14 @@ public class SidebarController {
 	
 	@FXML private ListView<Calendar> calendarList;
 	@FXML private Pane userManagmentPaneButton;
+	@FXML private TextField searchCalendar;
 	
 	ObservableList<Calendar> calendars = FXCollections.observableArrayList(new ArrayList<Calendar>());
 	
 	@FXML private void initialize(){
 		controller = this;
+		Rectangle rectangle = new Rectangle(1,1);
+		searchCalendar.setShape(rectangle);
 		updateCalendarList();
 		for(Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
 			System.out.println(cal);
