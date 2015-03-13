@@ -24,10 +24,16 @@ public class CalendarCell extends ListCell<Calendar> {
 		Pane pane = new Pane();
 		CheckBox checkbox = new CheckBox();
 		checkbox.setSelected(true);
+		checkbox.setLayoutY(2);
 		label = new Label(cal.getName());
 		label.setLayoutX(25);
 		label.setLayoutY(2);
 		label.setTextFill(Color.web("#0076a3"));
+		if(cal.getName().length() > 20){
+			label.setPrefWidth(100);
+			label.setPrefHeight(40);
+			label.setWrapText(true);
+		}
 		switch (cal.getColorID()){
 		case 0: 
 			pane.getStyleClass().add(0,"lightskyblue");
