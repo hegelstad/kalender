@@ -15,17 +15,11 @@ EVENT/CALENDAR
 	
 }
 
+
 #calendarList .scroll-bar:horizontal {
 	visibility: hidden;
 }
 
-#wwekView{
-	-fx-border-color-: #4c4f51;
-}
-
-#weekView:selected{
-	-fx-border-color-: #4c4f51;
-}
 #weekGrid {
     -fx-background-color: #4c4f51;
 }
