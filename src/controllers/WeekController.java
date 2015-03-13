@@ -37,7 +37,7 @@ public class WeekController {
 	private ArrayList<Rectangle> allRecs= new ArrayList<>();
 	private ArrayList<Text> allTexts = new ArrayList<>();
 	private ArrayList<Circle> allCircs = new ArrayList<Circle>();
-	@FXML GridPane weekGrid;
+	public @FXML GridPane weekGrid;
 	@FXML ScrollPane WeekView;
 	
 	/* Making some testdata */  /*
@@ -84,7 +84,7 @@ public class WeekController {
 			System.out.println("ROW    "  + row);
 			LocalDateTime from = HeaderController.getController().getDateForColumn(column, row);
 			LocalDateTime to = from.plusMinutes(60);
-			Event clickEvent = new Event(0, "New event", null, null, from, to, null);
+			Event clickEvent = new Event(0, "New event", null, null, from, to, PersonInfo.getPersonInfo().getSelectedCalendar());
 			/* Tegner ny event, den vil blir erstatted av den ferdigredigerte hendelsen eller 
 			 * fjernet ved omtegning av eventer som blir gjort ved � g� ut av eventEdit*/
 			drawEvent(clickEvent,0,0);
@@ -220,8 +220,10 @@ public class WeekController {
 			
 			System.out.println("\n\n");
 			System.out.println("Finner data");
+			events = new ArrayList<Event>();
 			System.out.println(sortedEvents);
-			events = new ArrayList<Event>(sortedEvents);
+			ArrayList<Event> tempList = new ArrayList<>(sortedEvents);
+			Collections.copy(events, tempList);
 		}
 		else if(sortedEvents.size()==0)
 		{
