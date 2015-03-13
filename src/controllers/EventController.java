@@ -152,7 +152,7 @@ public class EventController {
 		ArrayList<Room> avRooms = r.getAvailableRooms(ev);
 		r.closeConnection();
 		boolean stillAvailableRoom = false;
-
+		/* DETTE KAN KANSKJE GJØRES PÅ EN GJERRIGERE MÅTE, men det er vanskelig å gjøre når tidspunkt endres*/
 		try {
 			for (Room rm : avRooms){
 				if (room.getRoomName().equals(rm.getRoomName())){
@@ -161,7 +161,7 @@ public class EventController {
 				}
 			}
 		} catch(NullPointerException e) {
-            System.out.println("Dette går fint, la denne passere.");
+            System.out.println("Sjekker om rom fortsatt er ledig.");
         }
 
 		if(!stillAvailableRoom) {
@@ -240,7 +240,6 @@ public class EventController {
 
 	@FXML
 	private void initialize(){
-
 		initializeHourAndMinutes();
 		Requester requester = new Requester();
 		participants = requester.getPrivateUserGroups();
@@ -268,17 +267,23 @@ public class EventController {
 		                Text text = new Text(ug.getName());
 		                grid.add(text, 0, 0);
 		                Circle statusCircle = new Circle(4);
+		                System.out.println("WE WILL NOW CHECK ATTENDANTS");
 		                if (attendants != null){
+		                	System.out.println("ATTENDANTS NOT NULL");
+		                	statusCircle.setFill(Color.GOLDENROD);
 		                	for (Attendant a : attendants) {
 		                		if (a.getUserGroupID() == ug.getUserGroupID()) {
 			                		if (a.getStatus() == 1){
 			                			statusCircle.setFill(Color.DARKGREEN);
+			                			System.out.println("COLOR : GREEN");
 			                			break;
 			                		} else if (a.getStatus() == 2) {
 			                			statusCircle.setFill(Color.BROWN);
+			                			System.out.println("COLOR : RED");
 			                			break;
 			                		} else {
 			                			statusCircle.setFill(Color.GOLDENROD);
+			                			System.out.println("COLOR : YELLOW");
 			                			break;
 			                		}
 		                		}
@@ -426,24 +431,33 @@ public class EventController {
 		eventBar.fillProperty().set(calendarEvent.getCal().getColor());
 		eventBar.setOpacity(0.7);
 		if(event.getEventID() != 0){
+			System.out.println("Fetching event information from database.");
 			Requester requester = new Requester();
-			Room evRoom = requester.getEventRoom(event);
+			try{
+				Room evRoom = requester.getEventRoom(event);
+				roomLocation.getSelectionModel().select(evRoom);
+			}catch (NullPointerException e){
+				System.out.println("No rooms for event.");
+			}
 			requester.closeConnection();
 			requester = new Requester();
+			try{
 			this.attendants = requester.getAttendants(event);
-			requester.closeConnection();
-			roomLocation.getSelectionModel().select(evRoom);
-			for (Attendant a : attendants) {
-				int index = -1;
-				for (UserGroup ug2 : pol) {
-					if (a.getUserGroupID() == ug2.getUserGroupID()) {
-						index = pol.indexOf(ug2);
+				for (Attendant a : attendants) {
+					int index = -1;
+					for (UserGroup ug2 : pol) {
+						if (a.getUserGroupID() == ug2.getUserGroupID()) {
+							index = pol.indexOf(ug2);
+						}
+					}
+					if (index != -1) {
+						apol.add(pol.remove(index));
 					}
 				}
-				if (index != -1) {
-					apol.add(pol.remove(index));
-				}
+			}catch(NullPointerException e){
+				System.out.println("No attendants at event");
 			}
+			requester.closeConnection();
 			note.setText(event.getNote());
 			System.out.println("Opened event: " + event);
 			saveButton.setOnAction(e -> updateEvent(event));

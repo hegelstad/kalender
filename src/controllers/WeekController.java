@@ -101,7 +101,7 @@ public class WeekController {
 				event.getCal().setColorID(cal.getColorID());
 			}
 		}
-		System.out.println("Drawing : "+event.getName() + " id:" + event.getEventID() + " with colorID : " +event.getCal().getColorID());
+		System.out.println("Drawing event "+event.getName() + ", id:" + event.getEventID() + " with color: " +event.getCal().getColor());
 		Rectangle eventRec = new Rectangle(fullEventWidth-3-(indentMargin*reverseIndent), getEventHeight(event));
 		styleRectangle(eventRec, event);
 		Text eventName = new Text(event.getName());
