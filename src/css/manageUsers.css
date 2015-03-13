@@ -13,7 +13,11 @@
 	-fx-alignment: CENTER;
 	-fx-content-display: CENTER;
 	
-	}
+}
+
+.button:hover{
+	-fx-background-color:#0187ab;
+}
 
 .label{
 	-fx-text-fill: #FFFFFF;
@@ -33,4 +37,7 @@
 }
 .list-cell:hover{
 	-fx-background-color:#FFFFFF;
+}
+.list-cell:selected{
+	-fx-text-fill: #187E96;
 }
