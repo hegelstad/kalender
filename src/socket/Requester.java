@@ -26,7 +26,7 @@ public class Requester {
      * IP TIL SERVER MÅ SETTES HER!
      */
     public Requester () {
-    	String host = "78.91.19.18";
+    	String host = "localhost";
         /** Define a port */
         int port = 25025;
 
@@ -300,6 +300,31 @@ public class Requester {
             e.printStackTrace();
         }
     	return calendars;
+    }
+
+    /**
+     * Tar inn en usergroup og henter alle kalendere usergroupen tilhører.
+     * @param ug
+     * @return
+     */
+    public ArrayList<Calendar> getAllCalendars() {
+        Command cmd = new Command("getAllCalendars");
+        ArrayList<Calendar> calendars = null;
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+            oos.writeObject(cmd);
+            InputStream is = con.getInputStream();
+            ObjectInputStream os = new ObjectInputStream(is);
+            Object o = os.readObject();
+            calendars = (ArrayList<Calendar>) o;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        } catch(ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return calendars;
     }
 
     /**
