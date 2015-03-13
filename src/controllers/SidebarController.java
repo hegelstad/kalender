@@ -93,7 +93,7 @@ public class SidebarController {
 	public ListView<Calendar> getListView(){
 		return calendarList;
 	}
-
+	
 	public void initSearchCalendar (){
 		//Henter alle kalendere og legger de til i en observable list
 		Requester r = new Requester();
@@ -126,5 +126,4 @@ public class SidebarController {
 			}
 		});
 	}
-	
 }
