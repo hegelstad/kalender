@@ -111,7 +111,7 @@ public class SidebarController {
 			ArrayList<Calendar> filteredCalendars = new ArrayList<>();
 			ObservableList<Calendar> filteredData = FXCollections.observableArrayList();
             for (Calendar cal : masterData){
-				if(cal.getName().contains(searchCalendar.getText())){
+				if(cal.getName().toUpperCase().contains(searchCalendar.getText().toUpperCase())){
 					filteredCalendars.add(cal);
 				}
 			}
