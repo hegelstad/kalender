@@ -73,6 +73,7 @@ public class WeekController {
 		SidebarController.getController().weekInit();
 	}
 
+
 	public void openEvent(Event event){
 		WindowController.goToEventView(event);
 		//System.out.println(event.getName());
