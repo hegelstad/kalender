@@ -9,6 +9,7 @@ import models.Person;
 import models.Room;
 import models.UserGroup;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -706,12 +707,16 @@ public class Requester {
             oos.writeObject(cmd);
             oos.writeObject(event);
             InputStream is = con.getInputStream();
-            ObjectInputStream os = new ObjectInputStream(is);
-            Object o = os.readObject();
-            rooms = (ArrayList<Room>) o;
-            for (Room room : rooms){
-                System.out.println("getAvailableRooms-event: " + room);
-            }
+            try{
+	            ObjectInputStream os = new ObjectInputStream(is);
+	            Object o = os.readObject();
+	            rooms = (ArrayList<Room>) o;
+	            for (Room room : rooms){
+	                System.out.println("getAvailableRooms-event: " + room);
+	            }
+            }catch(EOFException e){
+	        	System.out.println("No rooms found.");
+	        }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -776,10 +781,14 @@ public class Requester {
             oos.writeObject(cmd);
             oos.writeObject(event);
             InputStream is = con.getInputStream();
-            ObjectInputStream os = new ObjectInputStream(is);
-            Object o = os.readObject();
-            room = (Room) o;
-            System.out.println("getEventRoom-event: " + room);
+            try{
+	            ObjectInputStream os = new ObjectInputStream(is);
+	            Object o = os.readObject();
+	            room = (Room) o;
+	            System.out.println("getEventRoom-event: " + room);
+            }catch (EOFException e){
+            	System.out.println("No room yet.");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {

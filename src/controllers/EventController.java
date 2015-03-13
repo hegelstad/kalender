@@ -102,7 +102,7 @@ public class EventController {
 			if (toDate.getValue().isBefore(fromDate.getValue())) {
 				toDate.setValue(fromDate.getValue());
 			}	
-		} catch (Exception e){ e.printStackTrace(); }
+		} catch (Exception e){ }
 
 		try {
 			 from = getFromTime();
@@ -132,18 +132,20 @@ public class EventController {
                 roomLocation.getSelectionModel().clearSelection();
                 return false;
             }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+        } catch (NullPointerException e) {}
 
 		roomLocation.setDisable(false);
 		Room room = roomLocation.getSelectionModel().getSelectedItem();
 		Calendar cal = new Calendar (2, "Eirik", null);
-		Event ev;
-		if (calendarEvent != null){
-			ev = new Event(calendarEvent.getEventID(), title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), cal);
-		} else {
-			ev = new Event(0, title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), cal);
+		Event ev = null;
+		try{
+			if (calendarEvent != null || calendarEvent.getEventID() < 0){
+					ev = new Event(calendarEvent.getEventID(), title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), cal);
+			} else {
+				ev = new Event(0, title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), cal);
+			}
+		}catch (Exception e){
+			System.out.println("Denne er ment å bli catchet");
 		}
 
 		Requester r = new Requester();
@@ -159,7 +161,7 @@ public class EventController {
 				}
 			}
 		} catch(NullPointerException e) {
-            e.printStackTrace();
+            System.out.println("Dette går fint, la denne passere.");
         }
 
 		if(!stillAvailableRoom) {
@@ -240,7 +242,6 @@ public class EventController {
 	private void initialize(){
 
 		initializeHourAndMinutes();
-
 		Requester requester = new Requester();
 		participants = requester.getPrivateUserGroups();
         requester.closeConnection();
@@ -371,20 +372,25 @@ public class EventController {
 	}
 	
 	private void initializeHourAndMinutes(){
-		fromHours.setItems(FXCollections.observableArrayList(
-			    "00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"));
-		toHours.setItems(FXCollections.observableArrayList(
-			    "00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"));
-		fromMinutes.setItems(FXCollections.observableArrayList(
-			    "00","05","10","15","20","25","30","35","40","45","50","55"));
-		toMinutes.setItems(FXCollections.observableArrayList(
-			    "00","05","10","15","20","25","30","35","40","45","50","55"));
-		fromDate.setValue(LocalDate.now().plusDays(1));
-		toDate.setValue(LocalDate.now().plusDays(1));
-		fromHours.getSelectionModel().select("12");
-		fromMinutes.getSelectionModel().select("15");
-		toHours.getSelectionModel().select("13");
-		toMinutes.getSelectionModel().select("00");
+		try{
+			fromHours.setItems(FXCollections.observableArrayList(
+				    "00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"));
+			toHours.setItems(FXCollections.observableArrayList(
+				    "00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"));
+			fromMinutes.setItems(FXCollections.observableArrayList(
+				    "00","05","10","15","20","25","30","35","40","45","50","55"));
+			toMinutes.setItems(FXCollections.observableArrayList(
+				    "00","05","10","15","20","25","30","35","40","45","50","55"));
+			fromDate.setValue(LocalDate.now().plusDays(1));
+			toDate.setValue(LocalDate.now().plusDays(1));
+			fromHours.getSelectionModel().select("12");
+			fromMinutes.getSelectionModel().select("15");
+			toHours.getSelectionModel().select("13");
+			toMinutes.getSelectionModel().select("00");
+		}catch (Exception e){
+			System.out.println("Something failed");
+		}
+		
 	}
 	
 	void setBarColor(Event event){

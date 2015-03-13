@@ -84,7 +84,4 @@ public class SidebarController {
 	public ListView<Calendar> getListView(){
 		return calendarList;
 	}
-	
-
-	
 }
