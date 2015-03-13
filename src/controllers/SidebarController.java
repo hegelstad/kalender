@@ -27,7 +27,6 @@ public class SidebarController {
 		updateCalendarList();
 		for(Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
 			System.out.println(cal);
-			
 		}
 		userManagmentPaneButton.setOnMouseClicked( (mouseEvent) -> {
 			{
