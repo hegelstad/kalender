@@ -7,6 +7,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import models.Calendar;
+import models.CalendarCellSearch;
 import models.PersonInfo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -103,7 +104,7 @@ public class SidebarController {
 		r.closeConnection();
 		//Setter CellFactory
 		subscribeCalendarList.setCellFactory((list) -> {
-			return new CalendarCell();
+			return new CalendarCellSearch();
 		});
 		//ChangeListener som lytter på endringer i tekstfeltet og finner kalendere som inneholder
 		//teksten
@@ -111,7 +112,7 @@ public class SidebarController {
 			ArrayList<Calendar> filteredCalendars = new ArrayList<>();
 			ObservableList<Calendar> filteredData = FXCollections.observableArrayList();
             for (Calendar cal : masterData){
-				if(cal.getName().contains(searchCalendar.getText())){
+				if(cal.getName().toUpperCase().contains(searchCalendar.getText().toUpperCase())){
 					filteredCalendars.add(cal);
 				}
 			}
