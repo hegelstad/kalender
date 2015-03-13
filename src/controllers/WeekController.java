@@ -37,7 +37,7 @@ public class WeekController {
 	private ArrayList<Rectangle> allRecs= new ArrayList<>();
 	private ArrayList<Text> allTexts = new ArrayList<>();
 	private ArrayList<Circle> allCircs = new ArrayList<Circle>();
-	public @FXML GridPane weekGrid;
+	@FXML public GridPane weekGrid;
 	@FXML ScrollPane WeekView;
 	
 	/* Making some testdata */  /*
@@ -220,10 +220,10 @@ public class WeekController {
 			
 			System.out.println("\n\n");
 			System.out.println("Finner data");
-			events = new ArrayList<Event>();
+			events = new ArrayList<Event>(sortedEvents);
 			System.out.println(sortedEvents);
-			ArrayList<Event> tempList = new ArrayList<>(sortedEvents);
-			Collections.copy(events, tempList);
+			//ArrayList<Event> tempList = new ArrayList<>(sortedEvents);
+			//Collections.copy(events, tempList);
 		}
 		else if(sortedEvents.size()==0)
 		{
