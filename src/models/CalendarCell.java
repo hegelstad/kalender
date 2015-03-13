@@ -25,7 +25,8 @@ public class CalendarCell extends ListCell<Calendar> {
 		CheckBox checkbox = new CheckBox();
 		checkbox.setSelected(true);
 		label = new Label(cal.getName());
-		label.setLayoutX(20);
+		label.setLayoutX(25);
+		label.setLayoutY(2);
 		label.setTextFill(Color.web("#0076a3"));
 		switch (cal.getColorID()){
 		case 0: 
