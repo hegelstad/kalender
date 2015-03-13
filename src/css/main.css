@@ -10,6 +10,10 @@
 EVENT/CALENDAR
 
 **/
+#subscribeCalendarList .list-cell {
+	-fx-background-color: transparent;
+	
+}
 
 
 #calendarList .scroll-bar:horizontal {
