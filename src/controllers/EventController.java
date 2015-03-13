@@ -14,6 +14,7 @@ import models.Notification;
 import models.PersonInfo;
 import models.Room;
 import models.UserGroup;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,7 +23,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -54,7 +54,6 @@ public class EventController {
 	@FXML private ComboBox<UserGroup> addParticipantsSearch;
 	@FXML private ComboBox<Room> roomLocation;
 	@FXML private ListView<UserGroup> participantsStatus;
-	@FXML private Rectangle eventBar;
 	
 	@FXML public void cancelButtonOnAction() {
 		HeaderController.getController().drawEventsForWeek();
@@ -296,27 +295,22 @@ public class EventController {
 		        }
 		    };
 		});
-		
-		addParticipantsSearch.setCellFactory(new Callback<ListView<UserGroup>, ListCell<UserGroup>>(){
 
-			@Override
-			public ListCell<UserGroup> call(ListView<UserGroup> param) {	
-			    return new ListCell<UserGroup>() {
-			        @Override
-			        protected void updateItem(UserGroup ug, boolean empty) {
-			            super.updateItem(ug, empty);
-	
-			            if (ug == null || empty) {
-			                setText(null);
-			            } else {
-			                setText(ug.getName()); 
-			            }
-			        }
-			    };
-			}
+		addParticipantsSearch.setCellFactory((list) -> {
+
+		    return new ListCell<UserGroup>() {
+		        @Override
+		        protected void updateItem(UserGroup ug, boolean empty) {
+		            super.updateItem(ug, empty);
+
+		            if (ug == null || empty) {
+		                setText(null);
+		            } else {
+		                setText(ug.getName());
+		            }
+		        }
+		    };
 		});
-		
-		
 		
 		final Callback<DatePicker, DateCell> dayCellFactory = 
 	            new Callback<DatePicker, DateCell>() {
@@ -413,8 +407,7 @@ public class EventController {
 		toHours.setValue(ToHours);
 		fromMinutes.setValue(FromMinutes);
 		toMinutes.setValue(ToMinutes);
-		eventBar.fillProperty().set(calendarEvent.getCal().getColor());
-		eventBar.setOpacity(0.7);
+		
 		if(event.getEventID() != 0){
 			Requester requester = new Requester();
 			Room evRoom = requester.getEventRoom(event);

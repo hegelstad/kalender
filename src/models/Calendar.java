@@ -3,8 +3,6 @@ package models;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javafx.scene.paint.Color;
-
 public class Calendar implements Serializable {
 
     int CalendarID;
@@ -60,34 +58,7 @@ public class Calendar implements Serializable {
     	return events;
     }
 
-	public Color getColor() {
-		switch (colorID){
-			case 0: 
-				return (Color.LIGHTSKYBLUE);
-			case 1:
-				return (Color.LIGHTSALMON);
-			case 2:
-				return (Color.LIGHTGREEN);
-			case 3: 
-				return (Color.YELLOW);
-			case 4: 
-				return (Color.LIGHTPINK);
-			case 5: 
-				return (Color.AQUAMARINE);
-			case 6:
-				return (Color.LIGHTCORAL);
-			case 7: 
-				return (Color.THISTLE);
-			case 8:
-				return (Color.BEIGE);
-			case 9:
-				return (Color.SILVER);
-			default: 
-				return (Color.CORNFLOWERBLUE);
-		}
-	}
-	
-	public int getColorID(){
+	public int getColorID() {
 		return colorID;
 	}
 
