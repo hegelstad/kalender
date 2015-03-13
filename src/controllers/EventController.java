@@ -243,7 +243,6 @@ public class EventController {
 		Requester requester = new Requester();
 		participants = requester.getPrivateUserGroups();
         requester.closeConnection();
-
 		pol = FXCollections.observableArrayList(participants);
 		addParticipantsSearch.setItems(pol);
 		apol = FXCollections.observableArrayList(addedParticipants);
