@@ -1,15 +1,22 @@
 package controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import models.Event;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -24,6 +31,7 @@ public class WindowController {
 	private static double adminYOffset = 0;
 	private static boolean eventWindowIsOpen = false;
 	private static boolean adminWindowIsOpen = false;
+	private static boolean aboutScreenIsOpen = false;
 	private static List<Stage> stages = new ArrayList<Stage>();
 
 	public static void setProgram(Main p){
@@ -74,6 +82,25 @@ public class WindowController {
 		thisStage.setResizable(false);
 		thisStage.show();
 		thisStage.getScene().setRoot(page);
+		Pane root = null;
+		if (fxml.equals("../views/LoginView.fxml")){
+			root = (Pane) scene.lookup("#background");
+		}
+		else{
+			root = (AnchorPane) scene.lookup("#root");			
+		}
+		final Menu menu1 = new Menu("Calify");
+		MenuBar menuBar = new MenuBar();
+		MenuItem menu12 = new MenuItem("Om Calify");
+		menu12.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		       openAboutScreen();
+		    }
+		});
+		menu1.getItems().add(menu12);
+		menuBar.getMenus().add(menu1);
+		root.getChildren().add(menuBar);
+		menuBar.setUseSystemMenuBar(true);
 		return page;
 	}
 	
@@ -98,7 +125,6 @@ public class WindowController {
 		Stage eventWindows = new Stage();
 		if (eventWindowIsOpen){
 			System.out.println("You cannot open more then one event window at once");
-			stages.remove(eventWindows);
 		} else {
             try {
                 stages.add(eventWindows);
@@ -143,7 +169,6 @@ public class WindowController {
 		Stage adminView = new Stage();
 		if (adminWindowIsOpen) {
 			System.out.println("You cannot open more then one management window at once");
-			stages.remove(adminView);
 		} else {
 			try {
                 adminView.initStyle(StageStyle.UNDECORATED);
@@ -197,5 +222,46 @@ public class WindowController {
 		setAdminWindowIsOpen(false);
 		goToLogin();
 	}
+	
+	public static void openAboutScreen(){
+		Stage aboutScreen = new Stage();
+		FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/AboutView.fxml"), null, new JavaFXBuilderFactory());
+		Parent page;
+		if (aboutScreenIsOpen){
+			System.out.println("You cannot open more then one about-window at once");
+		}
+		else{
+			try {
+				page = (Parent) loader.load();
+				Scene scene = new Scene(page);
+				scene.getStylesheets().add("/css/about.css");
+				aboutScreen.setScene(scene);
+				aboutScreen.centerOnScreen();
+				aboutScreen.setResizable(false);
+				aboutScreen.setAlwaysOnTop(true);
+				final Menu menu1 = new Menu("Calify");
+				MenuBar menuBar = new MenuBar();
+				MenuItem menu12 = new MenuItem("Om Calify");
+				menu12.setOnAction(new EventHandler<ActionEvent>() {
+					@Override public void handle(ActionEvent e) {
+						openAboutScreen();
+					}
+				});
+				menu1.getItems().add(menu12);
+				menuBar.getMenus().add(menu1);
+				AnchorPane root = (AnchorPane) scene.lookup("#aboutAnchorPane");
+				root.getChildren().add(menuBar);
+				menuBar.setUseSystemMenuBar(true);
+				aboutScreenIsOpen=true;
+				aboutScreen.show();
+				stages.add(aboutScreen);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
 }
+
 
