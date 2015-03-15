@@ -77,15 +77,12 @@ public class EventDrawing {
 	}
 	
 	public void drawEvent(){
-		if(event.getName().equals("Swingers night")){
-			System.out.println(" Day of drawing : "+ dayOfDrawing);
-		}
 		for (Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
 			if (cal.getCalendarID() == event.getCal().getCalendarID()){
 				event.getCal().setColorID(cal.getColorID());
 			}
 		}
-		System.out.println("Drawing : "+event.getName() + " id:" + event.getEventID() + " with colorID : " +event.getCal().getColorID());
+		//System.out.println("Drawing : "+event.getName() + " id:" + event.getEventID() + " with colorID : " +event.getCal().getColorID());
 		Rectangle eventRec = new Rectangle(fullEventWidth-3-(indentMargin*reverseIndent), getEventHeight(event));
 		styleRectangle(eventRec, event);
 		Text eventName = new Text(event.getName());
@@ -181,6 +178,10 @@ public class EventDrawing {
 	private double getEventHeight(Event e){
 		LocalDateTime from = e.getFrom();
 		LocalDateTime to = e.getTo();
+		if(dayOfDrawing!=0&&dayOfDrawing+from.getDayOfWeek().getValue()!=to.getDayOfWeek().getValue()){
+			to = from.withHour(23).withMinute(59);
+			from = to.withHour(0).withMinute(0);
+		}
 		if(to.isAfter(from.withHour(23).withMinute(59))){
 			to = from.withHour(23).withMinute(59);
 		}
