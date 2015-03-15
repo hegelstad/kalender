@@ -85,6 +85,7 @@ public class WeekController {
 	public void drawEvents(Collection<Event> sortedEvents){
 		if(sortedEvents == null){
 			System.out.println("Ingen faktiske skikkelige eventer hentet fra databasen");
+			removeAllDrawings();
 			return;
 		}
 
@@ -139,6 +140,7 @@ public class WeekController {
 							currentDrawing.indent = indent;
 							currentDrawing.reverseIndent = (reverseIndent+indent);
 							currentDrawing.draw();
+							eventDrawings.add(currentDrawing);
 							//drawEvent(currentEvent, indent, reverseIndent+indent);
 							reverseIndent = 0;
 							indent = 0;
@@ -149,6 +151,7 @@ public class WeekController {
 						currentDrawing.indent = indent;
 						currentDrawing.reverseIndent = (reverseIndent+indent);
 						currentDrawing.draw();
+						eventDrawings.add(currentDrawing);
 						//drawEvent(currentEvent, indent, reverseIndent+indent);
 						reverseIndent = 0;
 						indent = 0;
@@ -162,6 +165,7 @@ public class WeekController {
 					currentDrawing.indent = indent;
 					currentDrawing.reverseIndent = (reverseIndent+indent);
 					currentDrawing.draw();
+					eventDrawings.add(currentDrawing);
 					//drawEvent(currentEvent,indent,reverseIndent+indent);
 				}
 
@@ -180,6 +184,7 @@ public class WeekController {
 		for(EventDrawing drawing : eventDrawings){
 			drawing.remove();
 		}
+		eventDrawings.clear();
 	}
 
 	public static WeekController getController(){
@@ -207,14 +212,15 @@ public class WeekController {
 				/* Finnes en event som startet minst dagen før og slutter idag eller senere */
 				if(startedBeforeToday(event,i)&&endsTodayOrAfter(event,i))
 				{
-					weekEvents.get(i).add(new EventDrawing(event,1));
+					System.out.println("Lager eventDrawing som går over flere dager : "+event.getName());
+					weekEvents.get(i).add(new EventDrawing(event,getDaysFromStart(event,i),this));
 				}
-				else if(startsAndEndsToday(event,i))
+				else if(startsAndEndsToday(event,i)||startsToday(event,i))
 				{
 					/* Event starter denne dagen */ 
-					weekEvents.get(i).add(new EventDrawing(event,0));
+					weekEvents.get(i).add(new EventDrawing(event,0,this));
 				}
-
+				
 			}
 
 		}
@@ -238,5 +244,13 @@ public class WeekController {
 		int startDayOfWeek = event.getTo().getDayOfWeek().getValue();
 		int endDayOfWeek = event.getFrom().getDayOfWeek().getValue();
 		return (startDayOfWeek == weekDay) && (startDayOfWeek == endDayOfWeek);
+	}
+	private boolean startsToday(Event event, int weekDay){
+		int dayOfWeek = event.getFrom().getDayOfWeek().getValue();
+		return dayOfWeek == weekDay;
+	}
+	private int getDaysFromStart(Event event, int weekDay){
+		/* Antar ny event er i riktig veke */ 
+		return weekDay - event.getFrom().getDayOfWeek().getValue();
 	}
 }

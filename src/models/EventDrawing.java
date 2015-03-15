@@ -20,7 +20,7 @@ public class EventDrawing {
 	boolean isExpanded = false;
 	WeekController controller;
 	/* Only used if day event is over several days */
-	private int dayOfEvent;
+	private int dayOfDrawing;
 	
 	public final double fullEventWidth = 155;
 	public final double fullEventWidthPrecise = 153; 
@@ -28,9 +28,10 @@ public class EventDrawing {
 	public final double hourHeightPrecise = 66; 
 	public final double indentMargin = 15.0;
 	
-	public EventDrawing(Event event, int dayOfEvent){
+	public EventDrawing(Event event, int dayOfEvent, WeekController controller){
 		this.event = event;
-		this.dayOfEvent = dayOfEvent;
+		this.dayOfDrawing= dayOfEvent;
+		this.controller = controller;
 	}
 	
 	public void draw(){
@@ -76,6 +77,9 @@ public class EventDrawing {
 	}
 	
 	public void drawEvent(){
+		if(event.getName().equals("Swingers night")){
+			System.out.println(" Day of drawing : "+ dayOfDrawing);
+		}
 		for (Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
 			if (cal.getCalendarID() == event.getCal().getCalendarID()){
 				event.getCal().setColorID(cal.getColorID());
@@ -104,8 +108,8 @@ public class EventDrawing {
 		
 		double marginTop = 0.0;						
 		/* If event is at day 0 draw according to start , else on top */
-		if(dayOfEvent == 0){
-			marginTop = ((double)event.getFrom().getMinute()/60)*hourHeight;			
+		if(dayOfDrawing== 0){
+			marginTop = ((double)event.getFrom().getMinute()/60)*hourHeight;
 		}
 		
 		Insets eventMargin = new Insets(marginTop, 0, 0, eventIndentMargin);
@@ -120,9 +124,13 @@ public class EventDrawing {
 		Insets circleMargin = new Insets(marginTop+3, 0,0,rightMargin);
 		GridPane.setMargin(statusCircle,circleMargin);
 		
-		int dayOfWeek = event.getFrom().getDayOfWeek().getValue()-1;
+		int dayOfWeek = event.getFrom().getDayOfWeek().getValue()-1+dayOfDrawing;
 		//System.out.println(event.getName()+ " ukedag :"+dayOfWeek);
-		int startHour = event.getFrom().getHour();
+		int startHour =0;
+		if(dayOfDrawing==0)
+		{
+			startHour = event.getFrom().getHour();			
+		}
 		//weekGrid.setGridLinesVisible(true);
 		controller.weekGrid.add(eventRec, dayOfWeek, startHour, 1, 1);
 		controller.weekGrid.add(statusCircle, dayOfWeek, startHour, 1,1);
@@ -186,6 +194,7 @@ public class EventDrawing {
 		controller.weekGrid.getChildren().remove(eventRectangle);
 		controller.weekGrid.getChildren().remove(statusCircle);
 		controller.weekGrid.getChildren().remove(eventName);
+		
 	}
 	
 	public Event getEvent(){
