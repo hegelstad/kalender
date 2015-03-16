@@ -33,7 +33,7 @@ public class WindowController {
 	private static boolean adminWindowIsOpen = false;
 	private static boolean aboutScreenIsOpen = false;
 	private static List<Stage> stages = new ArrayList<Stage>();
-	private static boolean osIsOSX;
+	private static boolean osIsOSX=true;
 
 	public static void setProgram(Main p){
 		program = p;
@@ -102,7 +102,8 @@ public class WindowController {
 		menu1.getItems().add(menu12);
 		menuBar.getMenus().add(menu1);
 		root.getChildren().add(menuBar);
-		menuBar.setUseSystemMenuBar(true);}
+		menuBar.setUseSystemMenuBar(true);
+		}
 		return page;
 	}
 	
@@ -158,6 +159,21 @@ public class WindowController {
                 eventWindows.setAlwaysOnTop(true);
                 controller.setStage(eventWindows);
                 Scene scene = new Scene(page, 410, 570);
+                if(osIsOSX){
+                	final Menu menu1 = new Menu("Calify");
+                	MenuBar menuBar = new MenuBar();
+                	MenuItem menu12 = new MenuItem("Om Calify");
+                	menu12.setOnAction(new EventHandler<ActionEvent>() {
+                		@Override public void handle(ActionEvent e) {
+                			openAboutScreen();
+                		}
+                	});
+                	menu1.getItems().add(menu12);
+                	menuBar.getMenus().add(menu1);
+                	AnchorPane root = (AnchorPane) scene.lookup("#EventView");
+                	root.getChildren().add(menuBar);
+                	menuBar.setUseSystemMenuBar(true);
+                }
                 scene.getStylesheets().add("/css/event.css");
                 eventWindows.setScene(scene);
                 eventWindows.centerOnScreen();
@@ -211,6 +227,21 @@ public class WindowController {
                     }
                 });
 				stages.add(adminView);
+				if(osIsOSX){
+                	final Menu menu1 = new Menu("Calify");
+                	MenuBar menuBar = new MenuBar();
+                	MenuItem menu12 = new MenuItem("Om Calify");
+                	menu12.setOnAction(new EventHandler<ActionEvent>() {
+                		@Override public void handle(ActionEvent e) {
+                			openAboutScreen();
+                		}
+                	});
+                	menu1.getItems().add(menu12);
+                	menuBar.getMenus().add(menu1);
+                	AnchorPane root = (AnchorPane) scene.lookup("#manageUsersAnchorPane");
+                	root.getChildren().add(menuBar);
+                	menuBar.setUseSystemMenuBar(true);
+                }
 				adminView.show();
 			} catch(Exception e) {
 				e.printStackTrace();
@@ -280,9 +311,13 @@ public class WindowController {
 			System.out.println("OS is OSX!");
 			osIsOSX=true;
 			return true;
-		}
-		osIsOSX = false;
-		return false;
+			}
+		
+		else{
+			System.out.println("OS is not OSX or Windows");				
+			osIsOSX = false;
+			return false;
+			}
 	}
 }
 
