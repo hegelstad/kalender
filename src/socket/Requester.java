@@ -548,9 +548,9 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             notification = (ArrayList<Notification>) o;
-            for (Notification n : notification){
-                System.out.println("getNotifications-person:" + n);
-            }
+//            for (Notification n : notification){
+//                System.out.println("getNotifications-person:" + n);
+//            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
