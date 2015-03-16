@@ -300,22 +300,19 @@ public class WindowController {
 				aboutScreen.show();
 				stages.add(aboutScreen);
 			} catch (IOException e) {
-				System.out.println("Couldnt load AboutView.fxml");
+				System.out.println("Couldn't load AboutView.fxml");
 			}
 			
 		}
 	}
-	public static void checkOsVersion(){
-		if(System.getProperty("os.name").toLowerCase().startsWith("mac os x")){
+
+	public static void checkOsVersion() {
+		if(System.getProperty("os.name").toLowerCase().startsWith("mac os x")) {
 			System.out.println("OS is OSX!");
 			osIsOSX=true;
-			}
-		
-		else{
-			System.out.println("OS is not OSX");				
+		} else {
+            System.out.println("OS is not OSX");
 			osIsOSX = false;
 			}
 	}
 }
-
-

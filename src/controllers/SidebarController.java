@@ -1,12 +1,7 @@
 package controllers;
 
-import java.sql.Array;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
 import models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +18,7 @@ public class SidebarController {
 	private static SidebarController controller;
 	
 	@FXML private ListView<Calendar> calendarList;
-	@FXML private Pane userManagmentPaneButton;
+	@FXML private Pane adminPaneButton;
 	@FXML private TextField searchCalendar;
 	@FXML private ListView<Calendar> subscribeCalendarList;
 	
@@ -37,14 +32,29 @@ public class SidebarController {
 		initSearchCalendar();
 		for(Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
 			System.out.println(cal);
-			
 		}
-		userManagmentPaneButton.setOnMouseClicked( (mouseEvent) -> {
-			{
-				WindowController.goToManageUsersView();
-			}
-		});
-		
+
+        //initialize adminpanebutton
+        Requester requester = new Requester();
+        ArrayList<UserGroup> privateUserGroups = requester.getPrivateUserGroups();
+        requester.closeConnection();
+        requester = new Requester();
+        ArrayList<Person> persons = requester.getPersons(privateUserGroups);
+        requester.closeConnection();
+        for (Person person : persons) {
+            if (person.getUsername().equals(PersonInfo.getPersonInfo().getPerson().getUsername())) {
+                if (person.getFlag().equals("a")) {
+                    adminPaneButton.setOnMouseClicked((mouseEvent) -> {
+                        {
+                            WindowController.goToManageUsersView();
+                        }
+                    });
+                } else {
+                    adminPaneButton.getChildren().clear();
+                    adminPaneButton.setStyle("-fx-background-color: #26272B");
+                }
+            }
+        }
 	}
 	
 	@FXML
@@ -55,12 +65,9 @@ public class SidebarController {
         if (newCalendarWindow.isVisible()){
             newCalendarWindow.setVisible(false);
             newCalendarTextField.setText("");
-        } 
-        
-        else {
+        } else {
             newCalendarWindow.setVisible(true);
             newCalendarTextField.requestFocus();
-            
         }
     }
 	
@@ -135,10 +142,9 @@ public class SidebarController {
 			}
 		});
 	}
+
 	public void displaySubscribedCalendars(){
 		ArrayList<Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
 		subscribeCalendarList.setItems(FXCollections.observableArrayList(subscribedCalendars));
-		
 	}
-	
 }
