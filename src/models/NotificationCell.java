@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import controllers.HeaderController;
+import javafx.scene.control.Tooltip;
 import socket.Requester;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -137,9 +138,14 @@ public class NotificationCell extends ListCell<Notification> {
 				} if(is_Invite == 0) {
 					if (!is_expanded) {
 
-						Button mark_asRead = new Button("✔");
-						mark_asRead.setLayoutY(content.getHeight() - 50);
-						mark_asRead.setLayoutX(content.getWidth() - 35);
+						Button mark_asRead = new Button("X");
+						mark_asRead.setPrefWidth(10);
+						mark_asRead.setPrefHeight(10);
+						mark_asRead.setStyle("-fx-font-size: 10px; -fx-font-weight: bold");
+						mark_asRead.setLayoutY(content.getHeight() - 60);
+						mark_asRead.setLayoutX(content.getWidth() - 20);
+						Tooltip tt = new Tooltip("Mark as read");
+						mark_asRead.setTooltip(tt);
 						content.getChildren().add(mark_asRead);
 						is_expanded = true;
 
