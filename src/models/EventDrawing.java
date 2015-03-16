@@ -6,7 +6,11 @@ import java.time.LocalDateTime;
 
 
 
+
+import java.util.ArrayList;
+
 import socket.Requester;
+import controllers.HeaderController;
 import controllers.WeekController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -83,6 +87,7 @@ public class EventDrawing {
 			}
 			else if(clickEvent.getButton() == MouseButton.SECONDARY){
 				if(!contextMenuIsOpen){
+					System.out.println("Calendar : " + event.getCal());
 					final ContextMenu contextMenu = new ContextMenu();
 					MenuItem item1 = new MenuItem("Edit");
 					MenuItem item2 = new MenuItem("Delete");
@@ -96,6 +101,7 @@ public class EventDrawing {
 						       Requester requester = new Requester();
 						       requester.deleteEvent(event);
 						       requester.closeConnection();
+						       HeaderController.getController().drawEventsForWeek();
 						       System.out.println(eventName + " is deleted!");
 						    }
 						});
