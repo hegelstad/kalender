@@ -1,14 +1,13 @@
 package controllers;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import models.Calendar;
-import models.CalendarCellSearch;
-import models.PersonInfo;
+import models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,7 +16,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-import models.CalendarCell;
 import socket.Requester;
 
 public class SidebarController {
@@ -99,6 +97,16 @@ public class SidebarController {
 		Requester r = new Requester();
 		ArrayList<Calendar> allCalendars = r.getAllCalendars();
 		r.closeConnection();
+		ArrayList<Calendar> temp_allCalenders = allCalendars;
+		ArrayList<Calendar> calendarsInUse = PersonInfo.getPersonInfo().getCalendarsInUse();
+		for(int x = 0; x < allCalendars.size(); x++){
+			for (int i = 0; i < calendarsInUse.size(); i ++){
+				if(allCalendars.get(x).getCalendarID() == calendarsInUse.get(i).getCalendarID()){
+					temp_allCalenders.remove(allCalendars.get(x));
+				}
+			}
+		}
+		allCalendars = temp_allCalenders;
 		searchCalendar.setStyle("-fx-text-fill: #000000");
 		ObservableList<Calendar> masterData = FXCollections.observableArrayList(allCalendars);
 		r.closeConnection();
@@ -118,7 +126,7 @@ public class SidebarController {
 			}
 			//Fjerner alle søkeresultater om tekstfeltet er tomt
 			if(searchCalendar.getText().length() == 0){
-				subscribeCalendarList.setItems(null);
+				displaySubscribedCalendars();
 			} else {
 				//Setter innholder av listviewt til resultatet vi har filtrert ut
 				filteredData = FXCollections.observableArrayList(filteredCalendars);
@@ -126,4 +134,10 @@ public class SidebarController {
 			}
 		});
 	}
+	public void displaySubscribedCalendars(){
+		ArrayList<Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
+		subscribeCalendarList.setItems(FXCollections.observableArrayList(subscribedCalendars));
+		
+	}
+	
 }

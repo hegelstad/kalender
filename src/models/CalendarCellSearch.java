@@ -12,8 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import socket.Requester;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class CalendarCellSearch extends ListCell<Calendar> {
 
@@ -50,11 +52,25 @@ public class CalendarCellSearch extends ListCell<Calendar> {
         checkbox.selectedProperty().addListener( (ob,oldVal,newVal) -> {
             if(newVal)
             {
+                Requester r = new Requester();
+                ArrayList<Event> calendarEvents = r.getEvents(cal);
+                r.closeConnection();
+                ArrayList<Event> allEvents = PersonInfo.getPersonInfo().getEvents();
+                cal.setEvents(calendarEvents);
+                //allEvents.addAll(calendarEvents.stream().collect(Collectors.toList()));
+                //PersonInfo.personInfo.setEvents(allEvents);
                 PersonInfo.getPersonInfo().addCalendar(cal);
+                ArrayList<Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
+                subscribedCalendars.add(cal);
+                PersonInfo.personInfo.setSubscribedCalendars(subscribedCalendars);
             }
             else
             {
                 PersonInfo.getPersonInfo().removeCalendar(cal);
+                ArrayList <Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
+                subscribedCalendars.remove(cal);
+                PersonInfo.personInfo.setSubscribedCalendars(subscribedCalendars);
+                SidebarController.getController().displaySubscribedCalendars();
             }
         });
 
