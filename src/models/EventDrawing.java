@@ -195,7 +195,6 @@ public class EventDrawing {
 		controller.weekGrid.getChildren().remove(eventRectangle);
 		controller.weekGrid.getChildren().remove(statusCircle);
 		controller.weekGrid.getChildren().remove(eventName);
-		
 	}
 	
 	public Event getEvent(){
