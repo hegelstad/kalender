@@ -430,7 +430,31 @@ public class Requester {
             Object o = os.readObject();
             events = (ArrayList<Event>) o;
             for (Event event : events){
-                System.out.println("getEvents-calendars: " + event);
+                System.out.println("getEvents-calendars-usergroup: " + event);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        } catch(ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    	return events;
+    }
+    
+    public ArrayList<Event> getEvents(Calendar cal) {
+    	Command cmd = new Command("getEvents-calendar");
+    	ArrayList<Event> events = null;
+    	try {
+    		ObjectOutputStream oos = new ObjectOutputStream(con.getOutputStream());
+            oos.writeObject(cmd);
+            oos.writeObject(cal);
+            InputStream is = con.getInputStream();
+            ObjectInputStream os = new ObjectInputStream(is);
+            Object o = os.readObject();
+            events = (ArrayList<Event>) o;
+            for (Event event : events){
+                System.out.println("getEvents-calendar: " + event);
             }
         } catch (IOException e) {
             e.printStackTrace();

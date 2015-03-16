@@ -68,7 +68,7 @@ public class CalendarCell extends ListCell<Calendar> {
 		default: 
 			pane.getStyleClass().add(0,"cornflowerblue");
 			break;
-	}
+		}
 		
 		pane.getChildren().addAll(checkbox,label);
 		setId("calendar-cell");
@@ -100,7 +100,6 @@ public class CalendarCell extends ListCell<Calendar> {
 			System.out.println("Updating font to bold for: " + cal);
 			label.setFont(Font.font(null, FontWeight.BOLD, 13));	
 		}else{
-			System.out.println("Setting normal font for : " + cal);
 			label.setFont(Font.font(null, FontWeight.NORMAL, 13));;
 		}
 		setGraphic(pane);
@@ -108,13 +107,7 @@ public class CalendarCell extends ListCell<Calendar> {
 
 	@Override
 	public void updateItem(Calendar cal, boolean empty){
-		super.updateItem(cal, empty);
-//		if(cal!=null){
-//			System.out.println("\n\n");
-//			System.out.println("Kalender kommer inn "+cal.getName());
-//			System.out.println("\n\n");
-//		}
-		
+		super.updateItem(cal, empty);		
 		if(cal!=null&&!empty){
 			init(cal);			
 		}
@@ -122,7 +115,4 @@ public class CalendarCell extends ListCell<Calendar> {
 			setGraphic(null);
 		}
 	}
-
-
-
 }
