@@ -42,8 +42,8 @@ public class EventDrawing {
 	
 	public final double fullEventWidth = 155;
 	public final double fullEventWidthPrecise = 153; 
-	public final double hourHeight = 66;
-	public final double hourHeightPrecise = 66; 
+	public final double hourHeight = 65;
+	public final double hourHeightPrecise = 65; 
 	public final double indentMargin = 15.0;
 	
 	public EventDrawing(Event event, int dayOfEvent, WeekController controller){
@@ -87,7 +87,8 @@ public class EventDrawing {
 			}
 			else if(clickEvent.getButton() == MouseButton.SECONDARY){
 				if(!contextMenuIsOpen){
-					System.out.println("Calendar : " + event.getCal());
+					int calID = event.getCal().CalendarID;
+					System.out.println("Calendar : " + calID);
 					final ContextMenu contextMenu = new ContextMenu();
 					MenuItem item1 = new MenuItem("Edit");
 					MenuItem item2 = new MenuItem("Delete");
@@ -98,6 +99,11 @@ public class EventDrawing {
 					});
 					item2.setOnAction(new EventHandler<ActionEvent>() {
 					    @Override public void handle(ActionEvent e) {
+					    	ArrayList<Calendar> calendars = PersonInfo.getPersonInfo().getAllCalendars();
+					    	for (Calendar cal: calendars){
+					    		if (cal.getCalendarID() == calID){
+					    			cal.getEvents().remove(event);						    	   }
+					    	}
 						       Requester requester = new Requester();
 						       requester.deleteEvent(event);
 						       requester.closeConnection();
