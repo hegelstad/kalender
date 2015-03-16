@@ -31,17 +31,27 @@ public class SuperController {
 				if(newCalendarTextField.getText().equals("")){
 					System.out.println("Calendarname cannot be an empty String");
 				}
-				else{
-
+				else
+				{
 					Requester requester = new Requester();
 					ArrayList<UserGroup> ug = new ArrayList<UserGroup>();
 					ug.add(PersonInfo.getPersonInfo().getPersonalUserGroup());
-					Calendar cal = requester.createCalendar(new Calendar(0, newCalendarTextField.getText(), ug));
-					if (cal.getCalendarID() != 0){
-						newCalendarWindow.setVisible(false);
-			            newCalendarTextField.setText("");
+					try{
+						Calendar cal = requester.createCalendar(new Calendar(0, newCalendarTextField.getText(), ug));
+						if (cal.getCalendarID() != 0){
+							newCalendarWindow.setVisible(false);
+							newCalendarTextField.setText("");
+						}
+						requester.closeConnection();
+						int colorID = SidebarController.getController().getCalendars().size()+1;
+						if(colorID>9){
+							colorID = colorID%10;
+						}
+						cal.setColorID(colorID);
+						PersonInfo.getPersonInfo().addCalendar(cal);
+					} catch (Exception e){
+						System.out.println("Something failed while trying to create calendar!");
 					}
-					requester.closeConnection();
 				}
 			}
 		});

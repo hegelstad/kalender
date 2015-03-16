@@ -152,4 +152,8 @@ public class SidebarController {
 	public void addLabel(Label label){
 		labels.add(label);
 	};
+	
+	public ObservableList<Calendar> getCalendars(){
+		return calendars;
+	}
 }

@@ -59,14 +59,14 @@ public class CalendarCellSearch extends ListCell<Calendar> {
                 cal.setEvents(calendarEvents);
                 //allEvents.addAll(calendarEvents.stream().collect(Collectors.toList()));
                 //PersonInfo.personInfo.setEvents(allEvents);
-                PersonInfo.getPersonInfo().addCalendar(cal);
+                PersonInfo.getPersonInfo().addCalendarInUse(cal);
                 ArrayList<Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
                 subscribedCalendars.add(cal);
                 PersonInfo.personInfo.setSubscribedCalendars(subscribedCalendars);
             }
             else
             {
-                PersonInfo.getPersonInfo().removeCalendar(cal);
+                PersonInfo.getPersonInfo().removeCalendarInUse(cal);
                 ArrayList <Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
                 subscribedCalendars.remove(cal);
                 PersonInfo.personInfo.setSubscribedCalendars(subscribedCalendars);
