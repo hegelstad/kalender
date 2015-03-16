@@ -15,11 +15,10 @@ EVENT/CALENDAR
 	
 }
 
-
 #calendarList .scroll-bar:horizontal {
 	visibility: hidden;
 }
-
+   
 
 #weekGrid {
     -fx-background-color: #4c4f51;

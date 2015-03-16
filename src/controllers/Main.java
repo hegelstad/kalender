@@ -10,6 +10,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
     	stage = primaryStage;
+    	WindowController.checkOsVersion();
     	WindowController.setStage(stage);
     	WindowController.setProgram(this);
     	WindowController.goToLogin();

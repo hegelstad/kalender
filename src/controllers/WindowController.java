@@ -33,7 +33,7 @@ public class WindowController {
 	private static boolean adminWindowIsOpen = false;
 	private static boolean aboutScreenIsOpen = false;
 	private static List<Stage> stages = new ArrayList<Stage>();
-	private static boolean osIsOSX=true;
+	private static boolean osIsOSX;
 
 	public static void setProgram(Main p){
 		program = p;
@@ -83,26 +83,26 @@ public class WindowController {
 		thisStage.setResizable(false);
 		thisStage.show();
 		thisStage.getScene().setRoot(page);
-		if(checkOsVersion() == true){
-		Pane root = null;
-		if (fxml.equals("../views/LoginView.fxml")){
-			root = (Pane) scene.lookup("#background");
-		}
-		else{
-			root = (AnchorPane) scene.lookup("#root");			
-		}
-		final Menu menu1 = new Menu("Calify");
-		MenuBar menuBar = new MenuBar();
-		MenuItem menu12 = new MenuItem("Om Calify");
-		menu12.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override public void handle(ActionEvent e) {
-		       openAboutScreen();
-		    }
-		});
-		menu1.getItems().add(menu12);
-		menuBar.getMenus().add(menu1);
-		root.getChildren().add(menuBar);
-		menuBar.setUseSystemMenuBar(true);
+		if(osIsOSX){
+			Pane root = null;
+			if (fxml.equals("../views/LoginView.fxml")){
+				root = (Pane) scene.lookup("#background");
+			}
+			else{
+				root = (AnchorPane) scene.lookup("#root");			
+			}
+			final Menu menu1 = new Menu("Calify");
+			MenuBar menuBar = new MenuBar();
+			MenuItem menu12 = new MenuItem("Om Calify");
+			menu12.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+			       openAboutScreen();
+			    }
+			});
+			menu1.getItems().add(menu12);
+			menuBar.getMenus().add(menu1);
+			root.getChildren().add(menuBar);
+			menuBar.setUseSystemMenuBar(true);
 		}
 		return page;
 	}
@@ -306,17 +306,15 @@ public class WindowController {
 			
 		}
 	}
-	private static boolean checkOsVersion(){
+	public static void checkOsVersion(){
 		if(System.getProperty("os.name").toLowerCase().startsWith("mac os x")){
 			System.out.println("OS is OSX!");
 			osIsOSX=true;
-			return true;
 			}
 		
 		else{
-			System.out.println("OS is not OSX or Windows");				
+			System.out.println("OS is not OSX");				
 			osIsOSX = false;
-			return false;
 			}
 	}
 }
