@@ -83,7 +83,7 @@ public class WeekController {
 	 */
 	public void drawEvents(Collection<Event> sortedEvents){
 		if(sortedEvents == null){
-			System.out.println("Ingen faktiske skikkelige eventer hentet fra databasen");
+//			System.out.println("Ingen faktiske skikkelige eventer hentet fra databasen");
 			removeAllDrawings();
 			return;
 		}
@@ -92,9 +92,9 @@ public class WeekController {
 		ArrayList<ArrayList<EventDrawing>> weekOfDrawings;		
 
 		if(sortedEvents instanceof TreeSet && sortedEvents.size()!=0){	
-			System.out.println("\n\n");
-			System.out.println("Finner data");
-			System.out.println(sortedEvents);
+//			System.out.println("\n\n");
+//			System.out.println("Finner data");
+//			System.out.println(sortedEvents);
 			weekOfDrawings = sortIntoDays(sortedEvents);
 		}
 		else if(sortedEvents.size()==0)
