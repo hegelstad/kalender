@@ -96,6 +96,7 @@ public class PersonInfo {
 	
 	public void setCalendarsInUse(ArrayList<Calendar> calendarsInUse){
 		this.calendarsInUse = calendarsInUse;
+		Integer[] tall = {1,1,1,1};
 	}
 	
 	public Calendar getSelectedCalendar() {

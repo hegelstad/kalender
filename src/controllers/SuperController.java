@@ -43,6 +43,11 @@ public class SuperController {
 							newCalendarTextField.setText("");
 						}
 						requester.closeConnection();
+						int colorID = SidebarController.getController().getCalendars().size()+1;
+						if(colorID>9){
+							colorID = colorID%10;
+						}
+						cal.setColorID(colorID);
 						PersonInfo.getPersonInfo().addCalendar(cal);
 					} catch (Exception e){
 						System.out.println("Something failed while trying to create calendar!");
