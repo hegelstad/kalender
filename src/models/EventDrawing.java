@@ -3,10 +3,8 @@ package models;
 import java.time.LocalDateTime;
 
 import controllers.WeekController;
-<<<<<<< HEAD
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
-=======
 import controllers.WindowController;
 import javafx.animation.ScaleTransition;
 import javafx.scene.Scene;
@@ -14,7 +12,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
->>>>>>> Lagt til delvis støtte for høyreklikk på event, og satt en OS check ved startup som vurderer om about-menyen kan vises (fungerer kun i OSX)
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
