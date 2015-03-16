@@ -184,17 +184,15 @@ public class HeaderController {
      **/
     public LocalDateTime getDateForColumn(int column, int row){
     	LocalDate tempDate = date;
-    	System.out.println("TempDate: " + tempDate);
     	int dayOfWeek = tempDate.getDayOfWeek().getValue();
     	int calendarDayOfWeek = column+1;
     	int difDayOfWeek = calendarDayOfWeek-dayOfWeek;
     	int dayOfMonth = tempDate.getDayOfMonth();
     	tempDate = tempDate.plusDays(difDayOfWeek);
-    	System.out.println("TempDate after + days : " + tempDate);
     	int calendarDayOfMonth = tempDate.getDayOfMonth();
     	int  year = tempDate.getYear();
     	int month = tempDate.getMonthValue();
-    	System.out.println("Column : " + column + " Row : " + row +  " dateDayOfWeek : " + date.getDayOfWeek().getValue());
+//    	System.out.println("Column : " + column + " Row : " + row +  " dateDayOfWeek : " + date.getDayOfWeek().getValue());
     	LocalDateTime newDate = LocalDateTime.of(year, month, calendarDayOfMonth, row, 0);
 		return newDate;
     }
