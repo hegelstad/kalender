@@ -143,7 +143,7 @@ public class NotificationCell extends ListCell<Notification> {
 						mark_asRead.setPrefHeight(10);
 						mark_asRead.setStyle("-fx-font-size: 10px; -fx-font-weight: bold");
 						mark_asRead.setLayoutY(content.getHeight() - 60);
-						mark_asRead.setLayoutX(content.getWidth() - 20);
+						mark_asRead.setLayoutX(content.getWidth() - 25);
 						Tooltip tt = new Tooltip("Mark as read");
 						mark_asRead.setTooltip(tt);
 						content.getChildren().add(mark_asRead);
