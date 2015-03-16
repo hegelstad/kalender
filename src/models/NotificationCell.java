@@ -134,21 +134,36 @@ public class NotificationCell extends ListCell<Notification> {
 							is_expanded = false;
 						}
 					}
-				} if(is_Invite == 0){
-					
-					/* Set the notification as HasRead */
-					Requester s = new Requester();
-					s.setRead(note, PersonInfo.getPersonInfo().getPersonalUserGroup());
-					s.closeConnection();
-					System.out.println("Notification flagged as read");
+				} if(is_Invite == 0) {
+					if (!is_expanded) {
 
-					s = new Requester();
-					PersonInfo.personInfo.setNotifications(s.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup()));
-					s.closeConnection();
-					/* Removes the notification from ListView */
-					list.remove(note);
-					setGraphic(null);
-					HeaderController.getController().updateNotificationButton(PersonInfo.getPersonInfo().getNotifications().size());
+						Button mark_asRead = new Button("✔");
+						mark_asRead.setLayoutY(content.getHeight() - 50);
+						mark_asRead.setLayoutX(content.getWidth() - 35);
+						content.getChildren().add(mark_asRead);
+						is_expanded = true;
+
+						mark_asRead.setOnAction( event -> {
+							
+							/* Set the notification as HasRead */
+							Requester s = new Requester();
+							s.setRead(note, PersonInfo.getPersonInfo().getPersonalUserGroup());
+							s.closeConnection();
+							System.out.println("Notification flagged as read");
+
+							s = new Requester();
+							PersonInfo.personInfo.setNotifications(s.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup()));
+							s.closeConnection();
+							
+							/* Removes the notification from ListView */
+							list.remove(note);
+							setGraphic(null);
+							HeaderController.getController().updateNotificationButton(PersonInfo.getPersonInfo().getNotifications().size());
+								});
+					} else {
+						content.getChildren().remove(1, 2);
+						is_expanded = false;
+					}
 				}
 			}
 		});
