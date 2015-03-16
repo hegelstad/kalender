@@ -5,6 +5,13 @@ import java.time.LocalDateTime;
 import controllers.WeekController;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
+import controllers.WindowController;
+import javafx.animation.ScaleTransition;
+import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -67,6 +74,34 @@ public class EventDrawing {
 				controller.openEvent(event);
 				return;
 			}
+			else if(clickEvent.getButton() == MouseButton.SECONDARY){
+					final ContextMenu contextMenu = new ContextMenu();
+					MenuItem item1 = new MenuItem("Edit");
+					MenuItem item2 = new MenuItem("Delete");
+					contextMenu.getItems().addAll(item1, item2);
+					Scene scene = WindowController.thisStage.getScene();
+					AnchorPane root = (AnchorPane) scene.lookup("#root");
+					contextMenu.show(root, clickEvent.getScreenX(), clickEvent.getScreenY());
+				
+			}
+//			
+//			if(isExpanded)
+//			{
+//				isExpanded = false;
+//				ScaleTransition animation = new ScaleTransition(Duration.millis(100),eventRec);
+//				animation.setFromX(1.5);
+//				animation.setToX(1.0);
+//				animation.play();				
+//			}
+//			else
+//			{
+//				isExpanded = true;
+//				ScaleTransition animation = new ScaleTransition(Duration.millis(100),eventRec);
+//				animation.setFromX(1.0);
+//				animation.setToX(1.5);
+//				animation.play();				
+//			}
+			//eventRec.setWidth(controller.fullEventWidth*1.5);
 		});
 
 	}

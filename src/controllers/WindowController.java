@@ -33,6 +33,7 @@ public class WindowController {
 	private static boolean adminWindowIsOpen = false;
 	private static boolean aboutScreenIsOpen = false;
 	private static List<Stage> stages = new ArrayList<Stage>();
+	private static boolean osIsOSX;
 
 	public static void setProgram(Main p){
 		program = p;
@@ -82,6 +83,7 @@ public class WindowController {
 		thisStage.setResizable(false);
 		thisStage.show();
 		thisStage.getScene().setRoot(page);
+		if(checkOsVersion() == true){
 		Pane root = null;
 		if (fxml.equals("../views/LoginView.fxml")){
 			root = (Pane) scene.lookup("#background");
@@ -100,7 +102,7 @@ public class WindowController {
 		menu1.getItems().add(menu12);
 		menuBar.getMenus().add(menu1);
 		root.getChildren().add(menuBar);
-		menuBar.setUseSystemMenuBar(true);
+		menuBar.setUseSystemMenuBar(true);}
 		return page;
 	}
 	
@@ -242,6 +244,14 @@ public class WindowController {
 				aboutScreen.centerOnScreen();
 				aboutScreen.setResizable(false);
 				aboutScreen.setAlwaysOnTop(true);
+				aboutScreen.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    public void handle(WindowEvent we) {
+                        aboutScreen.close();
+                        aboutScreenIsOpen=false;
+                        stages.remove(aboutScreen);
+                        System.out.println("Closing management window");
+                    }
+                });
 				final Menu menu1 = new Menu("Calify");
 				MenuBar menuBar = new MenuBar();
 				MenuItem menu12 = new MenuItem("Om Calify");
@@ -264,6 +274,15 @@ public class WindowController {
 			}
 			
 		}
+	}
+	private static boolean checkOsVersion(){
+		if(System.getProperty("os.name").toLowerCase().startsWith("mac os x")){
+			System.out.println("OS is OSX!");
+			osIsOSX=true;
+			return true;
+		}
+		osIsOSX = false;
+		return false;
 	}
 }
 
