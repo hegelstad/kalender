@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.TreeSet;
 
 import controllers.HeaderController;
+import controllers.SidebarController;
 import controllers.WeekController;
 import models.Calendar;
 import models.Event;
@@ -146,16 +147,24 @@ public class PersonInfo {
 		}
 	}
 	
-	public boolean addCalendar(Calendar cal){
+	public boolean addCalendarInUse(Calendar cal){
 		boolean changed = calendarsInUse.add(cal);
 		HeaderController.getController().drawEventsForWeek();
 		return changed;
 	}
 	
-	public boolean removeCalendar(Calendar cal){
+	public boolean removeCalendarInUse(Calendar cal){
 		boolean changed = calendarsInUse.remove(cal);
 		HeaderController.getController().drawEventsForWeek();
 		return changed;
 	}
+	
+	public void addCalendar(Calendar cal){
+		allCalendars.add(cal);
+		calendarsInUse.add(cal);
+		SidebarController.getController().getCalendars().add(cal);
+	}
+	
+	
 	
 }
