@@ -23,12 +23,13 @@ public class CalendarCell extends ListCell<Calendar> {
 	private void init(Calendar cal){
 		Pane pane = new Pane();
 		CheckBox checkbox = new CheckBox();
-		checkbox.setSelected(true);
+		if (PersonInfo.getPersonInfo().getCalendarsInUse().contains(cal)) checkbox.setSelected(true);
 		checkbox.setLayoutY(2);
 		label = new Label(cal.getName());
 		label.setLayoutX(25);
 		label.setLayoutY(2);
 		label.setTextFill(Color.web("#0076a3"));
+		SidebarController.getController().addLabel(label);
 		if(cal.getName().length() > 20){
 			label.setPrefWidth(100);
 			label.setPrefHeight(40);
@@ -75,11 +76,11 @@ public class CalendarCell extends ListCell<Calendar> {
 		checkbox.selectedProperty().addListener( (ob,oldVal,newVal) -> {
 			if(newVal)
 			{	
-				PersonInfo.getPersonInfo().addCalendar(cal);
+				PersonInfo.getPersonInfo().addCalendarInUse(cal);
 			}
 			else
 			{
-				PersonInfo.getPersonInfo().removeCalendar(cal);
+				PersonInfo.getPersonInfo().removeCalendarInUse(cal);
 			}
 		});
 		
@@ -90,14 +91,13 @@ public class CalendarCell extends ListCell<Calendar> {
 		            if(mouseEvent.getClickCount() == 2){
 		                PersonInfo.getPersonInfo().setSelectedCalendar(cal);
 		                System.out.println("Selected calendar: " + PersonInfo.getPersonInfo().getSelectedCalendar());
-		                SidebarController.getController().weekInit();
+		                SidebarController.updateLabels();
+		                label.setFont(Font.font(null, FontWeight.BOLD, 13));
 		            }
 		        }
 		    }
 		});
-		
 		if (PersonInfo.getPersonInfo().getSelectedCalendar().equals(cal)){
-			System.out.println("Updating font to bold for: " + cal);
 			label.setFont(Font.font(null, FontWeight.BOLD, 13));	
 		}else{
 			label.setFont(Font.font(null, FontWeight.NORMAL, 13));;

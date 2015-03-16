@@ -154,7 +154,6 @@ public class HeaderController {
         int new_num_notifications = PersonInfo.getPersonInfo().getNotifications().size();
 
         if (current_num_notifications < new_num_notifications) {
-            System.out.println("New notification discovered.");
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -165,9 +164,7 @@ public class HeaderController {
                     notificationButton.setStyle("-fx-background-color: red");
                 }
             });
-        } else {
-            System.out.println("No new notifications");
-        }
+        } 
     }
     public void updateNotificationButton(int value){
         notificationButton.setText(Integer.toString(value));
@@ -184,17 +181,15 @@ public class HeaderController {
      **/
     public LocalDateTime getDateForColumn(int column, int row){
     	LocalDate tempDate = date;
-    	System.out.println("TempDate: " + tempDate);
     	int dayOfWeek = tempDate.getDayOfWeek().getValue();
     	int calendarDayOfWeek = column+1;
     	int difDayOfWeek = calendarDayOfWeek-dayOfWeek;
     	int dayOfMonth = tempDate.getDayOfMonth();
     	tempDate = tempDate.plusDays(difDayOfWeek);
-    	System.out.println("TempDate after + days : " + tempDate);
     	int calendarDayOfMonth = tempDate.getDayOfMonth();
     	int  year = tempDate.getYear();
     	int month = tempDate.getMonthValue();
-    	System.out.println("Column : " + column + " Row : " + row +  " dateDayOfWeek : " + date.getDayOfWeek().getValue());
+//    	System.out.println("Column : " + column + " Row : " + row +  " dateDayOfWeek : " + date.getDayOfWeek().getValue());
     	LocalDateTime newDate = LocalDateTime.of(year, month, calendarDayOfMonth, row, 0);
 		return newDate;
     }

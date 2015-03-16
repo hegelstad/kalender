@@ -1,16 +1,19 @@
 package controllers;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import models.CalendarCell;
 import socket.Requester;
 
 public class SidebarController {
@@ -21,6 +24,7 @@ public class SidebarController {
 	@FXML private Pane adminPaneButton;
 	@FXML private TextField searchCalendar;
 	@FXML private ListView<Calendar> subscribeCalendarList;
+	private static ArrayList<Label> labels = new ArrayList<Label>();
 	
 	ObservableList<Calendar> calendars = FXCollections.observableArrayList(new ArrayList<Calendar>());
 	
@@ -78,10 +82,10 @@ public class SidebarController {
 		});
 	}
 	
-	public void addCalendar(Calendar cal){
+	/*public void addCalendar(Calendar cal){
 		calendars.add(cal);
-		/* Must add new button and label to scene here */
-	}
+		// Must add new button and label to scene here
+	}*/
 	public void addCalendars(ArrayList<Calendar> cals){
 		calendars.clear();
 		calendars.addAll(cals);
@@ -89,6 +93,7 @@ public class SidebarController {
 	
 	public void weekInit(){
 		ArrayList<Calendar> incomingCals = PersonInfo.getPersonInfo().getAllCalendars();
+		System.out.println(incomingCals);
 		addCalendars(incomingCals);
 	}
 	
@@ -146,5 +151,19 @@ public class SidebarController {
 	public void displaySubscribedCalendars(){
 		ArrayList<Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
 		subscribeCalendarList.setItems(FXCollections.observableArrayList(subscribedCalendars));
+	}
+	
+	public static void updateLabels(){
+		for (Label l : labels){
+			l.setFont(Font.font(null, FontWeight.NORMAL, 13));
+		}
+	};
+	
+	public void addLabel(Label label){
+		labels.add(label);
+	};
+	
+	public ObservableList<Calendar> getCalendars(){
+		return calendars;
 	}
 }

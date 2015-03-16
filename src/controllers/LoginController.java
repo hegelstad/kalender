@@ -97,39 +97,39 @@ public class LoginController {
         personInfo.setPerson(this.p);
 
         connection = new Requester();
-        System.out.println("Henter Personal User Group fra DB.");
+//        System.out.println("Henter Personal User Group fra DB.");
         UserGroup ug = connection.getPersonalUserGroup(p);
         personInfo.setPersonalUserGroup(ug);
-        System.out.println(ug);
+//        System.out.println(ug);
         connection.closeConnection();
 
         connection = new Requester();
-        System.out.println("Henter alle User Groups fra DB.");
+//        System.out.println("Henter alle User Groups fra DB.");
         ArrayList<UserGroup> ugs = connection.getUserGroups(this.p);
-        System.out.println(ugs);
+//        System.out.println(ugs);
         personInfo.setUsergroups(ugs);
         connection.closeConnection();
 
         connection = new Requester();
-        System.out.println("Henter Notifications fra DB.");
+//        System.out.println("Henter Notifications fra DB.");
         ArrayList<Notification> n = connection.getNotifications(ug);
-        System.out.println(n);
+//        System.out.println(n);
         personInfo.setNotifications(n);
         connection.closeConnection();
 
         connection = new Requester();
-        System.out.println("Henter Kalendere fra DB.");
+//        System.out.println("Henter Kalendere fra DB.");
         ArrayList<Calendar> cal = connection.getCalendars(ug);
         personInfo.setAllCalendars(cal);
         personInfo.setCalendarsInUse(cal);
-        System.out.println(cal);
+//        System.out.println(cal);
         connection.closeConnection();
 
         connection = new Requester();
-        System.out.println("Henter alle Events fra DB.");
+//        System.out.println("Henter alle Events fra DB.");
         ArrayList<Event> events = connection.getEvents(cal, ug);
         personInfo.setEvents(events);
-        System.out.println(events);
+//        System.out.println(events);
         connection.closeConnection();
 
         int i = 0;

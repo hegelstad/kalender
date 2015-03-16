@@ -83,6 +83,13 @@ public class WindowController {
 		thisStage.setResizable(false);
 		thisStage.show();
 		thisStage.getScene().setRoot(page);
+		thisStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                HeaderController.getController().timer.cancel();
+                closeStages();
+                thisStage.close();
+            }
+        });
 		if(osIsOSX){
 			Pane root = null;
 			if (fxml.equals("../views/LoginView.fxml")){
@@ -246,6 +253,12 @@ public class WindowController {
 			} catch(Exception e) {
 				System.out.println("Couldnt load AdminView.fxml");
 			}
+		}
+	}
+	
+	public static void closeStages(){
+		for (Stage s: stages){
+			s.close();
 		}
 	}
 	
