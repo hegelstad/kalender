@@ -101,16 +101,18 @@ public class EventDrawing {
 					    @Override public void handle(ActionEvent e) {
 					    	ArrayList<Calendar> calendars = PersonInfo.getPersonInfo().getAllCalendars();
 					    	for (Calendar cal: calendars){
+					    		System.out.println(cal.getUserGroups());
+					    		System.out.println("PersonInfo" + PersonInfo.getPersonInfo().getPersonalUserGroup());
 					    		if (cal.getCalendarID() == calID){
-					    			cal.getEvents().remove(event);						    	   }
+					    			cal.getEvents().remove(event);						    	   
+						    		Requester requester = new Requester();
+						    		requester.deleteEvent(event);
+						    		requester.closeConnection();
+						    		HeaderController.getController().drawEventsForWeek();
+						    		System.out.println(eventName + " is deleted!");
 					    	}
-						       Requester requester = new Requester();
-						       requester.deleteEvent(event);
-						       requester.closeConnection();
-						       HeaderController.getController().drawEventsForWeek();
-						       System.out.println(eventName + " is deleted!");
 						    }
-						});
+						}});
 					contextMenu.getItems().addAll(item1, item2);
 					contextMenu.show(eventRectangle, clickEvent.getScreenX(), clickEvent.getScreenY());
 					contextMenu.focusedProperty().addListener(new ChangeListener<Boolean>()
