@@ -27,6 +27,7 @@ public class PersonInfo {
 	private ArrayList<Event> events;
 	private ArrayList<Notification> notifications;
 	private Calendar selectedCalendar;
+	private ArrayList<Calendar> subscribedCalendars = new ArrayList<>();
 	
 	public Person getPerson() {
 		return person;
@@ -75,6 +76,10 @@ public class PersonInfo {
 	public void setNotifications(ArrayList<Notification> notifications) {
 		this.notifications = notifications;
 	}
+
+	public void setSubscribedCalendars(ArrayList<Calendar> subscribedCalendars) {
+		this.subscribedCalendars = subscribedCalendars;
+	}
 	
 	public static PersonInfo getPersonInfo(){
 		return personInfo;
@@ -94,6 +99,10 @@ public class PersonInfo {
 	
 	public Calendar getSelectedCalendar() {
 		return selectedCalendar;
+	}
+
+	public ArrayList<Calendar> getSubscribedCalendars() {
+		return subscribedCalendars;
 	}
 
 	public void setSelectedCalendar(Calendar selectedCalendar) {

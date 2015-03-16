@@ -12,8 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import socket.Requester;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class CalendarCellSearch extends ListCell<Calendar> {
 
@@ -38,23 +40,37 @@ public class CalendarCellSearch extends ListCell<Calendar> {
         label.setLayoutX(25);
         label.setLayoutY(2);
         label.setTextFill(Color.web("#0076a3"));
-        if(cal.getName().length() > 20){
+        if(cal.getName().length() > 20) {
             label.setPrefWidth(100);
             label.setPrefHeight(40);
             label.setWrapText(true);
         }
-        pane.getStyleClass().add(0,"cornflowerblue");
         cal.setColorID(10);
+        pane.getStyleClass().add(0, "cornflowerblue");
         pane.getChildren().addAll(checkbox,label);
         setId("calendar-cell");
         checkbox.selectedProperty().addListener( (ob,oldVal,newVal) -> {
             if(newVal)
             {
+                Requester r = new Requester();
+                ArrayList<Event> calendarEvents = r.getEvents(cal);
+                r.closeConnection();
+                ArrayList<Event> allEvents = PersonInfo.getPersonInfo().getEvents();
+                cal.setEvents(calendarEvents);
+                //allEvents.addAll(calendarEvents.stream().collect(Collectors.toList()));
+                //PersonInfo.personInfo.setEvents(allEvents);
                 PersonInfo.getPersonInfo().addCalendar(cal);
+                ArrayList<Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
+                subscribedCalendars.add(cal);
+                PersonInfo.personInfo.setSubscribedCalendars(subscribedCalendars);
             }
             else
             {
                 PersonInfo.getPersonInfo().removeCalendar(cal);
+                ArrayList <Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
+                subscribedCalendars.remove(cal);
+                PersonInfo.personInfo.setSubscribedCalendars(subscribedCalendars);
+                SidebarController.getController().displaySubscribedCalendars();
             }
         });
 
