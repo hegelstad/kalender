@@ -43,42 +43,8 @@ public class CalendarCellSearch extends ListCell<Calendar> {
             label.setPrefHeight(40);
             label.setWrapText(true);
         }
-        switch (cal.getColorID()){
-            case 0:
-                pane.getStyleClass().add(0,"lightskyblue");
-                break;
-            case 1:
-                pane.getStyleClass().add(0,"lightsalmon");
-                break;
-            case 2:
-                pane.getStyleClass().add(0,"lightgreen");
-                break;
-            case 3:
-                pane.getStyleClass().add(0,"yellow");
-                break;
-            case 4:
-                pane.getStyleClass().add(0,"lightpink");
-                break;
-            case 5:
-                pane.getStyleClass().add(0,"aquamarine");
-                break;
-            case 6:
-                pane.getStyleClass().add(0,"lightcoral");
-                break;
-            case 7:
-                pane.getStyleClass().add(0,"thistle");
-                break;
-            case 8:
-                pane.getStyleClass().add(0,"beige");
-                break;
-            case 9:
-                pane.getStyleClass().add(0,"silver");
-                break;
-            default:
-                pane.getStyleClass().add(0,"cornflowerblue");
-                break;
-        }
-
+        pane.getStyleClass().add(0,"cornflowerblue");
+        cal.setColorID(10);
         pane.getChildren().addAll(checkbox,label);
         setId("calendar-cell");
         checkbox.selectedProperty().addListener( (ob,oldVal,newVal) -> {
@@ -92,26 +58,26 @@ public class CalendarCellSearch extends ListCell<Calendar> {
             }
         });
 
-        label.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                    if(mouseEvent.getClickCount() == 2){
-                        PersonInfo.getPersonInfo().setSelectedCalendar(cal);
-                        System.out.println("Selected calendar: " + PersonInfo.getPersonInfo().getSelectedCalendar());
-                        SidebarController.getController().weekInit();
-                    }
-                }
-            }
-        });
+        //label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        //    @Override
+        //    public void handle(MouseEvent mouseEvent) {
+        //        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+        //            if(mouseEvent.getClickCount() == 2){
+        //                PersonInfo.getPersonInfo().setSelectedCalendar(cal);
+        //                System.out.println("Selected calendar: " + PersonInfo.getPersonInfo().getSelectedCalendar());
+        //                SidebarController.getController().weekInit();
+        //            }
+        //        }
+        //    }
+        //});
 
-        if (PersonInfo.getPersonInfo().getSelectedCalendar().equals(cal)){
-            System.out.println("Updating font to bold for: " + cal);
-            label.setFont(Font.font(null, FontWeight.BOLD, 13));
-        }else{
-            System.out.println("Setting normal font for : " + cal);
-            label.setFont(Font.font(null, FontWeight.NORMAL, 13));;
-        }
+        //if (PersonInfo.getPersonInfo().getSelectedCalendar().equals(cal)){
+        //    System.out.println("Updating font to bold for: " + cal);
+        //    label.setFont(Font.font(null, FontWeight.BOLD, 13));
+        //}else{
+        //    System.out.println("Setting normal font for : " + cal);
+        //    label.setFont(Font.font(null, FontWeight.NORMAL, 13));;
+        //}
         setGraphic(pane);
     }
 
