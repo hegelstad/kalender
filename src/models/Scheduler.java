@@ -12,7 +12,6 @@ public class Scheduler extends TimerTask {
 
     @Override
     public void run(){
-        System.out.println("Checking for new notifications..");
         HeaderController.getController().updateNotifications();
     }
 
