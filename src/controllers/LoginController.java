@@ -60,10 +60,7 @@ public class LoginController {
     }
 
     private boolean fieldsAreSet(){
-        if(username.getText().isEmpty() || password.getText().isEmpty()){
-		   return false;
-        }
-        return true;
+        return !(username.getText().isEmpty() || password.getText().isEmpty());
     }
 
     public void setStatus(String s) {
