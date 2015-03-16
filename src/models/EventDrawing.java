@@ -2,16 +2,22 @@ package models;
 
 import java.time.LocalDateTime;
 
+
+
+
+
+import socket.Requester;
 import controllers.WeekController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import controllers.WindowController;
-import javafx.animation.ScaleTransition;
-import javafx.scene.Scene;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -28,6 +34,7 @@ public class EventDrawing {
 	WeekController controller;
 	/* Only used if day event is over several days */
 	private int dayOfDrawing;
+	private boolean contextMenuIsOpen = false;
 	
 	public final double fullEventWidth = 155;
 	public final double fullEventWidthPrecise = 153; 
@@ -75,36 +82,50 @@ public class EventDrawing {
 				return;
 			}
 			else if(clickEvent.getButton() == MouseButton.SECONDARY){
+				if(!contextMenuIsOpen){
 					final ContextMenu contextMenu = new ContextMenu();
 					MenuItem item1 = new MenuItem("Edit");
 					MenuItem item2 = new MenuItem("Delete");
+					item1.setOnAction(new EventHandler<ActionEvent>() {
+					    @Override public void handle(ActionEvent e) {
+					       WindowController.goToEventView(event);
+					    }
+					});
+					item2.setOnAction(new EventHandler<ActionEvent>() {
+					    @Override public void handle(ActionEvent e) {
+						       Requester requester = new Requester();
+						       requester.deleteEvent(event);
+						       requester.closeConnection();
+						       System.out.println(eventName + " is deleted!");
+						    }
+						});
 					contextMenu.getItems().addAll(item1, item2);
-					Scene scene = WindowController.thisStage.getScene();
-					AnchorPane root = (AnchorPane) scene.lookup("#root");
-					contextMenu.show(root, clickEvent.getScreenX(), clickEvent.getScreenY());
+					contextMenu.show(eventRectangle, clickEvent.getScreenX(), clickEvent.getScreenY());
+					contextMenu.focusedProperty().addListener(new ChangeListener<Boolean>()
+							{
+						@Override
+						public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
+						{
+							if (newPropertyValue)
+							{
+								System.out.println("ContextMenu on focus");
+							}
+							else
+							{
+								System.out.println("ContextMenu out focus");
+								contextMenu.hide();
+								contextMenuIsOpen=false;
+							}
+						}
+							});
+					contextMenuIsOpen=true;
+				}
+				else{
+					System.out.println("Context menu is already open for this event");
+				}
 				
-			}
-//			
-//			if(isExpanded)
-//			{
-//				isExpanded = false;
-//				ScaleTransition animation = new ScaleTransition(Duration.millis(100),eventRec);
-//				animation.setFromX(1.5);
-//				animation.setToX(1.0);
-//				animation.play();				
-//			}
-//			else
-//			{
-//				isExpanded = true;
-//				ScaleTransition animation = new ScaleTransition(Duration.millis(100),eventRec);
-//				animation.setFromX(1.0);
-//				animation.setToX(1.5);
-//				animation.play();				
-//			}
-			//eventRec.setWidth(controller.fullEventWidth*1.5);
-		});
-
-	}
+			}});
+		}
 	
 	private boolean isOverMidnight(Event event){
 		LocalDateTime midnight = event.getFrom().withHour(0).withMinute(0);
