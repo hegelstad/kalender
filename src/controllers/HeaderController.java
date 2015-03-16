@@ -154,7 +154,6 @@ public class HeaderController {
         int new_num_notifications = PersonInfo.getPersonInfo().getNotifications().size();
 
         if (current_num_notifications < new_num_notifications) {
-            System.out.println("New notification discovered.");
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -165,9 +164,7 @@ public class HeaderController {
                     notificationButton.setStyle("-fx-background-color: red");
                 }
             });
-        } else {
-            System.out.println("No new notifications");
-        }
+        } 
     }
     public void updateNotificationButton(int value){
         notificationButton.setText(Integer.toString(value));
