@@ -52,22 +52,23 @@ public class WeekController {
 			if(mouseOverEvent || WindowController.getEventWindowIsOpenOrClosed()){
 				return;
 			}
-			double y = mouseEvent.getY();
-			double x = mouseEvent.getX();
-			int column = (int) (x/fullEventWidthPrecise);
-			int r1 = (int) (y/hourHeightPrecise);
-			int row = r1;
-			System.out.println("COLUMN " + column);
-			System.out.println("ROW    "  + row);
-			LocalDateTime from = HeaderController.getController().getDateForColumn(column, row);
-			LocalDateTime to = from.plusMinutes(60);
-			Event clickEvent = new Event(0, "New event", null, null, from, to, PersonInfo.getPersonInfo().getSelectedCalendar());
-			/* Tegner ny event, den vil blir erstatted av den ferdigredigerte hendelsen eller 
-			 * fjernet ved omtegning av eventer som blir gjort ved ï¿½ gï¿½ ut av eventEdit*/
-			/* TODO: draw new clickevent */
-
-			openEvent(clickEvent);
-		});
+			else if(mouseEvent.getClickCount() ==2){
+				double y = mouseEvent.getY();
+				double x = mouseEvent.getX();
+				int column = (int) (x/fullEventWidthPrecise);
+				int r1 = (int) (y/hourHeightPrecise);
+				int row = r1;
+				System.out.println("COLUMN " + column);
+				System.out.println("ROW    "  + row);
+				LocalDateTime from = HeaderController.getController().getDateForColumn(column, row);
+				LocalDateTime to = from.plusMinutes(60);
+				Event clickEvent = new Event(0, "New event", null, null, from, to, PersonInfo.getPersonInfo().getSelectedCalendar());
+				/* Tegner ny event, den vil blir erstatted av den ferdigredigerte hendelsen eller 
+				 * fjernet ved omtegning av eventer som blir gjort ved ï¿½ gï¿½ ut av eventEdit*/
+				/* TODO: draw new clickevent */
+	
+				openEvent(clickEvent);
+			}});
 		System.out.println("WeekController inited");
 		HeaderController.getController().weekInit();
 		SidebarController.getController().weekInit();
@@ -209,10 +210,10 @@ public class WeekController {
 		/* Put corresponding EventDrawing into correct day */
 		for(int i=0; i<7;i++){
 			for(Event event : events){
-				/* Finnes en event som startet minst dagen før og slutter idag eller senere */
+				/* Finnes en event som startet minst dagen fï¿½r og slutter idag eller senere */
 				if(startedBeforeToday(event,i)&&endsTodayOrAfter(event,i))
 				{
-					System.out.println("Lager eventDrawing som går over flere dager : "+event.getName());
+					System.out.println("Lager eventDrawing som gï¿½r over flere dager : "+event.getName());
 					weekEvents.get(i).add(new EventDrawing(event,getDaysFromStart(event,i),this));
 				}
 				else if(startsAndEndsToday(event,i)||startsToday(event,i))
