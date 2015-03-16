@@ -1,7 +1,13 @@
 package models;
 
 import controllers.WeekController;
+import controllers.WindowController;
 import javafx.animation.ScaleTransition;
+import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -55,6 +61,16 @@ public class EventDrawing {
 			if(clickEvent.getClickCount() == 2){
 				controller.openEvent(event);
 				return;
+			}
+			else if(clickEvent.getButton() == MouseButton.SECONDARY){
+					final ContextMenu contextMenu = new ContextMenu();
+					MenuItem item1 = new MenuItem("Edit");
+					MenuItem item2 = new MenuItem("Delete");
+					contextMenu.getItems().addAll(item1, item2);
+					Scene scene = WindowController.thisStage.getScene();
+					AnchorPane root = (AnchorPane) scene.lookup("#root");
+					contextMenu.show(root, clickEvent.getScreenX(), clickEvent.getScreenY());
+				
 			}
 //			
 //			if(isExpanded)

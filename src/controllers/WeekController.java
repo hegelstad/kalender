@@ -75,21 +75,23 @@ public class WeekController {
 			if(mouseOverEvent || WindowController.getEventWindowIsOpenOrClosed()){
 				return;
 			}
-			double y = mouseEvent.getY();
-			double x = mouseEvent.getX();
-			int column = (int) (x/fullEventWidthPrecise);
-			int r1 = (int) (y/hourHeightPrecise);
-			int row = r1;
-			System.out.println("COLUMN " + column);
-			System.out.println("ROW    "  + row);
-			LocalDateTime from = HeaderController.getController().getDateForColumn(column, row);
-			LocalDateTime to = from.plusMinutes(60);
-			Event clickEvent = new Event(0, "New event", null, null, from, to, PersonInfo.getPersonInfo().getSelectedCalendar());
-			/* Tegner ny event, den vil blir erstatted av den ferdigredigerte hendelsen eller 
-			 * fjernet ved omtegning av eventer som blir gjort ved � g� ut av eventEdit*/
-			drawEvent(clickEvent,0,0);
-			openEvent(clickEvent);
-		});
+			else if(mouseEvent.getClickCount() ==2){
+				double y = mouseEvent.getY();
+				double x = mouseEvent.getX();
+				int column = (int) (x/fullEventWidthPrecise);
+				int r1 = (int) (y/hourHeightPrecise);
+				int row = r1;
+				System.out.println("COLUMN " + column);
+				System.out.println("ROW    "  + row);
+				LocalDateTime from = HeaderController.getController().getDateForColumn(column, row);
+				LocalDateTime to = from.plusMinutes(60);
+				Event clickEvent = new Event(0, "New event", null, null, from, to, PersonInfo.getPersonInfo().getSelectedCalendar());
+				/* Tegner ny event, den vil blir erstatted av den ferdigredigerte hendelsen eller 
+				 * fjernet ved omtegning av eventer som blir gjort ved � g� ut av eventEdit*/
+				drawEvent(clickEvent,0,0);
+				openEvent(clickEvent);
+			}});
+		
 		System.out.println("WeekController inited");
 		HeaderController.getController().weekInit();
 		SidebarController.getController().weekInit();
