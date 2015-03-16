@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class Requester {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
     Socket con;
     /**
@@ -859,6 +860,8 @@ public class Requester {
     public boolean closeConnection() {
     	try {
 =======
+=======
+>>>>>>> ddf1a508ff6135d33670ea8b2a3e92ff43ef2c3e
 
 	Socket con;
 
@@ -1812,7 +1815,10 @@ public class Requester {
 	 */
 	public boolean closeConnection() {
 		try {
+<<<<<<< HEAD
 >>>>>>> Fjernet en haug med sysouts
+=======
+>>>>>>> ddf1a508ff6135d33670ea8b2a3e92ff43ef2c3e
 			con.close();
 			return true;
 		} catch (IOException e) {
@@ -1820,7 +1826,11 @@ public class Requester {
 			return false;
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
     }
+=======
+	}
+>>>>>>> ddf1a508ff6135d33670ea8b2a3e92ff43ef2c3e
 }
 =======
 	}
