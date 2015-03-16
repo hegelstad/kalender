@@ -128,7 +128,8 @@ public class EventDrawing {
 						}
 							});
 					contextMenuIsOpen=true;
-				}else {
+				}
+				else {
 					System.out
 							.println("Context menu is already open for this event");
 				}
