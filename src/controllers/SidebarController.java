@@ -37,28 +37,6 @@ public class SidebarController {
 		for(Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
 			System.out.println(cal);
 		}
-
-        //initialize adminpanebutton
-        Requester requester = new Requester();
-        ArrayList<UserGroup> privateUserGroups = requester.getPrivateUserGroups();
-        requester.closeConnection();
-        requester = new Requester();
-        ArrayList<Person> persons = requester.getPersons(privateUserGroups);
-        requester.closeConnection();
-        for (Person person : persons) {
-            if (person.getUsername().equals(PersonInfo.getPersonInfo().getPerson().getUsername())) {
-                if (person.getFlag().equals("a")) {
-                    adminPaneButton.setOnMouseClicked((mouseEvent) -> {
-                        {
-                            WindowController.goToManageUsersView();
-                        }
-                    });
-                } else {
-                    adminPaneButton.getChildren().clear();
-                    adminPaneButton.setStyle("-fx-background-color: #26272B");
-                }
-            }
-        }
 	}
 	
 	@FXML
