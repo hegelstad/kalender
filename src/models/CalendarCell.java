@@ -1,10 +1,20 @@
 package models;
+import java.util.ArrayList;
+
+import socket.Requester;
+import controllers.HeaderController;
 import controllers.SidebarController;
 import controllers.WeekController;
+import controllers.WindowController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -15,7 +25,7 @@ import javafx.scene.text.FontWeight;
 public class CalendarCell extends ListCell<Calendar> {
 	
 	public Label label;
-
+	
 	public CalendarCell(){
 
 	}
@@ -94,9 +104,37 @@ public class CalendarCell extends ListCell<Calendar> {
 		                SidebarController.updateLabels();
 		                label.setFont(Font.font(null, FontWeight.BOLD, 13));
 		            }
-		        }
+		        }else if(mouseEvent.getButton() == MouseButton.SECONDARY){
+					if(! cal.getName().equals(PersonInfo.getPersonInfo().getPersonalUserGroup().getName())){
+						final ContextMenu contextMenu = new ContextMenu();
+						MenuItem item = new MenuItem("Delete");
+						item.setOnAction(new EventHandler<ActionEvent>() {
+						    @Override public void handle(ActionEvent e) {
+							       Requester requester = new Requester();
+							       requester.deleteCalendar(cal);
+							       requester.closeConnection();
+							       PersonInfo.getPersonInfo().getAllCalendars().remove(cal);
+							       if (PersonInfo.getPersonInfo().getCalendarsInUse().contains(cal)){
+							    	   PersonInfo.getPersonInfo().getCalendarsInUse().remove(cal);
+							       }
+							       if (PersonInfo.getPersonInfo().getSelectedCalendar().equals(cal)){
+							    	   PersonInfo.getPersonInfo().setSelectedCalendar(PersonInfo.getPersonInfo().getAllCalendars().get(0));
+							       }
+							       HeaderController.getController().drawEventsForWeek();
+							       SidebarController.getController().calendars.remove(cal);
+							    }
+							});
+						contextMenu.getItems().addAll(item);
+						setContextMenu(contextMenu);
+					}else{
+						System.out.println("Can not delete personal calendar.");
+					}	
+				}
 		    }
 		});
+		
+			
+		
 		if (PersonInfo.getPersonInfo().getSelectedCalendar().equals(cal)){
 			label.setFont(Font.font(null, FontWeight.BOLD, 13));	
 		}else{

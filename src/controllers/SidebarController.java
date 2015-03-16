@@ -26,7 +26,7 @@ public class SidebarController {
 	@FXML private ListView<Calendar> subscribeCalendarList;
 	private static ArrayList<Label> labels = new ArrayList<Label>();
 	
-	ObservableList<Calendar> calendars = FXCollections.observableArrayList(new ArrayList<Calendar>());
+	public ObservableList<Calendar> calendars = FXCollections.observableArrayList(new ArrayList<Calendar>());
 	
 	@FXML private void initialize(){
 		controller = this;
