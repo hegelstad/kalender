@@ -20,7 +20,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Requester {
-
 	
     Socket con;
     /**
@@ -864,5 +863,5 @@ public class Requester {
 			e.printStackTrace();
 			return false;
 		}
-	}
+    }
 }
