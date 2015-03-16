@@ -111,7 +111,7 @@ public class WindowController {
 		try {
 			replaceSceneContent("../views/LoginView.fxml",300,400);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Failed to go to LoginView");
 		}
 	}
 	
@@ -120,7 +120,7 @@ public class WindowController {
 			replaceSceneContent("../views/SuperView.fxml", 1333 , 701);
 			WeekController.getController().setVvalue();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Failed to goToCalendarView");
 		}
 	}
 	
@@ -181,7 +181,7 @@ public class WindowController {
                 eventWindows.show();
                 eventWindowIsOpen = true;
             } catch(Exception e) {
-                e.printStackTrace();
+               System.out.println("Couldnt load EventView.fxml");
             }
         }
 	}
@@ -244,7 +244,7 @@ public class WindowController {
                 }
 				adminView.show();
 			} catch(Exception e) {
-				e.printStackTrace();
+				System.out.println("Couldnt load AdminView.fxml");
 			}
 		}
 	}
@@ -300,8 +300,7 @@ public class WindowController {
 				aboutScreen.show();
 				stages.add(aboutScreen);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("Couldnt load AboutView.fxml");
 			}
 			
 		}
