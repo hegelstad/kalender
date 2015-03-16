@@ -250,7 +250,6 @@ NOTIFICATIONS
     -fx-border-radius:0em;
     fx-background-color: transparent;
     -fx-border-color:derive(gray,80%);
-
 }
 
 .scroll-bar:horizontal:hover .track ,
