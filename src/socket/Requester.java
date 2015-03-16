@@ -27,7 +27,7 @@ public class Requester {
      * IP TIL SERVER MÅ SETTES HER!
      */
     public Requester () {
-    	String host = "localhost";
+    	String host = "78.91.18.237";
         /** Define a port */
         int port = 25025;
 
@@ -37,7 +37,6 @@ public class Requester {
             /** Establish a socket connection */
             con = new Socket(address, port);
             con.setSoTimeout(6500);
-            System.out.println("SocketClient initialized.");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -62,9 +61,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             userGroups = (ArrayList<UserGroup>) o;
-            for (UserGroup ug : userGroups){
-                System.out.println("getUserGroups-person: " + ug);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -91,9 +87,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             persons = (ArrayList<Person>) o;
-            for (Person person : persons){
-                System.out.println("getPersons-usergroup: " + person);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -120,9 +113,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             userGroups = (ArrayList<UserGroup>) o;
-            for (UserGroup ug : userGroups){
-                System.out.println("getUserGroups-calendar: " + ug);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -165,7 +155,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             userGroup = (UserGroup) o;
-            System.out.println("createUserGroup-usergroup:"  + userGroup);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -207,9 +196,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             userGroups = (ArrayList<UserGroup>) o;
-            for (UserGroup u : userGroups){
-                System.out.println("getPrivateUserGroups: " + u);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -236,7 +222,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             userGroup = (UserGroup) o;
-            System.out.println("getPersonalUserGroup-person: " + userGroup);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -290,9 +275,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             calendars = (ArrayList<Calendar>) o;
-            for (Calendar cal : calendars){
-                System.out.println("getCalendars-usergroup: " + cal);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -383,7 +365,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             calendar = (Calendar) o;
-            System.out.println("createCalendar-calendar: " + calendar);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -429,9 +410,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             events = (ArrayList<Event>) o;
-            for (Event event : events){
-                System.out.println("getEvents-calendars-usergroup: " + event);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -453,9 +431,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             events = (ArrayList<Event>) o;
-            for (Event event : events){
-                System.out.println("getEvents-calendar: " + event);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -482,7 +457,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             ev = (Event) o;
-            System.out.println("createEvent-event: " + ev);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -548,9 +522,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             notification = (ArrayList<Notification>) o;
-            for (Notification n : notification){
-                System.out.println("getNotifications-person:" + n);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -616,7 +587,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             person = (Person) o;
-            System.out.println("getPerson-person: " + person);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -679,7 +649,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             person = (Person) o;
-            System.out.println("authenticate-username-pass: " + person);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -705,9 +674,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             rooms = (ArrayList<Room>) o;
-            for (Room room : rooms){
-                System.out.println("getRooms: " + room);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
@@ -735,9 +701,6 @@ public class Requester {
 	            ObjectInputStream os = new ObjectInputStream(is);
 	            Object o = os.readObject();
 	            rooms = (ArrayList<Room>) o;
-	            for (Room room : rooms){
-	                System.out.println("getAvailableRooms-event: " + room);
-	            }
             }catch(EOFException e){
 	        	System.out.println("No rooms found.");
 	        }
@@ -809,7 +772,6 @@ public class Requester {
 	            ObjectInputStream os = new ObjectInputStream(is);
 	            Object o = os.readObject();
 	            room = (Room) o;
-	            System.out.println("getEventRoom-event: " + room);
             }catch (EOFException e){
             	System.out.println("No room yet.");
             }
@@ -879,9 +841,6 @@ public class Requester {
             ObjectInputStream os = new ObjectInputStream(is);
             Object o = os.readObject();
             attendants = (ArrayList<Attendant>) o;
-            for (Attendant a : attendants){
-                System.out.println("getAttendants-event: " + a);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {

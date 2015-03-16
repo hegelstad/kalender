@@ -76,11 +76,11 @@ public class CalendarCell extends ListCell<Calendar> {
 		checkbox.selectedProperty().addListener( (ob,oldVal,newVal) -> {
 			if(newVal)
 			{	
-				PersonInfo.getPersonInfo().addCalendar(cal);
+				PersonInfo.getPersonInfo().addCalendarInUse(cal);
 			}
 			else
 			{
-				PersonInfo.getPersonInfo().removeCalendar(cal);
+				PersonInfo.getPersonInfo().removeCalendarInUse(cal);
 			}
 		});
 		

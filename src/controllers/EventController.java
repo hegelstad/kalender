@@ -191,7 +191,8 @@ public class EventController {
 	private boolean createEvent() {
 		if(eventIsValid()) {
 			Requester requester = new Requester();
-			Event ev = new Event(0, title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), PersonInfo.getPersonInfo().getSelectedCalendar());
+			Calendar selectedCalendar = PersonInfo.getPersonInfo().getSelectedCalendar();
+			Event ev = new Event(0, title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), selectedCalendar);
 			ev = requester.createEvent(ev);
 			requester.closeConnection();
 	
@@ -202,8 +203,8 @@ public class EventController {
 					requester.bookRoom(ev, room);
 				}
 			} catch (Exception e){
-                e.printStackTrace();
-            }
+				e.printStackTrace();
+			}
 			requester.closeConnection();
 			
 			requester = new Requester();
@@ -213,7 +214,14 @@ public class EventController {
 			requester = new Requester();
 			requester.updateAttends(ev, new Attendant(PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID(), PersonInfo.personInfo.getPersonalUserGroup().getName(), 1));
 			requester.closeConnection();
-			return (ev.getEventID() != 0);
+			if(ev.getEventID() != 0){
+				selectedCalendar.getEvents().add(ev);
+				HeaderController.getController().drawEventsForWeek();
+				return true;
+			}
+			else{
+				return false;
+			}
 		}
 		return false;
 	}
