@@ -40,13 +40,13 @@ public class CalendarCellSearch extends ListCell<Calendar> {
         label.setLayoutX(25);
         label.setLayoutY(2);
         label.setTextFill(Color.web("#0076a3"));
-        if(cal.getName().length() > 20){
+        if(cal.getName().length() > 20) {
             label.setPrefWidth(100);
             label.setPrefHeight(40);
             label.setWrapText(true);
         }
-        pane.getStyleClass().add(0,"cornflowerblue");
         cal.setColorID(10);
+        pane.getStyleClass().add(0, "cornflowerblue");
         pane.getChildren().addAll(checkbox,label);
         setId("calendar-cell");
         checkbox.selectedProperty().addListener( (ob,oldVal,newVal) -> {
