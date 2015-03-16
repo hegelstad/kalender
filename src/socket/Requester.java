@@ -20,8 +20,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Requester {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	
     Socket con;
     /**
@@ -859,12 +857,14 @@ public class Requester {
      */
     public boolean closeConnection() {
     	try {
-=======
-=======
->>>>>>> ddf1a508ff6135d33670ea8b2a3e92ff43ef2c3e
-
-	Socket con;
-
+			con.close();
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+    }
+}
 	/**
 	 * Requester oppretter en connection med servereren, og etter det kan man
 	 * kjøre "metoder" mot serveren. IP TIL SERVER MÅ SETTES HER!
