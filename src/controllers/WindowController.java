@@ -83,26 +83,27 @@ public class WindowController {
 		thisStage.setResizable(false);
 		thisStage.show();
 		thisStage.getScene().setRoot(page);
-		if(checkOsVersion() == true){
-		Pane root = null;
-		if (fxml.equals("../views/LoginView.fxml")){
-			root = (Pane) scene.lookup("#background");
+		if(osIsOSX){
+			Pane root = null;
+			if (fxml.equals("../views/LoginView.fxml")){
+				root = (Pane) scene.lookup("#background");
+			}
+			else{
+				root = (AnchorPane) scene.lookup("#root");			
+			}
+			final Menu menu1 = new Menu("Calify");
+			MenuBar menuBar = new MenuBar();
+			MenuItem menu12 = new MenuItem("Om Calify");
+			menu12.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+			       openAboutScreen();
+			    }
+			});
+			menu1.getItems().add(menu12);
+			menuBar.getMenus().add(menu1);
+			root.getChildren().add(menuBar);
+			menuBar.setUseSystemMenuBar(true);
 		}
-		else{
-			root = (AnchorPane) scene.lookup("#root");			
-		}
-		final Menu menu1 = new Menu("Calify");
-		MenuBar menuBar = new MenuBar();
-		MenuItem menu12 = new MenuItem("Om Calify");
-		menu12.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override public void handle(ActionEvent e) {
-		       openAboutScreen();
-		    }
-		});
-		menu1.getItems().add(menu12);
-		menuBar.getMenus().add(menu1);
-		root.getChildren().add(menuBar);
-		menuBar.setUseSystemMenuBar(true);}
 		return page;
 	}
 	
@@ -110,7 +111,7 @@ public class WindowController {
 		try {
 			replaceSceneContent("../views/LoginView.fxml",300,400);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Failed to go to LoginView");
 		}
 	}
 	
@@ -119,7 +120,7 @@ public class WindowController {
 			replaceSceneContent("../views/SuperView.fxml", 1333 , 701);
 			WeekController.getController().setVvalue();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Failed to goToCalendarView");
 		}
 	}
 	
@@ -158,6 +159,21 @@ public class WindowController {
                 eventWindows.setAlwaysOnTop(true);
                 controller.setStage(eventWindows);
                 Scene scene = new Scene(page, 410, 570);
+                if(osIsOSX){
+                	final Menu menu1 = new Menu("Calify");
+                	MenuBar menuBar = new MenuBar();
+                	MenuItem menu12 = new MenuItem("Om Calify");
+                	menu12.setOnAction(new EventHandler<ActionEvent>() {
+                		@Override public void handle(ActionEvent e) {
+                			openAboutScreen();
+                		}
+                	});
+                	menu1.getItems().add(menu12);
+                	menuBar.getMenus().add(menu1);
+                	AnchorPane root = (AnchorPane) scene.lookup("#EventView");
+                	root.getChildren().add(menuBar);
+                	menuBar.setUseSystemMenuBar(true);
+                }
                 scene.getStylesheets().add("/css/event.css");
                 eventWindows.setScene(scene);
                 eventWindows.centerOnScreen();
@@ -165,7 +181,7 @@ public class WindowController {
                 eventWindows.show();
                 eventWindowIsOpen = true;
             } catch(Exception e) {
-                e.printStackTrace();
+               System.out.println("Couldnt load EventView.fxml");
             }
         }
 	}
@@ -211,9 +227,24 @@ public class WindowController {
                     }
                 });
 				stages.add(adminView);
+				if(osIsOSX){
+                	final Menu menu1 = new Menu("Calify");
+                	MenuBar menuBar = new MenuBar();
+                	MenuItem menu12 = new MenuItem("Om Calify");
+                	menu12.setOnAction(new EventHandler<ActionEvent>() {
+                		@Override public void handle(ActionEvent e) {
+                			openAboutScreen();
+                		}
+                	});
+                	menu1.getItems().add(menu12);
+                	menuBar.getMenus().add(menu1);
+                	AnchorPane root = (AnchorPane) scene.lookup("#manageUsersAnchorPane");
+                	root.getChildren().add(menuBar);
+                	menuBar.setUseSystemMenuBar(true);
+                }
 				adminView.show();
 			} catch(Exception e) {
-				e.printStackTrace();
+				System.out.println("Couldnt load AdminView.fxml");
 			}
 		}
 	}
@@ -269,20 +300,21 @@ public class WindowController {
 				aboutScreen.show();
 				stages.add(aboutScreen);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("Couldnt load AboutView.fxml");
 			}
 			
 		}
 	}
-	private static boolean checkOsVersion(){
+	public static void checkOsVersion(){
 		if(System.getProperty("os.name").toLowerCase().startsWith("mac os x")){
 			System.out.println("OS is OSX!");
 			osIsOSX=true;
-			return true;
-		}
-		osIsOSX = false;
-		return false;
+			}
+		
+		else{
+			System.out.println("OS is not OSX");				
+			osIsOSX = false;
+			}
 	}
 }
 

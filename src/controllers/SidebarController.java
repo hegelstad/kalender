@@ -37,6 +37,7 @@ public class SidebarController {
 		initSearchCalendar();
 		for(Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
 			System.out.println(cal);
+			
 		}
 		userManagmentPaneButton.setOnMouseClicked( (mouseEvent) -> {
 			{

@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="root" maxHeight="701.0" maxWidth="1342.0" minHeight="701.0" minWidth="1333.0" onKeyPressed="#keyPressed" prefHeight="701.0" prefWidth="134.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SuperController">
     <children>
-        <GridPane stylesheets="@../css/main.css">
+        <GridPane>
             <columnConstraints>
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="374.74053955078125" minWidth="20.0" prefWidth="200.0" />
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="1200.0" minWidth="1200.0" prefWidth="1200.0" />
