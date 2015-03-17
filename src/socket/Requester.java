@@ -23,8 +23,6 @@ import java.util.ArrayList;
 
 public class Requester {
 	
-
-
     Socket con;
     /**
      * Requester oppretter en connection med servereren, og etter det kan man kjøre "metoder" mot serveren.

@@ -30,6 +30,7 @@ public class SuperController {
 	private void initialize(){
 		Rectangle shape = new Rectangle(1, 1);
 		newCalendarTextField.setShape(shape);
+
 		newCalendarTextField.setOnKeyPressed((KeyEvent key) -> {
 			if(key.getCode().equals(KeyCode.ENTER)){
 				createCalendar(newCalendarTextField.getText());
