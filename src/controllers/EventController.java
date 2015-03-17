@@ -203,6 +203,7 @@ public class EventController {
 			Calendar selectedCalendar = PersonInfo.getPersonInfo().getSelectedCalendar();
 			Event ev = new Event(0, title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), selectedCalendar);
 			ev = requester.createEvent(ev);
+			ev.setAttends(1);
 			requester.closeConnection();
 	
 			requester = new Requester();
@@ -312,58 +313,64 @@ public class EventController {
 		                }
 		                grid.add(statusCircle, 1, 0);
 		                if (ug.getUserGroupID() == PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID()){
-		                	GridPane pane = new GridPane();
-		                	SVGPath path = new SVGPath();
-		                	path.setContent("M0,0 L5,5 L10,0 L0,0");
-		                	pane.add(path, 0, 0);
-		                	grid.add(pane, 2, 0);
-		                	pane.setAlignment(Pos.CENTER);
-		                	pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		            		    @Override
-		            		    public void handle(MouseEvent mouseEvent) {
-		            		        if(mouseEvent.getButton() == MouseButton.PRIMARY){
-		            		        	final ContextMenu contextMenu = new ContextMenu();
-		            		        	MenuItem attend = new MenuItem("Attend");
-		            		        	MenuItem dontAttend = new MenuItem("Don't attend");
-		            		        	MenuItem noAnswer = new MenuItem("No answer");
-		            		        	attend.setOnAction(new EventHandler<ActionEvent>() {
-		            		        		@Override public void handle(ActionEvent e) {
-		            		        			Requester requester = new Requester();
-		            		        			requester.updateAttends(calendarEvent, new Attendant(ug.getUserGroupID(),ug.getName(),1));
-		            		        			requester.closeConnection();
-		            		        			statusCircle.setFill(Color.DARKGREEN);
-		            		        			calendarEvent.setAttends(1);
-		            		        			HeaderController.getController().drawEventsForWeek();
-		            		        		}
-		            		        	});
-		            		        	dontAttend.setOnAction(new EventHandler<ActionEvent>() {
-		            		        		@Override public void handle(ActionEvent e) {
-		            		        			Requester requester = new Requester();
-		            		        			requester.updateAttends(calendarEvent, new Attendant(ug.getUserGroupID(),ug.getName(),2));
-		            		        			requester.closeConnection();
-		            		        			statusCircle.setFill(Color.BROWN);
-		            		        			calendarEvent.setAttends(2);
-		            		        			HeaderController.getController().drawEventsForWeek();
-		            		        		}
-		            		        	});
-		            		        	noAnswer.setOnAction(new EventHandler<ActionEvent>() {
-		            		        		@Override public void handle(ActionEvent e) {
-		            		        			Requester requester = new Requester();
-		            		        			requester.updateAttends(calendarEvent, new Attendant(ug.getUserGroupID(),ug.getName(),0));
-		            		        			requester.closeConnection();
-		            		        			statusCircle.setFill(Color.GOLDENROD);
-		            		        			calendarEvent.setAttends(0);
-		            		        			HeaderController.getController().drawEventsForWeek();
-		            		        		}
-		            		        	});
-		            		        	contextMenu.getItems().addAll(attend, dontAttend, noAnswer);
-		            		        	setContextMenu(contextMenu);
-		            		        	contextMenu.show(stage, mouseEvent.getScreenX(), mouseEvent.getScreenY());
-		            		        }
-		            		    }
-		            		});
-		                }
-		                setGraphic(grid);
+		                	try{
+		                		if(calendarEvent.getEventID() != 0){
+				                	GridPane pane = new GridPane();
+				                	SVGPath path = new SVGPath();
+				                	path.setContent("M0,0 L5,5 L10,0 L0,0");
+				                	pane.add(path, 0, 0);
+				                	grid.add(pane, 2, 0);
+				                	pane.setAlignment(Pos.CENTER);
+				                	pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				            		    @Override
+				            		    public void handle(MouseEvent mouseEvent) {
+				            		        if(mouseEvent.getButton() == MouseButton.PRIMARY){
+				            		        	final ContextMenu contextMenu = new ContextMenu();
+				            		        	MenuItem attend = new MenuItem("Attend");
+				            		        	MenuItem dontAttend = new MenuItem("Don't attend");
+				            		        	MenuItem noAnswer = new MenuItem("No answer");
+				            		        	attend.setOnAction(new EventHandler<ActionEvent>() {
+				            		        		@Override public void handle(ActionEvent e) {
+				            		        			Requester requester = new Requester();
+				            		        			requester.updateAttends(calendarEvent, new Attendant(ug.getUserGroupID(),ug.getName(),1));
+				            		        			requester.closeConnection();
+				            		        			statusCircle.setFill(Color.DARKGREEN);
+				            		        			calendarEvent.setAttends(1);
+				            		        			HeaderController.getController().drawEventsForWeek();
+				            		        		}
+				            		        	});
+				            		        	dontAttend.setOnAction(new EventHandler<ActionEvent>() {
+				            		        		@Override public void handle(ActionEvent e) {
+				            		        			Requester requester = new Requester();
+				            		        			requester.updateAttends(calendarEvent, new Attendant(ug.getUserGroupID(),ug.getName(),2));
+				            		        			requester.closeConnection();
+				            		        			statusCircle.setFill(Color.BROWN);
+				            		        			calendarEvent.setAttends(2);
+				            		        			HeaderController.getController().drawEventsForWeek();
+				            		        		}
+				            		        	});
+				            		        	noAnswer.setOnAction(new EventHandler<ActionEvent>() {
+				            		        		@Override public void handle(ActionEvent e) {
+				            		        			Requester requester = new Requester();
+				            		        			requester.updateAttends(calendarEvent, new Attendant(ug.getUserGroupID(),ug.getName(),0));
+				            		        			requester.closeConnection();
+				            		        			statusCircle.setFill(Color.GOLDENROD);
+				            		        			calendarEvent.setAttends(0);
+				            		        			HeaderController.getController().drawEventsForWeek();
+				            		        		}
+				            		        	});
+				            		        	contextMenu.getItems().addAll(attend, dontAttend, noAnswer);
+				            		        	setContextMenu(contextMenu);
+				            		        	contextMenu.show(stage, mouseEvent.getScreenX(), mouseEvent.getScreenY());
+				            		        }
+				            		    }
+				            		});
+				                }
+		                	}
+		                catch(NullPointerException e){
+		                }	
+		              }
+		              setGraphic(grid);
 		            }
 		        }
 		    };
