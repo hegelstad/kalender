@@ -95,6 +95,7 @@ public class NotificationCell extends ListCell<Notification> {
 //									}
 //								}
 
+
 								s = new Requester();
 								PersonInfo.personInfo.setNotifications(s.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup()));
 								s.closeConnection();
