@@ -1,5 +1,7 @@
 package controllers;
 
+import java.io.EOFException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import models.Calendar;
@@ -9,7 +11,6 @@ import models.Person;
 import models.PersonInfo;
 import models.UserGroup;
 import socket.Requester;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,10 +25,12 @@ public class LoginController {
     @FXML private PasswordField password;
     @FXML private Button loginButton;
     @FXML private Label status;
+    private static LoginController controller;
     Requester connection;
     Person p;
 
     @FXML private void initialize(){
+    	controller = this;
         Rectangle shape = new Rectangle(1, 1);
         username.setShape(shape);
         password.setShape(shape);
@@ -66,6 +69,10 @@ public class LoginController {
     public void setStatus(String s) {
         status.setText(s);
     }
+    
+    public static LoginController getLoginController(){
+    	return controller;
+    }
 
     private boolean authenticateUser(){
 
@@ -75,7 +82,7 @@ public class LoginController {
             Person salt = connection.getSalt(new Person(username.getText(), null, null));
             p = new Person(username.getText(), password.getText(), salt.getSalt());
         } catch(NullPointerException e) {
-            setStatus("Username doesn't exist.");
+            //setStatus("Username doesn't exist.");
             return false;
         }
         connection.closeConnection();
