@@ -64,7 +64,7 @@ public class WeekController {
 				/* Tegner ny event, den vil blir erstatted av den ferdigredigerte hendelsen eller 
 				 * fjernet ved omtegning av eventer som blir gjort ved � g� ut av eventEdit*/
 				/* TODO: draw new clickevent */
-	
+				
 				openEvent(clickEvent);
 			}});
 		System.out.println("WeekController inited");
@@ -116,15 +116,21 @@ public class WeekController {
 				EventDrawing currentDrawing = dayOfDrawings.get(k);
 
 				//G� oppover til det ikke overlapper og sett indent
+				System.out.println(currentEvent.getName());
 
 				for(int i=k-1; i>-1; i--){
-
+					if(currentEvent.getName().equals("TDT shots")){
+						System.out.println("*-------------*");
+						System.out.println(currentEvent.getFrom());
+						System.out.println(dayOfDrawings.get(i).getEvent().getName());
+						System.out.println(dayOfDrawings.get(i).getEvent().getTo());
+					}
 					if(currentEvent.getFrom().isBefore(dayOfDrawings.get(i).getEvent().getTo())){
 						indent += 1;
-						//System.out.println(currentEvent.getName()+ " har oppoverlapp med " + events.get(i).getName());
+						System.out.println(currentEvent.getName()+ " har oppoverlapp med " + currentEvent.getName());
 					}
 					else{
-						break;
+						
 					}
 				}
 
@@ -133,7 +139,7 @@ public class WeekController {
 				for(int i=k+1; i<dayOfDrawings.size(); i++){
 					if(currentEvent.getTo().isAfter(dayOfDrawings.get(i).getEvent().getFrom())){
 						reverseIndent += 1;
-						//System.out.println(currentEvent.getName()+ " har nedoverlapp");
+						System.out.println(currentEvent.getName()+ " har nedoverlapp");
 						/* Om flere eventer slutter sist og samtidig */
 						if(i==dayOfDrawings.size()-1){
 							currentDrawing.indent = indent;

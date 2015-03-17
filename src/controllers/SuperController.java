@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import models.Calendar;
 import models.PersonInfo;
 import models.UserGroup;
+import models.Event;
 import socket.Requester;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -48,6 +49,7 @@ public class SuperController {
 							colorID = colorID%10;
 						}
 						cal.setColorID(colorID);
+						cal.setEvents(new ArrayList<Event>());
 						PersonInfo.getPersonInfo().addCalendar(cal);
 					} catch (Exception e){
 						System.out.println("Something failed while trying to create calendar!");
