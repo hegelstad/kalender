@@ -56,9 +56,7 @@ public class EventDrawing {
 	}
 
 	public void toFront() {
-		eventRectangle.toFront();
-		eventName.toFront();
-		statusCircle.toFront();
+		pane.toFront();
 	}
 
 	private void setMouseListeners() {
@@ -155,8 +153,10 @@ public class EventDrawing {
 		// System.out.println("Drawing : "+event.getName() + " id:" +
 		// event.getEventID() + " with colorID : "
 		// +event.getCal().getColorID());
-		Rectangle eventRec = new Rectangle(fullEventWidth - 3
-				- (indentMargin * reverseIndent), getEventHeight(event));
+		pane.setPrefHeight(getEventHeight(event));
+		pane.setMaxWidth(fullEventWidth - 3
+				- (indentMargin * reverseIndent));
+		Rectangle eventRec = new Rectangle(pane.getMaxWidth(), getEventHeight(event));
 		styleRectangle(eventRec, event);
 		Text eventName;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
