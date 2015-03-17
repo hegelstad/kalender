@@ -260,6 +260,42 @@ public class WindowController {
 		}
 	}
 	
+	public static void goToUserGroupView(){
+		 try {
+         	Stage userGroupView = new Stage();
+             Parent page;
+             FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/UserGroupView.fxml"), null, new JavaFXBuilderFactory());
+             page = (Parent) loader.load();
+//             dialogWindow.setAlwaysOnTop(true);
+             Scene scene = new Scene(page);
+//             if(osIsOSX){
+//             	final Menu menu1 = new Menu("Calify");
+//             	MenuBar menuBar = new MenuBar();
+//             	MenuItem menu12 = new MenuItem("Om Calify");
+//             	menu12.setOnAction(new EventHandler<ActionEvent>() {
+//             		@Override public void handle(ActionEvent e) {
+//             			openAboutScreen();
+//             		}
+//             	});
+//             	menu1.getItems().add(menu12);
+//             	menuBar.getMenus().add(menu1);
+//             	AnchorPane root = (AnchorPane) scene.lookup("#UserDialogWindow");
+//             	root.getChildren().add(menuBar);
+//             	menuBar.setUseSystemMenuBar(true);
+//             }
+             scene.getStylesheets().add("/css/main.css");
+             userGroupView.setScene(scene);
+             userGroupView.centerOnScreen();
+             userGroupView.setResizable(false);
+             userGroupView.show();
+             stages.add(userGroupView);
+         } catch(Exception e) {
+            e.printStackTrace();
+            System.out.println("Couldnt load UserGroupView.fxml");
+         }
+     }
+	
+	
 	public static void closeStages(){
 		for (Stage s: stages){
 			s.close();

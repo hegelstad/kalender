@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+
 import models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import models.CalendarCell;
@@ -22,9 +24,14 @@ public class SidebarController {
 
 	@FXML private ListView<Calendar> calendarList;
 	@FXML private Pane adminPaneButton;
+	@FXML private Pane userGroupPaneButton;
 	@FXML private TextField searchCalendar;
 	@FXML private ListView<Calendar> subscribeCalendarList;
+	@FXML private SVGPath centerFigur;
+	@FXML private SVGPath leftFigur;
+	@FXML private SVGPath rightFigur;
 	private static ArrayList<Label> labels = new ArrayList<Label>();
+	
 
 	public ObservableList<Calendar> calendars = FXCollections.observableArrayList(new ArrayList<Calendar>());
 
@@ -40,7 +47,21 @@ public class SidebarController {
 					WindowController.goToManageUsersView();
 				}
 			});
+			userGroupPaneButton.setOnMouseClicked((mouseEvent) -> {
+				WindowController.goToUserGroupView();
+				System.out.println("YEAH");
+			});
 		} else {
+			userGroupPaneButton.setOnMouseClicked((mouseEvent) -> {
+				WindowController.goToUserGroupView();
+				System.out.println("YEAH");
+			});
+			userGroupPaneButton.setPrefWidth(160);
+			userGroupPaneButton.setMinWidth(160);
+			userGroupPaneButton.setLayoutX(20);
+			centerFigur.setLayoutX(-624);
+			leftFigur.setLayoutX(-642);
+			rightFigur.setLayoutX(-607);
 			adminPaneButton.getChildren().clear();
 			adminPaneButton.setStyle("-fx-background-color: #26272B");
 		}
