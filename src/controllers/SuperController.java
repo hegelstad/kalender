@@ -76,7 +76,9 @@ public class SuperController {
 			System.out.println("Something failed while trying to create calendar!");
 		}
 	}
-	}
+}
+
+		
 	
 	@FXML
 	public void keyPressed(KeyEvent key){
