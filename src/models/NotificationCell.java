@@ -87,7 +87,14 @@ public class NotificationCell extends ListCell<Notification> {
 								s.updateAttends(note.getEvent(), at);
 								s.closeConnection();
 								System.out.println("Notification flagged as read & accepted");
-								
+//								ArrayList<Calendar> cals = PersonInfo.getPersonInfo().getAllCalendars();
+//								for(Calendar cal: cals){
+//									if(cal.getUserGroups().get(0).getName().equals(PersonInfo.getPersonInfo().getPersonalUserGroup().getName())){
+//										cal.getEvents().add(note.getEvent());
+//										note.getEvent().setCal(cal);
+//									}
+//								}
+
 								s = new Requester();
 								PersonInfo.personInfo.setNotifications(s.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup()));
 								s.closeConnection();
@@ -109,6 +116,7 @@ public class NotificationCell extends ListCell<Notification> {
 								list.remove(note);
 								setGraphic(null);
 								HeaderController.getController().updateNotificationButton(PersonInfo.getPersonInfo().getNotifications().size());
+//								HeaderController.getController().drawEventsForWeek();
 								//notifications.remove(n);
 								//notifications =
 								//System.out.println(notifications);
