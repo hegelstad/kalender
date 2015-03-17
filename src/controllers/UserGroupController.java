@@ -46,6 +46,7 @@ public class UserGroupController {
 		r.closeConnection();
 		/* Get all non private user groups */
 		ArrayList<UserGroup> allUserGroups = new ArrayList<UserGroup>();
+
 		ArrayList<UserGroup> userGroups = new ArrayList<UserGroup>();
 		for(UserGroup ug : allUserGroups){
 			if(!ug.isPrivate()){
@@ -98,6 +99,12 @@ public class UserGroupController {
 	@FXML
 	private void save(){
 		
+<<<<<<< HEAD
+=======
+		for(Person person : ug.getUsers()){
+			
+		}
+>>>>>>> Working on usergroup
 	}
 	
 	@FXML
