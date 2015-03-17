@@ -37,7 +37,18 @@ public class SidebarController {
 		for(Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
 			System.out.println(cal);
 		}
-	}
+		   if (PersonInfo.getPersonInfo().getPerson().getFlag().equals("a")) {
+			              adminPaneButton.setOnMouseClicked((mouseEvent) -> {
+			                   {
+			                       WindowController.goToManageUsersView();
+			                    }
+			   });
+			           } else {
+			               adminPaneButton.getChildren().clear();
+			               adminPaneButton.setStyle("-fx-background-color: #26272B");
+			            }
+			   	}
+	
 	
 	@FXML
     public void openNewCalendar() {
@@ -47,6 +58,9 @@ public class SidebarController {
         if (newCalendarWindow.isVisible()){
             newCalendarWindow.setVisible(false);
             newCalendarTextField.setText("");
+            if (SuperController.toolTip != null){
+            	SuperController.toolTip.hide();
+            }
         } else {
             newCalendarWindow.setVisible(true);
             newCalendarTextField.requestFocus();
