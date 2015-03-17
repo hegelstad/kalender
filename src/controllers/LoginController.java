@@ -91,7 +91,8 @@ public class LoginController {
         try {
             Person p2  = connection.authenticate(p);
             if (p2 == null){
-                setStatus("Authentication failed.");
+                setStatus("Incorrect username or password.");
+                return false;
             }
             this.p=p2;
         } catch (Exception e) {
@@ -140,20 +141,23 @@ public class LoginController {
         connection.closeConnection();
 
         int i = 0;
-        for (Calendar c : cal){
-        	if (i < 10){
-        		c.setColorID(i++);
-        	}else{
-        		int a = i%10;
-        		c.setColorID(a);
-        		i++;
-        	}
-            if (c.getName().equals(ug.getName())){
-
-                personInfo.setSelectedCalendar(c);
-            }
-        }
-
+        try{
+	        for (Calendar c : cal){
+	        	if (i < 10){
+	        		c.setColorID(i++);
+	        	}else{
+	        		int a = i%10;
+	        		c.setColorID(a);
+	        		i++;
+	        	}
+	            if (c.getName().equals(ug.getName())){
+	
+	                personInfo.setSelectedCalendar(c);
+	            }
+	        }
+        }catch(NullPointerException e){
+	    	System.out.println("No calendars found.");
+	    }
         PersonInfo.setPersonInfo(personInfo);
         PersonInfo.getPersonInfo().setUp();
 
