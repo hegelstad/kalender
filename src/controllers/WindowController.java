@@ -330,4 +330,9 @@ public class WindowController {
 			osIsOSX = false;
 			}
 	}
+	
+	public static void warning(String message){
+		System.out.println("*---------------------*");
+		System.out.println(message);
+	}
 }
