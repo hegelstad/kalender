@@ -569,6 +569,7 @@ public class EventController {
 		requester.updateLocation(event, roomLocation.getSelectionModel().getSelectedItem());
 		requester.closeConnection();
 		
+		HeaderController.getController().drawEventsForWeek();
 		WindowController.setEventWindowIsOpen(false);
 		stage.close();
 	}
