@@ -96,7 +96,6 @@ public class PersonInfo {
 	
 	public void setCalendarsInUse(ArrayList<Calendar> calendarsInUse){
 		this.calendarsInUse = calendarsInUse;
-		Integer[] tall = {1,1,1,1};
 	}
 	
 	public Calendar getSelectedCalendar() {
@@ -123,6 +122,8 @@ public class PersonInfo {
 			return null;
 		}
 		for(Calendar cal: calendarsInUse){
+			System.out.println("*--Adding events for calendar --*");
+			System.out.println(cal.getName());
 			for(Event event : cal.getEvents()){
 				if(event.getFrom().get(woy)==weekNumber){
 					events.add(event);
@@ -161,8 +162,8 @@ public class PersonInfo {
 	}
 	
 	public void addCalendar(Calendar cal){
-		allCalendars.add(cal);
-		calendarsInUse.add(cal);
+		//allCalendars.add(cal);
+		//calendarsInUse.add(cal);
 		SidebarController.getController().getCalendars().add(cal);
 	}
 	
