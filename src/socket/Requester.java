@@ -328,6 +328,28 @@ public class Requester {
 		return calendars;
 	}
 
+	public ArrayList<Calendar> getCalendars(Person p) {
+		Command cmd = new Command("getCalendars-person");
+		ArrayList<Calendar> calendars = null;
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(
+					con.getOutputStream());
+			oos.writeObject(cmd);
+			oos.writeObject(p);
+			InputStream is = con.getInputStream();
+			ObjectInputStream os = new ObjectInputStream(is);
+			Object o = os.readObject();
+			calendars = (ArrayList<Calendar>) o;
+		} catch (EOFException e) {
+		} catch (IOException e) {
+			System.out.println(e);
+		} catch (ClassCastException e) {
+			System.out.println(e);
+		} catch (ClassNotFoundException e) {
+			System.out.println(e);
+		}
+		return calendars;
+	}
 	/**
 	 * Tar inn en usergroup og henter alle kalendere usergroupen tilhører.
 	 * 

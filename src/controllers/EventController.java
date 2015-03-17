@@ -225,7 +225,6 @@ public class EventController {
 			requester.closeConnection();
 			if(ev.getEventID() != 0){
 				selectedCalendar.getEvents().add(ev);
-				System.out.println("*-----------*");
 				for(Event event : selectedCalendar.getEvents()){
 					System.out.println(event.getName());					
 				}

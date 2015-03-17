@@ -122,8 +122,7 @@ public class PersonInfo {
 			return null;
 		}
 		for(Calendar cal: calendarsInUse){
-			System.out.println("*--Adding events for calendar --*");
-			System.out.println(cal.getName());
+			System.out.println("Adding events for " + cal.getName());
 			for(Event event : cal.getEvents()){
 				if(event.getFrom().get(woy)==weekNumber){
 					events.add(event);
