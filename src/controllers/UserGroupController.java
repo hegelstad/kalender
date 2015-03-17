@@ -99,12 +99,6 @@ public class UserGroupController {
 	@FXML
 	private void save(){
 		
-<<<<<<< HEAD
-=======
-		for(Person person : ug.getUsers()){
-			
-		}
->>>>>>> Working on usergroup
 	}
 	
 	@FXML
