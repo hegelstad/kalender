@@ -55,52 +55,30 @@ public class SuperController {
 		{	if (toolTip != null){
 			toolTip.hide();
 		}
-			Requester requester = new Requester();
-			ArrayList<UserGroup> ug = new ArrayList<UserGroup>();
-			ug.add(PersonInfo.getPersonInfo().getPersonalUserGroup());
-			try{
-				Calendar cal = requester.createCalendar(new Calendar(0, newCalendarTextField.getText(), ug));
-				if (cal.getCalendarID() != 0){
-					newCalendarWindow.setVisible(false);
-					newCalendarTextField.setText("");
-				}
-
-				else
-				{
-					Requester requester = new Requester();
-					ArrayList<UserGroup> ug = new ArrayList<UserGroup>();
-					ug.add(PersonInfo.getPersonInfo().getPersonalUserGroup());
-					try{
-						Calendar cal = requester.createCalendar(new Calendar(0, newCalendarTextField.getText(), ug));
-						if (cal.getCalendarID() != 0){
-							newCalendarWindow.setVisible(false);
-							newCalendarTextField.setText("");
-						}
-						requester.closeConnection();
-						int colorID = SidebarController.getController().getCalendars().size()+1;
-						if(colorID>9){
-							colorID = colorID%10;
-						}
-						cal.setColorID(colorID);
-						cal.setEvents(new ArrayList<Event>());
-						PersonInfo.getPersonInfo().addCalendar(cal);
-					} catch (Exception e){
-						System.out.println("Something failed while trying to create calendar!");
-					}
-				requester.closeConnection();
-				int colorID = SidebarController.getController().getCalendars().size()+1;
-				if(colorID>9){
-					colorID = colorID%10;
-
-				}
-				cal.setColorID(colorID);
-				PersonInfo.getPersonInfo().addCalendar(cal);
-			}} catch (Exception e){
-				System.out.println("Something failed while trying to create calendar!");
+		Requester requester = new Requester();
+		ArrayList<UserGroup> ug = new ArrayList<UserGroup>();
+		ug.add(PersonInfo.getPersonInfo().getPersonalUserGroup());
+		try{
+			Calendar cal = requester.createCalendar(new Calendar(0, newCalendarTextField.getText(), ug));
+			if (cal.getCalendarID() != 0){
+				newCalendarWindow.setVisible(false);
+				newCalendarTextField.setText("");
 			}
+			requester.closeConnection();
+			int colorID = SidebarController.getController().getCalendars().size()+1;
+			if(colorID>9){
+				colorID = colorID%10;
+			}
+			cal.setColorID(colorID);
+			cal.setEvents(new ArrayList<Event>());
+			PersonInfo.getPersonInfo().addCalendar(cal);
+		} catch (Exception e){
+			System.out.println("Something failed while trying to create calendar!");
 		}
-		
 	}
+}
+
+		
 	
 	@FXML
 	public void keyPressed(KeyEvent key){
