@@ -44,7 +44,7 @@ public class HeaderController {
     LocalDate date = LocalDate.now();
     ArrayList<Label> weekday_labels = new ArrayList<>();
     int weekNumber;
-    Timer timer;
+    Timer timer = null;
     Scheduler scheduler;
 
     @FXML
