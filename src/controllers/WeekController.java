@@ -119,12 +119,7 @@ public class WeekController {
 				System.out.println(currentEvent.getName());
 
 				for(int i=k-1; i>-1; i--){
-					if(currentEvent.getName().equals("TDT shots")){
-						System.out.println("*-------------*");
-						System.out.println(currentEvent.getFrom());
-						System.out.println(dayOfDrawings.get(i).getEvent().getName());
-						System.out.println(dayOfDrawings.get(i).getEvent().getTo());
-					}
+					
 					if(currentEvent.getFrom().isBefore(dayOfDrawings.get(i).getEvent().getTo())){
 						indent += 1;
 						System.out.println(currentEvent.getName()+ " har oppoverlapp med " + currentEvent.getName());
