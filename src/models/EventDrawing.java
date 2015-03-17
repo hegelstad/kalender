@@ -159,7 +159,7 @@ public class EventDrawing {
 		Text eventName;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 		if(eventRec.getHeight() > 30) {
-			eventName = new Text(event.getName() + "\n" + event.getFrom().format(formatter));
+			eventName = new Text(event.getFrom().format(formatter) + "\n" + event.getName());
 		}
 		 else {
 			eventName = new Text(event.getName());
