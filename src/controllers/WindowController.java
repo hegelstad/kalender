@@ -85,7 +85,9 @@ public class WindowController {
 		thisStage.getScene().setRoot(page);
 		thisStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
-                HeaderController.getController().timer.cancel();
+            	if (HeaderController.getController() != null && HeaderController.getController().timer != null){
+            		HeaderController.getController().timer.cancel();
+            	}
                 closeStages();
                 thisStage.close();
             }
