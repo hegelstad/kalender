@@ -332,7 +332,7 @@ public class WindowController {
 	}
 	
 	public static void warning(String message){
-		System.out.println("*---------------------*");
 		System.out.println(message);
+		LoginController.getLoginController().setStatus(message);
 	}
 }
