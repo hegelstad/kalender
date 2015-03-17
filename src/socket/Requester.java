@@ -1,6 +1,7 @@
 package socket;
 
 import controllers.LoginController;
+import controllers.WindowController;
 import models.Attendant;
 import models.Calendar;
 import models.Event;
@@ -27,7 +28,7 @@ public class Requester {
      * IP TIL SERVER MÅ SETTES HER!
      */
     public Requester () {
-    	String host = "localhost";
+    	String host = "78.91.19.220";
         /** Define a port */
         int port = 25025;
 
@@ -37,10 +38,12 @@ public class Requester {
             /** Establish a socket connection */
             con = new Socket(address, port);
             con.setSoTimeout(6500);
+        } catch(ConnectException e){
+        	WindowController.warning("No internet connection...");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
     
