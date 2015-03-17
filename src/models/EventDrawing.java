@@ -172,7 +172,7 @@ public class EventDrawing {
 		styleText(eventName);
 		Circle statusCircle = new Circle(4);
 		statusCircle.setLayoutX(eventRec.getWidth() - 7);
-		statusCircle.setLayoutY(7);
+		statusCircle.setLayoutY(7); 
 
 		switch (event.getAttends()) {
 		case 0:
