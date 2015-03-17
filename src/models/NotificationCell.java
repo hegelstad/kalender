@@ -39,9 +39,7 @@ public class NotificationCell extends ListCell<Notification> {
 	}
 	
 	public void init(){
-		System.out.println("----------------------");
 		int is_Invite = note.isInvite();
-		System.out.println(is_Invite);
 		Pane content = new Pane();
 		Text t = new Text();
 		t.setWrappingWidth(250.00);

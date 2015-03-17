@@ -289,7 +289,7 @@ public class EventDrawing {
 		double minDiff = (to.getHour() - from.getHour()) * 60
 				+ (to.getMinute() - from.getMinute());
 		double height = (minDiff / 60.0) * 66;
-		System.out.println("HEIGHT :    " + height);
+		//System.out.println("HEIGHT :    " + height);
 		return height;
 	}
 

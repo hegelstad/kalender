@@ -5,6 +5,35 @@
 .TextField{
 
 }
+.scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+    -fx-background-radius: 0em;
+    -fx-background-insets: 0, 0, 0;
+    }
+   
+.scroll-bar:horizontal .thumb{
+    -fx-background-color:derive(black,90%);
+    -fx-background-insets: 0, 0, 0;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:vertical .track{
+	-fx-background-radius: 0em;
+    -fx-border-radius:0em;
+    fx-background-color: transparent;
+    -fx-border-color:derive(gray,80%);
+}
+
+.scroll-bar:horizontal:hover .track ,
+.scroll-bar:horizontal:pressed .track ,
+.scroll-bar:vertical:hover .track,
+.scroll-bar:vertical:pressed .track{
+     -fx-background-color: derive(#434343,20%);
+     -fx-opacity: 0.2;
+     -fx-background-radius: 0em;
+     
+     }
+     
 
 .button {
 -fx-font-size: 13.0px;

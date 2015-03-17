@@ -16,16 +16,25 @@ import models.Room;
 import models.UserGroup;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.scene.shape.SVGPath;
+import javafx.geometry.Pos;
 
 public class EventController {
 	
@@ -269,29 +278,24 @@ public class EventController {
 		            } else {
 		                setText(null);
 		                GridPane grid = new GridPane();
-		                grid.getColumnConstraints().add(new ColumnConstraints(215));
+		                grid.getColumnConstraints().add(new ColumnConstraints(195));
 		                grid.setHgap(10);
 		                
 		                Text text = new Text(ug.getName());
 		                grid.add(text, 0, 0);
 		                Circle statusCircle = new Circle(4);
-		                System.out.println("WE WILL NOW CHECK ATTENDANTS");
 		                if (attendants != null){
-		                	System.out.println("ATTENDANTS NOT NULL");
 		                	statusCircle.setFill(Color.GOLDENROD);
 		                	for (Attendant a : attendants) {
 		                		if (a.getUserGroupID() == ug.getUserGroupID()) {
 			                		if (a.getStatus() == 1){
 			                			statusCircle.setFill(Color.DARKGREEN);
-			                			System.out.println("COLOR : GREEN");
 			                			break;
 			                		} else if (a.getStatus() == 2) {
 			                			statusCircle.setFill(Color.BROWN);
-			                			System.out.println("COLOR : RED");
 			                			break;
 			                		} else {
 			                			statusCircle.setFill(Color.GOLDENROD);
-			                			System.out.println("COLOR : YELLOW");
 			                			break;
 			                		}
 		                		}
@@ -304,6 +308,58 @@ public class EventController {
 	                		}
 		                }
 		                grid.add(statusCircle, 1, 0);
+		                if (ug.getUserGroupID() == PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID()){
+		                	GridPane pane = new GridPane();
+		                	SVGPath path = new SVGPath();
+		                	path.setContent("M0,0 L5,5 L10,0 L0,0");
+		                	pane.add(path, 0, 0);
+		                	grid.add(pane, 2, 0);
+		                	pane.setAlignment(Pos.CENTER);
+		                	pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		            		    @Override
+		            		    public void handle(MouseEvent mouseEvent) {
+		            		        if(mouseEvent.getButton() == MouseButton.PRIMARY){
+		            		        	final ContextMenu contextMenu = new ContextMenu();
+		            		        	MenuItem attend = new MenuItem("Attend");
+		            		        	MenuItem dontAttend = new MenuItem("Don't attend");
+		            		        	MenuItem noAnswer = new MenuItem("No answer");
+		            		        	attend.setOnAction(new EventHandler<ActionEvent>() {
+		            		        		@Override public void handle(ActionEvent e) {
+		            		        			Requester requester = new Requester();
+		            		        			requester.updateAttends(calendarEvent, new Attendant(ug.getUserGroupID(),ug.getName(),1));
+		            		        			requester.closeConnection();
+		            		        			statusCircle.setFill(Color.DARKGREEN);
+		            		        			calendarEvent.setAttends(1);
+		            		        			HeaderController.getController().drawEventsForWeek();
+		            		        		}
+		            		        	});
+		            		        	dontAttend.setOnAction(new EventHandler<ActionEvent>() {
+		            		        		@Override public void handle(ActionEvent e) {
+		            		        			Requester requester = new Requester();
+		            		        			requester.updateAttends(calendarEvent, new Attendant(ug.getUserGroupID(),ug.getName(),2));
+		            		        			requester.closeConnection();
+		            		        			statusCircle.setFill(Color.BROWN);
+		            		        			calendarEvent.setAttends(2);
+		            		        			HeaderController.getController().drawEventsForWeek();
+		            		        		}
+		            		        	});
+		            		        	noAnswer.setOnAction(new EventHandler<ActionEvent>() {
+		            		        		@Override public void handle(ActionEvent e) {
+		            		        			Requester requester = new Requester();
+		            		        			requester.updateAttends(calendarEvent, new Attendant(ug.getUserGroupID(),ug.getName(),0));
+		            		        			requester.closeConnection();
+		            		        			statusCircle.setFill(Color.GOLDENROD);
+		            		        			calendarEvent.setAttends(0);
+		            		        			HeaderController.getController().drawEventsForWeek();
+		            		        		}
+		            		        	});
+		            		        	contextMenu.getItems().addAll(attend, dontAttend, noAnswer);
+		            		        	setContextMenu(contextMenu);
+		            		        	contextMenu.show(stage, mouseEvent.getScreenX(), mouseEvent.getScreenY());
+		            		        }
+		            		    }
+		            		});
+		                }
 		                setGraphic(grid);
 		            }
 		        }
