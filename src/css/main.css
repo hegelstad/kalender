@@ -18,7 +18,10 @@ EVENT/CALENDAR
 #calendarList .scroll-bar:horizontal {
 	visibility: hidden;
 }
-   
+ 
+#userGroupCalendar .list-cell{
+	-fx-text-fill: black;
+}
 
 #weekGrid {
     -fx-background-color: #4c4f51;

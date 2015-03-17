@@ -7,8 +7,13 @@ import models.PersonInfo;
 import models.UserGroup;
 import models.Event;
 import socket.Requester;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
@@ -16,6 +21,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class SuperController {
 	public static Tooltip toolTip=null;
@@ -24,7 +30,8 @@ public class SuperController {
 	@FXML private Rectangle newCalendarRectangle;
 	@FXML private Button newCalendarButton;
 	@FXML private Pane addNewCalendarPaneButton;
-	
+	@FXML private ComboBox<UserGroup> userGroupCalendar;
+	ObservableList<UserGroup> userGroups;
 	
 	@FXML
 	private void initialize(){
@@ -40,7 +47,29 @@ public class SuperController {
 			createCalendar(newCalendarTextField.getText());
 				
 		});
-		toolTip=new Tooltip("Calendarname has to be atleast one characters");
+		
+		userGroups = FXCollections.observableArrayList(PersonInfo.getPersonInfo().getUsergroups());
+		userGroupCalendar.setItems(userGroups);
+		userGroupCalendar.setCellFactory(new Callback<ListView<UserGroup>, ListCell<UserGroup>>(){
+
+			@Override
+			public ListCell<UserGroup> call(ListView<UserGroup> param) {	
+			    return new ListCell<UserGroup>() {
+			        @Override
+			        protected void updateItem(UserGroup ug, boolean empty) {
+			            super.updateItem(ug, empty);
+	
+			            if (ug == null || empty) {
+			                setText(null);
+			            } else {
+			                setText(ug.getName()); 
+			            }
+			        }
+			    };
+			}
+		});
+		userGroupCalendar.getSelectionModel().select(PersonInfo.getPersonInfo().getPersonalUserGroup());
+		toolTip=new Tooltip("Calendar name has to be at least one character");
 		toolTip.setStyle("-fx-background-color: #187E96;");
 		
 	}
