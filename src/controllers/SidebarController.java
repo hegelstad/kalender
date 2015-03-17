@@ -30,6 +30,7 @@ public class SidebarController {
 	@FXML private SVGPath centerFigur;
 	@FXML private SVGPath leftFigur;
 	@FXML private SVGPath rightFigur;
+	@FXML private Label noMatchingResults;
 	private static ArrayList<Label> labels = new ArrayList<Label>();
 	
 
@@ -152,10 +153,18 @@ public class SidebarController {
 			//Fjerner alle søkeresultater om tekstfeltet er tomt
 			if(searchCalendar.getText().length() == 0){
 				displaySubscribedCalendars();
+				noMatchingResults.setVisible(false);
 			} else {
 				//Setter innholder av listviewt til resultatet vi har filtrert ut
 				filteredData = FXCollections.observableArrayList(filteredCalendars);
-				subscribeCalendarList.setItems(filteredData);
+				if(filteredData.size()==0){
+					noMatchingResults.setVisible(true);
+					subscribeCalendarList.setItems(filteredData);	
+				}
+				else{
+					noMatchingResults.setVisible(false);
+					subscribeCalendarList.setItems(filteredData);					
+				}
 			}
 		});
 	}
