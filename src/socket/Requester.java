@@ -992,6 +992,28 @@ public class Requester {
 		}
 		return attendants;
 	}
+	
+	public ArrayList<Person> getAllPersons() {
+		Command cmd = new Command("getAllPersons");
+		ArrayList<Person> persons = null;
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(
+					con.getOutputStream());
+			oos.writeObject(cmd);
+			InputStream is = con.getInputStream();
+			ObjectInputStream os = new ObjectInputStream(is);
+			Object o = os.readObject();
+			persons = (ArrayList<Person>) o;
+		} catch (EOFException e) {
+		} catch (IOException e) {
+			System.out.println(e);
+		} catch (ClassCastException e) {
+			System.out.println(e);
+		} catch (ClassNotFoundException e) {
+			System.out.println(e);
+		}
+		return persons;
+	}
 
 	/**
 	 * Metode for å lukke connection med server.
