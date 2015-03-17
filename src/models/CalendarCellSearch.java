@@ -80,7 +80,7 @@ public class CalendarCellSearch extends ListCell<Calendar> {
                 public void handle(MouseEvent mouseEvent) {
                     if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
                         final ContextMenu contextMenu = new ContextMenu();
-                        MenuItem item = new MenuItem("Delete");
+                        MenuItem item = new MenuItem("Unsubscribe");
                         item.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent e) {
