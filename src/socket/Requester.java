@@ -40,8 +40,7 @@ public class Requester {
 			/** Establish a socket connection */
 			con = new Socket(address, port);
 			con.setSoTimeout(5000);
-		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
+		} catch (EOFException e) {	
 		} catch (ConnectException e) {
 			WindowController.warning("Can't connect to server.");
 			LoginController.getLoginController().setStatus(
@@ -75,7 +74,6 @@ public class Requester {
 			Object o = os.readObject();
 			userGroups = (ArrayList<UserGroup>) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -106,7 +104,6 @@ public class Requester {
 			Object o = os.readObject();
 			persons = (ArrayList<Person>) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -137,7 +134,6 @@ public class Requester {
 			Object o = os.readObject();
 			userGroups = (ArrayList<UserGroup>) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -161,7 +157,6 @@ public class Requester {
 			oos.writeObject(cmd);
 			oos.writeObject(userGroups);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -187,7 +182,6 @@ public class Requester {
 			Object o = os.readObject();
 			userGroup = (UserGroup) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -211,7 +205,6 @@ public class Requester {
 			oos.writeObject(cmd);
 			oos.writeObject(ug);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -236,7 +229,6 @@ public class Requester {
 			Object o = os.readObject();
 			userGroups = (ArrayList<UserGroup>) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -266,8 +258,6 @@ public class Requester {
 			Object o = os.readObject();
 			userGroup = (UserGroup) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -297,8 +287,7 @@ public class Requester {
 			Object o = os.readObject();
 			salt = (Person) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
+			LoginController.getLoginController().setStatus("Incorrect username or password");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -329,8 +318,6 @@ public class Requester {
 			Object o = os.readObject();
 			calendars = (ArrayList<Calendar>) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -359,8 +346,6 @@ public class Requester {
 			Object o = os.readObject();
 			calendars = (ArrayList<Calendar>) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -388,8 +373,6 @@ public class Requester {
 			oos.writeObject(cal);
 			oos.writeObject(ug);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -412,8 +395,6 @@ public class Requester {
 			oos.writeObject(cal);
 			oos.writeObject(ug);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -441,8 +422,6 @@ public class Requester {
 			Object o = os.readObject();
 			calendar = (Calendar) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -466,8 +445,6 @@ public class Requester {
 			oos.writeObject(cmd);
 			oos.writeObject(cal);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -497,8 +474,6 @@ public class Requester {
 			Object o = os.readObject();
 			events = (ArrayList<Event>) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -522,8 +497,6 @@ public class Requester {
 			Object o = os.readObject();
 			events = (ArrayList<Event>) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -553,8 +526,6 @@ public class Requester {
 			Object o = os.readObject();
 			ev = (Event) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -580,8 +551,6 @@ public class Requester {
 			oos.writeObject(event);
 			oos.writeObject(sender);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (ClassCastException e) {
 			System.out.println(e);
 		} catch (IOException e) {
@@ -603,8 +572,6 @@ public class Requester {
 			oos.writeObject(cmd);
 			oos.writeObject(event);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -633,8 +600,6 @@ public class Requester {
 			Object o = os.readObject();
 			notification = (ArrayList<Notification>) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -659,8 +624,6 @@ public class Requester {
 			oos.writeObject(cmd);
 			oos.writeObject(n);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -684,8 +647,6 @@ public class Requester {
 			oos.writeObject(n);
 			oos.writeObject(ug);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -714,10 +675,7 @@ public class Requester {
 			Object o = os.readObject();
 			person = (Person) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
-			LoginController.getLoginController().setStatus(
-					"Incorrect username or password.");
+			LoginController.getLoginController().setStatus("Incorrect username or password.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -743,8 +701,6 @@ public class Requester {
 			oos.writeObject(cmd);
 			oos.writeObject(p);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -765,8 +721,6 @@ public class Requester {
 			oos.writeObject(cmd);
 			oos.writeObject(p);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -793,8 +747,6 @@ public class Requester {
 			Object o = os.readObject();
 			person = (Person) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -823,8 +775,6 @@ public class Requester {
 			Object o = os.readObject();
 			rooms = (ArrayList<Room>) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -858,8 +808,6 @@ public class Requester {
 				System.out.println("No rooms found.");
 			}
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -887,8 +835,6 @@ public class Requester {
 			oos.writeObject(event);
 			oos.writeObject(room);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -911,8 +857,6 @@ public class Requester {
 			oos.writeObject(event);
 			oos.writeObject(room);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -943,8 +887,6 @@ public class Requester {
 				System.out.println("No room yet.");
 			}
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -971,8 +913,6 @@ public class Requester {
 			oos.writeObject(event);
 			oos.writeObject(attendant);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -995,8 +935,6 @@ public class Requester {
 			oos.writeObject(event);
 			oos.writeObject(userGroup);
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
@@ -1023,8 +961,6 @@ public class Requester {
 			Object o = os.readObject();
 			attendants = (ArrayList<Attendant>) o;
 		} catch (EOFException e) {
-			WindowController.warning("Unexpected object returned.");
-			System.out.println("Unexpected object returned.");
 		} catch (IOException e) {
 			System.out.println(e);
 		} catch (ClassCastException e) {
