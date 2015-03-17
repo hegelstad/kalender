@@ -11,12 +11,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -320,6 +322,44 @@ public class WindowController {
 			
 		}
 	}
+
+	public static void goToDialogWindows(String messageToUser){
+            try {
+            	Stage dialogWindow = new Stage();
+                Parent page;
+                FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/UserDialogView.fxml"), null, new JavaFXBuilderFactory());
+                page = (Parent) loader.load();
+//                dialogWindow.setAlwaysOnTop(true);
+                Scene scene = new Scene(page);
+                if(osIsOSX){
+                	final Menu menu1 = new Menu("Calify");
+                	MenuBar menuBar = new MenuBar();
+                	MenuItem menu12 = new MenuItem("Om Calify");
+                	menu12.setOnAction(new EventHandler<ActionEvent>() {
+                		@Override public void handle(ActionEvent e) {
+                			openAboutScreen();
+                		}
+                	});
+                	menu1.getItems().add(menu12);
+                	menuBar.getMenus().add(menu1);
+                	AnchorPane root = (AnchorPane) scene.lookup("#UserDialogWindow");
+                	root.getChildren().add(menuBar);
+                	menuBar.setUseSystemMenuBar(true);
+                }
+                scene.getStylesheets().add("/css/UserDialogWindow.css");
+                Label messageToUserField = (Label) scene.lookup("#messageToUser");
+                messageToUserField.setText(messageToUser);
+                dialogWindow.initModality(Modality.APPLICATION_MODAL);
+                dialogWindow.setScene(scene);
+                dialogWindow.centerOnScreen();
+                dialogWindow.setResizable(false);
+                dialogWindow.show();
+                stages.add(dialogWindow);
+            } catch(Exception e) {
+               e.printStackTrace();
+               System.out.println("Couldnt load UserDialogView.fxml");
+            }
+        }
 
 	public static void checkOsVersion() {
 		if(System.getProperty("os.name").toLowerCase().startsWith("mac os x")) {

@@ -97,11 +97,10 @@ public class EventDrawing {
 					    @Override public void handle(ActionEvent e) {
 					    	ArrayList<Calendar> calendars = PersonInfo.getPersonInfo().getAllCalendars();
 					    	for (Calendar cal: calendars){
-					    		System.out.println(cal.getUserGroups());
-					    		System.out.println("PersonInfo" + PersonInfo.getPersonInfo().getPersonalUserGroup());
 					    		if (cal.getCalendarID() == calID){
 					    			cal.getEvents().remove(event);						    	   
 						    		Requester requester = new Requester();
+						    		WindowController.goToDialogWindows("Event deleted");
 						    		requester.deleteEvent(event);
 						    		requester.closeConnection();
 						    		HeaderController.getController().drawEventsForWeek();
@@ -118,11 +117,10 @@ public class EventDrawing {
 						{
 							if (newPropertyValue)
 							{
-								System.out.println("ContextMenu on focus");
+				
 							}
 							else
 							{
-								System.out.println("ContextMenu out focus");
 								contextMenu.hide();
 								contextMenuIsOpen=false;
 							}
