@@ -85,7 +85,9 @@ public class WindowController {
 		thisStage.getScene().setRoot(page);
 		thisStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
-                HeaderController.getController().timer.cancel();
+            	if(HeaderController.getController()!=null){
+            		HeaderController.getController().timer.cancel();            		
+            	}
                 closeStages();
                 thisStage.close();
             }
@@ -327,5 +329,10 @@ public class WindowController {
             System.out.println("OS is not OSX");
 			osIsOSX = false;
 			}
+	}
+	
+	public static void warning(String message){
+		System.out.println("*---------------------*");
+		System.out.println(message);
 	}
 }
