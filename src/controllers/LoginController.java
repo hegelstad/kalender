@@ -127,9 +127,9 @@ public class LoginController {
 
         connection = new Requester();
 //        System.out.println("Henter Kalendere fra DB.");
-        ArrayList<Calendar> cal = connection.getCalendars(ug);
+        ArrayList<Calendar> cal = connection.getCalendars(personInfo.getPerson());
         personInfo.setAllCalendars(cal);
-        personInfo.setCalendarsInUse(cal);
+        
 //        System.out.println(cal);
         connection.closeConnection();
 
@@ -153,6 +153,9 @@ public class LoginController {
 	            if (c.getName().equals(ug.getName())){
 	
 	                personInfo.setSelectedCalendar(c);
+	                ArrayList<Calendar> yoloCal = new ArrayList<Calendar>();
+	                yoloCal.add(c);
+	                personInfo.setCalendarsInUse(yoloCal);
 	            }
 	        }
         }catch(NullPointerException e){
