@@ -2,8 +2,10 @@ package models;
 
 import java.time.LocalDateTime;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javafx.scene.layout.Pane;
 import socket.Requester;
 import controllers.HeaderController;
 import controllers.WeekController;
@@ -34,6 +36,7 @@ public class EventDrawing {
 	/* Only used if day event is over several days */
 	private int dayOfDrawing;
 	private boolean contextMenuIsOpen = false;
+	public Pane pane =  new Pane();;
 
 	public final double fullEventWidth = 155;
 	public final double fullEventWidthPrecise = 153;
@@ -59,14 +62,14 @@ public class EventDrawing {
 	}
 
 	private void setMouseListeners() {
-		eventRectangle.setOnMouseEntered(enterEvent -> {
+		pane.setOnMouseEntered(enterEvent -> {
 			controller.setMouseOverEvent(true);
 			toFront();
 			eventRectangle.opacityProperty().set(0.9);
 			eventRectangle.strokeProperty().set(Color.CADETBLUE);
 		});
 
-		eventRectangle.setOnMouseExited(exitEvent -> {
+		pane.setOnMouseExited(exitEvent -> {
 			controller.setMouseOverEvent(false);
 			// eventRec.setWidth(controller.fullEventWidth-3);
 				if (!isExpanded) {
@@ -75,7 +78,7 @@ public class EventDrawing {
 				eventRectangle.strokeProperty().set(Color.BLACK);
 			});
 
-		eventRectangle.setOnMouseClicked(clickEvent -> {
+		pane.setOnMouseClicked(clickEvent -> {
 			if (clickEvent.getClickCount() == 2) {
 				controller.openEvent(event);
 				return;
@@ -155,9 +158,22 @@ public class EventDrawing {
 		Rectangle eventRec = new Rectangle(fullEventWidth - 3
 				- (indentMargin * reverseIndent), getEventHeight(event));
 		styleRectangle(eventRec, event);
-		Text eventName = new Text(event.getName());
+		Text eventName;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+		if(eventRec.getHeight() > 30) {
+			eventName = new Text(event.getName() + "\n" + event.getFrom().format(formatter));
+		}
+		 else {
+			eventName = new Text(event.getName());
+		}
+		eventName.setWrappingWidth(eventRec.getWidth() - 10);
+		eventName.setLayoutY(15);
+		eventName.setLayoutX(5);
 		styleText(eventName);
 		Circle statusCircle = new Circle(4);
+		statusCircle.setLayoutX(eventRec.getWidth() - 7);
+		statusCircle.setLayoutY(7);
+
 		switch (event.getAttends()) {
 		case 0:
 			statusCircle.setFill(Color.GOLDENROD);
@@ -172,6 +188,8 @@ public class EventDrawing {
 			statusCircle.setFill(Color.BROWN);
 			break;
 		}
+		
+		pane.getChildren().addAll(eventRec,statusCircle, eventName);
 
 		double eventIndentMargin = indentMargin * indent;
 		// double reverseIndentMargin = indentMargin*reverseIndent;
@@ -184,11 +202,8 @@ public class EventDrawing {
 		}
 
 		Insets eventMargin = new Insets(marginTop, 0, 0, eventIndentMargin);
-		GridPane.setMargin(eventRec, eventMargin);
-
-		Insets textMargin = new Insets(marginTop, 0, 0, 3 + eventIndentMargin);
-		GridPane.setMargin(eventName, textMargin);
-
+		GridPane.setMargin(pane, eventMargin);
+		
 		double rightMargin = fullEventWidth - (double) reverseIndent
 				* indentMargin + (double) indent * indentMargin - 13;
 		// System.out.println("reverse indent : "+reverseIndent+" rightMargin circle : "+rightMargin
@@ -204,9 +219,7 @@ public class EventDrawing {
 			startHour = event.getFrom().getHour();
 		}
 		// weekGrid.setGridLinesVisible(true);
-		controller.weekGrid.add(eventRec, dayOfWeek, startHour, 1, 1);
-		controller.weekGrid.add(statusCircle, dayOfWeek, startHour, 1, 1);
-		controller.weekGrid.add(eventName, dayOfWeek, startHour, 1, 1);
+		controller.weekGrid.add(pane, dayOfWeek, startHour, 1, 1);
 		// System.out.println(eventRec);
 		this.eventRectangle = eventRec;
 		this.eventName = eventName;
@@ -281,9 +294,9 @@ public class EventDrawing {
 	}
 
 	public void remove() {
-		controller.weekGrid.getChildren().remove(eventRectangle);
-		controller.weekGrid.getChildren().remove(statusCircle);
-		controller.weekGrid.getChildren().remove(eventName);
+		controller.weekGrid.getChildren().remove(pane);
+		//controller.weekGrid.getChildren().remove(statusCircle);
+		//controller.weekGrid.getChildren().remove(eventName);
 	}
 
 	public Event getEvent() {
