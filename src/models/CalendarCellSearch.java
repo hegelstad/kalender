@@ -1,10 +1,11 @@
 package models;
+
+import controllers.HeaderController;
 import controllers.SidebarController;
 import controllers.WeekController;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -21,17 +22,17 @@ public class CalendarCellSearch extends ListCell<Calendar> {
 
     public Label label;
 
-    public CalendarCellSearch(){
+    public CalendarCellSearch() {
 
     }
 
-    private void init(Calendar cal){
+    private void init(Calendar cal) {
         Pane pane = new Pane();
         CheckBox checkbox = new CheckBox();
         ArrayList<Calendar> calendarsUse = PersonInfo.getPersonInfo().getCalendarsInUse();
         checkbox.setSelected(false);
-        for (Calendar c : calendarsUse){
-            if(c.getCalendarID() == cal.CalendarID){
+        for (Calendar c : calendarsUse) {
+            if (c.getCalendarID() == cal.CalendarID) {
                 checkbox.setSelected(true);
             }
         }
@@ -40,18 +41,17 @@ public class CalendarCellSearch extends ListCell<Calendar> {
         label.setLayoutX(25);
         label.setLayoutY(2);
         label.setTextFill(Color.web("#0076a3"));
-        if(cal.getName().length() > 20) {
+        if (cal.getName().length() > 20) {
             label.setPrefWidth(100);
             label.setPrefHeight(40);
             label.setWrapText(true);
         }
         cal.setColorID(10);
         pane.getStyleClass().add(0, "cornflowerblue");
-        pane.getChildren().addAll(checkbox,label);
+        pane.getChildren().addAll(checkbox, label);
         setId("calendar-cell");
-        checkbox.selectedProperty().addListener( (ob,oldVal,newVal) -> {
-            if(newVal)
-            {
+        checkbox.selectedProperty().addListener((ob, oldVal, newVal) -> {
+            if (newVal) {
                 Requester r = new Requester();
                 ArrayList<Event> calendarEvents = r.getEvents(cal);
                 r.closeConnection();
@@ -61,44 +61,47 @@ public class CalendarCellSearch extends ListCell<Calendar> {
                 //PersonInfo.personInfo.setEvents(allEvents);
                 PersonInfo.getPersonInfo().addCalendarInUse(cal);
                 ArrayList<Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
-                subscribedCalendars.add(cal);
+                if (!subscribedCalendars.contains(cal)) {
+                    subscribedCalendars.add(cal);
+                }
                 PersonInfo.personInfo.setSubscribedCalendars(subscribedCalendars);
-            }
-            else
-            {
+            } else {
                 PersonInfo.getPersonInfo().removeCalendarInUse(cal);
-                ArrayList <Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
-                subscribedCalendars.remove(cal);
+                ArrayList<Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
+                //subscribedCalendars.remove(cal);
                 PersonInfo.personInfo.setSubscribedCalendars(subscribedCalendars);
                 SidebarController.getController().displaySubscribedCalendars();
             }
         });
 
-        //label.setOnMouseClicked(new EventHandler<MouseEvent>() {
-        //    @Override
-        //    public void handle(MouseEvent mouseEvent) {
-        //        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-        //            if(mouseEvent.getClickCount() == 2){
-        //                PersonInfo.getPersonInfo().setSelectedCalendar(cal);
-        //                System.out.println("Selected calendar: " + PersonInfo.getPersonInfo().getSelectedCalendar());
-        //                SidebarController.getController().weekInit();
-        //            }
-        //        }
-        //    }
-        //});
-
-        //if (PersonInfo.getPersonInfo().getSelectedCalendar().equals(cal)){
-        //    System.out.println("Updating font to bold for: " + cal);
-        //    label.setFont(Font.font(null, FontWeight.BOLD, 13));
-        //}else{
-        //    System.out.println("Setting normal font for : " + cal);
-        //    label.setFont(Font.font(null, FontWeight.NORMAL, 13));;
-        //}
+        if(PersonInfo.getPersonInfo().getSubscribedCalendars().contains(cal)) {
+            setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+                        final ContextMenu contextMenu = new ContextMenu();
+                        MenuItem item = new MenuItem("Delete");
+                        item.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent e) {
+                                ArrayList<Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
+                                subscribedCalendars.remove(cal);
+                                PersonInfo.getPersonInfo().removeCalendarInUse(cal);
+                                PersonInfo.personInfo.setSubscribedCalendars(subscribedCalendars);
+                                SidebarController.getController().displaySubscribedCalendars();
+                            }
+                        });
+                        contextMenu.getItems().addAll(item);
+                        setContextMenu(contextMenu);
+                    }
+                }
+            });
+        }
         setGraphic(pane);
     }
 
     @Override
-    public void updateItem(Calendar cal, boolean empty){
+    public void updateItem(Calendar cal, boolean empty) {
         super.updateItem(cal, empty);
 //		if(cal!=null){
 //			System.out.println("\n\n");
@@ -106,14 +109,12 @@ public class CalendarCellSearch extends ListCell<Calendar> {
 //			System.out.println("\n\n");
 //		}
 
-        if(cal!=null&&!empty){
+        if (cal != null && !empty) {
             init(cal);
-        }
-        else{
+        } else {
             setGraphic(null);
         }
     }
-
 
 
 }
