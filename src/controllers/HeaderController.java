@@ -64,6 +64,9 @@ public class HeaderController {
         incrementWeekMinusButton.setTooltip(new Tooltip("Go to previous week"));
         notificationButton.setTooltip(new Tooltip("View your notifications"));
         logOffButton.setTooltip(new Tooltip("Log off and return to the login screen"));
+        if (PersonInfo.getPersonInfo().getNotifications().size() > 0){
+        	notificationButton.setStyle("-fx-background-color: red");
+        }
     }
 
     @FXML
@@ -152,7 +155,7 @@ public class HeaderController {
         Collections.reverse(temp_notifications);
         PersonInfo.personInfo.setNotifications(temp_notifications);
         int new_num_notifications = PersonInfo.getPersonInfo().getNotifications().size();
-
+        
         if (current_num_notifications < new_num_notifications) {
             Platform.runLater(new Runnable() {
                 @Override

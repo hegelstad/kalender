@@ -87,7 +87,7 @@ public class SuperController {
 		}
 		Requester requester = new Requester();
 		ArrayList<UserGroup> ug = new ArrayList<UserGroup>();
-		ug.add(PersonInfo.getPersonInfo().getPersonalUserGroup());
+		ug.add(userGroupCalendar.getSelectionModel().getSelectedItem());
 		try{
 			Calendar cal = requester.createCalendar(new Calendar(0, newCalendarTextField.getText(), ug));
 			if (cal.getCalendarID() != 0){
