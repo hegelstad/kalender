@@ -24,19 +24,22 @@ public class UserGroupController {
 	@FXML ListView<Person> inUsersView;
 	@FXML ComboBox<UserGroup> userGroupCombo;
 	
-	ObservableList<UserGroup> inUsersList;
-	ObservableList<UserGroup> outUsersList;
+	ObservableList<Person> inUsersList;
+	ObservableList<Person> outUsersList;
 	ObservableList<UserGroup> userGroupsList;
 	
 	@FXML
 	private void initialize(){
-		ArrayList<Person> persons;
+		Requester r = new Requester();
+		ArrayList<Person> persons = r.getAllPersons();
+		r.closeConnection();
 		ArrayList<UserGroup> userGroups = new ArrayList<UserGroup>();
 		ArrayList<UserGroup> allGroups = PersonInfo.getPersonInfo().getUsergroups();
 		
 		userGroupsList = FXCollections.observableArrayList(userGroups);
-		//outUsersList = FXCollections.observableArrayList(persons);
-		inUsersList = FXCollections.observableArrayList(new ArrayList<UserGroup>());
+
+		outUsersList = FXCollections.observableArrayList(persons);
+		inUsersList = FXCollections.observableArrayList(new ArrayList<Person>());
 		
 		//userGroupCombo.setItems(userGroupsList);
 		//outUsersView.setItems(outUsersList);
@@ -45,8 +48,8 @@ public class UserGroupController {
 	
 	private void setUserGroup(UserGroup ug){
 		
-		for(Person person : ug.getUsers()) {
-
-        }
+		for(Person person : ug.getUsers()){
+			
+		}
 	}
 }
