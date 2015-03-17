@@ -88,13 +88,15 @@ public class WeekController {
 			return;
 		}
 
+//		System.out.println("*-------------------*");
+//		for(Event event : sortedEvents){
+//			System.out.println(event.getName());
+//		}
+		
 		removeAllDrawings();
 		ArrayList<ArrayList<EventDrawing>> weekOfDrawings;		
 
 		if(sortedEvents instanceof TreeSet && sortedEvents.size()!=0){	
-//			System.out.println("\n\n");
-//			System.out.println("Finner data");
-//			System.out.println(sortedEvents);
 			weekOfDrawings = sortIntoDays(sortedEvents);
 		}
 		else if(sortedEvents.size()==0)
@@ -116,13 +118,13 @@ public class WeekController {
 				EventDrawing currentDrawing = dayOfDrawings.get(k);
 
 				//G� oppover til det ikke overlapper og sett indent
-				System.out.println(currentEvent.getName());
+				//System.out.println(currentEvent.getName());
 
 				for(int i=k-1; i>-1; i--){
 					
 					if(currentEvent.getFrom().isBefore(dayOfDrawings.get(i).getEvent().getTo())){
 						indent += 1;
-						System.out.println(currentEvent.getName()+ " har oppoverlapp med " + currentEvent.getName());
+						//System.out.println(currentEvent.getName()+ " har oppoverlapp med " + currentEvent.getName());
 					}
 					else{
 						
@@ -134,7 +136,7 @@ public class WeekController {
 				for(int i=k+1; i<dayOfDrawings.size(); i++){
 					if(currentEvent.getTo().isAfter(dayOfDrawings.get(i).getEvent().getFrom())){
 						reverseIndent += 1;
-						System.out.println(currentEvent.getName()+ " har nedoverlapp");
+						//System.out.println(currentEvent.getName()+ " har nedoverlapp");
 						/* Om flere eventer slutter sist og samtidig */
 						if(i==dayOfDrawings.size()-1){
 							currentDrawing.indent = indent;
@@ -218,6 +220,7 @@ public class WeekController {
 				else if(startsAndEndsToday(event,i)||startsToday(event,i))
 				{
 					/* Event starter denne dagen */ 
+					System.out.println("Legger til event : " + event.getName());
 					weekEvents.get(i).add(new EventDrawing(event,0,this));
 				}
 				

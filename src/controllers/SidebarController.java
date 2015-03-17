@@ -44,6 +44,9 @@ public class SidebarController {
 			adminPaneButton.getChildren().clear();
 			adminPaneButton.setStyle("-fx-background-color: #26272B");
 		}
+//		for(Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
+//			System.out.println(cal);
+//		}
 	}
 
 
