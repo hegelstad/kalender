@@ -55,7 +55,7 @@ public class HeaderController {
                 fridayDayOfWeek, saturdayDayOfWeek, sundayDayOfWeek};
         weekday_labels.addAll(Arrays.asList(temp_weekday_labels));
         notificationButton.setText(Integer.toString(PersonInfo.getPersonInfo().getNotifications().size()));
-        System.out.println("HeaderController was initiated.");
+//        System.out.println("HeaderController was initiated.");
         timer = new Timer();
         scheduler = new Scheduler();
         timer.scheduleAtFixedRate(scheduler, 1, 10000);
