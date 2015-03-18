@@ -28,7 +28,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import com.apple.eawt.Application;
 
 public class WindowController {
 
