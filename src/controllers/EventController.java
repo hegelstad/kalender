@@ -337,6 +337,11 @@ public class EventController {
 				            		        			statusCircle.setFill(Color.DARKGREEN);
 				            		        			calendarEvent.setAttends(1);
 				            		        			HeaderController.getController().drawEventsForWeek();
+				            		        			for (Attendant a : attendants) {
+				            		                		if (a.getUserGroupID() == ug.getUserGroupID()) {
+				            			                		a.setStatus(1);
+				            		                		}
+				            		        			}
 				            		        		}
 				            		        	});
 				            		        	dontAttend.setOnAction(new EventHandler<ActionEvent>() {
@@ -347,6 +352,11 @@ public class EventController {
 				            		        			statusCircle.setFill(Color.BROWN);
 				            		        			calendarEvent.setAttends(2);
 				            		        			HeaderController.getController().drawEventsForWeek();
+				            		        			for (Attendant a : attendants) {
+				            		                		if (a.getUserGroupID() == ug.getUserGroupID()) {
+				            			                		a.setStatus(2);
+				            		                		}
+				            		        			}
 				            		        		}
 				            		        	});
 				            		        	noAnswer.setOnAction(new EventHandler<ActionEvent>() {
@@ -357,6 +367,11 @@ public class EventController {
 				            		        			statusCircle.setFill(Color.GOLDENROD);
 				            		        			calendarEvent.setAttends(0);
 				            		        			HeaderController.getController().drawEventsForWeek();
+				            		        			for (Attendant a : attendants) {
+				            		                		if (a.getUserGroupID() == ug.getUserGroupID()) {
+				            			                		a.setStatus(0);
+				            		                		}
+				            		        			}
 				            		        		}
 				            		        	});
 				            		        	contextMenu.getItems().addAll(attend, dontAttend, noAnswer);
