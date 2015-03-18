@@ -14,7 +14,6 @@ public class Main extends Application {
     	WindowController.setStage(stage);
     	WindowController.setProgram(this);
     	WindowController.goToLogin();
-    	WindowController.showStage();
     }
 
     public static void main(String[] args) {
