@@ -78,12 +78,7 @@ public class WindowController {
 		return eventWindowIsOpen;
 	}
 
-	
-	public static void showStage(){
-		thisStage.centerOnScreen();
-		thisStage.setResizable(false);
-		thisStage.show();
-	}
+
 
 	
 	public static void logOff() {
@@ -91,6 +86,8 @@ public class WindowController {
 		setAdminWindowIsOpen(false);
 		setUserGroupWindowIsOpen(false);
 		setAboutWindowIsOpen(false);
+		HeaderController.getController().scheduler.cancel();
+		HeaderController.getController().timer.cancel();
 		thisStage.close();
 		goToLogin();
 	}
@@ -100,8 +97,7 @@ public class WindowController {
 		String title ="";
 		Parent page;
 		try {
-			page = (Parent) FXMLLoader.load(program.getClass().getResource("../views/LoginView.fxml"), null, 
-					new JavaFXBuilderFactory());
+			page = (Parent) FXMLLoader.load(program.getClass().getResource("../views/LoginView.fxml"));
 			Scene scene = new Scene(page, 300, 400);
 			scene.getStylesheets().add("/css/login.css");
 			title = "Login";
@@ -109,7 +105,6 @@ public class WindowController {
 			thisStage.setTitle(title);
 			thisStage.centerOnScreen();
 			thisStage.setResizable(false);
-			thisStage.show();
 			if(osIsOSX){
 				Pane root = null;
 				root = (Pane) scene.lookup("#background");
@@ -126,7 +121,7 @@ public class WindowController {
 				root.getChildren().add(menuBar);
 				menuBar.setUseSystemMenuBar(true);
 			}
-			thisStage.getScene().setRoot(page);
+			thisStage.show();
 		} catch (IOException e1) {
 			System.out.println("Couldnt load LoginView.fxml");
 		}
@@ -139,8 +134,7 @@ public class WindowController {
 		Parent page;
 		try {
 			page = (Parent) FXMLLoader.load(
-					program.getClass().getResource("../views/SuperView.fxml"), null, 
-					new JavaFXBuilderFactory());
+					program.getClass().getResource("../views/SuperView.fxml"));
 			Scene scene = new Scene(page, 1333, 701);
 			scene.getStylesheets().add("/css/main.css");
 			title = "Calify";
@@ -189,7 +183,7 @@ public class WindowController {
             try {
                 eventWindows.initStyle(StageStyle.UNDECORATED);
                 Parent page;
-                FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/EventView.fxml"), null, new JavaFXBuilderFactory());
+                FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/EventView.fxml"));
                 page = (Parent) loader.load();
                 EventController controller = loader.getController();
                 if (event.getEventID() != -1337) {
@@ -237,7 +231,7 @@ public class WindowController {
 				Stage adminView = new Stage();
                 adminView.initStyle(StageStyle.UNDECORATED);
 				Parent page;
-                FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/AdminView.fxml"), null, new JavaFXBuilderFactory());
+                FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/AdminView.fxml"));
                 page = (Parent) loader.load();
                 page.setOnMousePressed(new EventHandler<MouseEvent>() {
                     @Override
@@ -286,7 +280,7 @@ public class WindowController {
 	         	Stage userGroupView = new Stage();
 	         	userGroupView.initStyle(StageStyle.UNDECORATED);
 	             Parent page;
-	             FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/UserGroupView.fxml"), null, new JavaFXBuilderFactory());
+	             FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/UserGroupView.fxml"));
 	             page = (Parent) loader.load();
 	             page.setOnMousePressed(new EventHandler<MouseEvent>() {
 	                 @Override
@@ -314,7 +308,6 @@ public class WindowController {
 	             userGroupWindowIsOpen=true;
 	             userGroupView.show();
 	         } catch(Exception e) {
-	            e.printStackTrace();
 	            System.out.println("Couldnt load UserGroupView.fxml");
 	         }
 		}
@@ -324,7 +317,7 @@ public class WindowController {
 	
 	public static void openAboutScreen(){
 		Stage aboutScreen = new Stage();
-		FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/AboutView.fxml"), null, new JavaFXBuilderFactory());
+		FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/AboutView.fxml"));
 		Parent page;
 		if (aboutScreenIsOpen){
 			System.out.println("You cannot open more then one about-window at once");
@@ -382,7 +375,6 @@ public class WindowController {
                 dialogWindow.setResizable(false);
                 dialogWindow.show();
             } catch(Exception e) {
-               e.printStackTrace();
                System.out.println("Couldnt load UserDialogView.fxml");
             }
         }
