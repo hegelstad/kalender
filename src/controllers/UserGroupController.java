@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.ArrayList;
 
+import com.sun.org.apache.bcel.internal.generic.ISUB;
+
 import socket.Requester;
 import models.Person;
 import models.PersonInfo;
@@ -16,6 +18,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 public class UserGroupController {
 
@@ -57,6 +60,29 @@ public class UserGroupController {
 			}
 		}
 		
+		userGroupCombo.setEditable(true);
+		userGroupCombo.setConverter(new StringConverter<UserGroup>(){
+
+			@Override
+			public UserGroup fromString(String groupName) {
+				for(UserGroup ug : userGroupsList){
+					if(ug.getName().equals(groupName)){
+						return ug;
+					}
+				}
+				return null;
+			}
+
+			@Override
+			public String toString(UserGroup ug) {
+				if(ug==null||ug.getName()==null){
+					return "";
+				}
+				return ug.getName();					
+			}
+			
+		});
+		
 		userGroupsList = FXCollections.observableArrayList(userGroups);
 
 		outUsersList = FXCollections.observableArrayList(persons);
@@ -87,6 +113,9 @@ public class UserGroupController {
 			}
 		}
 		inUsersList.clear();
+		if(ug==null){
+			return;
+		}
 		/* Add all users that belong in group */
 		inUsersList.addAll(ug.getUsers());
 		outUsersList.removeAll(ug.getUsers());
@@ -114,29 +143,29 @@ public class UserGroupController {
 	
 	@FXML
 	private void save(){
+		if(!isValid()){
+			WindowController.warning("Choose usergroup ");
+			return;
+		}
 		UserGroup oldGroup = userGroupCombo.getSelectionModel().getSelectedItem();
+		if(oldGroup == null){
+			WindowController.warning("Usergroup does not exist ");
+			return;
+		}
 		UserGroup newGroup = new UserGroup(oldGroup.getUserGroupID(), oldGroup.getName(), null, 1);
-		UserGroup toBeDeleted = new UserGroup(oldGroup.getUserGroupID(), oldGroup.getName(), null, 1);
-		
-		ArrayList<Person> usersToBeDeleted = new ArrayList<Person>();
-		ArrayList<Person> usersAdded = new ArrayList<Person>();
-		/* Copy old list */
-		for(Person person : oldGroup.getUsers()){
-			usersAdded.add(person);
-			usersToBeDeleted.add(person);
-		}
-		/* Add new users/ Remove fromm delete list*/
+		ArrayList<Person> newPersons = new ArrayList<Person>();
 		for(Person person : inUsersList){
-			if(!usersAdded.contains(person)){
-				usersAdded.add(person);
-			}
-			usersToBeDeleted.remove(person);
+			newPersons.add(person);
 		}
+		newGroup.setUsers(newPersons);
 		
-		if(usersToBeDeleted.size()!=0){
-			toBeDeleted.setUsers(usersToBeDeleted);
-			Requester deleteReq = new Requester();
-			
+		Requester r = new Requester();
+		boolean ok = r.editUserGroup(newGroup);
+		if(!ok){
+			WindowController.warning("Editen failet");
+		}
+		else{
+			stage.close();
 		}
 		
 	}
@@ -147,15 +176,45 @@ public class UserGroupController {
 		stage.close();
 	}
 	
+	@FXML
+	private void addNewGroup(){
+		String newGroupName = userGroupCombo.getEditor().getText();
+		UserGroup newGroup = new UserGroup(0, newGroupName, new ArrayList<Person>(), 1);
+		Requester r = new Requester();
+		newGroup = r.createUserGroup(newGroup);
+		if(inUsersList.size()!=0){
+			ArrayList<Person> newUserList = new ArrayList<Person>();
+			for(Person person : inUsersList){
+				newUserList.add(person);
+			}
+			newGroup.setUsers(newUserList);
+			System.out.println("edit event db");
+			Requester editReq = new Requester();
+			editReq.editUserGroup(newGroup);
+		}
+		System.out.println("gruppenavn:"+newGroupName+": id:"+newGroup.getUserGroupID());
+		userGroupCombo.setValue(null);
+		userGroupCombo.getEditor().setText("");
+		userGroupsList.add(newGroup);
+		PersonInfo.getPersonInfo().getUsergroups().add(newGroup);
+		
+	}
+	
 	public void setStage(Stage stage){
 		this.stage = stage;
 	}
 	
 	private void setComboListener(){
 		userGroupCombo.valueProperty().addListener( (ug,newVal,oldVal)-> {
-			//System.out.println("dasfasdfasdfsdfas");
 			setUserGroup(userGroupCombo.getSelectionModel().getSelectedItem());
 		});
+	}
+	
+	private boolean isValid(){
+		if(userGroupCombo.getSelectionModel().getSelectedItem() == null){
+			return false;
+		}
+		return true;
 	}
 	
 	

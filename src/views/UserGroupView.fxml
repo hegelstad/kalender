@@ -24,7 +24,7 @@
          <children>
             <ListView fx:id="outUsersView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" GridPane.rowSpan="2" />
             <ListView fx:id="inUsersView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-            <Button fx:id="btnAddGroup" mnemonicParsing="false" text="+" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button fx:id="btnAddGroup" mnemonicParsing="false" text="+" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" onAction="#addNewGroup"/>
             <ComboBox fx:id="userGroupCombo" prefHeight="25.0" prefWidth="273.0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <Button fx:id="btnSave" mnemonicParsing="false" onAction="#save" prefWidth="80.0" text="Save" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
             <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#cancel" prefWidth="80.0" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="4" />

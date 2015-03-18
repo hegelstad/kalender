@@ -28,8 +28,17 @@ EVENT/CALENDAR
 
 #outUsersView .list-cell {
 	-fx-text-fill: black;
-}   
+}
 
+#userGroupCombo .list-cell{
+	-fx-text-fill: black;
+}
+#userGroupCombo-base {
+	-fx-text-fill: black;
+}
+.text-field {
+		-fx-text-fill: black;
+}
 #weekGrid {
     -fx-background-color: #4c4f51;
 }
