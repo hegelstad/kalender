@@ -112,7 +112,7 @@ public class HeaderController {
     private void logOff() {
 		/* Sends the user to the log-in screen */
         WindowController.logOff();
-        timer.cancel();
+    
     }
 
     @SuppressWarnings("unchecked")

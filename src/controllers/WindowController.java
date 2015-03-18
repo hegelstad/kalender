@@ -16,6 +16,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -27,6 +28,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import com.apple.eawt.Application;
 
 public class WindowController {
 
@@ -41,6 +43,7 @@ public class WindowController {
 	private static boolean eventWindowIsOpen = false;
 	private static boolean adminWindowIsOpen = false;
 	private static boolean aboutScreenIsOpen = false;
+	private static boolean userGroupWindowIsOpen = false;
 	private static List<Stage> stages = new ArrayList<Stage>();
 	private static boolean osIsOSX;
 
@@ -60,6 +63,14 @@ public class WindowController {
 		adminWindowIsOpen = b;
 	}
 	
+	public static void setUserGroupWindowIsOpen(boolean b){
+		userGroupWindowIsOpen = b;
+	}
+	
+	public static void setAboutWindowIsOpen(boolean b){
+		aboutScreenIsOpen = b;
+	}
+	
 	public static boolean getEventWindowIsOpenOrClosed(){
 		return eventWindowIsOpen;
 	}
@@ -69,6 +80,22 @@ public class WindowController {
 		thisStage.centerOnScreen();
 		thisStage.setResizable(false);
 		thisStage.show();
+	}
+
+	
+	public static void logOff() {
+		for (Stage s: stages) {
+			s.close();
+		}
+		setEventWindowIsOpen(false);
+		setAdminWindowIsOpen(false);
+		setUserGroupWindowIsOpen(false);
+		setAboutWindowIsOpen(false);
+		goToLogin();
+	}
+	
+	public static void removeStage(Stage stage){
+		stages.remove(stage);
 	}
 	
 	private static Parent replaceSceneContent(String fxml, int width, int height) throws Exception {
@@ -85,6 +112,7 @@ public class WindowController {
             scene.getStylesheets().add("/css/main.css");
             title = "Calify";
         }
+		thisStage.getIcons().add(new Image("calify.png"));
 		thisStage.hide();
 		thisStage.setScene(scene);
 		thisStage.setTitle(title);
@@ -97,8 +125,6 @@ public class WindowController {
             	if (HeaderController.getController() != null && HeaderController.getController().timer != null){
             		HeaderController.getController().timer.cancel();
             	}
-                closeStages();
-                thisStage.close();
             }
         });
 		if(osIsOSX){
@@ -146,6 +172,7 @@ public class WindowController {
 		Stage eventWindows = new Stage();
 		if (eventWindowIsOpen){
 			System.out.println("You cannot open more then one event window at once");
+			warning("There is already an Event window open");
 		} else {
             try {
                 stages.add(eventWindows);
@@ -174,7 +201,6 @@ public class WindowController {
                         eventWindows.setY(event.getScreenY() - yOffset);
                     }
                 });
-                eventWindows.setAlwaysOnTop(true);
                 controller.setStage(eventWindows);
                 Scene scene = new Scene(page, 410, 570);
                 if(osIsOSX){
@@ -194,6 +220,7 @@ public class WindowController {
                 }
                 scene.getStylesheets().add("/css/event.css");
                 eventWindows.setScene(scene);
+                eventWindows.initOwner(thisStage);
                 eventWindows.centerOnScreen();
                 eventWindows.setResizable(false);
                 eventWindows.show();
@@ -205,11 +232,12 @@ public class WindowController {
 	}
 	
 	public static void goToManageUsersView() {
-		Stage adminView = new Stage();
 		if (adminWindowIsOpen) {
 			System.out.println("You cannot open more then one management window at once");
+			warning("There is already an Admin window open");
 		} else {
 			try {
+				Stage adminView = new Stage();
                 adminView.initStyle(StageStyle.UNDECORATED);
 				Parent page;
                 FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/AdminView.fxml"), null, new JavaFXBuilderFactory());
@@ -231,10 +259,10 @@ public class WindowController {
                 AdminController controller = loader.getController();
                 Scene scene = new Scene(page);
                 scene.getStylesheets().add("/css/manageUsers.css");
+                adminView.initOwner(thisStage);
                 adminView.setScene(scene);
 				adminView.centerOnScreen();
 				adminView.setResizable(false);
-				adminView.setAlwaysOnTop(true);
                 controller.setStage(adminView);
                 adminWindowIsOpen = true;
 				adminView.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -268,74 +296,66 @@ public class WindowController {
 	}
 	
 	public static void goToUserGroupView(){
-		 try {
-         	Stage userGroupView = new Stage();
-         	userGroupView.initStyle(StageStyle.UNDECORATED);
-             Parent page;
-             FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/UserGroupView.fxml"), null, new JavaFXBuilderFactory());
-             page = (Parent) loader.load();
-             page.setOnMousePressed(new EventHandler<MouseEvent>() {
-                 @Override
-                 public void handle(MouseEvent event) {
-                    userGroupXOffset = event.getSceneX();
-                    userGroupYOffset = event.getSceneY();
-                 }
-             });
-             page.setOnMouseDragged(new EventHandler<MouseEvent>() {
-                 @Override
-                 public void handle(MouseEvent event) {
-                     userGroupView.setX(event.getScreenX() - userGroupXOffset);
-                     userGroupView.setY(event.getScreenY() - userGroupYOffset);
-                 }
-             });
-             Object o = loader.getController();
-             UserGroupController controller = (UserGroupController) o ;
-             controller.setStage(userGroupView);
-             Scene scene = new Scene(page);
-             if(osIsOSX){
-             	final Menu menu1 = new Menu("Calify");
-             	MenuBar menuBar = new MenuBar();
-             	MenuItem menu12 = new MenuItem("Om Calify");
-             	menu12.setOnAction(new EventHandler<ActionEvent>() {
-             		@Override public void handle(ActionEvent e) {
-             			openAboutScreen();
-             		}
-             	});
-             	menu1.getItems().add(menu12);
-             	menuBar.getMenus().add(menu1);
-             	AnchorPane root = (AnchorPane) scene.lookup("#userGroupAnchorPane");
-             	root.getChildren().add(menuBar);
-             	menuBar.setUseSystemMenuBar(true);
-             }
-         	 userGroupView.setAlwaysOnTop(true);
-             scene.getStylesheets().add("/css/main.css");
-             userGroupView.setScene(scene);
-             userGroupView.centerOnScreen();
-             userGroupView.setResizable(false);
-             userGroupView.show();
-             stages.add(userGroupView);
-         } catch(Exception e) {
-            e.printStackTrace();
-            System.out.println("Couldnt load UserGroupView.fxml");
-         }
+		if (userGroupWindowIsOpen){
+			System.out.println("You cannot open more then one UserGroup Window at once");
+			warning("There is already a User group managment window open.");
+		}
+		else{
+			try {
+	         	Stage userGroupView = new Stage();
+	         	userGroupView.initStyle(StageStyle.UNDECORATED);
+	             Parent page;
+	             FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/UserGroupView.fxml"), null, new JavaFXBuilderFactory());
+	             page = (Parent) loader.load();
+	             page.setOnMousePressed(new EventHandler<MouseEvent>() {
+	                 @Override
+	                 public void handle(MouseEvent event) {
+	                    userGroupXOffset = event.getSceneX();
+	                    userGroupYOffset = event.getSceneY();
+	                 }
+	             });
+	             page.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	                 @Override
+	                 public void handle(MouseEvent event) {
+	                     userGroupView.setX(event.getScreenX() - userGroupXOffset);
+	                     userGroupView.setY(event.getScreenY() - userGroupYOffset);
+	                 }
+	             });
+	             Object o = loader.getController();
+	             UserGroupController controller = (UserGroupController) o ;
+	             controller.setStage(userGroupView);
+	             Scene scene = new Scene(page);
+	             if(osIsOSX){
+	             	final Menu menu1 = new Menu("Calify");
+	             	MenuBar menuBar = new MenuBar();
+	             	MenuItem menu12 = new MenuItem("Om Calify");
+	             	menu12.setOnAction(new EventHandler<ActionEvent>() {
+	             		@Override public void handle(ActionEvent e) {
+	             			openAboutScreen();
+	             		}
+	             	});
+	             	menu1.getItems().add(menu12);
+	             	menuBar.getMenus().add(menu1);
+	             	AnchorPane root = (AnchorPane) scene.lookup("#userGroupAnchorPane");
+	             	root.getChildren().add(menuBar);
+	             	menuBar.setUseSystemMenuBar(true);
+	             }
+	             userGroupView.initOwner(thisStage);
+	             scene.getStylesheets().add("/css/userGroup.css");
+	             userGroupView.setScene(scene);
+	             userGroupView.centerOnScreen();
+	             userGroupView.setResizable(false);
+	             userGroupWindowIsOpen=true;
+	             stages.add(userGroupView);
+	             userGroupView.show();
+	         } catch(Exception e) {
+	            e.printStackTrace();
+	            System.out.println("Couldnt load UserGroupView.fxml");
+	         }
+		}
      }
 	
 	
-	public static void closeStages(){
-		for (Stage s: stages){
-			s.close();
-		}
-	}
-	
-	
-	public static void logOff() {
-		for (Stage s: stages) {
-			s.close();
-		}
-		setEventWindowIsOpen(false);
-		setAdminWindowIsOpen(false);
-		goToLogin();
-	}
 	
 	public static void openAboutScreen(){
 		Stage aboutScreen = new Stage();
@@ -350,9 +370,9 @@ public class WindowController {
 				Scene scene = new Scene(page);
 				scene.getStylesheets().add("/css/about.css");
 				aboutScreen.setScene(scene);
+				aboutScreen.initOwner(thisStage);
 				aboutScreen.centerOnScreen();
 				aboutScreen.setResizable(false);
-				aboutScreen.setAlwaysOnTop(true);
 				aboutScreen.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     public void handle(WindowEvent we) {
                         aboutScreen.close();
@@ -384,7 +404,7 @@ public class WindowController {
 		}
 	}
 
-	public static void goToDialogWindows(String messageToUser){
+	private static void goToDialogWindows(String messageToUser){
             try {
             	Stage dialogWindow = new Stage();
                 Parent page;
@@ -420,6 +440,7 @@ public class WindowController {
                 	menuBar.setUseSystemMenuBar(true);
                 }
                 scene.getStylesheets().add("/css/UserDialogWindow.css");
+                dialogWindow.initOwner(thisStage);
                 dialogWindow.initModality(Modality.APPLICATION_MODAL);
                 dialogWindow.setScene(scene);
                 dialogWindow.centerOnScreen();
