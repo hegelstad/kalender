@@ -1014,6 +1014,25 @@ public class Requester {
 		}
 		return persons;
 	}
+	
+	public boolean editUserGroup(UserGroup ug) {
+		Command cmd = new Command("editUserGroup-usergroup");
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(
+					con.getOutputStream());
+			oos.writeObject(cmd);
+			oos.writeObject(ug);
+		} catch (EOFException e) {
+			return false;
+		} catch (IOException e) {
+			System.out.println(e);
+			return false;
+		} catch (ClassCastException e) {
+			System.out.println(e);
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * Metode for å lukke connection med server.
