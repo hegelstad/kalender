@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.Array;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -86,10 +87,24 @@ public class NotificationCell extends ListCell<Notification> {
 								s.updateAttends(note.getEvent(), at);
 								s.closeConnection();
 								System.out.println("Notification flagged as read & accepted");
-
+								
 								s = new Requester();
 								PersonInfo.personInfo.setNotifications(s.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup()));
 								s.closeConnection();
+								//TEST
+								System.out.println("----------------");
+								System.out.println(note.getEvent());
+
+								System.out.println(PersonInfo.getPersonInfo().getSelectedCalendar());
+
+								ArrayList<Event> allEvents = PersonInfo.personInfo.getEvents();
+								Event current_event =  note.getEvent();
+								current_event.setCal(PersonInfo.getPersonInfo().getPersonalCalendar());
+								allEvents.add(current_event);
+								PersonInfo.personInfo.setEvents(allEvents);
+								PersonInfo.getPersonInfo().setUp();
+								HeaderController.getController().drawEventsForWeek();
+								
 							/* Removes the notification from ListView */
 								list.remove(note);
 								setGraphic(null);
@@ -97,6 +112,15 @@ public class NotificationCell extends ListCell<Notification> {
 								//notifications.remove(n);
 								//notifications =
 								//System.out.println(notifications);
+
+								//ArrayList<Calendar> allCalendats = PersonInfo.getPersonInfo().getAllCalendars();
+								//Calendar v = allCalendats.get(0);
+								//ArrayList<Event> vEvents = v.getEvents();
+								//vEvents.add(note.getEvent());
+								//v.setEvents(vEvents);
+								//allCalendats.set(0, v);
+								
+								
 							});
 
 							decline.setOnAction(event -> {
