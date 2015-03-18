@@ -69,7 +69,7 @@ public class SuperController {
 	
 	private void createCalendar(String calendarName) {
 		if(calendarName.equals("")) {
-			System.out.println("Calendarname cannot be an empty String");
+			System.out.println("Calendar name cannot be an empty String");
 			Stage stage = WindowController.thisStage;
 			System.out.println(stage.getX() + "  " + stage.getY());
 			toolTip.show(stage, stage.getX() + 300, stage.getY() +210);		
@@ -99,7 +99,7 @@ public class SuperController {
 		}
 	}
 }
-    
+
 	@FXML
 	public void keyPressed(KeyEvent key){
 		if(key.getCode().equals(KeyCode.ESCAPE)){
