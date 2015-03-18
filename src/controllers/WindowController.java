@@ -52,6 +52,8 @@ public class WindowController {
 	
 	public static void setStage(Stage stage){
 		thisStage=stage;
+		thisStage.getIcons().add(new Image("calicon-1.png"));
+		
 	}
 	
 	public static void setEventWindowIsOpen(boolean b){
@@ -97,73 +99,84 @@ public class WindowController {
 		stages.remove(stage);
 	}
 	
-	private static Parent replaceSceneContent(String fxml, int width, int height) throws Exception {
+	public static void goToLogin(){
 		String title ="";
-		Parent page = (Parent) FXMLLoader.load(
-				program.getClass().getResource(fxml), null, 
-				new JavaFXBuilderFactory());
-		Scene scene = new Scene(page, width, height);
-		if (fxml.equalsIgnoreCase("../views/LoginView.fxml")) {
+		Parent page;
+		try {
+			page = (Parent) FXMLLoader.load(program.getClass().getResource("../views/LoginView.fxml"), null, 
+					new JavaFXBuilderFactory());
+			Scene scene = new Scene(page, 300, 400);
 			scene.getStylesheets().add("/css/login.css");
 			title = "Login";
-		}
-		else if (fxml.equalsIgnoreCase("../views/SuperView.fxml")) {
-            scene.getStylesheets().add("/css/main.css");
-            title = "Calify";
-        }
-		thisStage.getIcons().add(new Image("calicon.png"));
-		thisStage.hide();
-		thisStage.setScene(scene);
-		thisStage.setTitle(title);
-		thisStage.centerOnScreen();
-		thisStage.setResizable(false);
-		thisStage.show();
-		thisStage.getScene().setRoot(page);
-		thisStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-            	if (HeaderController.getController() != null && HeaderController.getController().timer != null){
-            		HeaderController.getController().timer.cancel();
-            	}
-            }
-        });
-		if(osIsOSX){
-			Pane root = null;
-			if (fxml.equals("../views/LoginView.fxml")){
+			thisStage.setScene(scene);
+			thisStage.setTitle(title);
+			thisStage.centerOnScreen();
+			thisStage.setResizable(false);
+			thisStage.show();
+			if(osIsOSX){
+				Pane root = null;
 				root = (Pane) scene.lookup("#background");
+				final Menu menu1 = new Menu("Calify");
+				MenuBar menuBar = new MenuBar();
+				MenuItem menu12 = new MenuItem("Om Calify");
+				menu12.setOnAction(new EventHandler<ActionEvent>() {
+					@Override public void handle(ActionEvent e) {
+						openAboutScreen();
+					}
+				});
+				menu1.getItems().add(menu12);
+				menuBar.getMenus().add(menu1);
+				root.getChildren().add(menuBar);
+				menuBar.setUseSystemMenuBar(true);
 			}
-			else{
-				root = (AnchorPane) scene.lookup("#root");			
-			}
-			final Menu menu1 = new Menu("Calify");
-			MenuBar menuBar = new MenuBar();
-			MenuItem menu12 = new MenuItem("Om Calify");
-			menu12.setOnAction(new EventHandler<ActionEvent>() {
-			    @Override public void handle(ActionEvent e) {
-			       openAboutScreen();
-			    }
-			});
-			menu1.getItems().add(menu12);
-			menuBar.getMenus().add(menu1);
-			root.getChildren().add(menuBar);
-			menuBar.setUseSystemMenuBar(true);
-		}
-		return page;
-	}
-	
-	public static void goToLogin(){
-		try {
-			replaceSceneContent("../views/LoginView.fxml",300,400);
-		} catch (Exception e) {
-			System.out.println("Failed to go to LoginView");
+			thisStage.getScene().setRoot(page);
+		} catch (IOException e1) {
+			System.out.println("Couldnt load LoginView.fxml");
 		}
 	}
 	
 	public static void goToCalendarView(){
+		Stage superWindow = new Stage();
+		thisStage=superWindow;
+		String title ="";
+		Parent page;
 		try {
-			replaceSceneContent("../views/SuperView.fxml", 1333 , 701);
-			WeekController.getController().setVvalue();
-		} catch (Exception e) {
-			System.out.println("Failed to goToCalendarView");
+			page = (Parent) FXMLLoader.load(
+					program.getClass().getResource("../views/SuperView.fxml"), null, 
+					new JavaFXBuilderFactory());
+			Scene scene = new Scene(page, 1333, 701);
+			scene.getStylesheets().add("/css/main.css");
+			title = "Calify";
+			thisStage.setScene(scene);
+			thisStage.setTitle(title);
+			thisStage.centerOnScreen();
+			thisStage.setResizable(false);
+			thisStage.getScene().setRoot(page);
+			thisStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					if (HeaderController.getController() != null && HeaderController.getController().timer != null){
+						HeaderController.getController().timer.cancel();
+					}
+				}
+			});
+			thisStage.show();
+			if(osIsOSX){
+				AnchorPane root = (AnchorPane) scene.lookup("#root");			
+				final Menu menu1 = new Menu("Calify");
+				MenuBar menuBar = new MenuBar();
+				MenuItem menu12 = new MenuItem("Om Calify");
+				menu12.setOnAction(new EventHandler<ActionEvent>() {
+					@Override public void handle(ActionEvent e) {
+						openAboutScreen();
+					}
+				});
+				menu1.getItems().add(menu12);
+				menuBar.getMenus().add(menu1);
+				root.getChildren().add(menuBar);
+				menuBar.setUseSystemMenuBar(true);
+			}
+		} catch (IOException e1) {
+			System.out.println("Couldnt load SuperView.fxml");
 		}
 	}
 	
@@ -202,21 +215,6 @@ public class WindowController {
                 });
                 controller.setStage(eventWindows);
                 Scene scene = new Scene(page, 410, 570);
-                if(osIsOSX){
-                	final Menu menu1 = new Menu("Calify");
-                	MenuBar menuBar = new MenuBar();
-                	MenuItem menu12 = new MenuItem("Om Calify");
-                	menu12.setOnAction(new EventHandler<ActionEvent>() {
-                		@Override public void handle(ActionEvent e) {
-                			openAboutScreen();
-                		}
-                	});
-                	menu1.getItems().add(menu12);
-                	menuBar.getMenus().add(menu1);
-                	AnchorPane root = (AnchorPane) scene.lookup("#EventView");
-                	root.getChildren().add(menuBar);
-                	menuBar.setUseSystemMenuBar(true);
-                }
                 scene.getStylesheets().add("/css/event.css");
                 eventWindows.setScene(scene);
                 eventWindows.initOwner(thisStage);
@@ -273,21 +271,6 @@ public class WindowController {
                     }
                 });
 				stages.add(adminView);
-				if(osIsOSX){
-                	final Menu menu1 = new Menu("Calify");
-                	MenuBar menuBar = new MenuBar();
-                	MenuItem menu12 = new MenuItem("Om Calify");
-                	menu12.setOnAction(new EventHandler<ActionEvent>() {
-                		@Override public void handle(ActionEvent e) {
-                			openAboutScreen();
-                		}
-                	});
-                	menu1.getItems().add(menu12);
-                	menuBar.getMenus().add(menu1);
-                	AnchorPane root = (AnchorPane) scene.lookup("#manageUsersAnchorPane");
-                	root.getChildren().add(menuBar);
-                	menuBar.setUseSystemMenuBar(true);
-                }
 				adminView.show();
 			} catch(Exception e) {
 				System.out.println("Couldnt load AdminView.fxml");
@@ -325,21 +308,6 @@ public class WindowController {
 	             UserGroupController controller = (UserGroupController) o ;
 	             controller.setStage(userGroupView);
 	             Scene scene = new Scene(page);
-	             if(osIsOSX){
-	             	final Menu menu1 = new Menu("Calify");
-	             	MenuBar menuBar = new MenuBar();
-	             	MenuItem menu12 = new MenuItem("Om Calify");
-	             	menu12.setOnAction(new EventHandler<ActionEvent>() {
-	             		@Override public void handle(ActionEvent e) {
-	             			openAboutScreen();
-	             		}
-	             	});
-	             	menu1.getItems().add(menu12);
-	             	menuBar.getMenus().add(menu1);
-	             	AnchorPane root = (AnchorPane) scene.lookup("#userGroupAnchorPane");
-	             	root.getChildren().add(menuBar);
-	             	menuBar.setUseSystemMenuBar(true);
-	             }
 	             userGroupView.initOwner(thisStage);
 	             scene.getStylesheets().add("/css/userGroup.css");
 	             userGroupView.setScene(scene);
@@ -381,19 +349,6 @@ public class WindowController {
                         System.out.println("Closing management window");
                     }
                 });
-				final Menu menu1 = new Menu("Calify");
-				MenuBar menuBar = new MenuBar();
-				MenuItem menu12 = new MenuItem("Om Calify");
-				menu12.setOnAction(new EventHandler<ActionEvent>() {
-					@Override public void handle(ActionEvent e) {
-						openAboutScreen();
-					}
-				});
-				menu1.getItems().add(menu12);
-				menuBar.getMenus().add(menu1);
-				AnchorPane root = (AnchorPane) scene.lookup("#aboutAnchorPane");
-				root.getChildren().add(menuBar);
-				menuBar.setUseSystemMenuBar(true);
 				aboutScreenIsOpen=true;
 				aboutScreen.show();
 				stages.add(aboutScreen);
@@ -424,21 +379,6 @@ public class WindowController {
                 textWrappPane.getChildren().add(messageToUserText);
                 messageToUserText.setLayoutY(h/2-30);
                 messageToUserText.setLayoutX(w / 2 - messageToUserText.getLayoutBounds().getWidth() / 2);
-                if(osIsOSX){
-                	final Menu menu1 = new Menu("Calify");
-                	MenuBar menuBar = new MenuBar();
-                	MenuItem menu12 = new MenuItem("Om Calify");
-                	menu12.setOnAction(new EventHandler<ActionEvent>() {
-                		@Override public void handle(ActionEvent e) {
-                			openAboutScreen();
-                		}
-                	});
-                	menu1.getItems().add(menu12);
-                	menuBar.getMenus().add(menu1);
-                	AnchorPane root = (AnchorPane) scene.lookup("#UserDialogWindow");
-                	root.getChildren().add(menuBar);
-                	menuBar.setUseSystemMenuBar(true);
-                }
                 scene.getStylesheets().add("/css/UserDialogWindow.css");
                 dialogWindow.initOwner(thisStage);
                 dialogWindow.initModality(Modality.APPLICATION_MODAL);
