@@ -88,7 +88,12 @@ public class Person implements Serializable {
 
     @Override
     public boolean equals(Object o){
-        return personID == ((Person) o).getPersonID();
+    	if(o instanceof Person){
+    		return personID == ((Person) o).getPersonID();    		
+    	}
+    	else{
+    		return false;
+    	}
     }
 
 }

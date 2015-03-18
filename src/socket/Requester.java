@@ -557,6 +557,29 @@ public class Requester {
 		}
 		return ev;
 	}
+	
+	public Event createGroupEvent(Event event) {
+		Command cmd = new Command("createGroupEvent-event");
+		Event ev = null;
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(
+					con.getOutputStream());
+			oos.writeObject(cmd);
+			oos.writeObject(event);
+			InputStream is = con.getInputStream();
+			ObjectInputStream os = new ObjectInputStream(is);
+			Object o = os.readObject();
+			ev = (Event) o;
+		} catch (EOFException e) {
+		} catch (IOException e) {
+			System.out.println(e);
+		} catch (ClassCastException e) {
+			System.out.println(e);
+		} catch (ClassNotFoundException e) {
+			System.out.println(e);
+		}
+		return ev;
+	}
 
 	/**
 	 * Oppdaterer event.
@@ -991,6 +1014,47 @@ public class Requester {
 			System.out.println(e);
 		}
 		return attendants;
+	}
+	
+	public ArrayList<Person> getAllPersons() {
+		Command cmd = new Command("getAllPersons");
+		ArrayList<Person> persons = null;
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(
+					con.getOutputStream());
+			oos.writeObject(cmd);
+			InputStream is = con.getInputStream();
+			ObjectInputStream os = new ObjectInputStream(is);
+			Object o = os.readObject();
+			persons = (ArrayList<Person>) o;
+		} catch (EOFException e) {
+		} catch (IOException e) {
+			System.out.println(e);
+		} catch (ClassCastException e) {
+			System.out.println(e);
+		} catch (ClassNotFoundException e) {
+			System.out.println(e);
+		}
+		return persons;
+	}
+	
+	public boolean editUserGroup(UserGroup ug) {
+		Command cmd = new Command("editUserGroup-usergroup");
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(
+					con.getOutputStream());
+			oos.writeObject(cmd);
+			oos.writeObject(ug);
+		} catch (EOFException e) {
+			return false;
+		} catch (IOException e) {
+			System.out.println(e);
+			return false;
+		} catch (ClassCastException e) {
+			System.out.println(e);
+			return false;
+		}
+		return true;
 	}
 
 	/**
