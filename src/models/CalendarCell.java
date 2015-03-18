@@ -15,6 +15,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -37,6 +38,7 @@ public class CalendarCell extends ListCell<Calendar> {
 		if (PersonInfo.getPersonInfo().getCalendarsInUse().contains(cal)) checkbox.setSelected(true);
 		checkbox.setLayoutY(2);
 		label = new Label(cal.getName());
+		label.setTooltip(new Tooltip("Owner: " + cal.getUserGroups().get(0)));
 		label.setLayoutX(25);
 		label.setLayoutY(2);
 		label.setTextFill(Color.web("#0076a3"));

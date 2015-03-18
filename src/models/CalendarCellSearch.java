@@ -46,6 +46,7 @@ public class CalendarCellSearch extends ListCell<Calendar> {
             label.setPrefHeight(40);
             label.setWrapText(true);
         }
+        label.setTooltip(new Tooltip("Owner: " + cal.getUserGroups().get(0)));
         cal.setColorID(10);
         pane.getStyleClass().add(0, "cornflowerblue");
         pane.getChildren().addAll(checkbox, label);
