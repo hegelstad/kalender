@@ -2,8 +2,6 @@ package controllers;
 
 import java.util.ArrayList;
 
-import com.sun.org.apache.bcel.internal.generic.ISUB;
-
 import socket.Requester;
 import models.Person;
 import models.PersonInfo;
