@@ -3,9 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.sun.media.jfxmedia.locator.Locator;
-import com.sun.media.jfxmediaimpl.platform.osx.OSXPlatform;
 
 import models.Event;
 import javafx.event.ActionEvent;
@@ -19,7 +17,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
+import javafx.scene.image.Image; 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
