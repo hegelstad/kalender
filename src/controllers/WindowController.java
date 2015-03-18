@@ -15,9 +15,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -365,8 +370,20 @@ public class WindowController {
                 Parent page;
                 FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/UserDialogView.fxml"), null, new JavaFXBuilderFactory());
                 page = (Parent) loader.load();
-//                dialogWindow.setAlwaysOnTop(true);
                 Scene scene = new Scene(page);
+                Pane textWrappPane = (Pane) scene.lookup("#textWrappPane");
+                GridPane gridPane = (GridPane) scene.lookup("#userDialogGridPane");
+                final double w = gridPane.getPrefWidth();
+                System.out.println("Width : " + w);
+                final double h = gridPane.getPrefHeight();
+                System.out.println("Height: " + h);
+                Text messageToUserText = new Text(messageToUser);
+                messageToUserText.setTextAlignment(TextAlignment.CENTER);
+                messageToUserText.setWrappingWidth(w*0.9);
+                messageToUserText.setFill(Color.WHITE);
+                textWrappPane.getChildren().add(messageToUserText);
+                messageToUserText.setLayoutY(h/2-30);
+                messageToUserText.setLayoutX(w / 2 - messageToUserText.getLayoutBounds().getWidth() / 2);
                 if(osIsOSX){
                 	final Menu menu1 = new Menu("Calify");
                 	MenuBar menuBar = new MenuBar();
@@ -383,8 +400,6 @@ public class WindowController {
                 	menuBar.setUseSystemMenuBar(true);
                 }
                 scene.getStylesheets().add("/css/UserDialogWindow.css");
-                Label messageToUserField = (Label) scene.lookup("#messageToUser");
-                messageToUserField.setText(messageToUser);
                 dialogWindow.initModality(Modality.APPLICATION_MODAL);
                 dialogWindow.setScene(scene);
                 dialogWindow.centerOnScreen();
@@ -410,5 +425,6 @@ public class WindowController {
 	public static void warning(String message){
 		System.out.println(message);
 		LoginController.getLoginController().setStatus(message);
+		goToDialogWindows(message);
 	}
 }
