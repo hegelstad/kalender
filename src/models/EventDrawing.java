@@ -148,9 +148,13 @@ public class EventDrawing {
 				event.getCal().setColorID(cal.getColorID());
 			}
 		}
-		// System.out.println("Drawing : "+event.getName() + " id:" +
-		// event.getEventID() + " with colorID : "
-		// +event.getCal().getColorID());
+		for (Calendar cal : PersonInfo.getPersonInfo().getSubscribedCalendars()) {
+			if (cal.getCalendarID() == event.getCal().getCalendarID()) {
+				event.getCal().setColorID(cal.getColorID());
+			}
+		}
+		//System.out.println(event.getCal().getColorID());
+		//System.out.println("Drawing : "+event.getName() + " id:" + event.getEventID() + " with colorID : "+event.getCal().getColorID());
 		pane.setPrefHeight(getEventHeight(event));
 		pane.setMaxWidth(fullEventWidth - 3
 				- (indentMargin * reverseIndent));
@@ -229,42 +233,7 @@ public class EventDrawing {
 		r.setArcWidth(3);
 		r.strokeProperty().set(Color.BLACK);
 		r.strokeWidthProperty().set(1);
-
-		switch (e.getCal().getColorID()) {
-		case 0:
-			r.fillProperty().set(Color.LIGHTSKYBLUE);
-			break;
-		case 1:
-			r.fillProperty().set(Color.LIGHTSALMON);
-			break;
-		case 2:
-			r.fillProperty().set(Color.LIGHTGREEN);
-			break;
-		case 3:
-			r.fillProperty().set(Color.YELLOW);
-			break;
-		case 4:
-			r.fillProperty().set(Color.LIGHTPINK);
-			break;
-		case 5:
-			r.fillProperty().set(Color.AQUAMARINE);
-			break;
-		case 6:
-			r.fillProperty().set(Color.LIGHTCORAL);
-			break;
-		case 7:
-			r.fillProperty().set(Color.THISTLE);
-			break;
-		case 8:
-			r.fillProperty().set(Color.BEIGE);
-			break;
-		case 9:
-			r.fillProperty().set(Color.SILVER);
-			break;
-		default:
-			r.fillProperty().set(Color.CORNFLOWERBLUE);
-			break;
-		}
+		r.fillProperty().setValue(e.getCal().getColor());
 		r.opacityProperty().set(0.5);
 	}
 

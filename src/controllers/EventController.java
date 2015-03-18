@@ -45,6 +45,7 @@ public class EventController {
 	private ArrayList<Attendant> attendants = null;
 	private ArrayList<Room> rooms;
 	private ArrayList<UserGroup> addedParticipants = new ArrayList<UserGroup>();
+	private ArrayList<UserGroup> userGroupsInCalendar = null;
 	ObservableList<UserGroup> pol;
 	ObservableList<UserGroup> apol;
 	
@@ -261,10 +262,14 @@ public class EventController {
 
 	@FXML
 	private void initialize(){
+		System.out.println(PersonInfo.getPersonInfo().getSelectedCalendar().getUserGroups().get(0));
 		initializeHourAndMinutes();
 		Requester requester = new Requester();
 		participants = requester.getPrivateUserGroups();
         requester.closeConnection();
+        /*requester = new Requester();
+        requester.getUserGroupsInCalendar(PersonInfo.getPersonInfo().getSelectedCalendar());
+        requester.closeConnection();*/
 		pol = FXCollections.observableArrayList(participants);
 		addParticipantsSearch.setItems(pol);
 		apol = FXCollections.observableArrayList(addedParticipants);
@@ -434,14 +439,15 @@ public class EventController {
 	        };
 	        
 	    toDate.setDayCellFactory(dayCellFactory);
-	        
-		int personalID = PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID();
-		for (UserGroup ug : participants) {
-			if (personalID == ug.getUserGroupID()) {
-				apol.add(pol.remove(pol.indexOf(ug)));
-				break;
-			}
-		}
+	    int personalID = PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID();
+		if (apol.size() == 0){
+			for (UserGroup ug : participants) {
+		   		if (personalID == ug.getUserGroupID()) {
+		   			apol.add(pol.remove(pol.indexOf(ug)));
+		   			break;
+		    	}
+		    }
+	    }
 	}
 	
 	public LocalDateTime getFromTime() {
@@ -548,6 +554,25 @@ public class EventController {
 			}
 			requester.closeConnection();
 			note.setText(event.getNote());
+			if (attendants != null){
+				boolean remove = true;
+				for (Attendant a : attendants){
+					if (a.getUserGroupID() == PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID()){
+						remove = false;
+					}
+				}
+				if(remove){
+					int index = -1;
+					for (UserGroup ug : apol){
+						if (ug.getUserGroupID() == PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID()){
+							index = apol.indexOf(ug);
+						}
+					}
+					if (index != -1){
+						pol.add(apol.remove(index));
+					}
+				}
+			}
 			System.out.println("Opened event: " + event);
 			saveButton.setOnAction(e -> updateEvent(event));
 		}
