@@ -111,7 +111,7 @@ public class WindowController {
             scene.getStylesheets().add("/css/main.css");
             title = "Calify";
         }
-		thisStage.getIcons().add(new Image("calify.png"));
+		thisStage.getIcons().add(new Image("calicon.png"));
 		thisStage.hide();
 		thisStage.setScene(scene);
 		thisStage.setTitle(title);
@@ -226,6 +226,7 @@ public class WindowController {
                 eventWindowIsOpen = true;
             } catch(Exception e) {
                System.out.println("Couldnt load EventView.fxml");
+               e.printStackTrace();
             }
         }
 	}
