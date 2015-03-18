@@ -65,6 +65,7 @@ public class CalendarCellSearch extends ListCell<Calendar> {
                     subscribedCalendars.add(cal);
                 }
                 PersonInfo.personInfo.setSubscribedCalendars(subscribedCalendars);
+                HeaderController.getController().drawEventsForWeek();
             } else {
                 PersonInfo.getPersonInfo().removeCalendarInUse(cal);
                 ArrayList<Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
