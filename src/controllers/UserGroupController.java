@@ -15,22 +15,14 @@ import javafx.scene.control.ListView;
 
 public class UserGroupController {
 
-	@FXML
-	Button btnSave;
-	@FXML
-	Button btnCancel;
-	@FXML
-	Button btnAdd;
-	@FXML
-	Button btnRemove;
-	@FXML
-	Button btnAddGroup;
-	@FXML
-	ListView<Person> outUsersView;
-	@FXML
-	ListView<Person> inUsersView;
-	@FXML
-	ComboBox<UserGroup> userGroupCombo;
+	@FXML Button btnSave;
+	@FXML Button btnCancel;
+	@FXML Button btnAdd;
+	@FXML Button btnRemove;
+	@FXML Button btnAddGroup;
+	@FXML ListView<Person> outUsersView;
+	@FXML ListView<Person> inUsersView;
+	@FXML ComboBox<UserGroup> userGroupCombo;
 	
 	ObservableList<UserGroup> inUsersList;
 	ObservableList<UserGroup> outUsersList;
@@ -43,22 +35,18 @@ public class UserGroupController {
 		ArrayList<UserGroup> allGroups = PersonInfo.getPersonInfo().getUsergroups();
 		
 		userGroupsList = FXCollections.observableArrayList(userGroups);
-		outUsersList = FXCollections.observableArrayList(persons);
+		//outUsersList = FXCollections.observableArrayList(persons);
 		inUsersList = FXCollections.observableArrayList(new ArrayList<UserGroup>());
 		
-		userGroupCombo.setItems(userGroupsList);
-		outUsersView.setItems(outUsersList);
-		inUsersView.setItems(inUsersList);
+		//userGroupCombo.setItems(userGroupsList);
+		//outUsersView.setItems(outUsersList);
+		//inUsersView.setItems(inUsersList);
 	}
 	
 	private void setUserGroup(UserGroup ug){
 		
-		for(Person person : ug.getUsers())
+		for(Person person : ug.getUsers()) {
+
+        }
 	}
-	
-	
-	
-	
-	
-	
 }

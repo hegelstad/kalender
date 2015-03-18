@@ -30,7 +30,7 @@ public class Requester {
 	 * kjøre "metoder" mot serveren. IP TIL SERVER MÅ SETTES HER!
 	 */
 	public Requester() {
-		String host = "78.91.19.220";
+		String host = "localhost";
 		/** Define a port */
 		int port = 25025;
 
@@ -353,7 +353,7 @@ public class Requester {
 	/**
 	 * Tar inn en usergroup og henter alle kalendere usergroupen tilhører.
 	 * 
-	 * @param ug
+	 * @param
 	 * @return
 	 */
 	public ArrayList<Calendar> getAllCalendars() {
