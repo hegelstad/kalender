@@ -557,6 +557,29 @@ public class Requester {
 		}
 		return ev;
 	}
+	
+	public Event createGroupEvent(Event event) {
+		Command cmd = new Command("createGroupEvent-event");
+		Event ev = null;
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(
+					con.getOutputStream());
+			oos.writeObject(cmd);
+			oos.writeObject(event);
+			InputStream is = con.getInputStream();
+			ObjectInputStream os = new ObjectInputStream(is);
+			Object o = os.readObject();
+			ev = (Event) o;
+		} catch (EOFException e) {
+		} catch (IOException e) {
+			System.out.println(e);
+		} catch (ClassCastException e) {
+			System.out.println(e);
+		} catch (ClassNotFoundException e) {
+			System.out.println(e);
+		}
+		return ev;
+	}
 
 	/**
 	 * Oppdaterer event.
