@@ -84,7 +84,7 @@ public class NotificationCell extends ListCell<Notification> {
 								s.closeConnection();
 								s = new Requester();
 								Attendant at = new Attendant(PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID(), PersonInfo.getPersonInfo().getPersonalUserGroup().getName(), 1);
-								s.updateAttends(note.getEvent(), at);
+								s.updateAttendsPersonalEvent(note.getEvent(), at);
 								s.closeConnection();
 								System.out.println("Notification flagged as read & accepted");
 //								ArrayList<Calendar> cals = PersonInfo.getPersonInfo().getAllCalendars();

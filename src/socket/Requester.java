@@ -1080,6 +1080,22 @@ public class Requester {
 		}
 		return true;
 	}
+	
+	public void updateAttendsPersonalEvent(Event event, Attendant attendant) {
+		Command cmd = new Command("updateAttendsPersonalEvent-event-attendant");
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(
+					con.getOutputStream());
+			oos.writeObject(cmd);
+			oos.writeObject(event);
+			oos.writeObject(attendant);
+		} catch (EOFException e) {
+		} catch (IOException e) {
+			System.out.println(e);
+		} catch (ClassCastException e) {
+			System.out.println(e);
+		}
+	}
 
 	/**
 	 * Metode for å lukke connection med server.
