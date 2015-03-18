@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.media.jfxmedia.locator.Locator;
+import com.sun.media.jfxmediaimpl.platform.osx.OSXPlatform;
+
 import models.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -43,7 +46,6 @@ public class WindowController {
 	private static boolean adminWindowIsOpen = false;
 	private static boolean aboutScreenIsOpen = false;
 	private static boolean userGroupWindowIsOpen = false;
-	private static List<Stage> stages = new ArrayList<Stage>();
 	private static boolean osIsOSX;
 
 	public static void setProgram(Main p){
@@ -85,19 +87,14 @@ public class WindowController {
 
 	
 	public static void logOff() {
-		for (Stage s: stages) {
-			s.close();
-		}
 		setEventWindowIsOpen(false);
 		setAdminWindowIsOpen(false);
 		setUserGroupWindowIsOpen(false);
 		setAboutWindowIsOpen(false);
+		thisStage.close();
 		goToLogin();
 	}
 	
-	public static void removeStage(Stage stage){
-		stages.remove(stage);
-	}
 	
 	public static void goToLogin(){
 		String title ="";
@@ -154,12 +151,13 @@ public class WindowController {
 			thisStage.getScene().setRoot(page);
 			thisStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
-					if (HeaderController.getController() != null && HeaderController.getController().timer != null){
+					if (HeaderController.getController() != null){
+						System.out.println("D");
+						HeaderController.getController().scheduler.cancel();
 						HeaderController.getController().timer.cancel();
 					}
 				}
 			});
-			thisStage.show();
 			if(osIsOSX){
 				AnchorPane root = (AnchorPane) scene.lookup("#root");			
 				final Menu menu1 = new Menu("Calify");
@@ -175,6 +173,8 @@ public class WindowController {
 				root.getChildren().add(menuBar);
 				menuBar.setUseSystemMenuBar(true);
 			}
+			thisStage.show();
+			WeekController.getController().setVvalue();
 		} catch (IOException e1) {
 			System.out.println("Couldnt load SuperView.fxml");
 		}
@@ -187,7 +187,6 @@ public class WindowController {
 			warning("There is already an Event window open");
 		} else {
             try {
-                stages.add(eventWindows);
                 eventWindows.initStyle(StageStyle.UNDECORATED);
                 Parent page;
                 FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/EventView.fxml"), null, new JavaFXBuilderFactory());
@@ -270,7 +269,6 @@ public class WindowController {
                         System.out.println("Closing management window");
                     }
                 });
-				stages.add(adminView);
 				adminView.show();
 			} catch(Exception e) {
 				System.out.println("Couldnt load AdminView.fxml");
@@ -314,7 +312,6 @@ public class WindowController {
 	             userGroupView.centerOnScreen();
 	             userGroupView.setResizable(false);
 	             userGroupWindowIsOpen=true;
-	             stages.add(userGroupView);
 	             userGroupView.show();
 	         } catch(Exception e) {
 	            e.printStackTrace();
@@ -345,13 +342,11 @@ public class WindowController {
                     public void handle(WindowEvent we) {
                         aboutScreen.close();
                         aboutScreenIsOpen=false;
-                        stages.remove(aboutScreen);
                         System.out.println("Closing management window");
                     }
                 });
 				aboutScreenIsOpen=true;
 				aboutScreen.show();
-				stages.add(aboutScreen);
 			} catch (IOException e) {
 				System.out.println("Couldn't load AboutView.fxml");
 			}
@@ -386,7 +381,6 @@ public class WindowController {
                 dialogWindow.centerOnScreen();
                 dialogWindow.setResizable(false);
                 dialogWindow.show();
-                stages.add(dialogWindow);
             } catch(Exception e) {
                e.printStackTrace();
                System.out.println("Couldnt load UserDialogView.fxml");
