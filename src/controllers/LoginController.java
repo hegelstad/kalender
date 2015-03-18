@@ -40,6 +40,7 @@ public class LoginController {
         if (key.getCode().equals(KeyCode.ENTER)) {
             if (fieldsAreSet()){
                 if (authenticateUser()) {
+                	WindowController.thisStage.close();
                     WindowController.goToCalendarView();
                 }
             } else {
@@ -54,6 +55,7 @@ public class LoginController {
     private void loginButtonOnAction(){
         if (fieldsAreSet()){
             if(authenticateUser()){
+            	WindowController.thisStage.close();
                 WindowController.goToCalendarView();
             }
             setStatus("Incorrect username or password");
