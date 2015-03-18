@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controllers.UserGroupController">
+<AnchorPane prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #26272B;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserGroupController">
    <children>
       <GridPane hgap="10.0" prefHeight="400.0" prefWidth="400.0" vgap="10.0">
         <columnConstraints>
@@ -42,7 +41,7 @@
                   <Button fx:id="btnRemove" contentDisplay="CENTER" mnemonicParsing="false" onAction="#removeUser" text="&lt;-" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Pane fx:id="paneTitle" prefHeight="24.0" GridPane.columnSpan="3">
+            <Pane fx:id="paneTitle" prefHeight="24.0" style="-fx-background-color: #0093F0;" GridPane.columnSpan="3">
                <children>
                   <Label fx:id="title" layoutX="162.0" layoutY="4.0" text="Label" />
                </children>

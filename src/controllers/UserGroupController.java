@@ -6,13 +6,16 @@ import socket.Requester;
 import models.Person;
 import models.PersonInfo;
 import models.UserGroup;
+import models.PersonCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class UserGroupController {
 
@@ -45,10 +48,10 @@ public class UserGroupController {
 		ArrayList<Person> persons = r.getAllPersons();
 		r.closeConnection();
 		/* Get all non private user groups */
-		ArrayList<UserGroup> allUserGroups = new ArrayList<UserGroup>();
-
+		ArrayList<UserGroup> allUserGroups = PersonInfo.getPersonInfo().getUsergroups();
 		ArrayList<UserGroup> userGroups = new ArrayList<UserGroup>();
 		for(UserGroup ug : allUserGroups){
+			System.out.println(ug);
 			if(!ug.isPrivate()){
 				userGroups.add(ug);
 			}
@@ -63,6 +66,15 @@ public class UserGroupController {
 		userGroupCombo.setItems(userGroupsList);
 		outUsersView.setItems(outUsersList);
 		inUsersView.setItems(inUsersList);
+		
+		outUsersView.setCellFactory( (list) -> {
+			return new PersonCell();
+		});
+		
+		inUsersView.setCellFactory( (list) -> {
+			return new PersonCell();
+		});
+		
 		
 		setComboListener();
 	}
@@ -85,19 +97,47 @@ public class UserGroupController {
 	@FXML
 	private void addUser(){
 		Person selectedPerson = outUsersView.getSelectionModel().getSelectedItem();
-		inUsersList.add(selectedPerson);
-		outUsersList.remove(selectedPerson);
+		if(selectedPerson!=null){
+			inUsersList.add(selectedPerson);
+			outUsersList.remove(selectedPerson);
+		}
 	}
 	
 	@FXML
 	private void removeUser(){
 		Person selectedPerson = inUsersView.getSelectionModel().getSelectedItem();
-		outUsersList.add(selectedPerson);
-		inUsersList.remove(selectedPerson);
+		if(selectedPerson != null){
+			outUsersList.add(selectedPerson);
+			inUsersList.remove(selectedPerson);			
+		}
 	}
 	
 	@FXML
 	private void save(){
+		UserGroup oldGroup = userGroupCombo.getSelectionModel().getSelectedItem();
+		UserGroup newGroup = new UserGroup(oldGroup.getUserGroupID(), oldGroup.getName(), null, 1);
+		UserGroup toBeDeleted = new UserGroup(oldGroup.getUserGroupID(), oldGroup.getName(), null, 1);
+		
+		ArrayList<Person> usersToBeDeleted = new ArrayList<Person>();
+		ArrayList<Person> usersAdded = new ArrayList<Person>();
+		/* Copy old list */
+		for(Person person : oldGroup.getUsers()){
+			usersAdded.add(person);
+			usersToBeDeleted.add(person);
+		}
+		/* Add new users/ Remove fromm delete list*/
+		for(Person person : inUsersList){
+			if(!usersAdded.contains(person)){
+				usersAdded.add(person);
+			}
+			usersToBeDeleted.remove(person);
+		}
+		
+		if(usersToBeDeleted.size()!=0){
+			toBeDeleted.setUsers(usersToBeDeleted);
+			Requester deleteReq = new Requester();
+			
+		}
 		
 	}
 	
@@ -112,7 +152,8 @@ public class UserGroupController {
 	}
 	
 	private void setComboListener(){
-		userGroupCombo.selectionModelProperty().addListener( (ug)-> {
+		userGroupCombo.valueProperty().addListener( (ug,newVal,oldVal)-> {
+			//System.out.println("dasfasdfasdfsdfas");
 			setUserGroup(userGroupCombo.getSelectionModel().getSelectedItem());
 		});
 	}

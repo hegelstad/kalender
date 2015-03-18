@@ -263,9 +263,13 @@ public class WindowController {
 	public static void goToUserGroupView(){
 		 try {
          	Stage userGroupView = new Stage();
+         	userGroupView.initStyle(StageStyle.UNDECORATED);
              Parent page;
              FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/UserGroupView.fxml"), null, new JavaFXBuilderFactory());
              page = (Parent) loader.load();
+             Object o = loader.getController();
+             UserGroupController controller = (UserGroupController) o ;
+             controller.setStage(userGroupView);
 //             dialogWindow.setAlwaysOnTop(true);
              Scene scene = new Scene(page);
 //             if(osIsOSX){
