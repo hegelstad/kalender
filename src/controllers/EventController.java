@@ -48,6 +48,8 @@ public class EventController {
 	private ArrayList<UserGroup> userGroupsInCalendar;
 	ObservableList<UserGroup> pol;
 	ObservableList<UserGroup> apol;
+	private boolean statusChanged = false;
+	private int attendStatus;
 	
 	@FXML private Button cancelButton;
 	@FXML private Button saveButton;
@@ -155,22 +157,25 @@ public class EventController {
 				ev = new Event(0, title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), cal);
 			}
 		}catch (Exception e){
-			System.out.println("Denne er ment å bli catchet");
+			//System.out.println("Denne er ment å bli catchet");
 		}
-
-		Requester r = new Requester();
-		ArrayList<Room> avRooms = r.getAvailableRooms(ev);
-		r.closeConnection();
+		ArrayList<Room> avRooms = null;
+		if (ev != null){
+			Requester r = new Requester();
+			avRooms = r.getAvailableRooms(ev);
+			r.closeConnection();
+		}
 		boolean stillAvailableRoom = false;
-		try {
-			for (Room rm : avRooms){
-				if (room.getRoomName().equals(rm.getRoomName())){
-					stillAvailableRoom = true;
-					break;
+		if (avRooms != null){
+			try {
+				for (Room rm : avRooms){
+					if (room.getRoomName().equals(rm.getRoomName())){
+						stillAvailableRoom = true;
+						break;
+					}
 				}
-			}
-		} catch(NullPointerException e) {}
-
+			} catch(NullPointerException e) {}
+		}
 		if(!stillAvailableRoom) {
 			roomLocation.getSelectionModel().clearSelection();
 		}
@@ -223,9 +228,6 @@ public class EventController {
 			requester.closeConnection();
 			if(ev.getEventID() != 0){
 				selectedCalendar.getEvents().add(ev);
-				for(Event event : selectedCalendar.getEvents()){
-					System.out.println(event.getName());					
-				}
 				HeaderController.getController().drawEventsForWeek();
 				return true;
 			}
@@ -257,9 +259,6 @@ public class EventController {
 			requester.closeConnection();
 			if(ev.getEventID() != 0){
 				selectedCalendar.getEvents().add(ev);
-				for(Event event : selectedCalendar.getEvents()){
-					System.out.println(event.getName());					
-				}
 				HeaderController.getController().drawEventsForWeek();
 				WindowController.setEventWindowIsOpen(false);
 				stage.close();
@@ -273,7 +272,7 @@ public class EventController {
 	}
 	
 	private boolean eventIsValid() {
-        System.out.println("Checkin if event is valid in EventController.");
+        System.out.println("Checking if event is valid in EventController.");
         boolean valid = true;
 		if(!validateTitle()) {
 			valid = false;
@@ -295,13 +294,16 @@ public class EventController {
 	@FXML
 	private void initialize(){
 		this.calendarEvent = WeekController.getController().getEvent();
-		System.out.println(calendarEvent);
 		initializeHourAndMinutes();
 		Requester requester = new Requester();
 		participants = requester.getPrivateUserGroups();
         requester.closeConnection();
         requester = new Requester();
-        userGroupsInCalendar = requester.getUserGroupsInCalendar(calendarEvent.getCal());
+        try{
+        	userGroupsInCalendar = requester.getUserGroupsInCalendar(calendarEvent.getCal());
+        }catch (NullPointerException e){
+        	userGroupsInCalendar = requester.getUserGroupsInCalendar(PersonInfo.getPersonInfo().getSelectedCalendar());
+        }
         requester.closeConnection();
         System.out.println("Usergroups in calendar: " + userGroupsInCalendar);
         if(userGroupsInCalendar.size() < 2){
@@ -376,47 +378,23 @@ public class EventController {
 				            		        	MenuItem noAnswer = new MenuItem("No answer");
 				            		        	attend.setOnAction(new EventHandler<ActionEvent>() {
 				            		        		@Override public void handle(ActionEvent e) {
-				            		        			Requester requester = new Requester();
-				            		        			requester.updateAttends(calendarEvent, new Attendant(ug.getUserGroupID(),ug.getName(),1));
-				            		        			requester.closeConnection();
+				            		        			statusChanged = true;
+				            		        			attendStatus = 1;
 				            		        			statusCircle.setFill(Color.DARKGREEN);
-				            		        			calendarEvent.setAttends(1);
-				            		        			HeaderController.getController().drawEventsForWeek();
-				            		        			for (Attendant a : attendants) {
-				            		                		if (a.getUserGroupID() == ug.getUserGroupID()) {
-				            			                		a.setStatus(1);
-				            		                		}
-				            		        			}
 				            		        		}
 				            		        	});
 				            		        	dontAttend.setOnAction(new EventHandler<ActionEvent>() {
 				            		        		@Override public void handle(ActionEvent e) {
-				            		        			Requester requester = new Requester();
-				            		        			requester.updateAttends(calendarEvent, new Attendant(ug.getUserGroupID(),ug.getName(),2));
-				            		        			requester.closeConnection();
+				            		        			statusChanged = true;
+				            		        			attendStatus = 2;
 				            		        			statusCircle.setFill(Color.BROWN);
-				            		        			calendarEvent.setAttends(2);
-				            		        			HeaderController.getController().drawEventsForWeek();
-				            		        			for (Attendant a : attendants) {
-				            		                		if (a.getUserGroupID() == ug.getUserGroupID()) {
-				            			                		a.setStatus(2);
-				            		                		}
-				            		        			}
 				            		        		}
 				            		        	});
 				            		        	noAnswer.setOnAction(new EventHandler<ActionEvent>() {
 				            		        		@Override public void handle(ActionEvent e) {
-				            		        			Requester requester = new Requester();
-				            		        			requester.updateAttends(calendarEvent, new Attendant(ug.getUserGroupID(),ug.getName(),0));
-				            		        			requester.closeConnection();
+				            		        			statusChanged = true;
+				            		        			attendStatus = 0;
 				            		        			statusCircle.setFill(Color.GOLDENROD);
-				            		        			calendarEvent.setAttends(0);
-				            		        			HeaderController.getController().drawEventsForWeek();
-				            		        			for (Attendant a : attendants) {
-				            		                		if (a.getUserGroupID() == ug.getUserGroupID()) {
-				            			                		a.setStatus(0);
-				            		                		}
-				            		        			}
 				            		        		}
 				            		        	});
 				            		        	contextMenu.getItems().addAll(attend, dontAttend, noAnswer);
@@ -549,6 +527,7 @@ public class EventController {
 	}
 
 	void openEvent(Event event) {
+		removeDateListeners();
 		title.setText(event.getName());
 		fromDate.setValue(event.getFrom().toLocalDate());
 		toDate.setValue(event.getTo().toLocalDate());
@@ -572,6 +551,7 @@ public class EventController {
 		toHours.setValue(ToHours);
 		fromMinutes.setValue(FromMinutes);
 		toMinutes.setValue(ToMinutes);
+		setDateListeners();
 		eventBar.fillProperty().set(calendarEvent.getCal().getColor());
 		eventBar.setOpacity(0.7);
 		if(event.getEventID() != 0){
@@ -628,6 +608,18 @@ public class EventController {
 	}
 	
 	public void updateEvent(Event event){
+		if(statusChanged){
+			Requester requester = new Requester();
+			requester.updateAttends(calendarEvent, new Attendant(PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID(),PersonInfo.getPersonInfo().getPersonalUserGroup().getName(), attendStatus));
+			requester.closeConnection();
+			calendarEvent.setAttends(attendStatus);
+			HeaderController.getController().drawEventsForWeek();
+			for (Attendant a : attendants) {
+        		if (a.getUserGroupID() == PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID()) {
+            		a.setStatus(attendStatus);
+        		}
+			}
+		}
 		
 		event.setName(title.getText());
 		event.setNote(note.getText());
@@ -646,5 +638,35 @@ public class EventController {
 		HeaderController.getController().drawEventsForWeek();
 		WindowController.setEventWindowIsOpen(false);
 		stage.close();
+	}
+	
+	public void setDateListeners(){
+		fromDate.setOnAction((event) -> {
+			validateTime();
+		});
+		toDate.setOnAction((event) -> {
+			validateTime();
+		});
+		fromHours.setOnAction((event) -> {
+			validateTime();
+		});
+		toHours.setOnAction((event) -> {
+			validateTime();
+		});
+		fromMinutes.setOnAction((event) -> {
+			validateTime();
+		});
+		toMinutes.setOnAction((event) -> {
+			validateTime();
+		});
+	}
+	
+	public void removeDateListeners(){
+		fromDate.setOnAction((event) -> {});
+		toDate.setOnAction((event) -> {});
+		fromHours.setOnAction((event) -> {});
+		toHours.setOnAction((event) -> {});
+		fromMinutes.setOnAction((event) -> {});
+		toMinutes.setOnAction((event) -> {});
 	}
 }
