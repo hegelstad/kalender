@@ -36,7 +36,7 @@ public class SidebarController {
 
 	public ObservableList<Calendar> calendars = FXCollections.observableArrayList(new ArrayList<Calendar>());
 
-	@FXML private void initialize(){
+	@FXML private void initialize() {
 		controller = this;
 		Rectangle rectangle = new Rectangle(1,1);
 		searchCalendar.setShape(rectangle);
@@ -77,10 +77,10 @@ public class SidebarController {
 		Scene scene = WindowController.thisStage.getScene();
 		Pane newCalendarWindow = (Pane) scene.lookup("#newCalendarWindow");
 		TextField newCalendarTextField = (TextField) scene.lookup("#newCalendarTextField");
-		if (newCalendarWindow.isVisible()){
+		if (newCalendarWindow.isVisible()) {
 			newCalendarWindow.setVisible(false);
 			newCalendarTextField.setText("");
-			if (SuperController.toolTip != null){
+			if (SuperController.toolTip != null) {
 				SuperController.toolTip.hide();
 			}
 		} else {
@@ -89,18 +89,18 @@ public class SidebarController {
 		}
 	}
 
-	public void updateCalendarList(){
+	public void updateCalendarList() {
 		calendarList.setItems(calendars);
 		calendarList.setCellFactory( (list) -> {
 			return new CalendarCell();
 		});
 	}
 
-	/*public void addCalendar(Calendar cal){
+	/*public void addCalendar(Calendar cal) {
 		calendars.add(cal);
 		// Must add new button and label to scene here
 	}*/
-	public void addCalendars(ArrayList<Calendar> cals){
+	public void addCalendars(ArrayList<Calendar> cals) {
 		calendars.clear();
 		calendars.addAll(cals);
 	}
@@ -118,16 +118,16 @@ public class SidebarController {
 		return calendarList;
 	}
 
-	public void initSearchCalendar (){
+	public void initSearchCalendar () {
 		//Henter alle kalendere og legger de til i en observable list
 		Requester r = new Requester();
 		ArrayList<Calendar> allCalendars = r.getAllCalendars();
 		r.closeConnection();
 		ArrayList<Calendar> temp_allCalenders = allCalendars;
 		ArrayList<Calendar> calendarsInUse = PersonInfo.getPersonInfo().getCalendarsInUse();
-		for(int x = 0; x < allCalendars.size(); x++){
-			for (int i = 0; i < calendarsInUse.size(); i ++){
-				if(allCalendars.get(x).getCalendarID() == calendarsInUse.get(i).getCalendarID()){
+		for(int x = 0; x < allCalendars.size(); x++) {
+			for (int i = 0; i < calendarsInUse.size(); i ++) {
+				if(allCalendars.get(x).getCalendarID() == calendarsInUse.get(i).getCalendarID()) {
 					temp_allCalenders.remove(allCalendars.get(x));
 				}
 			}
@@ -151,7 +151,7 @@ public class SidebarController {
 				}
 			}
 			//Fjerner alle søkeresultater om tekstfeltet er tomt
-			if(searchCalendar.getText().length() == 0){
+			if(searchCalendar.getText().length() == 0) {
 				displaySubscribedCalendars();
 				noMatchingResults.setVisible(false);
 			} else {
@@ -160,8 +160,7 @@ public class SidebarController {
 				if(filteredData.size()==0){
 					noMatchingResults.setVisible(true);
 					subscribeCalendarList.setItems(filteredData);	
-				}
-				else{
+				} else {
 					noMatchingResults.setVisible(false);
 					subscribeCalendarList.setItems(filteredData);					
 				}
@@ -169,12 +168,12 @@ public class SidebarController {
 		});
 	}
 
-	public void displaySubscribedCalendars(){
+	public void displaySubscribedCalendars() {
 		ArrayList<Calendar> subscribedCalendars = PersonInfo.getPersonInfo().getSubscribedCalendars();
 		subscribeCalendarList.setItems(FXCollections.observableArrayList(subscribedCalendars));
 	}
 
-	public static void updateLabels(){
+	public static void updateLabels() {
 		for (Label l : labels){
 			l.setFont(Font.font(null, FontWeight.NORMAL, 13));
 		}
