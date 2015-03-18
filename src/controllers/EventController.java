@@ -45,7 +45,7 @@ public class EventController {
 	private ArrayList<Attendant> attendants = null;
 	private ArrayList<Room> rooms;
 	private ArrayList<UserGroup> addedParticipants = new ArrayList<UserGroup>();
-	private ArrayList<UserGroup> userGroupsInCalendar = null;
+	private ArrayList<UserGroup> userGroupsInCalendar;
 	ObservableList<UserGroup> pol;
 	ObservableList<UserGroup> apol;
 	
@@ -93,7 +93,6 @@ public class EventController {
 	}
 	
 	@FXML public boolean validateTitle() {
-        System.out.println("Validating title in EventController.");
         if (title.getText().length() > 40){
 			System.out.println("Max 40 characters.");
 			return false;
@@ -105,14 +104,13 @@ public class EventController {
 	}
 	
 	@FXML public boolean validateTime() {
-        System.out.println("Validating time in EventController.");
         LocalDateTime from = null;
 		LocalDateTime to = null;
 		try {
 			if (toDate.getValue().isBefore(fromDate.getValue())) {
 				toDate.setValue(fromDate.getValue());
 			}	
-		} catch (Exception e){ }
+		} catch (Exception e){return false;}
 
 		try {
 			 from = getFromTime();
@@ -123,6 +121,7 @@ public class EventController {
 		} catch (NullPointerException e) {
 			roomLocation.setDisable(true);
 			roomLocation.getSelectionModel().clearSelection();
+			return false;
 		}
 
 		try {
@@ -134,6 +133,7 @@ public class EventController {
 		} catch (NullPointerException e) {
 			roomLocation.setDisable(true);
 			roomLocation.getSelectionModel().clearSelection();
+			return false;
 		}
         try {
             if (!from.isBefore(to)) {
@@ -142,7 +142,7 @@ public class EventController {
                 roomLocation.getSelectionModel().clearSelection();
                 return false;
             }
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {return false;}
 
 		roomLocation.setDisable(false);
 		Room room = roomLocation.getSelectionModel().getSelectedItem();
@@ -162,7 +162,6 @@ public class EventController {
 		ArrayList<Room> avRooms = r.getAvailableRooms(ev);
 		r.closeConnection();
 		boolean stillAvailableRoom = false;
-		/* DETTE KAN KANSKJE GJØRES PÅ EN GJERRIGERE MÅTE, men det er vanskelig å gjøre når tidspunkt endres*/
 		try {
 			for (Room rm : avRooms){
 				if (room.getRoomName().equals(rm.getRoomName())){
@@ -170,9 +169,7 @@ public class EventController {
 					break;
 				}
 			}
-		} catch(NullPointerException e) {
-            System.out.println("Sjekker om rom fortsatt er ledig.");
-        }
+		} catch(NullPointerException e) {}
 
 		if(!stillAvailableRoom) {
 			roomLocation.getSelectionModel().clearSelection();
@@ -181,7 +178,6 @@ public class EventController {
 	}
 	
 	@FXML public boolean validateGuests() {
-		System.out.println("Validating guests in EventController.");
 		try {
 			int roomSize = roomLocation.getSelectionModel().getSelectedItem().getCapacity();
 			int participants = apol.size();
@@ -240,6 +236,42 @@ public class EventController {
 		return false;
 	}
 	
+	private boolean createGroupEvent() {
+		if(eventIsValid()) {
+			Requester requester = new Requester();
+			Calendar selectedCalendar = PersonInfo.getPersonInfo().getSelectedCalendar();
+			Event ev = new Event(0, title.getText(), note.getText(), new ArrayList<UserGroup>(apol), getFromTime(), getToTime(), selectedCalendar);
+			ev = requester.createGroupEvent(ev);
+			ev.setAttends(1);
+			requester.closeConnection();
+	
+			requester = new Requester();
+			try {
+				Room room = roomLocation.getSelectionModel().getSelectedItem();
+				if (room != null){
+					requester.bookRoom(ev, room);
+				}
+			} catch (Exception e){
+				System.out.println("No room selected.");
+			}
+			requester.closeConnection();
+			if(ev.getEventID() != 0){
+				selectedCalendar.getEvents().add(ev);
+				for(Event event : selectedCalendar.getEvents()){
+					System.out.println(event.getName());					
+				}
+				HeaderController.getController().drawEventsForWeek();
+				WindowController.setEventWindowIsOpen(false);
+				stage.close();
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		return false;
+	}
+	
 	private boolean eventIsValid() {
         System.out.println("Checkin if event is valid in EventController.");
         boolean valid = true;
@@ -262,15 +294,21 @@ public class EventController {
 
 	@FXML
 	private void initialize(){
-		System.out.println(PersonInfo.getPersonInfo().getSelectedCalendar().getUserGroups().get(0));
+		this.calendarEvent = WeekController.getController().getEvent();
+		System.out.println(calendarEvent);
 		initializeHourAndMinutes();
 		Requester requester = new Requester();
 		participants = requester.getPrivateUserGroups();
         requester.closeConnection();
-        /*requester = new Requester();
-        requester.getUserGroupsInCalendar(PersonInfo.getPersonInfo().getSelectedCalendar());
-        requester.closeConnection();*/
-		pol = FXCollections.observableArrayList(participants);
+        requester = new Requester();
+        userGroupsInCalendar = requester.getUserGroupsInCalendar(calendarEvent.getCal());
+        requester.closeConnection();
+        System.out.println("Usergroups in calendar: " + userGroupsInCalendar);
+        if(userGroupsInCalendar.size() < 2){
+        	pol = FXCollections.observableArrayList(participants);
+        }else{
+        	pol = FXCollections.observableArrayList(userGroupsInCalendar);
+        }
 		addParticipantsSearch.setItems(pol);
 		apol = FXCollections.observableArrayList(addedParticipants);
 		participantsStatus.setItems(apol);
@@ -309,7 +347,9 @@ public class EventController {
 			                		}
 		                		}
 		                	}
-		                } else {
+		                } else if (userGroupsInCalendar.size() > 1) {
+		                	statusCircle.setFill(Color.DARKGREEN);
+		            	}else{
 		                	if (PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID() == ug.getUserGroupID()) {
 	                			statusCircle.setFill(Color.DARKGREEN);
 	                		} else {
@@ -441,13 +481,23 @@ public class EventController {
 	    toDate.setDayCellFactory(dayCellFactory);
 	    int personalID = PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID();
 		if (apol.size() == 0){
+			int index = -1;
 			for (UserGroup ug : participants) {
 		   		if (personalID == ug.getUserGroupID()) {
-		   			apol.add(pol.remove(pol.indexOf(ug)));
+		   			index = pol.indexOf(ug);
 		   			break;
 		    	}
 		    }
+			if (index != -1) apol.add(pol.remove(index));	
 	    }
+		if (userGroupsInCalendar.size() > 1){
+			apol.addAll(pol);
+			pol.clear();
+			addParticipantsSearch.setDisable(true);
+			addParticipantsButton.setDisable(true);
+			removeParticipantsButton.setDisable(true);
+			saveButton.setOnAction(e -> createGroupEvent());
+		}
 	}
 	
 	public LocalDateTime getFromTime() {
@@ -499,7 +549,6 @@ public class EventController {
 	}
 
 	void openEvent(Event event) {
-		this.calendarEvent = event;
 		title.setText(event.getName());
 		fromDate.setValue(event.getFrom().toLocalDate());
 		toDate.setValue(event.getTo().toLocalDate());

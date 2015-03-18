@@ -25,6 +25,7 @@ import javafx.scene.text.FontWeight;
 public class CalendarCell extends ListCell<Calendar> {
 	
 	public Label label;
+	public CheckBox checkbox;
 	
 	public CalendarCell(){
 
@@ -32,7 +33,7 @@ public class CalendarCell extends ListCell<Calendar> {
 
 	private void init(Calendar cal){
 		Pane pane = new Pane();
-		CheckBox checkbox = new CheckBox();
+		checkbox = new CheckBox();
 		if (PersonInfo.getPersonInfo().getCalendarsInUse().contains(cal)) checkbox.setSelected(true);
 		checkbox.setLayoutY(2);
 		label = new Label(cal.getName());
@@ -100,6 +101,7 @@ public class CalendarCell extends ListCell<Calendar> {
 		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
 		            if(mouseEvent.getClickCount() == 2){
 		                PersonInfo.getPersonInfo().setSelectedCalendar(cal);
+		                if (! checkbox.isSelected()) checkbox.setSelected(true);
 		                System.out.println("Selected calendar: " + PersonInfo.getPersonInfo().getSelectedCalendar());
 		                SidebarController.updateLabels();
 		                label.setFont(Font.font(null, FontWeight.BOLD, 13));

@@ -32,6 +32,7 @@ public class WeekController {
 	public final double hourHeightPrecise = 66; 
 	public final double indentMargin = 15.0;
 	boolean mouseOverEvent = false;
+	private Event event;
 
 	ArrayList<EventDrawing> eventDrawings = new ArrayList<>();
 	public @FXML GridPane weekGrid;
@@ -74,6 +75,7 @@ public class WeekController {
 
 
 	public void openEvent(Event event){
+		this.event = event;
 		WindowController.goToEventView(event);
 		//System.out.println(event.getName());
 	}
@@ -256,4 +258,8 @@ public class WeekController {
 		/* Antar ny event er i riktig veke */ 
 		return weekDay - event.getFrom().getDayOfWeek().getValue();
 	}
+
+	public Event getEvent() {
+		return event;
+	}	
 }
