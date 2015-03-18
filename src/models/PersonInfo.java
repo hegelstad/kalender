@@ -29,6 +29,7 @@ public class PersonInfo {
 	private ArrayList<Notification> notifications;
 	private Calendar selectedCalendar;
 	private ArrayList<Calendar> subscribedCalendars = new ArrayList<>();
+	private Calendar personalCalendar;
 	
 	public Person getPerson() {
 		return person;
@@ -82,6 +83,8 @@ public class PersonInfo {
 		this.subscribedCalendars = subscribedCalendars;
 	}
 	
+	public void setPersonalCalendar(Calendar cal) { this.personalCalendar = cal; }
+	
 	public static PersonInfo getPersonInfo(){
 		return personInfo;
 	}
@@ -101,6 +104,8 @@ public class PersonInfo {
 	public Calendar getSelectedCalendar() {
 		return selectedCalendar;
 	}
+	
+	public Calendar getPersonalCalendar() { return personalCalendar; }
 
 	public ArrayList<Calendar> getSubscribedCalendars() {
 		return subscribedCalendars;
@@ -165,7 +170,5 @@ public class PersonInfo {
 		//calendarsInUse.add(cal);
 		SidebarController.getController().getCalendars().add(cal);
 	}
-	
-	
-	
+
 }

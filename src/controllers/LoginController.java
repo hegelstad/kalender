@@ -129,10 +129,9 @@ public class LoginController {
 //        System.out.println("Henter Kalendere fra DB.");
         ArrayList<Calendar> cal = connection.getCalendars(personInfo.getPerson());
         personInfo.setAllCalendars(cal);
-        
 //        System.out.println(cal);
         connection.closeConnection();
-
+        
         connection = new Requester();
 //        System.out.println("Henter alle Events fra DB.");
         ArrayList<Event> events = connection.getEvents(cal, ug);
@@ -156,6 +155,7 @@ public class LoginController {
 	                ArrayList<Calendar> yoloCal = new ArrayList<Calendar>();
 	                yoloCal.add(c);
 	                personInfo.setCalendarsInUse(yoloCal);
+                    personInfo.setPersonalCalendar(c);
 	            }
 	        }
         }catch(NullPointerException e){
