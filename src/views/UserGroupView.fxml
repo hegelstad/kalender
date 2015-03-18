@@ -22,11 +22,11 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView fx:id="outUsersView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-            <ListView fx:id="inUsersView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-            <Button fx:id="btnAddGroup" mnemonicParsing="false" onAction="#addNewGroup" text="+" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <ComboBox fx:id="userGroupCombo" prefHeight="25.0" prefWidth="273.0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <ListView fx:id="outUsersView" prefHeight="200.0" prefWidth="200.0" translateX="5.0" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+            <ListView fx:id="inUsersView" prefHeight="200.0" prefWidth="200.0" translateX="-5.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+            <Button fx:id="btnAddGroup" mnemonicParsing="false" onAction="#addNewGroup" text="+" translateX="40.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <ComboBox fx:id="userGroupCombo" prefHeight="25.0" prefWidth="273.0" translateX="50.0" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+            <GridPane translateY="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -35,13 +35,13 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#addUser" text="-&gt;" GridPane.halignment="CENTER" />
-                  <Button fx:id="btnRemove" contentDisplay="CENTER" mnemonicParsing="false" onAction="#removeUser" text="&lt;-" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#addUser" text="-&gt;" translateY="10.0" GridPane.halignment="CENTER" />
+                  <Button fx:id="btnRemove" contentDisplay="CENTER" mnemonicParsing="false" onAction="#removeUser" text="&lt;-" translateY="-10.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Pane fx:id="paneTitle" prefHeight="24.0" style="-fx-background-color: #0093F0;" GridPane.columnSpan="3">
+            <Pane fx:id="paneTitle" prefHeight="24.0" GridPane.columnSpan="3">
                <children>
-                  <Label fx:id="title" layoutX="162.0" layoutY="4.0" text="Label" />
+                  <Label fx:id="title" layoutX="120.0" layoutY="16.0" text="User group managment" textFill="WHITE" />
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">

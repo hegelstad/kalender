@@ -165,6 +165,8 @@ public class UserGroupController {
 			WindowController.warning("Editen failet");
 		}
 		else{
+			WindowController.setUserGroupWindowIsOpen(false);
+			WindowController.removeStage(stage);
 			stage.close();
 		}
 		
@@ -172,7 +174,8 @@ public class UserGroupController {
 	
 	@FXML
 	private void cancel(){
-		
+		WindowController.setUserGroupWindowIsOpen(false);
+		WindowController.removeStage(stage);
 		stage.close();
 	}
 	
