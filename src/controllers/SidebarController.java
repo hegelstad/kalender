@@ -178,11 +178,11 @@ public class SidebarController {
 		for (Label l : labels){
 			l.setFont(Font.font(null, FontWeight.NORMAL, 13));
 		}
-	};
+	}
 
 	public void addLabel(Label label){
 		labels.add(label);
-	};
+	}
 
 	public ObservableList<Calendar> getCalendars(){
 		return calendars;
