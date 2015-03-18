@@ -1,13 +1,10 @@
 
 
+
 #UserDialogWindow{
 	-fx-background-color: #26272B;
 }
 
-.label{
-	-fx-text-fill: #FFFFFF;
-	-fx-background-posistion: center center;
-}
 .button {
 	-fx-font-size: 13.0px;
 	-fx-base: #00a7d4;

@@ -70,7 +70,6 @@ public class SuperController {
 		});
 		userGroupCalendar.getSelectionModel().select(PersonInfo.getPersonInfo().getPersonalUserGroup());
 		toolTip=new Tooltip("Calendar name has to be at least one character");
-		toolTip.setStyle("-fx-background-color: #187E96;");
 		
 	}
 	
