@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #26272B;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserGroupController">
+<AnchorPane fx:id="userGroupAnchorPane" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #26272B;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserGroupController">
    <children>
       <GridPane hgap="10.0" prefHeight="400.0" prefWidth="400.0" vgap="10.0">
         <columnConstraints>
@@ -24,10 +24,8 @@
          <children>
             <ListView fx:id="outUsersView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" GridPane.rowSpan="2" />
             <ListView fx:id="inUsersView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-            <Button fx:id="btnAddGroup" mnemonicParsing="false" text="+" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" onAction="#addNewGroup"/>
+            <Button fx:id="btnAddGroup" mnemonicParsing="false" onAction="#addNewGroup" text="+" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <ComboBox fx:id="userGroupCombo" prefHeight="25.0" prefWidth="273.0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <Button fx:id="btnSave" mnemonicParsing="false" onAction="#save" prefWidth="80.0" text="Save" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#cancel" prefWidth="80.0" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -44,6 +42,12 @@
             <Pane fx:id="paneTitle" prefHeight="24.0" style="-fx-background-color: #0093F0;" GridPane.columnSpan="3">
                <children>
                   <Label fx:id="title" layoutX="162.0" layoutY="4.0" text="Label" />
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <children>
+                  <Button fx:id="btnCancel" layoutX="84.0" layoutY="13.0" mnemonicParsing="false" onAction="#cancel" prefHeight="26.0" prefWidth="67.0" text="Cancel" />
+                  <Button fx:id="btnSave" layoutY="13.0" mnemonicParsing="false" onAction="#save" prefHeight="26.0" prefWidth="67.0" text="Save" />
                </children>
             </Pane>
          </children>

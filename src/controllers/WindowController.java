@@ -36,6 +36,8 @@ public class WindowController {
 	private static double yOffset = 0;
 	private static double adminXOffset = 0;
 	private static double adminYOffset = 0;
+	private static double userGroupXOffset = 0;
+	private static double userGroupYOffset = 0;
 	private static boolean eventWindowIsOpen = false;
 	private static boolean adminWindowIsOpen = false;
 	private static boolean aboutScreenIsOpen = false;
@@ -272,26 +274,40 @@ public class WindowController {
              Parent page;
              FXMLLoader loader = new FXMLLoader(program.getClass().getResource("../views/UserGroupView.fxml"), null, new JavaFXBuilderFactory());
              page = (Parent) loader.load();
+             page.setOnMousePressed(new EventHandler<MouseEvent>() {
+                 @Override
+                 public void handle(MouseEvent event) {
+                    userGroupXOffset = event.getSceneX();
+                    userGroupYOffset = event.getSceneY();
+                 }
+             });
+             page.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                 @Override
+                 public void handle(MouseEvent event) {
+                     userGroupView.setX(event.getScreenX() - userGroupXOffset);
+                     userGroupView.setY(event.getScreenY() - userGroupYOffset);
+                 }
+             });
              Object o = loader.getController();
              UserGroupController controller = (UserGroupController) o ;
              controller.setStage(userGroupView);
-//             dialogWindow.setAlwaysOnTop(true);
              Scene scene = new Scene(page);
-//             if(osIsOSX){
-//             	final Menu menu1 = new Menu("Calify");
-//             	MenuBar menuBar = new MenuBar();
-//             	MenuItem menu12 = new MenuItem("Om Calify");
-//             	menu12.setOnAction(new EventHandler<ActionEvent>() {
-//             		@Override public void handle(ActionEvent e) {
-//             			openAboutScreen();
-//             		}
-//             	});
-//             	menu1.getItems().add(menu12);
-//             	menuBar.getMenus().add(menu1);
-//             	AnchorPane root = (AnchorPane) scene.lookup("#UserDialogWindow");
-//             	root.getChildren().add(menuBar);
-//             	menuBar.setUseSystemMenuBar(true);
-//             }
+             if(osIsOSX){
+             	final Menu menu1 = new Menu("Calify");
+             	MenuBar menuBar = new MenuBar();
+             	MenuItem menu12 = new MenuItem("Om Calify");
+             	menu12.setOnAction(new EventHandler<ActionEvent>() {
+             		@Override public void handle(ActionEvent e) {
+             			openAboutScreen();
+             		}
+             	});
+             	menu1.getItems().add(menu12);
+             	menuBar.getMenus().add(menu1);
+             	AnchorPane root = (AnchorPane) scene.lookup("#userGroupAnchorPane");
+             	root.getChildren().add(menuBar);
+             	menuBar.setUseSystemMenuBar(true);
+             }
+         	 userGroupView.setAlwaysOnTop(true);
              scene.getStylesheets().add("/css/main.css");
              userGroupView.setScene(scene);
              userGroupView.centerOnScreen();
