@@ -94,18 +94,23 @@ public class EventDrawing {
 						}
 					});
 					item2.setOnAction(new EventHandler<ActionEvent>() {
+						boolean eventWasDeleted = false;
 					    @Override public void handle(ActionEvent e) {
 					    	ArrayList<Calendar> calendars = PersonInfo.getPersonInfo().getAllCalendars();
 					    	for (Calendar cal: calendars){
 					    		if (cal.getCalendarID() == calID){
 					    			cal.getEvents().remove(event);						    	   
 						    		Requester requester = new Requester();
-						    		WindowController.goToDialogWindows("Event deleted");
 						    		requester.deleteEvent(event);
 						    		requester.closeConnection();
 						    		HeaderController.getController().drawEventsForWeek();
 						    		System.out.println(eventName + " is deleted!");
+						    		eventWasDeleted = true;
+						    		
 					    	}
+					    		}
+					    	if (!eventWasDeleted){
+					    		WindowController.warning("You cannot delete other users events");
 						    }
 						}});
 					contextMenu.getItems().addAll(item1, item2);
