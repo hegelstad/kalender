@@ -110,6 +110,7 @@ public class NotificationCell extends ListCell<Notification> {
 
 								ArrayList<Event> allEvents = PersonInfo.personInfo.getEvents();
 								Event current_event =  note.getEvent();
+								current_event.setAttends(1);
 								current_event.setCal(PersonInfo.getPersonInfo().getPersonalCalendar());
 								allEvents.add(current_event);
 								PersonInfo.personInfo.setEvents(allEvents);

@@ -158,6 +158,7 @@ public class UserGroupController {
 		newGroup.setUsers(newPersons);
 		
 		Requester r = new Requester();
+		r.closeConnection();
 		boolean ok = r.editUserGroup(newGroup);
 		if(!ok){
 			WindowController.warning("Editen failet");
@@ -181,15 +182,16 @@ public class UserGroupController {
 		UserGroup newGroup = new UserGroup(0, newGroupName, new ArrayList<Person>(), 1);
 		Requester r = new Requester();
 		newGroup = r.createUserGroup(newGroup);
+		r.closeConnection();
 		if(inUsersList.size()!=0){
 			ArrayList<Person> newUserList = new ArrayList<Person>();
 			for(Person person : inUsersList){
 				newUserList.add(person);
 			}
 			newGroup.setUsers(newUserList);
-			System.out.println("edit event db");
 			Requester editReq = new Requester();
 			editReq.editUserGroup(newGroup);
+			r.closeConnection();
 		}
 		System.out.println("gruppenavn:"+newGroupName+": id:"+newGroup.getUserGroupID());
 		userGroupCombo.setValue(null);
