@@ -1,7 +1,6 @@
 package models;
 
 import java.time.LocalDateTime;
-
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -87,6 +86,14 @@ public class EventDrawing {
 					final ContextMenu contextMenu = new ContextMenu();
 					MenuItem item1 = new MenuItem("Edit");
 					MenuItem item2 = new MenuItem("Delete");
+					MenuItem item3 = null;
+					MenuItem item4 = null;
+					MenuItem item5 = null;
+					if(event.getAttends() >= 0){
+						item3 = new MenuItem("Attend");
+						item4 = new MenuItem("Don't attend");
+						item5 = new MenuItem("No answer");
+					}
 					item1.setOnAction(new EventHandler<ActionEvent>() {
 						@Override
 						public void handle(ActionEvent e) {
@@ -113,7 +120,41 @@ public class EventDrawing {
 					    		WindowController.warning("You cannot delete other users events");
 						    }
 						}});
-					contextMenu.getItems().addAll(item1, item2);
+					item3.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent e) {
+							Requester requester = new Requester();
+							requester.updateAttends(event, new Attendant(PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID(),PersonInfo.getPersonInfo().getPersonalUserGroup().getName(), 1));
+							requester.closeConnection();
+							event.setAttends(1);
+							HeaderController.getController().drawEventsForWeek();
+						}
+					});
+					item4.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent e) {
+							Requester requester = new Requester();
+							requester.updateAttends(event, new Attendant(PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID(),PersonInfo.getPersonInfo().getPersonalUserGroup().getName(), 2));
+							requester.closeConnection();
+							event.setAttends(2);
+							HeaderController.getController().drawEventsForWeek();
+						}
+					});
+					item5.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent e) {
+							Requester requester = new Requester();
+							requester.updateAttends(event, new Attendant(PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID(),PersonInfo.getPersonInfo().getPersonalUserGroup().getName(), 0));
+							requester.closeConnection();
+							event.setAttends(0);
+							HeaderController.getController().drawEventsForWeek();
+						}
+					});
+					if (item3 != null){
+						contextMenu.getItems().addAll(item1, item2, item3, item4, item5);
+					}else{
+						contextMenu.getItems().addAll(item1, item2);
+					}
 					contextMenu.show(eventRectangle, clickEvent.getScreenX(), clickEvent.getScreenY());
 					contextMenu.focusedProperty().addListener(new ChangeListener<Boolean>()
 							{
@@ -249,7 +290,7 @@ public class EventDrawing {
 	private double getEventHeight(Event e) {
 		LocalDateTime from = e.getFrom().plusSeconds(0);
 		LocalDateTime to = e.getTo().plusSeconds(0);
-		/* Sjekker om dagen ikke er den første eller siste */
+		/* Sjekker om dagen ikke er den fï¿½rste eller siste */
 		if (dayOfDrawing != 0
 				&& dayOfDrawing + from.getDayOfWeek().getValue() != to
 						.getDayOfWeek().getValue()) {
@@ -260,7 +301,7 @@ public class EventDrawing {
 		else if (dayOfDrawing != 0 && from.plusDays(dayOfDrawing).getDayOfWeek() == to.getDayOfWeek()) {
 			from = to.withHour(0).withMinute(0);
 		}
-		/* Sjekker om dagen er første i event over flere dager*/
+		/* Sjekker om dagen er fï¿½rste i event over flere dager*/
 		else if(to.isAfter(from.withHour(23).withMinute(59))){
 			to = from.withHour(23).withMinute(59);
 		}

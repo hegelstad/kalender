@@ -46,7 +46,11 @@ public class NotificationCell extends ListCell<Notification> {
 		t.setWrappingWidth(250.00);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HH:mm");
-		t.setText("\n" + note.getNote() + "\n" + "From " + note.getSender().getName() + "\n" + note.getEvent().getFrom().format(formatter) + " kl."+ note.getEvent().getFrom().format(formatter2) + " - " + note.getEvent().getTo().format(formatter)+ " kl."+ note.getEvent().getTo().format(formatter2));
+		if (note.getSender().getUserGroupID() == 1){
+			t.setText("\n" + note.getNote() + "\n\n");
+		}else{
+			t.setText("\n" + note.getNote() + "\n" + "From " + note.getSender().getName() + "\n" + note.getEvent().getFrom().format(formatter) + " kl."+ note.getEvent().getFrom().format(formatter2) + " - " + note.getEvent().getTo().format(formatter)+ " kl."+ note.getEvent().getTo().format(formatter2));
+		}
 		content.getChildren().add(t);
 
 		content.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -100,7 +104,6 @@ public class NotificationCell extends ListCell<Notification> {
 								PersonInfo.personInfo.setNotifications(s.getNotifications(PersonInfo.getPersonInfo().getPersonalUserGroup()));
 								s.closeConnection();
 								//TEST
-								System.out.println("----------------");
 								System.out.println(note.getEvent());
 
 								System.out.println(PersonInfo.getPersonInfo().getSelectedCalendar());
