@@ -251,9 +251,6 @@ NOTIFICATIONS
 
 }
 
-.list-view {
-	-fx-font-size: 13;
-}
 .list-view .scroll-bar{
 -fx-font-size: 8;
 }

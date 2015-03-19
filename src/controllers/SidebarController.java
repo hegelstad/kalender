@@ -50,12 +50,10 @@ public class SidebarController {
 			});
 			userGroupPaneButton.setOnMouseClicked((mouseEvent) -> {
 				WindowController.goToUserGroupView();
-				System.out.println("YEAH");
 			});
 		} else {
 			userGroupPaneButton.setOnMouseClicked((mouseEvent) -> {
 				WindowController.goToUserGroupView();
-				System.out.println("YEAH");
 			});
 			userGroupPaneButton.setPrefWidth(160);
 			userGroupPaneButton.setMinWidth(160);

@@ -107,6 +107,7 @@ public class CalendarCell extends ListCell<Calendar> {
 		                System.out.println("Selected calendar: " + PersonInfo.getPersonInfo().getSelectedCalendar());
 		                SidebarController.updateLabels();
 		                label.setFont(Font.font(null, FontWeight.BOLD, 13));
+		                System.out.println("SETTING FONT BOLD");
 		            }
 		        }else if(mouseEvent.getButton() == MouseButton.SECONDARY){
 					if(! cal.getName().equals(PersonInfo.getPersonInfo().getPersonalUserGroup().getName())){
