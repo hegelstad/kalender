@@ -90,7 +90,7 @@ public class EventDrawing {
 					item1.setOnAction(new EventHandler<ActionEvent>() {
 						@Override
 						public void handle(ActionEvent e) {
-							WindowController.goToEventView(event);
+							controller.openEvent(event);
 						}
 					});
 					item2.setOnAction(new EventHandler<ActionEvent>() {

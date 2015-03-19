@@ -294,6 +294,7 @@ public class EventController {
 	@FXML
 	private void initialize(){
 		this.calendarEvent = WeekController.getController().getEvent();
+		System.out.println(calendarEvent);
 		initializeHourAndMinutes();
 		Requester requester = new Requester();
 		participants = requester.getPrivateUserGroups();
@@ -302,6 +303,8 @@ public class EventController {
         try{
         	userGroupsInCalendar = requester.getUserGroupsInCalendar(calendarEvent.getCal());
         }catch (NullPointerException e){
+        	requester.closeConnection();
+        	requester = new Requester();
         	userGroupsInCalendar = requester.getUserGroupsInCalendar(PersonInfo.getPersonInfo().getSelectedCalendar());
         }
         requester.closeConnection();
@@ -415,7 +418,6 @@ public class EventController {
 		});
 		
 		addParticipantsSearch.setCellFactory(new Callback<ListView<UserGroup>, ListCell<UserGroup>>(){
-
 			@Override
 			public ListCell<UserGroup> call(ListView<UserGroup> param) {	
 			    return new ListCell<UserGroup>() {
@@ -432,8 +434,6 @@ public class EventController {
 			    };
 			}
 		});
-		
-		
 		
 		final Callback<DatePicker, DateCell> dayCellFactory = 
 	            new Callback<DatePicker, DateCell>() {
