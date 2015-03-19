@@ -343,20 +343,24 @@ public class EventController {
 		                if (attendants != null){
 		                	statusCircle.setFill(Color.GOLDENROD);
 		                	for (Attendant a : attendants) {
+		                		System.out.println("LOOPING ATTENDANTS");
+		                		System.out.println(a);
 		                		if (a.getUserGroupID() == ug.getUserGroupID()) {
 			                		if (a.getStatus() == 1){
 			                			statusCircle.setFill(Color.DARKGREEN);
+			                			System.out.println("SETTING STATUS GREEN");
 			                			break;
 			                		} else if (a.getStatus() == 2) {
 			                			statusCircle.setFill(Color.BROWN);
+			                			System.out.println("SETTING STATUS RED");
 			                			break;
 			                		} else {
 			                			statusCircle.setFill(Color.GOLDENROD);
+			                			System.out.println("SETTING STATUS YELLOW");
 			                			break;
 			                		}
 		                		}
 		                	}
-		                	statusCircle.setFill(Color.DARKGREEN);
 		            	}else{
 		                	if (PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID() == ug.getUserGroupID()) {
 	                			statusCircle.setFill(Color.DARKGREEN);
