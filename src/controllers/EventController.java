@@ -309,7 +309,10 @@ public class EventController {
         }
         requester.closeConnection();
         System.out.println("Usergroups in calendar: " + userGroupsInCalendar);
-        if(userGroupsInCalendar.size() < 2){
+        if(userGroupsInCalendar == null){
+        	pol = FXCollections.observableArrayList(participants);
+        }
+        else if(userGroupsInCalendar.size() < 2){
         	pol = FXCollections.observableArrayList(participants);
         }else{
         	pol = FXCollections.observableArrayList(userGroupsInCalendar);
@@ -352,7 +355,6 @@ public class EventController {
 			                		}
 		                		}
 		                	}
-		                } else if (userGroupsInCalendar.size() > 1) {
 		                	statusCircle.setFill(Color.DARKGREEN);
 		            	}else{
 		                	if (PersonInfo.personInfo.getPersonalUserGroup().getUserGroupID() == ug.getUserGroupID()) {
@@ -468,7 +470,34 @@ public class EventController {
 		    }
 			if (index != -1) apol.add(pol.remove(index));	
 	    }
-		if (userGroupsInCalendar.size() > 1){
+		if (userGroupsInCalendar == null){
+			saveButton.setDisable(true);
+			addParticipantsButton.setDisable(true);
+			removeParticipantsButton.setDisable(true);
+			title.setDisable(true);
+			title.setStyle("-fx-opacity: 1");
+			fromDate.setDisable(true);
+			fromDate.setStyle("-fx-opacity: 1");
+			toDate.setDisable(true);
+			toDate.setStyle("-fx-opacity: 1");
+			fromHours.setDisable(true);
+			fromHours.setStyle("-fx-opacity: 1");
+			toHours.setDisable(true);
+			toHours.setStyle("-fx-opacity: 1");
+			fromMinutes.setDisable(true);
+			fromMinutes.setStyle("-fx-opacity: 1");
+			toMinutes.setDisable(true);
+			toMinutes.setStyle("-fx-opacity: 1");
+			addParticipantsSearch.setDisable(true);
+			addParticipantsSearch.setStyle("-fx-opacity: 1");
+			note.setDisable(true);
+			note.setStyle("-fx-opacity: 1");
+			roomLocation.setDisable(true);
+			roomLocation.setStyle("-fx-opacity: 1");
+			participantsStatus.setDisable(true);
+			participantsStatus.setStyle("-fx-opacity: 1");
+		}
+		else if (userGroupsInCalendar.size() > 1){
 			apol.addAll(pol);
 			pol.clear();
 			addParticipantsSearch.setDisable(true);
