@@ -2,10 +2,6 @@
     -fx-background: #26272B;
 }
 
-.TextField{
-
-}
-
 #logoImage{
 	-fx-image: url("../calify.png");
 }

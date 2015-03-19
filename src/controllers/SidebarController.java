@@ -2,6 +2,11 @@ package controllers;
 
 import java.util.ArrayList;
 
+
+
+import com.sun.javafx.tk.Toolkit;
+
+
 import models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +15,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
@@ -32,6 +39,8 @@ public class SidebarController {
 	@FXML private SVGPath rightFigur;
 	@FXML private Label noMatchingResults;
 	private static ArrayList<Label> labels = new ArrayList<Label>();
+	private static Tooltip adminToolTip=null;
+	private static Tooltip userGroupToolTip=null;
 	
 
 	public ObservableList<Calendar> calendars = FXCollections.observableArrayList(new ArrayList<Calendar>());
@@ -64,6 +73,25 @@ public class SidebarController {
 			adminPaneButton.getChildren().clear();
 			adminPaneButton.setStyle("-fx-background-color: #26272B");
 		}
+		adminPaneButton.setOnMouseEntered(enterEvent -> {
+			if (adminToolTip == null){
+			adminToolTip = new Tooltip("Create users or remove existing ones");
+			adminToolTip.show(adminPaneButton, enterEvent.getScreenX()+10, enterEvent.getScreenY()+10);}
+		});
+		adminPaneButton.setOnMouseExited(enterEvent -> {
+			adminToolTip.hide();
+			adminToolTip=null;
+		});
+		userGroupPaneButton.setOnMouseEntered(enterEvent -> {
+			if (adminToolTip == null){
+			userGroupToolTip= new Tooltip("Create new user groups or manage existing ones");
+			userGroupToolTip.show(userGroupPaneButton, enterEvent.getScreenX()+10, enterEvent.getScreenY()+10);}
+		});
+		userGroupPaneButton.setOnMouseExited(enterEvent -> {
+			userGroupToolTip.hide();
+			userGroupToolTip=null;
+		});
+//		for(Ca
 //		for(Calendar cal : PersonInfo.getPersonInfo().getAllCalendars()){
 //			System.out.println(cal);
 //		}
@@ -72,11 +100,13 @@ public class SidebarController {
 
 	@FXML
 	public void openNewCalendar() {
+		SuperController.newCalendarWindowIsOpen=true;
 		Scene scene = WindowController.thisStage.getScene();
 		Pane newCalendarWindow = (Pane) scene.lookup("#newCalendarWindow");
 		TextField newCalendarTextField = (TextField) scene.lookup("#newCalendarTextField");
 		if (newCalendarWindow.isVisible()){
 			newCalendarWindow.setVisible(false);
+			SuperController.newCalendarWindowIsOpen=false;
 			newCalendarTextField.setText("");
 			if (SuperController.toolTip != null){
 				SuperController.toolTip.hide();
@@ -131,7 +161,6 @@ public class SidebarController {
 			}
 		}
 		allCalendars = temp_allCalenders;
-		searchCalendar.setStyle("-fx-text-fill: #000000");
 		ObservableList<Calendar> masterData = FXCollections.observableArrayList(allCalendars);
 		r.closeConnection();
 		//Setter CellFactory

@@ -29,7 +29,7 @@
             </children>
         </GridPane>
 
-        <Pane fx:id="notificationWindow" prefHeight="300" prefWidth="300" style="-fx-translate-z: 0" translateX="1013.0" translateY="70">
+        <Pane fx:id="notificationWindow" maxHeight="307.0" maxWidth="300.0" minHeight="307.0" minWidth="300.0" prefHeight="307.0" prefWidth="300" style="-fx-translate-z: 0" translateX="1013.0" translateY="70">
    <children>
                <Polygon fx:id="notificationTriangle" points="145.0, 20.0, 175.0, 20.0, 160.0, -5.0" />
                <Label fx:id="notificationTitle" text="Notifications" translateY="10">
@@ -37,7 +37,7 @@
                        <Insets left="12.0" />
                    </padding>
                </Label>
-               <ListView fx:id="notificationList" translateY="60" />
+               <ListView fx:id="notificationList" prefHeight="246.0" prefWidth="247.0" translateY="60" />
    </children>
         </Pane>
       <Pane fx:id="newCalendarWindow" layoutX="190.0" layoutY="124.0" maxHeight="80.0" maxWidth="288.0" minHeight="80.0" minWidth="288.0" prefHeight="80.0" prefWidth="288.0">
