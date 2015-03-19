@@ -16,6 +16,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class NotificationCell extends ListCell<Notification> {
@@ -43,6 +44,7 @@ public class NotificationCell extends ListCell<Notification> {
 		int is_Invite = note.isInvite();
 		Pane content = new Pane();
 		Text t = new Text();
+		t.setFill(Color.WHITE);
 		t.setWrappingWidth(250.00);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HH:mm");
@@ -183,7 +185,6 @@ public class NotificationCell extends ListCell<Notification> {
 						mark_asRead.setTooltip(tt);
 						content.getChildren().add(mark_asRead);
 						is_expanded = true;
-
 						mark_asRead.setOnAction( event -> {
 							
 							/* Set the notification as HasRead */

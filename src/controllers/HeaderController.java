@@ -122,10 +122,9 @@ public class HeaderController {
         Scene scene = WindowController.thisStage.getScene();
         Pane notificationWindow = (Pane) scene.lookup("#notificationWindow");
         notificationList = (ListView<Notification>) scene.lookup("#notificationList");
-        notificationButton.setStyle("-fx-background-color: #187E96");
-
         if (notificationWindow.isVisible()) {
             notificationWindow.setVisible(false);
+            SuperController.notificationWindowIsOpen=false;
         } else {
             ArrayList<Notification> notes = PersonInfo.getPersonInfo().getNotifications();
             notifications = FXCollections.observableArrayList(notes);
@@ -134,7 +133,9 @@ public class HeaderController {
             notificationList.setCellFactory((list) -> {
                 return new NotificationCell(notifications);
             });
+            notificationList.scrollTo(0);
             notificationWindow.setVisible(true);
+            SuperController.notificationWindowIsOpen=true;
         }
     }
 

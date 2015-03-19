@@ -7,6 +7,25 @@
 EVENT/CALENDAR
 
 **/
+
+
+
+#notificationList{
+	-fx-background-color: #187E96;
+}
+
+#notificationList .list-cell {
+	-fx-background-color:#26272B;
+	-fx-text-fill: white;
+}
+
+#notificationList .list-cell:selected{
+	-fx-border-color:transparent;
+}
+#notificationList * {
+	-fx-text-fill: white;
+}
+
 #subscribeCalendarList .list-cell {
 	-fx-background-color: transparent;
 	
@@ -17,8 +36,37 @@ EVENT/CALENDAR
 }
  
 #userGroupCalendar .list-cell{
-	-fx-text-fill: black;
+	-fx-text-fill: #FFFFFF;
+	-fx-background-color: derive(black,40%);
 }
+#userGroupCalendar .list-cell:hover{
+	-fx-text-fill: #FFFFFF;
+	-fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
+
+}
+
+.combo-box{
+	-fx-background-insets: 0,0,0;
+    -fx-background-radius: 0,0,0;
+}
+.combo-box .arrow-button{
+    -fx-background-color: #187E96;
+}
+.combo-box .arrow{
+	-fx-background-color: white;
+}
+.combo-box-popup > .list-view {
+    -fx-pref-width: 208;
+
+}
+.combo-box-base{
+	-fx-color: derive(black,40%);
+}
+.text-field{
+	-fx-background-color: derive(black,40%);
+	-fx-text-fill: #FFFFFF;
+}
+
 #inUsersView .list-cell {
 	-fx-text-fill: black;
 }   
@@ -33,9 +81,7 @@ EVENT/CALENDAR
 #userGroupCombo-base {
 	-fx-text-fill: black;
 }
-.text-field {
-		-fx-text-fill: black;
-}
+
 #weekGrid {
     -fx-background-color: #4c4f51;
 }
@@ -188,11 +234,7 @@ NOTIFICATIONS
  	fx-background-color: transparent;
  }
  
- #newCalendarTextField{
- 	-fx-text-fill: #000000;
- 	
- 	}
- 
+
  #newCalendarTriangle{
  	-fx-alignment: center;
     -fx-fill: #187E96;
@@ -208,6 +250,7 @@ NOTIFICATIONS
  #addNewCalendarPaneButton:hover{
  	-fx-background-color: #0187ab;
  }
+
 
 .button {
 	-fx-font-size: 13.0px;
@@ -225,7 +268,6 @@ NOTIFICATIONS
 	-fx-alignment: CENTER;
 	-fx-content-display: LEFT;
 }
-
 
 
 .button:hover {

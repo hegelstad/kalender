@@ -337,7 +337,7 @@ public class EventController {
 		                grid.getColumnConstraints().add(new ColumnConstraints(195));
 		                grid.setHgap(10);
 		                
-		                Text text = new Text(ug.getName());
+		                Label text = new Label(ug.getName());
 		                grid.add(text, 0, 0);
 		                Circle statusCircle = new Circle(4);
 		                if (attendants != null){

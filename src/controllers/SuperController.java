@@ -2,6 +2,9 @@ package controllers;
 
 import java.util.ArrayList;
 
+
+
+
 import models.Calendar;
 import models.PersonInfo;
 import models.UserGroup;
@@ -10,14 +13,17 @@ import socket.Requester;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -31,10 +37,22 @@ public class SuperController {
 	@FXML private Button newCalendarButton;
 	@FXML private Pane addNewCalendarPaneButton;
 	@FXML private ComboBox<UserGroup> userGroupCalendar;
+	@FXML private AnchorPane root;
+	@FXML private Pane notificationWindow;
+	@FXML private Label notificationTitle;
+	public static boolean newCalendarWindowIsOpen;
+	public static boolean mouseIsOverNewCalendarWindow;
+	public static boolean notificationWindowIsOpen;
+	public static boolean mouseIsOverNotificationWindow;
+	public static boolean mouseIsOverNotificationLabel;
 	ObservableList<UserGroup> userGroups;
 	
 	@FXML
 	private void initialize(){
+		newCalendarWindowIsOpen=false;
+		mouseIsOverNewCalendarWindow=false;
+		notificationWindowIsOpen=false;
+		mouseIsOverNewCalendarWindow=false;
 		Rectangle shape = new Rectangle(1, 1);
 		newCalendarTextField.setShape(shape);
 
@@ -68,6 +86,45 @@ public class SuperController {
 			    };
 			}
 		});
+		
+		notificationTitle.setOnMouseEntered((enterEvent) -> {
+			mouseIsOverNotificationLabel=true;
+		});
+		
+		notificationTitle.setOnMouseExited((enterEvent) -> {
+			mouseIsOverNotificationLabel=false;
+		});
+		
+		
+		newCalendarWindow.setOnMouseEntered(enterEvent -> {
+			mouseIsOverNewCalendarWindow=true;
+		});
+		
+		newCalendarWindow.setOnMouseExited(exitEvent -> {
+			mouseIsOverNewCalendarWindow=false;
+			
+		});
+		root.setOnMouseClicked(clickEvent -> {
+			if(newCalendarWindowIsOpen && !mouseIsOverNewCalendarWindow){
+				newCalendarWindow.setVisible(false);
+				newCalendarWindowIsOpen=false;
+				toolTip.hide();
+			}
+			else if( notificationWindowIsOpen && (!mouseIsOverNewCalendarWindow && !mouseIsOverNotificationLabel)){
+				notificationWindow.setVisible(false);
+				newCalendarWindowIsOpen=false;
+			}
+		});
+		
+		notificationWindow.setOnMouseEntered(enterEvent -> {
+			mouseIsOverNotificationWindow=true;
+		});
+		
+		notificationWindow.setOnMouseExited(exitEvent -> {
+			mouseIsOverNotificationWindow=false;
+			
+		});
+		
 		userGroupCalendar.getSelectionModel().select(PersonInfo.getPersonInfo().getPersonalUserGroup());
 		toolTip=new Tooltip("Calendar name has to be at least one character");
 		
