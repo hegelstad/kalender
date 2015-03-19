@@ -115,7 +115,9 @@ public class WeekController {
 		for(ArrayList<EventDrawing> dayOfDrawings : weekOfDrawings){
 
 			for( int k = 0; k<dayOfDrawings.size(); k++){
-
+				if(k==6){
+					System.out.println("går igjennom søndag");
+				}
 				int indent = 0;
 				int reverseIndent = 0;
 				Event currentEvent = dayOfDrawings.get(k).getEvent();
@@ -213,19 +215,19 @@ public class WeekController {
 		}
 
 		/* Put corresponding EventDrawing into correct day */
-		for(int i=0; i<7;i++){
+		for(int i=1; i<8;i++){
 			for(Event event : events){
 				/* Finnes en event som startet minst dagen fï¿½r og slutter idag eller senere */
 				if(startedBeforeToday(event,i)&&endsTodayOrAfter(event,i))
 				{
 					System.out.println("Lager eventDrawing som gï¿½r over flere dager : "+event.getName());
-					weekEvents.get(i).add(new EventDrawing(event,getDaysFromStart(event,i),this));
+					weekEvents.get(i-1).add(new EventDrawing(event,getDaysFromStart(event,i),this));
 				}
 				else if(startsAndEndsToday(event,i)||startsToday(event,i))
 				{
 					/* Event starter denne dagen */ 
 					System.out.println("Legger til event : " + event.getName());
-					weekEvents.get(i).add(new EventDrawing(event,0,this));
+					weekEvents.get(i-1).add(new EventDrawing(event,0,this));
 				}
 				
 			}
