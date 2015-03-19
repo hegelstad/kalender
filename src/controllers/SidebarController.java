@@ -124,7 +124,7 @@ public class SidebarController {
 		ArrayList<Calendar> allCalendars = r.getAllCalendars();
 		r.closeConnection();
 		ArrayList<Calendar> temp_allCalenders = allCalendars;
-		ArrayList<Calendar> calendarsInUse = PersonInfo.getPersonInfo().getCalendarsInUse();
+		ArrayList<Calendar> calendarsInUse = PersonInfo.getPersonInfo().getAllCalendars();
 		for(int x = 0; x < allCalendars.size(); x++){
 			for (int i = 0; i < calendarsInUse.size(); i ++){
 				if(allCalendars.get(x).getCalendarID() == calendarsInUse.get(i).getCalendarID()){
