@@ -134,7 +134,13 @@ public class WindowController {
 		try {
 			page = (Parent) FXMLLoader.load(
 					program.getClass().getResource("../views/SuperView.fxml"));
-			Scene scene = new Scene(page, 1333, 701);
+			Scene scene;
+			if (osIsOSX){
+				scene = new Scene(page, 1333, 701);				
+			}
+			else{
+				scene = new Scene(page, 1322, 690);
+			}
 			scene.getStylesheets().add("/css/main.css");
 			title = "Calify";
 			thisStage.setScene(scene);
@@ -146,7 +152,6 @@ public class WindowController {
 			thisStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
 					if (HeaderController.getController() != null){
-						System.out.println("D");
 						HeaderController.getController().scheduler.cancel();
 						HeaderController.getController().timer.cancel();
 					}
