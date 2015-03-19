@@ -12,7 +12,11 @@ public class Scheduler extends TimerTask {
 
     @Override
     public void run(){
-        HeaderController.getController().updateNotifications();
+    	try{
+    		HeaderController.getController().updateNotifications();
+    	}catch (NullPointerException e){
+    		//yolo
+    	}
     }
 
 }
