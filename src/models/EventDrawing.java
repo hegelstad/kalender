@@ -247,21 +247,27 @@ public class EventDrawing {
 	}
 
 	private double getEventHeight(Event e) {
-		LocalDateTime from = e.getFrom();
-		LocalDateTime to = e.getTo();
+		LocalDateTime from = e.getFrom().plusSeconds(0);
+		LocalDateTime to = e.getTo().plusSeconds(0);
+		/* Sjekker om dagen ikke er den første eller siste */
 		if (dayOfDrawing != 0
 				&& dayOfDrawing + from.getDayOfWeek().getValue() != to
 						.getDayOfWeek().getValue()) {
 			to = from.withHour(23).withMinute(59);
 			from = to.withHour(0).withMinute(0);
 		}
-		if (to.isAfter(from.withHour(23).withMinute(59))) {
+		/* Sjekker om dagen er siste i event over flere dager  */
+		else if (dayOfDrawing != 0 && from.plusDays(dayOfDrawing).getDayOfWeek() == to.getDayOfWeek()) {
+			from = to.withHour(0).withMinute(0);
+		}
+		/* Sjekker om dagen er første i event over flere dager*/
+		else if(to.isAfter(from.withHour(23).withMinute(59))){
 			to = from.withHour(23).withMinute(59);
 		}
 		double minDiff = (to.getHour() - from.getHour()) * 60
 				+ (to.getMinute() - from.getMinute());
 		double height = (minDiff / 60.0) * 66;
-		//System.out.println("HEIGHT :    " + height);
+		System.out.println("HEIGHT :    " + height);
 		return height;
 	}
 
