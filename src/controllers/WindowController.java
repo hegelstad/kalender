@@ -103,6 +103,7 @@ public class WindowController {
 			thisStage.setTitle(title);
 			thisStage.centerOnScreen();
 			thisStage.setResizable(false);
+			thisStage.getIcons().add(new Image("calicon-1.png"));
 			if(osIsOSX){
 				Pane root = null;
 				root = (Pane) scene.lookup("#background");
@@ -141,6 +142,7 @@ public class WindowController {
 			thisStage.centerOnScreen();
 			thisStage.setResizable(false);
 			thisStage.getScene().setRoot(page);
+			thisStage.getIcons().add(new Image("calicon-1.png"));
 			thisStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
 					if (HeaderController.getController() != null){
