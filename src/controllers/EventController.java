@@ -293,8 +293,9 @@ public class EventController {
 
 	@FXML
 	private void initialize(){
-		this.calendarEvent = WeekController.getController().getEvent();
-		System.out.println(calendarEvent);
+		if (! WeekController.getController().isNewEvent()){
+			this.calendarEvent = WeekController.getController().getEvent();
+		}
 		initializeHourAndMinutes();
 		Requester requester = new Requester();
 		participants = requester.getPrivateUserGroups();

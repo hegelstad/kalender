@@ -33,6 +33,7 @@ public class WeekController {
 	public final double indentMargin = 15.0;
 	boolean mouseOverEvent = false;
 	private Event event;
+	private boolean newEvent;
 
 	ArrayList<EventDrawing> eventDrawings = new ArrayList<>();
 	public @FXML GridPane weekGrid;
@@ -76,6 +77,7 @@ public class WeekController {
 
 	public void openEvent(Event event){
 		this.event = event;
+		setIsNewEvent(false);
 		WindowController.goToEventView(event);
 		//System.out.println(event.getName());
 	}
@@ -262,4 +264,12 @@ public class WeekController {
 	public Event getEvent() {
 		return event;
 	}	
+	
+	public boolean isNewEvent() {
+		return newEvent;
+	}
+	
+	public void setIsNewEvent(boolean newEvent){
+		this.newEvent = newEvent;
+	}
 }
