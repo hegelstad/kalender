@@ -93,8 +93,7 @@
 .list-cell:selected{
 	-fx-text-fill: #187E96;
 }
- 
-     
+
 .combo-box .list-cell
 {
 	-fx-text-fill: #000000;

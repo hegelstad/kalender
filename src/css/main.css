@@ -1,10 +1,7 @@
-
-
 * {
     -fx-font-smoothing-type: lcd;
     -fx-text-fill: #FFFFFF;
 }
-
 /**
 
 EVENT/CALENDAR
@@ -44,6 +41,9 @@ EVENT/CALENDAR
 }
 #weekTimeGrid {
     -fx-background-color: #4c4f51;
+}
+#WeekView{
+	-fx-background-color: #26272B;
 }
 
 /**
