@@ -122,6 +122,7 @@ public class HeaderController {
         Scene scene = WindowController.thisStage.getScene();
         Pane notificationWindow = (Pane) scene.lookup("#notificationWindow");
         notificationList = (ListView<Notification>) scene.lookup("#notificationList");
+        notificationButton.setStyle("-fx-background-color: #187E96");
         if (notificationWindow.isVisible()) {
             notificationWindow.setVisible(false);
             SuperController.notificationWindowIsOpen=false;
