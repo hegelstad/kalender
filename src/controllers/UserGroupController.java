@@ -118,6 +118,8 @@ public class UserGroupController {
 		inUsersList.addAll(ug.getUsers());
 		outUsersList.removeAll(ug.getUsers());
 		
+		outUsersView.getSelectionModel().select(0);
+		
 	}
 
 	
@@ -193,7 +195,7 @@ public class UserGroupController {
 			editReq.editUserGroup(newGroup);
 			r.closeConnection();
 		}
-		System.out.println("gruppenavn:"+newGroupName+": id:"+newGroup.getUserGroupID());
+		//System.out.println("gruppenavn:"+newGroupName+": id:"+newGroup.getUserGroupID());
 		userGroupCombo.setValue(null);
 		userGroupCombo.getEditor().setText("");
 		userGroupsList.add(newGroup);
@@ -210,7 +212,7 @@ public class UserGroupController {
 			setUserGroup(userGroupCombo.getSelectionModel().getSelectedItem());
 		});
 	}
-	
+	// asdfasdfjkj
 	private boolean isValid(){
 		if(userGroupCombo.getSelectionModel().getSelectedItem() == null){
 			return false;
