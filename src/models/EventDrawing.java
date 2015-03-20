@@ -308,6 +308,9 @@ public class EventDrawing {
 		double minDiff = (to.getHour() - from.getHour()) * 60
 				+ (to.getMinute() - from.getMinute());
 		double height = (minDiff / 60.0) * 66;
+		if(height < 33.0){
+			height = 33.33;
+		}
 		return height;
 	}
 
