@@ -158,8 +158,8 @@ public class UserGroupController {
 		newGroup.setUsers(newPersons);
 		
 		Requester r = new Requester();
-		r.closeConnection();
 		boolean ok = r.editUserGroup(newGroup);
+		r.closeConnection();
 		if(!ok){
 			WindowController.warning("Editen failet");
 		}
