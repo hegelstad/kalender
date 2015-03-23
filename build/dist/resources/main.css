@@ -1,0 +1,415 @@
+* {
+    -fx-font-smoothing-type: lcd;
+    -fx-text-fill: #FFFFFF;
+}
+/**
+
+EVENT/CALENDAR
+
+**/
+
+
+
+#notificationList{
+	-fx-background-color: #187E96;
+}
+
+#notificationList .list-cell {
+	-fx-background-color:#26272B;
+	-fx-text-fill: white;
+}
+
+#notificationList .list-cell:selected{
+	-fx-border-color:transparent;
+}
+#notificationList * {
+	-fx-text-fill: white;
+}
+
+#subscribeCalendarList .list-cell {
+	-fx-background-color: transparent;
+	
+}
+
+#calendarList .scroll-bar:horizontal {
+	visibility: hidden;
+}
+ 
+#userGroupCalendar .list-cell{
+	-fx-text-fill: #FFFFFF;
+	-fx-background-color: derive(black,40%);
+}
+#userGroupCalendar .list-cell:hover{
+	-fx-text-fill: #FFFFFF;
+	-fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
+
+}
+
+.combo-box{
+	-fx-background-insets: 0,0,0;
+    -fx-background-radius: 0,0,0;
+}
+.combo-box .arrow-button{
+    -fx-background-color: #187E96;
+}
+.combo-box .arrow{
+	-fx-background-color: white;
+}
+.combo-box-popup > .list-view {
+    -fx-pref-width: 208;
+
+}
+.combo-box-base{
+	-fx-color: derive(black,40%);
+}
+.text-field{
+	-fx-background-color: derive(black,40%);
+	-fx-text-fill: #FFFFFF;
+}
+
+#inUsersView .list-cell {
+	-fx-text-fill: black;
+}   
+
+#outUsersView .list-cell {
+	-fx-text-fill: black;
+}
+
+#userGroupCombo .list-cell{
+	-fx-text-fill: black;
+}
+#userGroupCombo-base {
+	-fx-text-fill: black;
+}
+
+#weekGrid {
+    -fx-background-color: #4c4f51;
+}
+#weekTimeGrid {
+    -fx-background-color: #4c4f51;
+}
+#WeekView{
+	-fx-background-color: #26272B;
+}
+
+/**
+
+SIDEPANE/CALENDARS
+
+**/
+
+#calendarCalendarsView {
+    -fx-background-color: #26272B;
+}
+
+#newCalendarButton {
+	-fx-font-size: 30.0px;
+	-fx-text-fill: #187E96;
+}
+
+/*.check-box .mark {
+    -fx-shape: "m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z";
+}
+*/
+.check-box:selected .mark {
+	-fx-background-color: black;
+ }
+ 
+.lightskyblue .check-box .box {
+	-fx-background-color: #87CEFA;
+	-fx-opacity: 0.7;
+}
+
+.lightsalmon .check-box .box {
+	-fx-background-color: #FFA07A;
+	-fx-opacity: 0.7;
+}
+
+.lightgreen .check-box .box {
+	-fx-background-color: #90EE90;
+	-fx-opacity: 0.7;
+}
+
+.yellow .check-box .box {
+	-fx-background-color: #FFFF00;
+	-fx-opacity: 0.7;
+}
+
+.lightpink .check-box .box {
+	-fx-background-color: #FFB6C1;
+	-fx-opacity: 0.7;
+}
+
+.lightcoral .check-box .box {
+	-fx-background-color: #F08080;
+	-fx-opacity: 0.7;
+}
+
+.beige .check-box .box {
+	-fx-background-color: #F5F5DC;
+	-fx-opacity: 0.7;
+}
+
+.silver .check-box .box {
+	-fx-background-color: #C0C0C0;
+	-fx-opacity: 0.7;
+}
+
+.aquamarine .check-box .box {
+	-fx-background-color: #7FFFD4;
+	-fx-opacity: 0.7;
+}
+
+.cornflowerblue .check-box .box {
+	-fx-background-color: #6495ED;
+	-fx-opacity: 0.7;
+}
+
+.thistle .check-box .box {
+	-fx-background-color: #D8BFD8;
+	-fx-opacity: 0.7;
+}
+
+/**
+
+HEADER
+
+**/
+
+#calendarHeaderView {
+    -fx-background-color: #26272B;
+}
+
+#headerGridPane {
+    -fx-background-color: #26272B;
+}
+
+/**
+
+NOTIFICATIONS
+
+**/
+
+#notificationWindow {
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-text-fill: #187E96;
+    -fx-alignment: center;
+    visibility: hidden;
+}
+
+#notificationTriangle {
+    -fx-alignment: center;
+    -fx-fill: #187E96;
+}
+
+#notificationList {
+    -fx-pref-width: 300;
+    -fx-pref-height: 150;
+}
+
+#notificationTitle {
+    -fx-background-color: #187E96;
+    -fx-text-fill: #FFFFFF;
+    -fx-pref-height: 50;
+    -fx-pref-width: 300;
+    -fx-font-size: 24px;
+    -fx-alignment: baseline-left;
+}
+
+/**
+ 
+ 
+ New calendar
+  
+ **/
+ 
+ 
+ #newCalendarButton:hover{
+ 	-fx-text-fill: #0187ab;
+ }
+ 
+ #newCalendarWindow{
+ 	visibility: hidden;
+ 	fx-background-color: transparent;
+ }
+ 
+
+ #newCalendarTriangle{
+ 	-fx-alignment: center;
+    -fx-fill: #187E96;
+ }
+ 
+ #newCalendarRectangle{
+ 	-fx-background-color: #187E96;
+ }
+ 
+ #addNewCalendarPaneButton{
+ 	-fx-background-color: #187E96;
+ }
+ #addNewCalendarPaneButton:hover{
+ 	-fx-background-color: #0187ab;
+ }
+
+
+.button {
+	-fx-font-size: 13.0px;
+	-fx-base: #00a7d4;
+	-fx-background: #e5f3f6;
+	-fx-focus-color: #0093FF;
+	-fx-control-inner-background: #FFFFFF;
+	-fx-text-base-color: #FFFFFF;
+	-fx-background-color:#187E96;
+	-fx-inner-border: linear-gradient(to bottom, derive(-fx-color,73.6%) 0%, derive(-fx-color,29.200000000000003%) 100%);
+	-fx-body-color: linear-gradient( to bottom, derive(-fx-color, 34.0%) 0%, derive(-fx-color, -18.0%) 100%);
+	-fx-background-insets: 0px;
+	-fx-background-radius: 0px;
+	-fx-text-fill: -fx-text-base-color;
+	-fx-alignment: CENTER;
+	-fx-content-display: LEFT;
+}
+
+
+.button:hover {
+-fx-focus-color: #FF0000;
+-fx-background-color: #ED9C28, #0187ab;
+}
+
+#calendar-cell {
+    -fx-background-color: transparent;
+}
+
+#calendarList {
+    -fx-background-color: transparent;
+	
+}
+
+.list-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #00a7d4;
+
+}
+
+.list-view .scroll-bar{
+-fx-font-size: 8;
+}
+
+.scroll-bar{
+ -fx-background-color: rgb(96,96,96);
+
+}
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+ -fx-background-color: #26272B;
+ -fx-border-color:#26272B;
+
+}
+.scroll-bar:vertical .track-background,
+.scroll-bar:horizontal .track-background {
+ -fx-background-color: #26272B;
+ -fx-background-insets: 0;
+
+}
+.scroll-bar:horizontal .thumb {
+ -fx-background-color: rgb(211,211,211);
+ -fx-background-radius: 0;
+
+
+}
+.scroll-bar:vertical .thumb {
+ -fx-background-color:derive(black,90%);
+ -fx-background-radius: 0;
+
+}
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+ -fx-background-color: rgb(231,231,231);
+}
+.scroll-bar:horizontal .thumb:pressed,
+.scroll-bar:vertical .thumb:pressed {
+ -fx-background-color: rgb(255,255,255);
+}
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+ -fx-background-color:#26272B;
+ -fx-border-color:#26272B;
+
+ -fx-padding: 5;
+}
+.scroll-bar:horizontal .increment-button, .scroll-bar:horizontal .decrement-button {
+ -fx-background-color:#26272B;
+ -fx-border-color:#26272B;
+ -fx-padding: 5;
+}
+.scroll-bar:horizontal .increment-arrow {
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-background-color: rgb(211,211,211);
+ -fx-padding: 0.25em;
+ -fx-rotate: -90;
+}
+.scroll-bar:vertical .increment-arrow {
+  -fx-background-color:derive(black,90%);
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: 0;
+}
+.scroll-bar:horizontal .decrement-arrow {
+ -fx-background-color: rgb(211,211,211);
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: 90;
+}
+.scroll-bar:vertical .decrement-arrow {
+ -fx-background-color:derive(black,90%);
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: -180;
+}
+.scroll-bar:vertical:focused,
+.scroll-bar:horizontal:focused {
+ -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
+}
+
+ #adminPaneButton {
+ 	-fx-font-size: 13.0px;
+	-fx-base: #00a7d4;
+	-fx-background: #e5f3f6;
+	-fx-focus-color: #0093FF;
+	-fx-control-inner-background: #FFFFFF;
+	-fx-text-base-color: #FFFFFF;
+	-fx-background-color:#187E96;
+	-fx-inner-border: linear-gradient(to bottom, derive(-fx-color,73.6%) 0%, derive(-fx-color,29.200000000000003%) 100%);
+	-fx-body-color: linear-gradient( to bottom, derive(-fx-color, 34.0%) 0%, derive(-fx-color, -18.0%) 100%);
+ }
+ 
+ #adminPaneButton:hover {
+ 	-fx-focus-color: #FF0000;
+	-fx-background-color: #ED9C28, #0187ab;
+}
+
+#userGroupPaneButton{
+	-fx-font-size: 13.0px;
+	-fx-base: #00a7d4;
+	-fx-background: #e5f3f6;
+	-fx-focus-color: #0093FF;
+	-fx-control-inner-background: #FFFFFF;
+	-fx-text-base-color: #FFFFFF;
+	-fx-background-color:#187E96;
+	-fx-inner-border: linear-gradient(to bottom, derive(-fx-color,73.6%) 0%, derive(-fx-color,29.200000000000003%) 100%);
+	-fx-body-color: linear-gradient( to bottom, derive(-fx-color, 34.0%) 0%, derive(-fx-color, -18.0%) 100%);
+}
+
+#userGroupPaneButton:hover{
+	-fx-focus-color: #FF0000;
+	-fx-background-color: #ED9C28, #0187ab;
+}
+
+
+.context-menu{
+	-fx-background-color: #26272B;
+}
+
+
+

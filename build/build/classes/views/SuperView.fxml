@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane fx:id="root" maxHeight="701.0" maxWidth="1342.0" minHeight="701.0" minWidth="1333.0" onKeyPressed="#keyPressed" prefHeight="701.0" prefWidth="134.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SuperController">
+    <children>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="374.74053955078125" minWidth="20.0" prefWidth="200.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="1200.0" minWidth="1200.0" prefWidth="1200.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="107.0" minHeight="107.0" prefHeight="107.0" valignment="TOP" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="917.0" minHeight="20.0" prefHeight="595.0" valignment="TOP" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <fx:include source="HeaderView.fxml" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+                <fx:include source="SidebarView.fxml" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                <fx:include source="WeekView.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            </children>
+        </GridPane>
+
+        <Pane fx:id="notificationWindow" maxHeight="307.0" maxWidth="300.0" minHeight="307.0" minWidth="300.0" prefHeight="307.0" prefWidth="300" style="-fx-translate-z: 0" translateX="1013.0" translateY="70">
+   <children>
+               <Polygon fx:id="notificationTriangle" points="145.0, 20.0, 175.0, 20.0, 160.0, -5.0" />
+               <Label fx:id="notificationTitle" text="Notifications" translateY="10">
+                   <padding>
+                       <Insets left="12.0" />
+                   </padding>
+               </Label>
+               <ListView fx:id="notificationList" prefHeight="246.0" prefWidth="247.0" translateY="60" />
+   </children>
+        </Pane>
+      <Pane fx:id="newCalendarWindow" layoutX="190.0" layoutY="124.0" maxHeight="80.0" maxWidth="288.0" minHeight="80.0" minWidth="288.0" prefHeight="80.0" prefWidth="288.0">
+         <children>
+            <Polygon fx:id="newCalendarTriangle" layoutX="-75.0" layoutY="33.0" points="145.0, 20.0, 175.0, 20.0, 160.0, -5.0" rotate="-90.0" translateX="-85.0" />
+            <Rectangle fx:id="newCalendarRectangle" fill="#26272b" height="80.0" stroke="#187e96" strokeType="INSIDE" strokeWidth="2.0" width="288.0" />
+            <TextField fx:id="newCalendarTextField" layoutX="11.0" layoutY="10.0" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="237.0" promptText="New calendar" />
+            <Pane fx:id="addNewCalendarPaneButton" layoutX="258.0" maxHeight="80.0" maxWidth="37.0" minHeight="30.0" minWidth="30.0" prefHeight="80.0" prefWidth="37.0" translateX="-6.0">
+               <children>
+                  <SVGPath content="M 40.569761,8.4366112 L 40.569761,28.018642 L 60.151793,28.018642 L 60.151793,33.995205 L 40.569761,33.995205 L 40.569761,53.577236 L 34.663511,53.577236 L 34.663511,33.995205 L 15.08148,33.995205 L 15.08148,28.018642 L 34.663511,28.018642 L 34.663511,8.4366112 L 40.569761,8.4366112 z" fill="WHITE" layoutX="-19.0" layoutY="9.0" scaleX="0.35" scaleY="0.35" />
+               </children>
+            </Pane>
+            <ComboBox fx:id="userGroupCalendar" layoutX="11.0" layoutY="44.0" prefWidth="237.0" />
+         </children>
+      </Pane>
+    </children>
+</AnchorPane>
