@@ -120,36 +120,38 @@ public class EventDrawing {
 					    		WindowController.warning("You cannot delete other users events");
 						    }
 						}});
-					item3.setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent e) {
-							Requester requester = new Requester();
-							requester.updateAttends(event, new Attendant(PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID(),PersonInfo.getPersonInfo().getPersonalUserGroup().getName(), 1));
-							requester.closeConnection();
-							event.setAttends(1);
-							HeaderController.getController().drawEventsForWeek();
-						}
-					});
-					item4.setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent e) {
-							Requester requester = new Requester();
-							requester.updateAttends(event, new Attendant(PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID(),PersonInfo.getPersonInfo().getPersonalUserGroup().getName(), 2));
-							requester.closeConnection();
-							event.setAttends(2);
-							HeaderController.getController().drawEventsForWeek();
-						}
-					});
-					item5.setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent e) {
-							Requester requester = new Requester();
-							requester.updateAttends(event, new Attendant(PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID(),PersonInfo.getPersonInfo().getPersonalUserGroup().getName(), 0));
-							requester.closeConnection();
-							event.setAttends(0);
-							HeaderController.getController().drawEventsForWeek();
-						}
-					});
+					if(event.getAttends() >= 0){
+						item3.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent e) {
+								Requester requester = new Requester();
+								requester.updateAttends(event, new Attendant(PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID(),PersonInfo.getPersonInfo().getPersonalUserGroup().getName(), 1));
+								requester.closeConnection();
+								event.setAttends(1);
+								HeaderController.getController().drawEventsForWeek();
+							}
+						});
+						item4.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent e) {
+								Requester requester = new Requester();
+								requester.updateAttends(event, new Attendant(PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID(),PersonInfo.getPersonInfo().getPersonalUserGroup().getName(), 2));
+								requester.closeConnection();
+								event.setAttends(2);
+								HeaderController.getController().drawEventsForWeek();
+							}
+						});
+						item5.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent e) {
+								Requester requester = new Requester();
+								requester.updateAttends(event, new Attendant(PersonInfo.getPersonInfo().getPersonalUserGroup().getUserGroupID(),PersonInfo.getPersonInfo().getPersonalUserGroup().getName(), 0));
+								requester.closeConnection();
+								event.setAttends(0);
+								HeaderController.getController().drawEventsForWeek();
+							}
+						});
+					}
 					if (item3 != null){
 						contextMenu.getItems().addAll(item1, item2, item3, item4, item5);
 					}else{
